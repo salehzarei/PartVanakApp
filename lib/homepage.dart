@@ -65,7 +65,20 @@ class _HomePageState extends State<HomePage> {
               ),
               
               drawer: MyDrawer(),
-              body: HomeBody() 
+              body: HomeBody()
+              
+              // LayoutBuilder(
+              //   builder: (BuildContext context , BoxConstraints viewportConstraints){
+              //     return SingleChildScrollView(
+              //       child: ConstrainedBox(
+              //         constraints: BoxConstraints(
+              //           minHeight: viewportConstraints.minHeight
+              //         ),
+              //         child: HomeBody()
+              //       ),
+              //     );
+              //   },
+              // )
             ),
           )
         ],

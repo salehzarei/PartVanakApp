@@ -21,11 +21,18 @@ class ToureTitle extends StatelessWidget {
                     borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(8),
                         topRight: Radius.circular(8)),
-                    color: Theme.of(context).accentColor,
-                    image: DecorationImage(
-                      image: NetworkImage('https://t4t.ir/files/large/fbdeed3829b01ca'),
-                      fit: BoxFit.cover
-                    )
+                    // color: Theme.of(context).accentColor,
+                    // image: DecorationImage(
+                    //  image: NetworkImage('https://clickstay.s3-eu-west-1.amazonaws.com/images/blog/post/Antalya.jpg'),
+                    //   fit: BoxFit.cover
+                    // )
+                  ),
+                  child: FadeInImage.assetNetwork(
+                    image: 'https://i.onthebeach.co.uk/v1/hotel_images/79c9a56a-57bb-4d4e-aea3-4e5b7452b236/cover/1000/600/medium/1.0/rixos-downtown-antalya',
+                    placeholder: 'images/ajax-loader.gif',
+                    fit: BoxFit.cover
+                    
+
                   ),
                 ),
                 SizedBox(
@@ -39,7 +46,7 @@ class ToureTitle extends StatelessWidget {
                     textAlign: TextAlign.right,
                   ),
                 ),
-                SizedBox(
+              SizedBox(
                   height: 5,
                 ),
                 Padding(
