@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:hello_flutter/toureDetile.dart';
 import 'package:hello_flutter/toureList.dart';
 import './homepage.dart';
 
@@ -32,5 +33,6 @@ main() {
       routes: {
         '/': (context) => HomePage(),
         '/tourelist' :(context)=>ToureListPage(),
+        '/touredetile' :(context)=>ToureDetilePage()
       }));
 }

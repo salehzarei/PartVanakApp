@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 class ToureTitle extends StatelessWidget {
   @override
@@ -17,24 +19,29 @@ class ToureTitle extends StatelessWidget {
                 Container(
                   height: 75,
                   width: 150,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(8),
-                        topRight: Radius.circular(8)),
-                    // color: Theme.of(context).accentColor,
-                    // image: DecorationImage(
-                    //  image: NetworkImage('https://clickstay.s3-eu-west-1.amazonaws.com/images/blog/post/Antalya.jpg'),
-                    //   fit: BoxFit.cover
-                    // )
-                  ),
-                  child: FadeInImage.assetNetwork(
-                    image: 'https://i.onthebeach.co.uk/v1/hotel_images/79c9a56a-57bb-4d4e-aea3-4e5b7452b236/cover/1000/600/medium/1.0/rixos-downtown-antalya',
-                    placeholder: 'images/ajax-loader.gif',
-                    fit: BoxFit.cover
-                    
-
-                  ),
+                  // decoration: BoxDecoration(
+                  //   borderRadius: BorderRadius.only(
+                  //       topLeft: Radius.circular(8),
+                  //       topRight: Radius.circular(8)),
+                       
+                  // ),
+                  child: ClipRRect(
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(8),
+                  topRight: Radius.circular(8)
                 ),
+                child:CachedNetworkImage(
+                  fit: BoxFit.cover,
+                      imageUrl: 'https://i.onthebeach.co.uk/v1/hotel_images/79c9a56a-57bb-4d4e-aea3-4e5b7452b236/cover/1000/600/medium/1.0/rixos-downtown-antalya',
+                      placeholder: (context, url) => SpinKitFadingFour(
+                            color: Colors.red,
+                            size: 50.0,
+                          ),
+                      errorWidget: (context, string, url) => Icon(Icons.error),
+                    ),
+              )
+                ),
+                 
                 SizedBox(
                   height: 5,
                 ),
