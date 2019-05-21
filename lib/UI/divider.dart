@@ -26,7 +26,7 @@ class CatDivider extends StatelessWidget {
           width: 5,
         ),
         Container(
-          width: 130,
+          width: 180,
           height: 1,
           decoration: BoxDecoration(
               color: Theme.of(context).accentColor,

@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:hello_flutter/toureList.dart';
 import './homepage.dart';
 
 main() {
@@ -30,5 +31,6 @@ main() {
       initialRoute: '/',
       routes: {
         '/': (context) => HomePage(),
+        '/tourelist' :(context)=>ToureListPage(),
       }));
 }
