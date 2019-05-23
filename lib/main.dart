@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:hello_flutter/toureDetile.dart';
 import 'package:hello_flutter/toureList.dart';
 import './homepage.dart';
+import './pages/contact.dart';
 
 main() {
   runApp(MaterialApp(
@@ -26,13 +27,15 @@ main() {
           caption: TextStyle(color:Color(0xFF19335C)),
           subhead: TextStyle(color: Color(0xFFD8B945), fontSize: 15 , fontWeight: FontWeight.bold),
           headline: TextStyle( fontSize: 13 , fontWeight: FontWeight.bold),
-          subtitle: TextStyle(color:Colors.grey.shade600 , fontSize: 10)
+          subtitle: TextStyle(color:Colors.grey.shade600 , fontSize: 10),
+
          )
        ),
       initialRoute: '/',
       routes: {
         '/': (context) => HomePage(),
-        '/tourelist' :(context)=>ToureListPage(),
-        '/touredetile' :(context)=>ToureDetilePage()
+        '/tourelist' :(BuildContext context)=>ToureListPage(),
+        '/touredetile' :(BuildContext context)=>ToureDetilePage(),
+        '/contact' :(BuildContext context)=>ContactPage()
       }));
 }
