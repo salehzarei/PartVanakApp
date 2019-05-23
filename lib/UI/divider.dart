@@ -4,8 +4,8 @@ class CatDivider extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     //بدست آوردن اندازه عرض و طول صفحه نمایش
-    double width = MediaQuery.of(context).size.width;
-    //   double height = MediaQuery.of(context).size.height;
+    //double width = MediaQuery.of(context).size.width;
+    //double height = MediaQuery.of(context).size.height;
     return Padding(
       padding: EdgeInsets.only(top: 12),
       child: Row(
@@ -30,14 +30,15 @@ class CatDivider extends StatelessWidget {
           SizedBox(
             width: 5,
           ),
-          Container(
-            width: width - 230,
-            height: 1,
-            decoration: BoxDecoration(
-                color: Theme.of(context).accentColor,
-                borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(5),
-                    bottomLeft: Radius.circular(5))),
+          Expanded(
+            child: Container(
+              height: 1,
+              decoration: BoxDecoration(
+                  color: Theme.of(context).accentColor,
+                  borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(5),
+                      bottomLeft: Radius.circular(5))),
+            ),
           ),
           Padding(
             padding: const EdgeInsets.only(left: 5),

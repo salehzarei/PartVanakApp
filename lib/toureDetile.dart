@@ -1,4 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 
@@ -7,40 +9,133 @@ class ToureDetilePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('جزئیات تور'),
+        title: Text(
+          'تور کیش 22 اردیبهشت',
+          style: Theme.of(context).textTheme.title,
+        ),
         centerTitle: true,
+        backgroundColor: Colors.transparent,
+        elevation: 0.0,
+        iconTheme: Theme.of(context).iconTheme,
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(Icons.menu),
+            onPressed: () {},
+          )
+        ],
       ),
-      body: Stack(
-        textDirection: TextDirection.rtl,
-        children: <Widget>[
-          SingleChildScrollView(
-            child: Padding(
-                padding: const EdgeInsets.only(top: 40),
+      body: Column(
+           children: <Widget>[
+          Text(
+            'حرکت از مشهد',
+            style: Theme.of(context).textTheme.title.copyWith(fontSize: 17),
+          ),
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Container(
+                width: 100,
+             
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  mainAxisSize: MainAxisSize.min,
+                  
                   children: <Widget>[
-                    CachedNetworkImage(
-                      imageUrl: 'https://i.onthebeach.co.uk/v1/hotel_images/79c9a56a-57bb-4d4e-aea3-4e5b7452b236/cover/1000/600/medium/1.0/rixos-downtown-antalya',
-                      placeholder: (context, url) => SpinKitFadingFour(
-                            color: Colors.red,
-                            size: 50.0,
-                          ),
-                      errorWidget: (context, string, url) => Icon(Icons.error),
+                    Text(
+                      'مقصد',
+                      style: TextStyle(
+                          fontSize: 15, color: Theme.of(context).accentColor),
+                    ),
+                    Text(
+                      'KSH',
+                      style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold , color: Theme.of(context).accentColor),
+                    ),
+                    Text(
+                      'هرمزگان',
+                      style: TextStyle(fontSize: 17, color: Colors.grey),
                     ),
                   ],
-                )),
+                ),
+              ), 
+              Row(children: <Widget>[
+                Container(
+                  color: Theme.of(context).accentColor,
+                  height: 2,
+                  width: 50,
+                ),
+                Icon(Icons.airplanemode_active,size: 28 ,color: Theme.of(context).accentColor,),
+                Container(
+                  color: Theme.of(context).accentColor,
+                  height: 2,
+                  width: 50,
+                ),
+              ],),
+                   Container(
+                     width: 100,
+                  
+                     child: Column(
+                children: <Widget>[
+                  Text(
+                      'مبدا',
+                      style: TextStyle(
+                          fontSize: 15, color: Theme.of(context).accentColor),
+                  ),
+                  Text(
+                      'MHD',
+                      style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold , color: Theme.of(context).accentColor),
+                  ),
+                  Text(
+                      'خراسان رضوی',
+                      style: TextStyle(fontSize: 17, color: Colors.grey),
+                  ),
+                ],
+              ),
+                   ), 
+            ],
           ),
-          Container(
-            height: 45,
-            child: Padding(
-                padding: const EdgeInsets.only(top: 10),
-                child: Text(
-                  'تور مشهد به تبریز 7 روزه',
-                  style: Theme.of(context).textTheme.title,
-                  textAlign: TextAlign.center,
-                )),
+       
+          Stack(
+            textDirection: TextDirection.rtl,
+            alignment: Alignment.center,
+            children: <Widget>[
+              SingleChildScrollView(
+                child: Padding(
+                    padding: const EdgeInsets.only(top: 40),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      mainAxisSize: MainAxisSize.min,
+                      children: <Widget>[
+                        ////////////////////////////
+                        ////////////////////////////
+                      ],
+                    )),
+              ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Stack(
+                    alignment: Alignment.center,
+                    children: <Widget>[
+                      Container(
+                        color: Theme.of(context).accentColor,
+                        height: 1,
+                        width: MediaQuery.of(context).size.width,
+                      ),
+                      Container(
+                        height: 25,
+                        width: 150,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(25),
+                          color: Theme.of(context).accentColor
+                        ),
+                        alignment: Alignment.center,
+                        child: Text('تاریخ های شروع', style: TextStyle(fontSize: 15 , color: Colors.white),),
+                      )
+                    ],
+                  )
+                ],
+              ),
+            ],
           ),
         ],
       ),
