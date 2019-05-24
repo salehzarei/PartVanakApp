@@ -37,7 +37,7 @@ class ToureDetilePage extends StatelessWidget {
             child: Padding(
                 padding: const EdgeInsets.only(top: 10),
                 child: Text(
-                  'تور مشهد به تبریز 7 روزه',
+                  'تور مشهد',
                   style: Theme.of(context).textTheme.title,
                   textAlign: TextAlign.center,
                 )),
