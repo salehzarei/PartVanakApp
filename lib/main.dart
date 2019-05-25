@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:hello_flutter/toureDetile.dart';
 import 'package:hello_flutter/toureList.dart';
 import './homepage.dart';
+import './pages/contact.dart';
 
 main() {
   runApp(MaterialApp(
