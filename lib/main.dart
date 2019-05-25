@@ -33,7 +33,7 @@ main() {
       ),
       initialRoute: '/',
       routes: {
-         '/': (context) => HomePage1(),
+         '/': (context) => HomePage(),
         // '/': (context) => ToureDetilePage(),
         '/tourelist': (context) => ToureListPage(),
         '/touredetile': (context) => ToureDetilePage()
