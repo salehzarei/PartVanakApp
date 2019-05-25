@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:cached_network_image/cached_network_image.dart';
+import './UI/toureDetiles/detiles.dart';
 
 class ToureDetilePage extends StatelessWidget {
   @override
@@ -25,7 +25,7 @@ class ToureDetilePage extends StatelessWidget {
         ],
       ),
       body: Column(
-           children: <Widget>[
+        children: <Widget>[
           Text(
             'حرکت از مشهد',
             style: Theme.of(context).textTheme.title.copyWith(fontSize: 17),
@@ -36,9 +36,7 @@ class ToureDetilePage extends StatelessWidget {
             children: <Widget>[
               Container(
                 width: 100,
-             
                 child: Column(
-                  
                   children: <Widget>[
                     Text(
                       'مقصد',
@@ -47,95 +45,129 @@ class ToureDetilePage extends StatelessWidget {
                     ),
                     Text(
                       'KSH',
-                      style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold , color: Theme.of(context).accentColor),
+                      style: TextStyle(
+                          fontSize: 25,
+                          fontWeight: FontWeight.bold,
+                          color: Theme.of(context).accentColor),
                     ),
                     Text(
                       'هرمزگان',
-                      style: TextStyle(fontSize: 17, color: Colors.grey),
+                      style: TextStyle(fontSize: 15, color: Colors.grey),
                     ),
                   ],
                 ),
-              ), 
-              Row(children: <Widget>[
-                Container(
-                  color: Theme.of(context).accentColor,
-                  height: 2,
-                  width: 50,
-                ),
-                Icon(Icons.airplanemode_active,size: 28 ,color: Theme.of(context).accentColor,),
-                Container(
-                  color: Theme.of(context).accentColor,
-                  height: 2,
-                  width: 50,
-                ),
-              ],),
-                   Container(
-                     width: 100,
-                  
-                     child: Column(
+              ),
+              Row(
                 children: <Widget>[
-                  Text(
+                  Container(
+                    color: Theme.of(context).accentColor,
+                    height: 2,
+                    width: 50,
+                  ),
+                  Icon(
+                    Icons.airplanemode_active,
+                    size: 28,
+                    color: Theme.of(context).accentColor,
+                  ),
+                  Container(
+                    color: Theme.of(context).accentColor,
+                    height: 2,
+                    width: 50,
+                  ),
+                ],
+              ),
+              Container(
+                width: 100,
+                child: Column(
+                  children: <Widget>[
+                    Text(
                       'مبدا',
                       style: TextStyle(
                           fontSize: 15, color: Theme.of(context).accentColor),
-                  ),
-                  Text(
+                    ),
+                    Text(
                       'MHD',
-                      style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold , color: Theme.of(context).accentColor),
-                  ),
-                  Text(
+                      style: TextStyle(
+                          fontSize: 25,
+                          fontWeight: FontWeight.bold,
+                          color: Theme.of(context).accentColor),
+                    ),
+                    Text(
                       'خراسان رضوی',
-                      style: TextStyle(fontSize: 17, color: Colors.grey),
-                  ),
-                ],
+                      style: TextStyle(fontSize: 15, color: Colors.grey),
+                    ),
+                  ],
+                ),
               ),
-                   ), 
             ],
           ),
-       
-          Stack(
-            textDirection: TextDirection.rtl,
-            alignment: Alignment.center,
-            children: <Widget>[
-              SingleChildScrollView(
-                child: Padding(
-                    padding: const EdgeInsets.only(top: 40),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      mainAxisSize: MainAxisSize.min,
-                      children: <Widget>[
-                        ////////////////////////////
-                        ////////////////////////////
-                      ],
-                    )),
-              ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Stack(
-                    alignment: Alignment.center,
-                    children: <Widget>[
-                      Container(
-                        color: Theme.of(context).accentColor,
-                        height: 1,
-                        width: MediaQuery.of(context).size.width,
-                      ),
-                      Container(
-                        height: 25,
-                        width: 150,
-                        decoration: BoxDecoration(
+          Padding(
+            padding: const EdgeInsets.only(top: 9.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Stack(
+                  alignment: Alignment.center,
+                  children: <Widget>[
+                    Container(
+                      color: Theme.of(context).accentColor,
+                      height: 1,
+                      width: MediaQuery.of(context).size.width,
+                    ),
+                    Container(
+                      height: 25,
+                      width: 150,
+                      decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(25),
-                          color: Theme.of(context).accentColor
-                        ),
-                        alignment: Alignment.center,
-                        child: Text('تاریخ های شروع', style: TextStyle(fontSize: 15 , color: Colors.white),),
-                      )
-                    ],
-                  )
-                ],
-              ),
-            ],
+                          color: Theme.of(context).accentColor),
+                      alignment: Alignment.center,
+                      child: Text(
+                        'تاریخ های شروع',
+                        style: TextStyle(fontSize: 15, color: Colors.white),
+                      ),
+                    )
+                  ],
+                )
+              ],
+            ),
+          ),
+          // CarouselSlider(
+          //   height: 50,
+          //   items: <Widget>[
+          //     IconButton(
+          //       icon: Icon(Icons.airplay),
+          //       onPressed: () {},
+          //     ),
+          //     IconButton(
+          //       icon: Icon(Icons.airplay),
+          //       onPressed: () {},
+          //     ),
+          //     IconButton(
+          //       icon: Icon(Icons.airplay),
+          //       onPressed: () {},
+          //     ),
+          //     IconButton(
+          //       icon: Icon(Icons.airplay),
+          //       onPressed: () {},
+          //     ),
+          //     IconButton(
+          //       icon: Icon(Icons.airplay),
+          //       onPressed: () {},
+          //     )
+          //   ],
+          // ),
+          Expanded(
+            child: ListView(
+              shrinkWrap: true,
+              children: <Widget>[
+                Detiles(),
+                Detiles(),
+                Detiles(),
+                Detiles(),
+                Detiles(),
+                Detiles(),
+              ],
+            ),
           ),
         ],
       ),
