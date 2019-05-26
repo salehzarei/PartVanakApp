@@ -1,11 +1,6 @@
 import 'package:flutter/material.dart';
 
-class Detiles extends StatefulWidget {
-  @override
-  _DetilesState createState() => _DetilesState();
-}
-
-class _DetilesState extends State<Detiles> {
+class Detiles extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(

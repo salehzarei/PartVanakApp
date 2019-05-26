@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
+import 'package:hello_flutter/UI/toureDetiles/hoteldetile.dart';
 import './UI/toureDetiles/detiles.dart';
 
 class ToureDetilePage extends StatelessWidget {
@@ -161,11 +162,7 @@ class ToureDetilePage extends StatelessWidget {
               shrinkWrap: true,
               children: <Widget>[
                 Detiles(),
-                Detiles(),
-                Detiles(),
-                Detiles(),
-                Detiles(),
-                Detiles(),
+                HotelDetile()
               ],
             ),
           ),

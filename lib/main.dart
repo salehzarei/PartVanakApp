@@ -11,6 +11,7 @@ main() {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         backgroundColor: Colors.amber,
+        primaryColor: Color(0xFF19335C),
         accentColor: Color(0xFFD8B945),
         cardColor: Color(0xFFD8B945),
         iconTheme: IconThemeData(color: Color(0xFF19335C)),
@@ -33,8 +34,8 @@ main() {
       ),
       initialRoute: '/',
       routes: {
-         '/': (context) => HomePage(),
-        // '/': (context) => ToureDetilePage(),
+        // '/': (context) => HomePage(),
+         '/': (context) => ToureDetilePage(),
         '/tourelist': (context) => ToureListPage(),
         '/touredetile': (context) => ToureDetilePage()
       }));
