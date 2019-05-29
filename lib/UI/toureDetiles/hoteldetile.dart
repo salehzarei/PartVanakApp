@@ -1,8 +1,11 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class HotelDetile extends StatelessWidget {
+  final double  margin=2.5;
   @override
   Widget build(BuildContext context) {
+    
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       mainAxisAlignment: MainAxisAlignment.center,
@@ -198,6 +201,8 @@ class HotelDetile extends StatelessWidget {
                       direction: Axis.vertical,
                       children: <Widget>[
                         Container(
+                          margin: EdgeInsets.only(left:margin , right: margin),
+                           width: 160.0,
                           color: Colors.grey.shade300,
                           alignment: Alignment.center,
                           height: 30,
@@ -206,47 +211,66 @@ class HotelDetile extends StatelessWidget {
                                   color: Theme.of(context).primaryColor)),
                         ),
                         Container(
+                           margin: EdgeInsets.only(left: margin,right: margin),
                           color: Theme.of(context).primaryColor,
                           alignment: Alignment.center,
                           height: 30,
+                          width: 160.0,
                           child: Text('989.000 تومان',
                               textDirection: TextDirection.rtl,
                               style: TextStyle(color: Colors.white)),
                         ),
                       ],
                     ),
-                    Container(
-                      color: Colors.blue,
-                      child: Wrap(
-                        direction: Axis.vertical,
-                        children: <Widget>[
-                          ConstrainedBox(
-                            constraints: BoxConstraints(minWidth: 200),
-                            child: Text(
-                                '989.000 تومانتومانتومانتومانتومانتومان',
-                                textDirection: TextDirection.rtl,
-                                style: TextStyle(color: Colors.white)),
-                          ),
-                          Container(
-                            color: Colors.pink,
-                            child: Text('989.000 تومان',
-                                textDirection: TextDirection.rtl,
-                                style: TextStyle(color: Colors.white)),
-                          )
-                        ],
-                      ),
+                    Wrap(
+                      direction: Axis.vertical,
+                      children: <Widget>[
+                        Container(
+                          margin: EdgeInsets.only(left: margin,right: margin),
+                           width: 160.0,
+                          color: Colors.grey.shade300,
+                          alignment: Alignment.center,
+                          height: 30,
+                          child: Text('دو تخته',
+                              style: TextStyle(
+                                  color: Theme.of(context).primaryColor)),
+                        ),
+                        Container(
+                           margin: EdgeInsets.only(left: margin,right: margin),
+                          color: Theme.of(context).primaryColor,
+                          alignment: Alignment.center,
+                          height: 30,
+                          width: 160.0,
+                          child: Text('989.000 تومان',
+                              textDirection: TextDirection.rtl,
+                              style: TextStyle(color: Colors.white)),
+                        ),
+                      ],
                     ),
-                    Container(
-                      width: 160.0,
-                      color: Colors.green,
-                    ),
-                    Container(
-                      width: 160.0,
-                      color: Colors.yellow,
-                    ),
-                    Container(
-                      width: 160.0,
-                      color: Colors.orange,
+                     Wrap(
+                      direction: Axis.vertical,
+                      children: <Widget>[
+                        Container(
+                          margin: EdgeInsets.only(left: margin,right: margin),
+                           width: 160.0,
+                          color: Colors.grey.shade300,
+                          alignment: Alignment.center,
+                          height: 30,
+                          child: Text('دو تخته',
+                              style: TextStyle(
+                                  color: Theme.of(context).primaryColor)),
+                        ),
+                        Container(
+                           margin: EdgeInsets.only(left: margin,right: margin),
+                          color: Theme.of(context).primaryColor,
+                          alignment: Alignment.center,
+                          height: 30,
+                          width: 160.0,
+                          child: Text('3.000.000.000 تومان',
+                              textDirection: TextDirection.rtl,
+                              style: TextStyle(color: Colors.white)),
+                        ),
+                      ],
                     ),
                   ],
                 ),
