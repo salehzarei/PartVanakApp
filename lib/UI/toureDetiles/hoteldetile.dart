@@ -2,10 +2,9 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class HotelDetile extends StatelessWidget {
-  final double  margin=2.5;
+  final double margin = 2.5;
   @override
   Widget build(BuildContext context) {
-    
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       mainAxisAlignment: MainAxisAlignment.center,
@@ -80,119 +79,8 @@ class HotelDetile extends StatelessWidget {
                   )
                 ],
               ),
-              // SingleChildScrollView(
-              //   scrollDirection: Axis.horizontal,
-              //                 child: Row(
-              //     children: <Widget>[
-              //       Column(
-              //         children: <Widget>[
-              //           Container(
-              //             color: Colors.grey.shade300,
-              //             alignment: Alignment.center,
-              //             height: 30,
-              //             child: Text('یک تخته',
-              //                 style: TextStyle(
-              //                     color: Theme.of(context).primaryColor)),
-              //           ),
-              //           Container(
-              //             color: Theme.of(context).primaryColor,
-              //             alignment: Alignment.center,
-              //             height: 30,
-              //             child: Text('989.000 تومان',
-              //                 textDirection: TextDirection.rtl,
-              //                 style: TextStyle(color: Colors.white)),
-              //           ),
-              //         ],
-              //       ),
-              //       Column(
-              //         children: <Widget>[
-              //           Container(
-              //             color: Colors.grey.shade300,
-              //             alignment: Alignment.center,
-              //             height: 30,
-              //             child: Text('دو تخته',
-              //                 style: TextStyle(
-              //                     color: Theme.of(context).primaryColor)),
-              //           ),
-              //           Container(
-              //             color: Theme.of(context).primaryColor,
-              //             alignment: Alignment.center,
-              //             height: 30,
-              //             child: Text('989.000 تومان',
-              //                 textDirection: TextDirection.rtl,
-              //                 style: TextStyle(color: Colors.white)),
-              //           ),
-              //         ],
-              //       ),
-              //       Column(
-              //         children: <Widget>[
-              //           Container(
-              //             color: Colors.grey.shade300,
-              //             alignment: Alignment.center,
-              //             height: 30,
-              //             child: Text('سه تخته',
-              //                 style: TextStyle(
-              //                     color: Theme.of(context).primaryColor)),
-              //           ),
-              //           Container(
-              //             color: Theme.of(context).primaryColor,
-              //             alignment: Alignment.center,
-              //             height: 30,
-              //             child: Text('989.000 تومان',
-              //                 textDirection: TextDirection.rtl,
-              //                 style: TextStyle(color: Colors.white)),
-              //           ),
-              //         ],
-              //       ),
-              //       Column(
-              //         children: <Widget>[
-              //           Container(
-              //             color: Colors.grey.shade300,
-              //             alignment: Alignment.center,
-              //             height: 30,
-              //             child: Text('کودک',
-              //                 style: TextStyle(
-              //                     color: Theme.of(context).primaryColor)),
-              //           ),
-              //           Container(
-              //             color: Theme.of(context).primaryColor,
-              //             alignment: Alignment.center,
-              //             height: 30,
-              //             child: Text('989.000 تومان',
-              //                 textDirection: TextDirection.rtl,
-              //                 style: TextStyle(color: Colors.white)),
-              //           ),
-              //         ],
-              //       ),
-              //       Expanded(
-              //         flex: 1,
-              //         child: Column(
-              //           children: <Widget>[
-              //             Container(
-              //               color: Colors.grey.shade300,
-              //               alignment: Alignment.center,
-              //               height: 30,
-              //               child: Text('بزرگسال',
-              //                   style: TextStyle(
-              //                       color: Theme.of(context).primaryColor)),
-              //             ),
-              //             Container(
-              //               color: Theme.of(context).primaryColor,
-              //               alignment: Alignment.center,
-              //               height: 30,
-              //               child: Text('989.000 تومان',
-              //                   textDirection: TextDirection.rtl,
-              //                   style: TextStyle(color: Colors.white)),
-              //             ),
-              //           ],
-              //         ),
-              //       ),
-              //     ],
-              //   ),
-              // ),
-
               Container(
-                margin: EdgeInsets.symmetric(vertical: 20.0),
+                margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 0),
                 height: 70.0,
                 child: ListView(
                   scrollDirection: Axis.horizontal,
@@ -201,22 +89,22 @@ class HotelDetile extends StatelessWidget {
                       direction: Axis.vertical,
                       children: <Widget>[
                         Container(
-                          margin: EdgeInsets.only(left:margin , right: margin),
-                           width: 160.0,
+                          margin: EdgeInsets.only(left: margin, right: margin),
+                          width: 160.0,
                           color: Colors.grey.shade300,
                           alignment: Alignment.center,
                           height: 30,
-                          child: Text('دو تخته',
+                          child: Text('قیمت تک نفر',
                               style: TextStyle(
                                   color: Theme.of(context).primaryColor)),
                         ),
                         Container(
-                           margin: EdgeInsets.only(left: margin,right: margin),
+                          margin: EdgeInsets.only(left: margin, right: margin),
                           color: Theme.of(context).primaryColor,
                           alignment: Alignment.center,
                           height: 30,
                           width: 160.0,
-                          child: Text('989.000 تومان',
+                          child: Text('1,340,000 تومان',
                               textDirection: TextDirection.rtl,
                               style: TextStyle(color: Colors.white)),
                         ),
@@ -226,47 +114,97 @@ class HotelDetile extends StatelessWidget {
                       direction: Axis.vertical,
                       children: <Widget>[
                         Container(
-                          margin: EdgeInsets.only(left: margin,right: margin),
-                           width: 160.0,
+                          margin: EdgeInsets.only(left: margin, right: margin),
+                          width: 160.0,
                           color: Colors.grey.shade300,
                           alignment: Alignment.center,
                           height: 30,
-                          child: Text('دو تخته',
+                          child: Text('قیمت بزرگسال ',
                               style: TextStyle(
                                   color: Theme.of(context).primaryColor)),
                         ),
                         Container(
-                           margin: EdgeInsets.only(left: margin,right: margin),
+                          margin: EdgeInsets.only(left: margin, right: margin),
                           color: Theme.of(context).primaryColor,
                           alignment: Alignment.center,
                           height: 30,
                           width: 160.0,
-                          child: Text('989.000 تومان',
+                          child: Text('1,340,000 تومان',
                               textDirection: TextDirection.rtl,
                               style: TextStyle(color: Colors.white)),
                         ),
                       ],
                     ),
-                     Wrap(
+                    Wrap(
                       direction: Axis.vertical,
                       children: <Widget>[
                         Container(
-                          margin: EdgeInsets.only(left: margin,right: margin),
-                           width: 160.0,
+                          margin: EdgeInsets.only(left: margin, right: margin),
+                          width: 160.0,
                           color: Colors.grey.shade300,
                           alignment: Alignment.center,
                           height: 30,
-                          child: Text('دو تخته',
+                          child: Text('قیمت کودک',
                               style: TextStyle(
                                   color: Theme.of(context).primaryColor)),
                         ),
                         Container(
-                           margin: EdgeInsets.only(left: margin,right: margin),
+                          margin: EdgeInsets.only(left: margin, right: margin),
                           color: Theme.of(context).primaryColor,
                           alignment: Alignment.center,
                           height: 30,
                           width: 160.0,
-                          child: Text('3.000.000.000 تومان',
+                          child: Text('1,340,000 تومان',
+                              textDirection: TextDirection.rtl,
+                              style: TextStyle(color: Colors.white)),
+                        ),
+                      ],
+                    ),
+                    Wrap(
+                      direction: Axis.vertical,
+                      children: <Widget>[
+                        Container(
+                          margin: EdgeInsets.only(left: margin, right: margin),
+                          width: 160.0,
+                          color: Colors.grey.shade300,
+                          alignment: Alignment.center,
+                          height: 30,
+                          child: Text('قیمت کودک با تخت',
+                              style: TextStyle(
+                                  color: Theme.of(context).primaryColor)),
+                        ),
+                        Container(
+                          margin: EdgeInsets.only(left: margin, right: margin),
+                          color: Theme.of(context).primaryColor,
+                          alignment: Alignment.center,
+                          height: 30,
+                          width: 160.0,
+                          child: Text('1,340,000 تومان',
+                              textDirection: TextDirection.rtl,
+                              style: TextStyle(color: Colors.white)),
+                        ),
+                      ],
+                    ),
+                    Wrap(
+                      direction: Axis.vertical,
+                      children: <Widget>[
+                        Container(
+                          margin: EdgeInsets.only(left: margin, right: margin),
+                          width: 160.0,
+                          color: Colors.grey.shade300,
+                          alignment: Alignment.center,
+                          height: 30,
+                          child: Text('قیمت نوزاد',
+                              style: TextStyle(
+                                  color: Theme.of(context).primaryColor)),
+                        ),
+                        Container(
+                          margin: EdgeInsets.only(left: margin, right: margin),
+                          color: Theme.of(context).primaryColor,
+                          alignment: Alignment.center,
+                          height: 30,
+                          width: 160.0,
+                          child: Text('240,000 تومان',
                               textDirection: TextDirection.rtl,
                               style: TextStyle(color: Colors.white)),
                         ),
@@ -276,6 +214,22 @@ class HotelDetile extends StatelessWidget {
                 ),
               ),
             ],
+          ),
+        ),
+        Container(
+          margin: EdgeInsets.symmetric(vertical: 15),
+          child: MaterialButton(
+            onPressed: () {},
+            minWidth: 300,
+            padding: EdgeInsets.symmetric(vertical: 15),
+            child: Text(
+              'رزرو تور',
+              style: TextStyle(fontSize: 18, color: Colors.white),
+            ),
+            elevation: 2,
+            color: Theme.of(context).accentColor,
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
           ),
         ),
       ],

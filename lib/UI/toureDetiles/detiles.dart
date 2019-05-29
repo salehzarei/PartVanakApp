@@ -35,7 +35,7 @@ class Detiles extends StatelessWidget {
                       textDirection: TextDirection.rtl,
                       children: <Widget>[
                         Icon(
-                          Icons.people,
+                          Icons.check,
                           size: 15,
                           color: Theme.of(context).iconTheme.color,
                         ),
@@ -172,7 +172,7 @@ class Detiles extends StatelessWidget {
                           ),
                         ],
                       ),
-                    )
+                    ),
                   ],
                 ),
               ),
