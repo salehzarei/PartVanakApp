@@ -1,10 +1,22 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:hello_flutter/buyticket.dart';
 
 class HotelDetile extends StatelessWidget {
   final double margin = 2.5;
+
+
+ 
   @override
   Widget build(BuildContext context) {
+
+ void _showModalSheet() {
+    showModalBottomSheet(context: context , builder: (builder) {
+      return Material(
+        child: BuyTicket()
+      );
+    });
+  }
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       mainAxisAlignment: MainAxisAlignment.center,
@@ -219,7 +231,7 @@ class HotelDetile extends StatelessWidget {
         Container(
           margin: EdgeInsets.symmetric(vertical: 15),
           child: MaterialButton(
-            onPressed: () {},
+            onPressed: _showModalSheet ,
             minWidth: 300,
             padding: EdgeInsets.symmetric(vertical: 15),
             child: Text(
