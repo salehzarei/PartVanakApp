@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hello_flutter/UI/passenger.dart';
 
 class BuyTicket extends StatefulWidget {
   @override
@@ -17,6 +18,10 @@ class _BuyTicketState extends State<BuyTicket> {
       child: ListView(
         padding: EdgeInsets.symmetric(horizontal: 30, vertical: 25),
         children: <Widget>[
+          Padding(
+            padding: const EdgeInsets.only(bottom: 8),
+            child: Text('تعداد نفرات رو انتخاب کنید', textAlign: TextAlign.center,),
+          ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
@@ -36,18 +41,18 @@ class _BuyTicketState extends State<BuyTicket> {
                       style: Theme.of(context)
                           .textTheme
                           .headline
-                          .copyWith(fontSize: 14, color: Colors.grey),
+                          .copyWith(fontSize: 11, color: Colors.grey),
                     )
                   ]),
               Wrap(
                 crossAxisAlignment: WrapCrossAlignment.center,
                 alignment: WrapAlignment.end,
-                spacing: 20,
+                spacing: 10,
                 children: <Widget>[
                   IconButton(
                     icon: Icon(Icons.add_circle),
                     color: Colors.green,
-                    iconSize: 35,
+                    iconSize: 25,
                     onPressed: () {
                       setState(() {
                         _bigPerson++;
@@ -64,7 +69,7 @@ class _BuyTicketState extends State<BuyTicket> {
                   IconButton(
                     icon: Icon(Icons.remove_circle),
                     color: Colors.red,
-                    iconSize: 35,
+                    iconSize: 25,
                     onPressed: () {
                       if (_bigPerson > 0)
                         setState(() {
@@ -95,18 +100,18 @@ class _BuyTicketState extends State<BuyTicket> {
                       style: Theme.of(context)
                           .textTheme
                           .headline
-                          .copyWith(fontSize: 14, color: Colors.grey),
+                          .copyWith(fontSize: 11, color: Colors.grey),
                     )
                   ]),
               Wrap(
                 crossAxisAlignment: WrapCrossAlignment.center,
                 alignment: WrapAlignment.end,
-                spacing: 20,
+                spacing: 10,
                 children: <Widget>[
                   IconButton(
                     icon: Icon(Icons.add_circle),
                     color: Colors.green,
-                    iconSize: 35,
+                    iconSize: 25,
                     onPressed: () {
                       setState(() {
                         _kids++;
@@ -123,7 +128,7 @@ class _BuyTicketState extends State<BuyTicket> {
                   IconButton(
                     icon: Icon(Icons.remove_circle),
                     color: Colors.red,
-                    iconSize: 35,
+                    iconSize: 25,
                     onPressed: () {
                       setState(() {
                         if (_kids > 0) _kids--;
@@ -153,18 +158,18 @@ class _BuyTicketState extends State<BuyTicket> {
                       style: Theme.of(context)
                           .textTheme
                           .headline
-                          .copyWith(fontSize: 14, color: Colors.grey),
+                          .copyWith(fontSize: 11, color: Colors.grey),
                     )
                   ]),
               Wrap(
                 crossAxisAlignment: WrapCrossAlignment.center,
                 alignment: WrapAlignment.end,
-                spacing: 20,
+                spacing: 10,
                 children: <Widget>[
                   IconButton(
                     icon: Icon(Icons.add_circle),
                     color: Colors.green,
-                    iconSize: 35,
+                    iconSize: 25,
                     onPressed: () {
                       setState(() {
                         _baby++;
@@ -181,7 +186,7 @@ class _BuyTicketState extends State<BuyTicket> {
                   IconButton(
                     icon: Icon(Icons.remove_circle),
                     color: Colors.red,
-                    iconSize: 35,
+                    iconSize: 25,
                     onPressed: () {
                       if (_baby > 0)
                         setState(() {
@@ -193,10 +198,32 @@ class _BuyTicketState extends State<BuyTicket> {
               )
             ],
           ),
-          Center(
-              heightFactor: 10,
-              child: Text(
-                  'تعداد $_bigPerson بزرگسال و $_kids کودک و $_baby نوزاد انتخاب شده است'))
+          Padding(
+            padding: EdgeInsets.only(top: 25),
+            child: Text(
+                'تعداد $_bigPerson بزرگسال و $_kids کودک و $_baby نوزاد انتخاب شد' , textAlign: TextAlign.center,),
+          ),
+
+          Padding(
+            padding: EdgeInsets.only(top: 25),
+            child: MaterialButton(
+            onPressed: ()=>Navigator.push(context, MaterialPageRoute(
+              builder: (context)=>Passenger(
+              personcount: [_bigPerson,_kids,_baby],
+            ) ,
+            )),
+            minWidth: 300,
+            padding: EdgeInsets.symmetric(vertical: 15),
+            child: Text(
+              'ورود مشخصات مسافران',
+              style: TextStyle(fontSize: 18, color: Colors.white),
+            ),
+            elevation: 2,
+            color: Theme.of(context).accentColor,
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
+          ),
+          )
         ],
       ),
     );
