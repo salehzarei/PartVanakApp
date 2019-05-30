@@ -15,16 +15,41 @@ class Detiles extends StatelessWidget {
             style: Theme.of(context).textTheme.title.copyWith(fontSize: 17),
           ),
         ),
+        
+        Container(
+
+                margin: EdgeInsets.symmetric(horizontal: 10,vertical: 5),
+                padding: EdgeInsets.all(5),
+                 decoration: BoxDecoration(
+              border: Border(
+                top: BorderSide(color: Theme.of(context).accentColor))),
+                child: Row(
+                  textDirection: TextDirection.rtl,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                     Padding(
+                       padding: const EdgeInsets.only(top: 5),
+                       child: Text(
+                          'هتل پنج ستاره آنا کیش',
+                          style: Theme.of(context)
+                              .textTheme
+                              .headline
+                              .copyWith(fontSize: 14),
+                        ),
+                     ),
+                  ]
+                )),
           Container(
           margin: EdgeInsets.symmetric(horizontal: 10),
-          padding: EdgeInsets.all(8),
+          padding: EdgeInsets.only(left:8,right:8,bottom: 8),
           decoration: BoxDecoration(
               border: Border(
                   bottom: BorderSide(color: Theme.of(context).accentColor),
-                  top: BorderSide(color: Theme.of(context).accentColor))),
+                  )),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
+              
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 5),
                 child: Column(
@@ -117,7 +142,7 @@ class Detiles extends StatelessWidget {
                         ),
                         SizedBox(width: 5),
                         Text(
-                          'نوع سفر',
+                          ' 111نوع سفر',
                           style: Theme.of(context).textTheme.display3,
                         ),
                         SizedBox(width: 5),
