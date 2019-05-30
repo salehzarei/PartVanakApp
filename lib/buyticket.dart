@@ -7,9 +7,10 @@ class BuyTicket extends StatefulWidget {
 }
 
 class _BuyTicketState extends State<BuyTicket> {
-  int _bigPerson = 0;
-  int _kids = 0;
-  int _baby = 0;
+  int _bigPerson=1;
+  int _kids=0;
+  int _kids_bed=0;
+  int _baby=0;
 
   @override
   Widget build(BuildContext context) {
@@ -20,15 +21,18 @@ class _BuyTicketState extends State<BuyTicket> {
         children: <Widget>[
           Padding(
             padding: const EdgeInsets.only(bottom: 8),
-            child: Text('تعداد نفرات رو انتخاب کنید', textAlign: TextAlign.center,),
+            child: Text(
+              'تعداد نفرات رو انتخاب کنید',
+              textAlign: TextAlign.center,
+            ),
           ),
           Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
-              Wrap(
-                  spacing: 10,
-                  crossAxisAlignment: WrapCrossAlignment.center,
-                  children: <Widget>[
+              Expanded(
+                  child: Wrap(
+                      spacing: 10,
+                      crossAxisAlignment: WrapCrossAlignment.center,
+                      children: <Widget>[
                     Text(
                       'بزرگسال',
                       style: Theme.of(context)
@@ -43,51 +47,54 @@ class _BuyTicketState extends State<BuyTicket> {
                           .headline
                           .copyWith(fontSize: 11, color: Colors.grey),
                     )
-                  ]),
-              Wrap(
-                crossAxisAlignment: WrapCrossAlignment.center,
-                alignment: WrapAlignment.end,
-                spacing: 10,
-                children: <Widget>[
-                  IconButton(
-                    icon: Icon(Icons.add_circle),
-                    color: Colors.green,
-                    iconSize: 25,
-                    onPressed: () {
-                      setState(() {
-                        _bigPerson++;
-                      });
-                    },
-                  ),
-                  Text(
+                  ])),
+              Expanded(
+                  child: Row(children: <Widget>[
+                Expanded(
+                  child: IconButton(
+                      icon: Icon(Icons.add_circle),
+                      color: Colors.green,
+                      iconSize: 25,
+                      onPressed: () {
+                        setState(() {
+                          _bigPerson++;
+                        });
+                      }),
+                ),
+                Container(
+                  width: 80,
+                  alignment: Alignment.center,
+                  child: Text(
                     '${_bigPerson.toString()} نفر',
                     style: Theme.of(context)
                         .textTheme
                         .headline
                         .copyWith(fontSize: 14, color: Colors.grey),
                   ),
-                  IconButton(
+                ),
+                Expanded(
+                  child: IconButton(
                     icon: Icon(Icons.remove_circle),
                     color: Colors.red,
                     iconSize: 25,
                     onPressed: () {
-                      if (_bigPerson > 0)
+                      if (_bigPerson > 1)
                         setState(() {
                           _bigPerson--;
                         });
                     },
-                  )
-                ],
-              )
+                  ),
+                )
+              ])),
             ],
           ),
           Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: <Widget>[
-              Wrap(
-                  spacing: 10,
-                  crossAxisAlignment: WrapCrossAlignment.center,
-                  children: <Widget>[
+              Expanded(
+                  child: Wrap(
+                      spacing: 10,
+                      crossAxisAlignment: WrapCrossAlignment.center,
+                      children: <Widget>[
                     Text(
                       'کودک',
                       style: Theme.of(context)
@@ -96,56 +103,122 @@ class _BuyTicketState extends State<BuyTicket> {
                           .copyWith(fontSize: 15),
                     ),
                     Text(
-                      'افراد زیر 14 سال',
+                      ' بدون تخت خواب',
                       style: Theme.of(context)
                           .textTheme
                           .headline
                           .copyWith(fontSize: 11, color: Colors.grey),
                     )
-                  ]),
-              Wrap(
-                crossAxisAlignment: WrapCrossAlignment.center,
-                alignment: WrapAlignment.end,
-                spacing: 10,
-                children: <Widget>[
-                  IconButton(
-                    icon: Icon(Icons.add_circle),
-                    color: Colors.green,
-                    iconSize: 25,
-                    onPressed: () {
-                      setState(() {
-                        _kids++;
-                      });
-                    },
-                  ),
-                  Text(
+                  ])),
+              Expanded(
+                  child: Row(children: <Widget>[
+                Expanded(
+                  child: IconButton(
+                      icon: Icon(Icons.add_circle),
+                      color: Colors.green,
+                      iconSize: 25,
+                      onPressed: () {
+                        setState(() {
+                          _kids++;
+                        });
+                      }),
+                ),
+                Container(
+                  width: 80,
+                  alignment: Alignment.center,
+                  child: Text(
                     '${_kids.toString()} نفر',
                     style: Theme.of(context)
                         .textTheme
                         .headline
                         .copyWith(fontSize: 14, color: Colors.grey),
                   ),
-                  IconButton(
+                ),
+                Expanded(
+                  child: IconButton(
                     icon: Icon(Icons.remove_circle),
                     color: Colors.red,
                     iconSize: 25,
                     onPressed: () {
-                      setState(() {
-                        if (_kids > 0) _kids--;
-                      });
+                      if (_kids > 0)
+                        setState(() {
+                          _kids--;
+                        });
                     },
-                  )
-                ],
-              )
+                  ),
+                )
+              ])),
             ],
           ),
           Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: <Widget>[
-              Wrap(
-                  spacing: 10,
-                  crossAxisAlignment: WrapCrossAlignment.center,
-                  children: <Widget>[
+              Expanded(
+                  child: Wrap(
+                      spacing: 10,
+                      crossAxisAlignment: WrapCrossAlignment.center,
+                      children: <Widget>[
+                    Text(
+                      'کودک',
+                      style: Theme.of(context)
+                          .textTheme
+                          .headline
+                          .copyWith(fontSize: 15),
+                    ),
+                    Text(
+                      'با تخت خواب',
+                      style: Theme.of(context)
+                          .textTheme
+                          .headline
+                          .copyWith(fontSize: 11, color: Colors.grey),
+                    )
+                  ])),
+              Expanded(
+                  child: Row(children: <Widget>[
+                Expanded(
+                  child: IconButton(
+                      icon: Icon(Icons.add_circle),
+                      color: Colors.green,
+                      iconSize: 25,
+                      onPressed: () {
+                        setState(() {
+                          _kids_bed++;
+                        });
+                      }),
+                ),
+                Container(
+                  width: 80,
+                  alignment: Alignment.center,
+                  child: Text(
+                    '${_kids_bed.toString()} نفر',
+                    style: Theme.of(context)
+                        .textTheme
+                        .headline
+                        .copyWith(fontSize: 14, color: Colors.grey),
+                  ),
+                ),
+                Expanded(
+                  child: IconButton(
+                    icon: Icon(Icons.remove_circle),
+                    color: Colors.red,
+                    iconSize: 25,
+                    onPressed: () {
+                      if (_kids_bed > 0)
+                        setState(() {
+                          _kids_bed--;
+                        });
+                    },
+                  ),
+                )
+              ])),
+            ],
+          ),
+                    Row(
+            children: <Widget>[
+              Expanded(
+                  child: Wrap(
+                      spacing: 10,
+                      crossAxisAlignment: WrapCrossAlignment.center,
+                      children: <Widget>[
                     Text(
                       'نوزاد',
                       style: Theme.of(context)
@@ -160,30 +233,33 @@ class _BuyTicketState extends State<BuyTicket> {
                           .headline
                           .copyWith(fontSize: 11, color: Colors.grey),
                     )
-                  ]),
-              Wrap(
-                crossAxisAlignment: WrapCrossAlignment.center,
-                alignment: WrapAlignment.end,
-                spacing: 10,
-                children: <Widget>[
-                  IconButton(
-                    icon: Icon(Icons.add_circle),
-                    color: Colors.green,
-                    iconSize: 25,
-                    onPressed: () {
-                      setState(() {
-                        _baby++;
-                      });
-                    },
-                  ),
-                  Text(
+                  ])),
+              Expanded(
+                  child: Row(children: <Widget>[
+                Expanded(
+                  child: IconButton(
+                      icon: Icon(Icons.add_circle),
+                      color: Colors.green,
+                      iconSize: 25,
+                      onPressed: () {
+                        setState(() {
+                          _baby++;
+                        });
+                      }),
+                ),
+                Container(
+                  width: 80,
+                  alignment: Alignment.center,
+                  child: Text(
                     '${_baby.toString()} نفر',
                     style: Theme.of(context)
                         .textTheme
                         .headline
                         .copyWith(fontSize: 14, color: Colors.grey),
                   ),
-                  IconButton(
+                ),
+                Expanded(
+                  child: IconButton(
                     icon: Icon(Icons.remove_circle),
                     color: Colors.red,
                     iconSize: 25,
@@ -193,36 +269,40 @@ class _BuyTicketState extends State<BuyTicket> {
                           _baby--;
                         });
                     },
-                  )
-                ],
-              )
+                  ),
+                )
+              ])),
             ],
           ),
           Padding(
             padding: EdgeInsets.only(top: 25),
             child: Text(
-                'تعداد $_bigPerson بزرگسال و $_kids کودک و $_baby نوزاد انتخاب شد' , textAlign: TextAlign.center,),
+              'تعداد $_bigPerson بزرگسال و $_kids کودک و $_baby نوزاد انتخاب شد',
+              textAlign: TextAlign.center,
+            ),
           ),
 
           Padding(
             padding: EdgeInsets.only(top: 25),
             child: MaterialButton(
-            onPressed: ()=>Navigator.push(context, MaterialPageRoute(
-              builder: (context)=>Passenger(
-              personcount: [_bigPerson,_kids,_baby],
-            ) ,
-            )),
-            minWidth: 300,
-            padding: EdgeInsets.symmetric(vertical: 15),
-            child: Text(
-              'ورود مشخصات مسافران',
-              style: TextStyle(fontSize: 18, color: Colors.white),
+              onPressed: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => Passenger(
+                          personcount: [_bigPerson, _kids, _baby],
+                        ),
+                  )),
+              minWidth: 300,
+              padding: EdgeInsets.symmetric(vertical: 15),
+              child: Text(
+                'ورود مشخصات مسافران',
+                style: TextStyle(fontSize: 18, color: Colors.white),
+              ),
+              elevation: 2,
+              color: Theme.of(context).accentColor,
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(5)),
             ),
-            elevation: 2,
-            color: Theme.of(context).accentColor,
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
-          ),
           )
         ],
       ),
