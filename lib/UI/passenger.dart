@@ -107,7 +107,7 @@ class _UserFormState extends State<UserForm> {
                 flex: 1,
                 child: TextFormField(
                   decoration: InputDecoration(
-                    hintText: 'تاریخ تولد',
+                    hintText: 'محل تولد',
                     counterText: '',
                   ),
                   keyboardType: TextInputType.text,
