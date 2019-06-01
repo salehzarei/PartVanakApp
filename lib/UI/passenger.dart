@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 import 'package:jalali_calendar/jalali_calendar.dart';
+import 'package:date_picker_persian/date_picker_gregorian.dart';
 
 class Passenger extends StatefulWidget {
   final List personcount;
@@ -32,20 +34,23 @@ class UserForm extends StatefulWidget {
 
 class _UserFormState extends State<UserForm> {
   int _radioValue = 0;
-  String _value ='انتخاب تاریخ';
 
-  void _changeValue(int value) {
+  _changeValue(value) {
     setState(() {
       _radioValue = value;
     });
   }
 
-  Future _selectDate() async {
-    String picked = await jalaliCalendarPicker(
-        context: context); // نمایش خروجی به صورت شمسی
-    //  await jalaliCalendarPicker(context: context,convertToGregorian: true); // نمایش خروجی به صورت میلادی
-    if (picked != null) setState(() => _value = picked.toString());
-   
+  String _year, _month, _day;
+
+  Future<Null> _selectDate(BuildContext context) async {
+    DatePicker.showDatePicker(context, onConfirm: (y, m, d) {
+      setState(() {
+        _year = y.toString();
+        _month = m.toString();
+        _day = d.toString();
+      });
+    });
   }
 
   @override
@@ -148,14 +153,18 @@ class _UserFormState extends State<UserForm> {
                   flex: 1,
                   child: FlatButton.icon(
                     icon: Icon(Icons.calendar_today),
-                    label: Text(_value),
-                   onPressed: () {
-                   //  DatePicker.showDatePicker(context);
-                     _selectDate();
+                    label: _year == null
+                        ? Text('تاریخ تولد')
+                        : Text(
+                            "$_year/$_month/$_day",
+                            textDirection: TextDirection.rtl,
+                            style: TextStyle(fontSize: 15),
+                          ),
+                    onPressed: () {
+                      //  DatePicker.showDatePicker(context);
+                      _selectDate(context);
                     },
-                  )
-                  
-                  )
+                  ))
             ],
           )
         ],
