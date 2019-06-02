@@ -7,13 +7,21 @@ class BuyTicket extends StatefulWidget {
 }
 
 class _BuyTicketState extends State<BuyTicket> {
-  int _bigPerson=1;
-  int _kids=0;
-  int _kids_bed=0;
-  int _baby=0;
+  int _bigPerson = 1;
+  int _kids = 0;
+  int _kids_bed = 0;
+  int _baby = 0;
+  // لیست از تعداد نفرات مسافر - حروف مشخصه نوع افراد می باشد
+  // یک نفر بزرگسال همیشه داخل لیست خواهد بود
+  
+  List<String> _personcountList = ['a'];
 
   @override
   Widget build(BuildContext context) {
+
+    //// لیست را به ترتیب حروف الفبا مرتب میکنیم
+    _personcountList.sort();
+
     return Directionality(
       textDirection: TextDirection.rtl,
       child: ListView(
@@ -58,6 +66,7 @@ class _BuyTicketState extends State<BuyTicket> {
                       onPressed: () {
                         setState(() {
                           _bigPerson++;
+                          _personcountList.add('a');
                         });
                       }),
                 ),
@@ -81,6 +90,7 @@ class _BuyTicketState extends State<BuyTicket> {
                       if (_bigPerson > 1)
                         setState(() {
                           _bigPerson--;
+                         _personcountList.remove('a');
                         });
                     },
                   ),
@@ -120,6 +130,7 @@ class _BuyTicketState extends State<BuyTicket> {
                       onPressed: () {
                         setState(() {
                           _kids++;
+                          _personcountList.add('b');
                         });
                       }),
                 ),
@@ -143,6 +154,7 @@ class _BuyTicketState extends State<BuyTicket> {
                       if (_kids > 0)
                         setState(() {
                           _kids--;
+                    _personcountList.remove('b');
                         });
                     },
                   ),
@@ -182,6 +194,7 @@ class _BuyTicketState extends State<BuyTicket> {
                       onPressed: () {
                         setState(() {
                           _kids_bed++;
+                          _personcountList.add('c');
                         });
                       }),
                 ),
@@ -205,6 +218,7 @@ class _BuyTicketState extends State<BuyTicket> {
                       if (_kids_bed > 0)
                         setState(() {
                           _kids_bed--;
+                           _personcountList.remove('c');
                         });
                     },
                   ),
@@ -212,7 +226,7 @@ class _BuyTicketState extends State<BuyTicket> {
               ])),
             ],
           ),
-                    Row(
+          Row(
             children: <Widget>[
               Expanded(
                   child: Wrap(
@@ -244,6 +258,7 @@ class _BuyTicketState extends State<BuyTicket> {
                       onPressed: () {
                         setState(() {
                           _baby++;
+                          _personcountList.add('d');
                         });
                       }),
                 ),
@@ -267,6 +282,7 @@ class _BuyTicketState extends State<BuyTicket> {
                       if (_baby > 0)
                         setState(() {
                           _baby--;
+                           _personcountList.remove('d');
                         });
                     },
                   ),
@@ -281,7 +297,6 @@ class _BuyTicketState extends State<BuyTicket> {
               textAlign: TextAlign.center,
             ),
           ),
-
           Padding(
             padding: EdgeInsets.only(top: 25),
             child: MaterialButton(
@@ -289,7 +304,7 @@ class _BuyTicketState extends State<BuyTicket> {
                   context,
                   MaterialPageRoute(
                     builder: (context) => Passenger(
-                          personcount: [_bigPerson, _kids, _baby],
+                          personcount: _personcountList,
                         ),
                   )),
               minWidth: 300,
