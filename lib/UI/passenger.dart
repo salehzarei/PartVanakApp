@@ -1,9 +1,10 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:jalali_calendar/jalali_calendar.dart';
 
 class Passenger extends StatefulWidget {
-  final List personcount;
+  final List<String> personcount;
 
   const Passenger({Key key, this.personcount}) : super(key: key);
 
@@ -12,8 +13,21 @@ class Passenger extends StatefulWidget {
 }
 
 class _PassengerState extends State<Passenger> {
+  final Map<String, String> selectedPersonList = {};
+
+  @override
+  void initState() {
+    super.initState();
+    // تبدیل لیست به مپ برای سهولت در انجام حذف لیست
+    for (var i = 0; i < widget.personcount.length; i++) {
+      selectedPersonList[i.toString()] = widget.personcount[i];
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    var keys = selectedPersonList.keys.toList();
+    print(keys);
     return Scaffold(
         appBar: AppBar(
           centerTitle: true,
@@ -24,10 +38,11 @@ class _PassengerState extends State<Passenger> {
             child: Padding(
                 padding: const EdgeInsets.only(top: 15),
                 child: ListView.builder(
-                  itemCount: widget.personcount.length,
+                  itemCount: keys.length,
                   itemBuilder: (context, index) {
                     String _title;
-                    switch (widget.personcount[index]) {
+                    String _key = keys[index];
+                    switch (selectedPersonList.values.elementAt(index)) {
                       case "a":
                         {
                           _title = 'مشخصات بزرگسال';
@@ -59,7 +74,18 @@ class _PassengerState extends State<Passenger> {
                         break;
                     }
 
-                    return UserForm(title: _title);
+                    return _key != '0'
+                        // اگر بزرگسال نبود قابلیت دیسمیس رو بده وگرنه که نده
+                        ? Dismissible(
+                            key: Key(_key),
+                            onDismissed: (_) {
+                              setState(() {
+                               selectedPersonList.remove(_key); 
+                              });
+                            },
+                            //deleteFromList(_key, index),
+                            child: UserForm(title: _title))
+                        : UserForm(title: _title);
                   },
                 ))));
   }
@@ -258,13 +284,12 @@ class _UserFormState extends State<UserForm> {
             child: RotationTransition(
               turns: AlwaysStoppedAnimation(45 / 360),
               child: IconButton(
-                icon: Icon(
-                  Icons.add_circle,
-                  color: Colors.redAccent,
-                  size: 25,
-                ),
-                onPressed: () {},
-              ),
+                  icon: Icon(
+                    Icons.add_circle,
+                    color: Colors.redAccent,
+                    size: 25,
+                  ),
+                  onPressed: () {}),
             ))
       ],
     );

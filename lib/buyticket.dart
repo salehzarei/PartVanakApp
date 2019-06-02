@@ -14,7 +14,7 @@ class _BuyTicketState extends State<BuyTicket> {
   // لیست از تعداد نفرات مسافر - حروف مشخصه نوع افراد می باشد
   // یک نفر بزرگسال همیشه داخل لیست خواهد بود
   
-  List _personcountList = ['a'];
+  List<String> _personcountList = ['a'];
 
   @override
   Widget build(BuildContext context) {

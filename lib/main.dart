@@ -36,8 +36,10 @@ main() {
       ),
       initialRoute: '/',
       routes: {
+
         // '/': (context) => HomePage(),
          '/': (context) => ToureListPage(),
+
         '/tourelist': (context) => ToureListPage(),
         '/touredetile': (context) => ToureDetilePage(),
         '/buyticket':(context)=>BuyTicket()
