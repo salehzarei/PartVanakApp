@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/material.dart';
 import 'package:jalali_calendar/jalali_calendar.dart';
-import 'package:date_picker_persian/date_picker_gregorian.dart';
+
 
 class Passenger extends StatefulWidget {
   final List personcount;
