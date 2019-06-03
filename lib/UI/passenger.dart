@@ -1,6 +1,5 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
+import 'package:hello_flutter/UI/chekout.dart';
 import 'package:jalali_calendar/jalali_calendar.dart';
 
 class Passenger extends StatefulWidget {
@@ -13,25 +12,37 @@ class Passenger extends StatefulWidget {
 }
 
 class _PassengerState extends State<Passenger> {
-  final Map<String, String> selectedPersonList = {};
+  final Map<String, Widget> selectedPersonList = {};
 
   @override
   void initState() {
     super.initState();
     // تبدیل لیست به مپ برای سهولت در انجام حذف لیست
     for (var i = 0; i < widget.personcount.length; i++) {
-      selectedPersonList[i.toString()] = widget.personcount[i];
+      selectedPersonList[i.toString()] = UserForm(type: widget.personcount[i]);
     }
   }
 
   @override
   Widget build(BuildContext context) {
     var keys = selectedPersonList.keys.toList();
-    print(keys);
     return Scaffold(
         appBar: AppBar(
           centerTitle: true,
-          title: Text(widget.personcount.toString()),
+          title: Text('مشخصات مسافرین'),
+          actions: <Widget>[
+            FlatButton(
+              child: Text(
+                'تایید',
+                style: Theme.of(context)
+                    .textTheme
+                    .title
+                    .copyWith(color: Colors.white),
+              ),
+              onPressed: () => Navigator.push(
+                  context, MaterialPageRoute(builder: (context) => ChekOut())),
+            )
+          ],
         ),
         body: Directionality(
             textDirection: TextDirection.rtl,
@@ -40,61 +51,28 @@ class _PassengerState extends State<Passenger> {
                 child: ListView.builder(
                   itemCount: keys.length,
                   itemBuilder: (context, index) {
-                    String _title;
                     String _key = keys[index];
-                    switch (selectedPersonList.values.elementAt(index)) {
-                      case "a":
-                        {
-                          _title = 'مشخصات بزرگسال';
-                        }
-                        break;
-
-                      case "b":
-                        {
-                          _title = 'مشخصات نوجوان';
-                        }
-                        break;
-
-                      case "c":
-                        {
-                          _title = 'مشخصات کودک';
-                        }
-                        break;
-
-                      case "d":
-                        {
-                          _title = 'مشخصات نوزاد';
-                        }
-                        break;
-
-                      default:
-                        {
-                          _title = 'نامشخص';
-                        }
-                        break;
-                    }
-
                     return _key != '0'
                         // اگر بزرگسال نبود قابلیت دیسمیس رو بده وگرنه که نده
                         ? Dismissible(
                             key: Key(_key),
                             onDismissed: (_) {
                               setState(() {
-                               selectedPersonList.remove(_key); 
+                                selectedPersonList.remove(_key);
                               });
                             },
-                            //deleteFromList(_key, index),
-                            child: UserForm(title: _title))
-                        : UserForm(title: _title);
+                    
+                     child: selectedPersonList.values.elementAt(index))
+                    : selectedPersonList.values.elementAt(index);
                   },
                 ))));
   }
 }
 
 class UserForm extends StatefulWidget {
-  final String title;
+  final String type;
 
-  const UserForm({Key key, this.title}) : super(key: key);
+  const UserForm({Key key, this.type}) : super(key: key);
 
   @override
   _UserFormState createState() => _UserFormState();
@@ -102,6 +80,7 @@ class UserForm extends StatefulWidget {
 
 class _UserFormState extends State<UserForm> {
   int _radioValue = 0;
+  String _title;
 
   _changeValue(value) {
     setState(() {
@@ -119,6 +98,42 @@ class _UserFormState extends State<UserForm> {
         _day = d.toString();
       });
     });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    switch (widget.type) {
+      case "a":
+        {
+          _title = 'مشخصات بزرگسال';
+        }
+        break;
+
+      case "b":
+        {
+          _title = 'مشخصات نوجوان';
+        }
+        break;
+
+      case "c":
+        {
+          _title = 'مشخصات کودک';
+        }
+        break;
+
+      case "d":
+        {
+          _title = 'مشخصات نوزاد';
+        }
+        break;
+
+      default:
+        {
+          _title = 'نامشخص';
+        }
+        break;
+    }
   }
 
   @override
@@ -267,7 +282,7 @@ class _UserFormState extends State<UserForm> {
           child: Container(
             alignment: Alignment.center,
             child: Text(
-              widget.title,
+              _title,
               style: TextStyle(fontSize: 12),
             ),
             width: 110,
