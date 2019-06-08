@@ -17,7 +17,6 @@ class ChekOut extends StatelessWidget {
       //hit Ctrl+space in intellij to know what are the options you can use in flutter widgets
       body: Container(
         // textAlign: TextAlign.left,
-
         padding: EdgeInsets.all(5.0),
         child: Container(
           child: ListView(
