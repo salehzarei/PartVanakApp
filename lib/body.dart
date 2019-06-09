@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:hello_flutter/UI/divider.dart';
-import 'package:hello_flutter/UI/maincategorei.dart';
-import 'package:hello_flutter/UI/touretitle.dart';
+import './UI/divider.dart';
+import './UI/maincategorei.dart';
+import './UI/touretitle.dart';
+import './scoped_model.dart';
+import 'package:scoped_model/scoped_model.dart';
 
 class HomeBody extends StatefulWidget {
   @override
@@ -34,10 +36,12 @@ class ToureScrollTitle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     /// برای نمایش لیست تورها باید حتما sizedbox باشد
-    return SizedBox(
-      height: 170,
+    return ScopedModelDescendant<MainModel>(
+      builder: (context,child,model){
+        return SizedBox(
+      height: 171,
       child: ListView.builder(
-        itemCount: 5,
+        itemCount: model.tourelist.length,
         shrinkWrap: true,
         // ضروری است
         physics: ClampingScrollPhysics(),
@@ -46,10 +50,14 @@ class ToureScrollTitle extends StatelessWidget {
         itemBuilder: (context, index) {
           return Padding(
             padding: const EdgeInsets.symmetric(horizontal: 5),
-            child: ToureTitle(),
+            child: ToureTitle(
+              toure: model.tourelist[index],
+            ),
           );
         },
       ),
+    );
+      },
     );
   }
 }

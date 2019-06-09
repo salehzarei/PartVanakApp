@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hello_flutter/UI/toure_list_item.dart';
+import 'package:hello_flutter/scoped_model.dart';
+import 'package:scoped_model/scoped_model.dart';
 
 class ToureListPage extends StatefulWidget {
   @override
@@ -12,65 +14,58 @@ class _ToureListPageState extends State<ToureListPage> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Text("لیست تورها"),
+        title: Text("لیست تورهای خارجی"),
       ),
       body: Stack(
-       // fit: StackFit.expand,
-        textDirection: TextDirection.rtl,
-        children: <Widget>[
-           SingleChildScrollView(
-            child: Padding(
-                padding: const EdgeInsets.only(top: 40),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: <Widget>[
-                   GestureDetector(
-                     onTap: ()=>Navigator.pushNamed(context, '/touredetile'),
-                     child: ToureListItem()),
-                   ToureListItem(),
-                   ToureListItem(),
-                   ToureListItem(),
-                   ToureListItem(),
-                   ToureListItem(),
-                   ToureListItem(),
-                   ToureListItem(),
-                   
-                  ],
-                )),
-          ),
-          Container(
-            color: Colors.white,
-            height: 45,
-            child: Padding(
-              padding: const EdgeInsets.only(top: 10, right: 5),
-              child: Row(
-                textDirection: TextDirection.rtl,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: <Widget>[
-                  Row(
-                    children: <Widget>[
-                      Text("فیلترکردن"),
-                      Icon(Icons.filter_list),
-                    ],
-                  ),
-                  SizedBox(
-                    width: 15,
-                  ),
-                  Row(
-                    children: <Widget>[
-                      Text("مرتب سازی"),
-                      Icon(Icons.sort),
-                    ],
-                  )
-                ],
-              ),
+          // fit: StackFit.expand,
+          textDirection: TextDirection.rtl,
+          children: <Widget>[
+            ScopedModelDescendant<MainModel>(
+              builder: (context, child, model) {
+                return ListView.builder(
+                  itemCount: model.tourelist.length,
+                  padding: EdgeInsets.only(top: 40, left: 3, right: 3),
+                  itemBuilder: (context, index) {
+                    return GestureDetector(
+                        onTap: () =>
+                            Navigator.pushNamed(context, '/touredetile'),
+                        child: ToureListItem(
+                          toure: model.tourelist[index],
+                        ));
+                  },
+                );
+              },
             ),
-          ),
-         
-         
-        ],
-      ),
+            Container(
+              color: Colors.white,
+              height: 45,
+              child: Padding(
+                padding: const EdgeInsets.only(top: 10, right: 5),
+                child: Row(
+                  textDirection: TextDirection.rtl,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: <Widget>[
+                    Row(
+                      children: <Widget>[
+                        Text("فیلترکردن"),
+                        Icon(Icons.filter_list),
+                      ],
+                    ),
+                    SizedBox(
+                      width: 15,
+                    ),
+                    Row(
+                      children: <Widget>[
+                        Text("مرتب سازی"),
+                        Icon(Icons.sort),
+                      ],
+                    )
+                  ],
+                ),
+              ),
+            )
+          ]),
     );
   }
 }
