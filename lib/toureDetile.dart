@@ -2,16 +2,20 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
-import 'package:hello_flutter/UI/toureDetiles/hoteldetile.dart';
+import './UI/toureDetiles/hoteldetile.dart';
+import './model/toure_model.dart';
 import './UI/toureDetiles/detiles.dart';
 
 class ToureDetilePage extends StatelessWidget {
+  final Toure toure;
+
+  const ToureDetilePage({Key key, this.toure}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'تور کیش 22 اردیبهشت',
+          'تور ${toure.title}',
           style: Theme.of(context).textTheme.title,
         ),
         centerTitle: true,
@@ -28,7 +32,7 @@ class ToureDetilePage extends StatelessWidget {
       body: Column(
         children: <Widget>[
           Text(
-            'حرکت از مشهد',
+            toure.sdate,
             style: Theme.of(context).textTheme.title.copyWith(fontSize: 17),
           ),
           Row(
@@ -52,7 +56,7 @@ class ToureDetilePage extends StatelessWidget {
                           color: Theme.of(context).accentColor),
                     ),
                     Text(
-                      'هرمزگان',
+                      toure.destination_title,
                       style: TextStyle(fontSize: 15, color: Colors.grey),
                     ),
                   ],
@@ -94,7 +98,7 @@ class ToureDetilePage extends StatelessWidget {
                           color: Theme.of(context).accentColor),
                     ),
                     Text(
-                      'خراسان رضوی',
+                      toure.source_title,
                       style: TextStyle(fontSize: 15, color: Colors.grey),
                     ),
                   ],
@@ -160,10 +164,7 @@ class ToureDetilePage extends StatelessWidget {
           Expanded(
             child: ListView(
               shrinkWrap: true,
-              children: <Widget>[
-                Detiles(),
-                HotelDetile()
-              ],
+              children: <Widget>[Detiles(), HotelDetile()],
             ),
           ),
         ],

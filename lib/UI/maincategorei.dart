@@ -11,8 +11,8 @@ class MainCategory extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             GestureDetector(
-              onTap: ()=> Navigator.pushNamed(context, '/tourelist'),
-              child: HomeItem('تورهای خارجی', ToureIcons.around)),
+                onTap: () => Navigator.pushNamed(context, '/tourelist'),
+                child: HomeItem('تورهای خارجی', ToureIcons.around)),
             HomeItem('تورهای داخلی', ToureIcons.azadi),
             HomeItem('تورهای طبیعتگردی', ToureIcons.tent)
           ],
@@ -69,6 +69,7 @@ class HomeItem extends StatelessWidget {
     );
   }
 }
+
 class ShapesPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
@@ -84,6 +85,7 @@ class ShapesPainter extends CustomPainter {
     return false;
   }
 }
+
 class VerLine extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
