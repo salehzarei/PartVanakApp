@@ -49,7 +49,7 @@ main() {
         initialRoute: '/',
         routes: {
           '/': (context) => HomePage(model: model),
-          // '/': (context) => AboutUs(),
+          //'/': (context) => AboutUs(),
 
           '/tourelist': (context) => ToureListPage(),
           '/touredetile': (context) => ToureDetilePage(),
