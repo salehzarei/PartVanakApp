@@ -1,0 +1,252 @@
+[33mcommit fc3256eca8e6a000fa9aab7d5c3080df961850c8[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m, [m[1;31morigin/master[m[33m, [m[1;31morigin/HEAD[m[33m)[m
+Author: navid13 <navidnejati76@gmail.com>
+Date:   Tue Jun 11 20:02:49 2019 +0430
+
+    create aboutus
+
+[33mcommit f3cb4d93f6f2287da6f3615052723c3007e6e356[m
+Author: Salehz <saleh.zarei@gmail.com>
+Date:   Sun Jun 9 18:29:09 2019 +0430
+
+    اضافه کردن اکسوپ مدل و اتصال به دیتابیس
+
+[33mcommit 4f40310770a2d053c71e53d6f240ad5d2ade4ed9[m
+Author: Salehz <saleh.zarei@gmail.com>
+Date:   Sat Jun 8 19:20:14 2019 +0430
+
+    ایجاد جدول لیست سایر مسافرین در صفحه چک نهایی
+
+[33mcommit 5d89bbe6871610388ed8e274ad5404d63f4bc06d[m
+Author: Salehz <saleh.zarei@gmail.com>
+Date:   Mon Jun 3 18:41:29 2019 +0430
+
+    add passenger detail
+
+[33mcommit f3e4970de6d29a34e9445fecfd182b9e5ccf519b[m
+Merge: c5bef8f 2b7f973
+Author: ebrahim abbasi <ebrahim.abbasi98@gmail.com>
+Date:   Sun Jun 2 17:11:09 2019 +0430
+
+    Merge branch 'master' of https://gitlab.com/salehz/ticket
+    
+    merge orgin with master
+
+[33mcommit 2b7f973b391c75e674b34411e1750538043f58a5[m
+Merge: b9eb148 b55f06e
+Author: Salehz <saleh.zarei@gmail.com>
+Date:   Sun Jun 2 16:58:13 2019 +0430
+
+    اضافه کردن
+
+[33mcommit c5bef8f44654867876e369d597e0a77f0ca4dab0[m
+Merge: e896377 b55f06e
+Author: ebrahim abbasi <ebrahim.abbasi98@gmail.com>
+Date:   Sun Jun 2 16:56:06 2019 +0430
+
+    ready to use
+
+[33mcommit e896377188f3956e89c34a1322e480daad78e751[m
+Author: ebrahim abbasi <ebrahim.abbasi98@gmail.com>
+Date:   Sun Jun 2 16:46:32 2019 +0430
+
+    alaky
+
+[33mcommit b9eb1487aa8c0d7caaf936167897f40846de2fd8[m
+Author: Salehz <saleh.zarei@gmail.com>
+Date:   Sun Jun 2 12:11:49 2019 +0430
+
+    تغییرات دیروز
+
+[33mcommit b55f06e999de91cb2152c108de9aa384ec524a2b[m
+Author: salehzarei <saleh.zarei@gmail.com>
+Date:   Sun Jun 2 02:52:56 2019 +0430
+
+    تنظیم لیست مشخصات افراد بر اساس تعداد انتخاب شده
+
+[33mcommit 088a9f80a7f2c375cb2aee2f1170d7cd77fffd5d[m
+Author: salehzarei <saleh.zarei@gmail.com>
+Date:   Sat Jun 1 23:46:51 2019 +0430
+
+    تغییر در منزل
+
+[33mcommit a21cf4356667c18c8bb47d47734e5eb8e484ee30[m
+Author: Salehz <saleh.zarei@gmail.com>
+Date:   Sat Jun 1 19:22:03 2019 +0430
+
+    اصلاح تاریخ فارسی
+
+[33mcommit cd2921be8c189454b37d96be9964b7f117615b03[m
+Author: Salehz <saleh.zarei@gmail.com>
+Date:   Sat Jun 1 18:01:49 2019 +0430
+
+    تغییر جدید
+
+[33mcommit 1b34a1df39615f71c69e125266467c0c13cca795[m
+Author: Salehz <saleh.zarei@gmail.com>
+Date:   Sat Jun 1 17:30:20 2019 +0430
+
+    اوکی
+
+[33mcommit dc6f0bbc385717d02f8dd0240699ad7bf06184e8[m
+Author: ebrahim abbasi <ebrahim.abbasi98@gmail.com>
+Date:   Thu May 30 19:27:01 2019 +0430
+
+    fixed lengh of passenger width
+
+[33mcommit fd907762abb68476270710f8f65349eece47aae4[m
+Merge: 8ed00a4 dc19498
+Author: Salehz <saleh.zarei@gmail.com>
+Date:   Thu May 30 17:27:56 2019 +0430
+
+    Merge branch 'master' of https://gitlab.com/salehz/toureapp
+
+[33mcommit 8ed00a464b3f512e679ead3a5f9f1ffc291ba223[m
+Author: Salehz <saleh.zarei@gmail.com>
+Date:   Thu May 30 17:16:15 2019 +0430
+
+    new
+
+[33mcommit dc194980435068e756c311418e573737be733bb6[m
+Merge: d28a710 524e073
+Author: ebrahim abbasi <ebrahim.abbasi98@gmail.com>
+Date:   Thu May 30 17:04:26 2019 +0430
+
+    Merge branch 'master' of https://gitlab.com/salehz/toureapp
+    
+    add passenger
+
+[33mcommit d28a710bbc3f1a848272a7f5ae17b7fe4aafe887[m
+Author: ebrahim abbasi <ebrahim.abbasi98@gmail.com>
+Date:   Thu May 30 17:02:55 2019 +0430
+
+    taghir zaher moshzasat tour
+
+[33mcommit 524e073f201d542cd6f2f5e87830cc3ad7015132[m
+Author: Salehz <saleh.zarei@gmail.com>
+Date:   Wed May 29 20:45:49 2019 +0430
+
+    اضافه کردن سبد خرید
+
+[33mcommit 752b74510d60e25de07faca97173198164691d89[m
+Merge: 4f1d2e4 ef7ff45
+Author: Salehz <saleh.zarei@gmail.com>
+Date:   Wed May 29 18:52:47 2019 +0430
+
+    Merge branch 'toureList'
+
+[33mcommit 4f1d2e46235beb0c69e16e9432f144ee27ca9814[m
+Author: Salehz <saleh.zarei@gmail.com>
+Date:   Wed May 29 18:51:43 2019 +0430
+
+    add buy ticket
+
+[33mcommit ef7ff4503c420d972815968460969a89dd155ec6[m
+Author: ebrahim abbasi <ebrahim.abbasi98@gmail.com>
+Date:   Wed May 29 18:47:36 2019 +0430
+
+    add button
+
+[33mcommit a0b15c9976faa3761b3236b3e1bcfb2cc800e0b2[m
+Author: ebrahim abbasi <ebrahim.abbasi98@gmail.com>
+Date:   Wed May 29 16:45:46 2019 +0430
+
+    فیکس کردن مشکل لیت قیمت هتل ها با تخت های مختلف
+
+[33mcommit 865719ee4fe5cf4eb45750c26040d2e8d84b6ebf[m
+Author: Salehz <saleh.zarei@gmail.com>
+Date:   Sun May 26 18:35:14 2019 +0430
+
+    چالش اسکرون قیمت اتاق ها
+
+[33mcommit 01874d1e4a94a0d5531bc557a9020c12da97e4ff[m
+Author: ebrahim abbasi <ebrahim.abbasi98@gmail.com>
+Date:   Sat May 25 19:37:22 2019 +0430
+
+    test confilit
+
+[33mcommit 77c923735435c5d40d4b6ea8e7672bb7a49e22ca[m
+Merge: 63f8f49 1daeef7
+Author: ebrahim abbasi <ebrahim.abbasi98@gmail.com>
+Date:   Sat May 25 19:36:58 2019 +0430
+
+    Merge branch 'master' of https://gitlab.com/salehz/toureapp
+
+[33mcommit 63f8f49e7acf5b2298a970246d9cbeb86fde1535[m
+Author: ebrahim abbasi <ebrahim.abbasi98@gmail.com>
+Date:   Sat May 25 19:35:03 2019 +0430
+
+    test confilit
+
+[33mcommit 1daeef7484c1fda6e8df353f9a194292bacbcb97[m
+Author: Salehz <saleh.zarei@gmail.com>
+Date:   Sat May 25 19:34:15 2019 +0430
+
+    تغییردادم
+
+[33mcommit 09c6a203dc9fd3be8baf5316ed8fb0382da454cb[m
+Author: ebrahim abbasi <ebrahim.abbasi98@gmail.com>
+Date:   Sat May 25 19:19:50 2019 +0430
+
+    modify main
+
+[33mcommit 0c6f07693ab605a8fe026d211f3d11f8a12042b0[m
+Merge: 916c17f 64ad681
+Author: Salehz <saleh.zarei@gmail.com>
+Date:   Sat May 25 18:54:02 2019 +0430
+
+    تغییرات شنبه 4 خرداد
+
+[33mcommit 916c17fe331431bf7c1c9a23f6b4feaa0cf9464d[m
+Author: Salehz <saleh.zarei@gmail.com>
+Date:   Sat May 25 18:33:08 2019 +0430
+
+    fix toure detiles
+
+[33mcommit 64ad681613da1f0c6ddc8a99905fbaea435205c0[m
+Merge: a402d0f f7565e4
+Author: salehzarei <saleh.zarei@gmail.com>
+Date:   Fri May 24 11:53:42 2019 +0430
+
+    Merge branch 'master' of https://gitlab.com/salehz/toureapp
+
+[33mcommit a402d0f4a919eb3db15366ba97a5c7a9e291d8cd[m
+Author: salehzarei <saleh.zarei@gmail.com>
+Date:   Fri May 24 11:52:42 2019 +0430
+
+    ok
+
+[33mcommit 5c262f45ac08066edb2a392cff72c8e62fbe1697[m
+Author: Salehz <saleh.zarei@gmail.com>
+Date:   Thu May 23 19:03:21 2019 +0430
+
+    add detile page
+
+[33mcommit f7565e4d9b767f2681b47a64877fd14b2a41d789[m
+Author: ebrahim abbasi <ebrahim.abbasi98@gmail.com>
+Date:   Thu May 23 18:59:04 2019 +0430
+
+    add drawer
+
+[33mcommit a2cd8f6872729bf5bd4f768d30a20bb42d87bd08[m
+Author: Salehz <saleh.zarei@gmail.com>
+Date:   Tue May 21 17:24:50 2019 +0430
+
+    ایجاد افکت لودینگ و صفحه جزئیات
+
+[33mcommit 16635b759cd13cc1a74fb552c6ddfc980e4cf105[m
+Author: Salehz <saleh.zarei@gmail.com>
+Date:   Tue May 21 13:53:08 2019 +0430
+
+    اضافه کردن صفحه لیست
+
+[33mcommit a8613b5100ddbf7ab6565272506aa1a8ce3c3fec[m
+Author: Salehz <saleh.zarei@gmail.com>
+Date:   Tue May 21 13:05:42 2019 +0430
+
+    به روز رسانی صفحه اول تاریخ 31 اردیبهشت
+
+[33mcommit 92e90412e7fc48aaa2e5f4a0e237315f583eeee1[m
+Author: Salehz <saleh.zarei@gmail.com>
+Date:   Sat May 18 16:39:39 2019 +0430
+
+    Initial commit

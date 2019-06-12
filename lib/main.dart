@@ -9,6 +9,7 @@ import 'package:hello_flutter/toureList.dart';
 import 'package:scoped_model/scoped_model.dart';
 import './homepage.dart';
 import './pages/contact.dart';
+import './pages/aboutus.dart';
 import './scoped_model.dart';
 
 main() {
@@ -47,8 +48,8 @@ main() {
         ),
         initialRoute: '/',
         routes: {
-          '/': (context) => HomePage(model:model),
-          // '/': (context) => ChekOut(),
+         // '/': (context) => HomePage(model:model),
+           '/': (context) => AboutUs(),
 
           '/tourelist': (context) => ToureListPage(),
           '/touredetile': (context) => ToureDetilePage(),
