@@ -3,7 +3,7 @@ import 'package:flutter/rendering.dart';
 import '../model/passenger_model.dart';
 
 class ChekOut extends StatelessWidget {
-  final List<Passenger> passengersList;
+  final List<PassengerModel> passengersList;
 
   const ChekOut({Key key, this.passengersList}) : super(key: key);
 
@@ -14,20 +14,20 @@ class ChekOut extends StatelessWidget {
     //     .toList();
 
     ///
-    List<Passenger> pList = [
-      Passenger(
+    List<PassengerModel> pList = [
+      PassengerModel(
           name: 'هبدالصالح',
           family: 'زارعی',
           melicode: '09417162444',
           brith: '1363/12/12',
           sex: 'مرد'),
-      Passenger(
+      PassengerModel(
           name: 'محمدرضا',
           family: 'برومند',
           melicode: '1561561565',
           brith: '1363/12/12',
           sex: 'مرد'),
-      Passenger(
+      PassengerModel(
           name: 'ابراهیم',
           family: 'عباسی',
           melicode: '0972166255',

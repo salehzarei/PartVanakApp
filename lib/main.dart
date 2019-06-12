@@ -48,8 +48,8 @@ main() {
         ),
         initialRoute: '/',
         routes: {
-         // '/': (context) => HomePage(model:model),
-           '/': (context) => AboutUs(),
+          '/': (context) => HomePage(model: model),
+          // '/': (context) => AboutUs(),
 
           '/tourelist': (context) => ToureListPage(),
           '/touredetile': (context) => ToureDetilePage(),

@@ -1,4 +1,4 @@
-class Passenger {
+class PassengerModel {
 
   final String name;
   final String family;
@@ -6,7 +6,7 @@ class Passenger {
   final String sex;
   final String brith;
 
-  Passenger({this.name, this.family, this.melicode ,this.sex, this.brith});
+  PassengerModel({this.name, this.family, this.melicode ,this.sex, this.brith});
 
 
 }
