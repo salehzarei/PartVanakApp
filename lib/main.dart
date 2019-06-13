@@ -50,7 +50,7 @@ main() {
         routes: {
           '/': (context) => HomePage(model: model),
           //'/': (context) => AboutUs(),
-
+          'hello_flutter/pages/aboutus': (context) => AboutUs(),
           '/tourelist': (context) => ToureListPage(),
           '/touredetile': (context) => ToureDetilePage(),
           '/buyticket': (context) => BuyTicket()
