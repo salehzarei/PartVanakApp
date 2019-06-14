@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hello_flutter/UI/chekout.dart';
 import 'package:jalali_calendar/jalali_calendar.dart';
+import '../model/passenger_model.dart';
 
 class Passenger extends StatefulWidget {
   final List<String> personcount;
@@ -37,7 +38,7 @@ class _PassengerState extends State<Passenger> {
                 style: Theme.of(context)
                     .textTheme
                     .title
-                    .copyWith(color: Colors.white),
+                    .copyWith(color: Colors.white, fontSize: 15),
               ),
               onPressed: () => Navigator.push(
                   context, MaterialPageRoute(builder: (context) => ChekOut())),
@@ -61,9 +62,8 @@ class _PassengerState extends State<Passenger> {
                                 selectedPersonList.remove(_key);
                               });
                             },
-                    
-                     child: selectedPersonList.values.elementAt(index))
-                    : selectedPersonList.values.elementAt(index);
+                            child: selectedPersonList.values.elementAt(index))
+                        : selectedPersonList.values.elementAt(index);
                   },
                 ))));
   }
@@ -81,6 +81,9 @@ class UserForm extends StatefulWidget {
 class _UserFormState extends State<UserForm> {
   int _radioValue = 0;
   String _title;
+  PassengerModel _passenger = PassengerModel();
+
+  GlobalKey<FormState> _keyform = GlobalKey<FormState>();
 
   _changeValue(value) {
     setState(() {
@@ -142,138 +145,144 @@ class _UserFormState extends State<UserForm> {
       children: <Widget>[
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 10),
-          child: Container(
-            padding: EdgeInsets.symmetric(horizontal: 15, vertical: 5),
-            decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(15),
-                boxShadow: [
-                  BoxShadow(
-                      color: Theme.of(context).primaryColor,
-                      blurRadius: 2.5,
-                      offset: Offset(0.0, 1.0),
-                      spreadRadius: 0.5),
-                ]),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              textDirection: TextDirection.rtl,
-              children: <Widget>[
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: <Widget>[
-                    Expanded(
-                      flex: 1,
-                      child: TextFormField(
-                        decoration: InputDecoration(
-                            hintText: 'نام',
-                            hintStyle: TextStyle(fontSize: 13),
-                            counterText: ''),
-                        keyboardType: TextInputType.text,
-                        maxLength: 10,
-                      ),
-                    ),
-                    SizedBox(
-                      width: 10,
-                    ),
-                    Expanded(
-                      flex: 1,
-                      child: TextFormField(
-                        decoration: InputDecoration(
-                          hintText: 'نام خانوادگی',
-                          hintStyle: TextStyle(fontSize: 13),
-                          counterText: '',
-                        ),
-                        keyboardType: TextInputType.text,
-                        maxLength: 25,
-                      ),
-                    )
-                  ],
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: <Widget>[
-                    Expanded(
-                      flex: 1,
-                      child: TextFormField(
-                        decoration: InputDecoration(
-                            hintText: 'کدملی/پاسپورت',
-                            hintStyle: TextStyle(fontSize: 13),
-                            counterText: ''),
-                        keyboardType: TextInputType.text,
-                        maxLength: 10,
-                      ),
-                    ),
-                    SizedBox(
-                      width: 10,
-                    ),
-                    Expanded(
-                      flex: 1,
-                      child: TextFormField(
-                        decoration: InputDecoration(
-                          hintText: 'محل تولد',
-                          hintStyle: TextStyle(fontSize: 13),
-                          counterText: '',
-                        ),
-                        keyboardType: TextInputType.text,
-                        maxLength: 25,
-                      ),
-                    )
-                  ],
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: <Widget>[
-                    Expanded(
-                      flex: 1,
-                      child: Wrap(
-                          crossAxisAlignment: WrapCrossAlignment.center,
-                          alignment: WrapAlignment.start,
-                          children: <Widget>[
-                            Text(
-                              'مرد',
-                              style: TextStyle(fontSize: 14),
-                            ),
-                            Radio(
-                              value: 0,
-                              groupValue: _radioValue,
-                              onChanged: _changeValue,
-                            ),
-                            Text(
-                              'زن',
-                              style: TextStyle(fontSize: 14),
-                            ),
-                            Radio(
-                              value: 1,
-                              groupValue: _radioValue,
-                              onChanged: _changeValue,
-                            ),
-                          ]),
-                    ),
-                    SizedBox(
-                      width: 10,
-                    ),
-                    Expanded(
+          child: Form(
+            key: _keyform,
+            child: Container(
+              padding: EdgeInsets.symmetric(horizontal: 15, vertical: 5),
+              decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(15),
+                  boxShadow: [
+                    BoxShadow(
+                        color: Theme.of(context).primaryColor,
+                        blurRadius: 2.5,
+                        offset: Offset(0.0, 1.0),
+                        spreadRadius: 0.5),
+                  ]),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                textDirection: TextDirection.rtl,
+                children: <Widget>[
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: <Widget>[
+                      Expanded(
                         flex: 1,
-                        child: GestureDetector(
-                          onTap: () => _selectDate(context),
-                          child: Container(
-                            child: _year == null
-                                ? Text(
-                                    'تاریخ تولد را انتخاب کنید',
-                                    style: TextStyle(
-                                        fontSize: 14,
-                                        color: Colors.grey.shade700),
-                                  )
-                                : Text(
-                                    "$_year/$_month/$_day",
-                                    textDirection: TextDirection.rtl,
-                                    style: TextStyle(fontSize: 15),
-                                  ),
+                        child: TextFormField(
+                          onSaved: (val) {
+                            
+                          },
+                          decoration: InputDecoration(
+                              hintText: 'نام',
+                              hintStyle: TextStyle(fontSize: 13),
+                              counterText: ''),
+                          keyboardType: TextInputType.text,
+                          maxLength: 10,
+                        ),
+                      ),
+                      SizedBox(
+                        width: 10,
+                      ),
+                      Expanded(
+                        flex: 1,
+                        child: TextFormField(
+                          decoration: InputDecoration(
+                            hintText: 'نام خانوادگی',
+                            hintStyle: TextStyle(fontSize: 13),
+                            counterText: '',
                           ),
-                        ))
-                  ],
-                )
-              ],
+                          keyboardType: TextInputType.text,
+                          maxLength: 25,
+                        ),
+                      )
+                    ],
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: <Widget>[
+                      Expanded(
+                        flex: 1,
+                        child: TextFormField(
+                          decoration: InputDecoration(
+                              hintText: 'کدملی/پاسپورت',
+                              hintStyle: TextStyle(fontSize: 13),
+                              counterText: ''),
+                          keyboardType: TextInputType.text,
+                          maxLength: 10,
+                        ),
+                      ),
+                      SizedBox(
+                        width: 10,
+                      ),
+                      Expanded(
+                        flex: 1,
+                        child: TextFormField(
+                          decoration: InputDecoration(
+                            hintText: 'محل تولد',
+                            hintStyle: TextStyle(fontSize: 13),
+                            counterText: '',
+                          ),
+                          keyboardType: TextInputType.text,
+                          maxLength: 25,
+                        ),
+                      )
+                    ],
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: <Widget>[
+                      Expanded(
+                        flex: 1,
+                        child: Wrap(
+                            crossAxisAlignment: WrapCrossAlignment.center,
+                            alignment: WrapAlignment.start,
+                            children: <Widget>[
+                              Text(
+                                'مرد',
+                                style: TextStyle(fontSize: 14),
+                              ),
+                              Radio(
+                                value: 0,
+                                groupValue: _radioValue,
+                                onChanged: _changeValue,
+                              ),
+                              Text(
+                                'زن',
+                                style: TextStyle(fontSize: 14),
+                              ),
+                              Radio(
+                                value: 1,
+                                groupValue: _radioValue,
+                                onChanged: _changeValue,
+                              ),
+                            ]),
+                      ),
+                      SizedBox(
+                        width: 10,
+                      ),
+                      Expanded(
+                          flex: 1,
+                          child: GestureDetector(
+                            onTap: () => _selectDate(context),
+                            child: Container(
+                              child: _year == null
+                                  ? Text(
+                                      'تاریخ تولد را انتخاب کنید',
+                                      style: TextStyle(
+                                          fontSize: 14,
+                                          color: Colors.grey.shade700),
+                                    )
+                                  : Text(
+                                      "$_year/$_month/$_day",
+                                      textDirection: TextDirection.rtl,
+                                      style: TextStyle(fontSize: 15),
+                                    ),
+                            ),
+                          ))
+                    ],
+                  )
+                ],
+              ),
             ),
           ),
         ),

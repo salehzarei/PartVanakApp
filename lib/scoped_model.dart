@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:scoped_model/scoped_model.dart';
 import 'package:http/http.dart' as http;
 import './model/toure_model.dart';
