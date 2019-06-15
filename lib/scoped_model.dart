@@ -2,9 +2,11 @@ import 'dart:convert';
 import 'package:scoped_model/scoped_model.dart';
 import 'package:http/http.dart' as http;
 import './model/toure_model.dart';
+import './model/passenger_model.dart';
 
 class MainModel extends Model {
   List<Toure> tourelist = [];
+  List<PassengerModel> passengers = [];
   bool isloading = false;
 
  // List<Toure> get tourData => _tourelist;
