@@ -1,14 +1,18 @@
 import 'dart:convert';
-
 import 'package:scoped_model/scoped_model.dart';
 import 'package:http/http.dart' as http;
 import './model/toure_model.dart';
 import './model/contact.dart';
+import './model/passenger_model.dart';
+
 
 class MainModel extends Model {
   final String host = 'https://safirparvaz.ir/tourapi/';
   List<Toure> tourelist = [];
   List<ContactSubject> contactSubjectList = [];
+  List<PassengerModel> passengers = [];
+
+  
   bool isloading = false;
 
   // List<Toure> get tourData => _tourelist;

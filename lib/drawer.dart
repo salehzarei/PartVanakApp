@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import './Theme/drawerTheme.dart';
+import './pages/aboutus.dart';
 
 class MyDrawer extends StatelessWidget {
   @override
@@ -7,7 +8,9 @@ class MyDrawer extends StatelessWidget {
     return Material(
         child: Container(
       width: 250,
-      decoration: BoxDecoration(color: Theme.of(context).appBarTheme.color,),
+      decoration: BoxDecoration(
+        color: Theme.of(context).appBarTheme.color,
+      ),
       child: Column(
         children: <Widget>[
           Container(
@@ -51,8 +54,10 @@ class MyDrawer extends StatelessWidget {
                           children: <Widget>[
                             Padding(
                               padding: const EdgeInsets.only(bottom: 10.2),
-                              child: Icon(Icons.phone, color: Theme.of(context).accentColor,),
-                              
+                              child: Icon(
+                                Icons.phone,
+                                color: Theme.of(context).accentColor,
+                              ),
                             ),
                             Text(
                               'تلگرام',
@@ -67,7 +72,10 @@ class MyDrawer extends StatelessWidget {
                           children: <Widget>[
                             Padding(
                               padding: const EdgeInsets.only(bottom: 10.2),
-                              child: Icon(Icons.phone,color: Theme.of(context).accentColor,),
+                              child: Icon(
+                                Icons.phone,
+                                color: Theme.of(context).accentColor,
+                              ),
                             ),
                             Text(
                               'اینستاگرام',
@@ -103,10 +111,20 @@ class MyDrawer extends StatelessWidget {
                               color: Theme.of(context).accentColor,
                             ),
                           ),
-                          Text(
-                            'درباره ما',
-                            style: DarwerThemeData.textTheme.title,
-                          )
+                          // Text(
+                          //   'درباره ما',
+                          //   style: DarwerThemeData.textTheme.title,
+                          // )
+                          InkWell(
+                            child: Text('درباره ما',style: TextStyle(color: Colors.white),),
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => AboutUs()),
+                              );
+                            },
+                          ),
                         ],
                       ),
                     )),
