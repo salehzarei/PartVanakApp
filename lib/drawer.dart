@@ -117,7 +117,7 @@ class MyDrawer extends StatelessWidget {
                           //   style: DarwerThemeData.textTheme.title,
                           // )
                           InkWell(
-                            child: Text('درباره ما',style: TextStyle(color: Colors.white),),
+                            child: Text('درباره ما',style: DarwerThemeData.textTheme.title,),
                             onTap: () {
                               Navigator.push(
                                 context,

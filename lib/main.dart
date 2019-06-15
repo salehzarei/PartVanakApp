@@ -50,8 +50,7 @@ main() {
         routes: {
           '/': (context) => HomePage(model: model),
           //'/': (context) => AboutUs(),
-
-           '/pages/aboutus': (context) => AboutUs(), 
+          '/aboutus': (context) => AboutUs(), 
           '/tourelist': (context) => ToureListPage(),
           '/touredetile': (context) => ToureDetilePage(),
           '/buyticket': (context) => BuyTicket()
