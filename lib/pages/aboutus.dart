@@ -56,7 +56,8 @@ class AboutUs extends StatelessWidget {
                       //   '${_text_long.toString()}',
                       //   textDirection: TextDirection.rtl,
                       // ),
-                      Html(data: """ 
+                      Html(
+                        data: """ 
                         <html>
                               <body>
                               <pre>
@@ -77,7 +78,9 @@ class AboutUs extends StatelessWidget {
                               </pre>
                               </body>
                         </html>
-                                """),
+                                """,
+                        padding: EdgeInsets.all(15.0),
+                      ),
                       Text(
                         '${_text_long.toString()}',
                         textDirection: TextDirection.rtl,
@@ -121,7 +124,7 @@ class AboutUs extends StatelessWidget {
                       InkWell(
                           onTap: () {},
                           child: Image.asset('images/facebook.png')),
-                      SizedBox(),
+                      
                     ],
                   ),
                 ),
