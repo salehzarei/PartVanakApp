@@ -170,7 +170,7 @@ class _ContactPageState extends State<ContactPage> {
     Widget content= Container(width: 0.0,height: 0.0,) ;
     return ScopedModelDescendant(
       builder: (BuildContext context, Widget child, MainModel model) {
-        if (model.contactSubjectList.length > 0) {
+        if (model.contactSubjectList.length > 0 && !model.isLoading) {
           final List<DropdownMenuItem<String>> _subjectArr = [];
           model.contactSubjectList.forEach((subjectResponse) {
             _subjectArr.add(DropdownMenuItem<String>(
@@ -190,8 +190,10 @@ class _ContactPageState extends State<ContactPage> {
                   _formData['subject'] = newValue;
                 });
               }));
-        } 
-        return content;
+        } else if (model.isLoading) {
+          content = Center(child: CircularProgressIndicator());
+        }
+        return RefreshIndicator(onRefresh: model.fetchSubject, child: content,) ;
       },
     );
   }

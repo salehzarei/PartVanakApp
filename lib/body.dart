@@ -20,7 +20,7 @@ class _HomeBodyState extends State<HomeBody> {
           child: ScopedModelDescendant<MainModel>(
             builder: (context,child,model){
               Widget _tour_listin_main = ToureScrollTitle();
-              if(model.isloading) _tour_listin_main = CircularProgressIndicator();
+              if(model.isLoading) _tour_listin_main = CircularProgressIndicator();
               return Column(
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[

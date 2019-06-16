@@ -13,15 +13,15 @@ class MainModel extends Model {
   List<PassengerModel> passengers = [];
 
   
-  bool isloading = false;
+  bool _isLoading = false;
 
-  // List<Toure> get tourData => _tourelist;
-
-  // bool get isloading => _isloading;
+  bool get isLoading {
+    return _isLoading;
+  }
 
   Future getTourData() async {
     tourelist.clear();
-    isloading = true;
+    _isLoading = true;
     notifyListeners();
     final response = await http.get(host + 'tours');
     if (response.statusCode == 200) {
@@ -48,7 +48,7 @@ class MainModel extends Model {
         tourelist.add(_toure);
         notifyListeners();
       });
-      isloading = false;
+      _isLoading = false;
       notifyListeners();
       return tourelist;
     } else {
@@ -66,7 +66,7 @@ class MainModel extends Model {
     // }
     // return true;
     contactSubjectList.clear();
-    isloading = true;
+    _isLoading = true;
     notifyListeners();
     final response = await http.get(host + 'contact/subjects');
     
@@ -75,8 +75,10 @@ class MainModel extends Model {
 
      // print(response.body);
 
+     print(data);
+
       if (data == null) {
-        isloading = false;
+        _isLoading = false;
         notifyListeners();
         return true;
       }
@@ -85,14 +87,12 @@ class MainModel extends Model {
         _contactSubjectList = ContactSubject(
           id:touredata['Id'].toString(),
           title: touredata['Title'].toString(),
-         
         );
          contactSubjectList.add(_contactSubjectList);
         
-          isloading = false;
+        _isLoading = false;
         notifyListeners();
       });
-    //  print(contactSubjectList);
       return true;
     } else {
       throw Exception('خطا اتصال به دیتابیس');
@@ -100,20 +100,29 @@ class MainModel extends Model {
   }
 
   Future<bool> addContact(Map<String, dynamic> contactData) {
+    _isLoading = true;
+    notifyListeners();
     return http
     .post(host + 'contact/add', body: json.encode(contactData))
       .then((http.Response response) {
         if (response.statusCode != 200 && response.statusCode != 201) {
+          _isLoading = false;
+          notifyListeners();
           return false;
         }
         final Map<String, dynamic> responseData = json.decode(response.body);
         if (responseData['error']) {
+          _isLoading = false;
+          notifyListeners();
           return false;
         }
-
+        _isLoading = false;
+        notifyListeners();
         return true;
       })
     .catchError((error) {
+      _isLoading = false;
+      notifyListeners();
       return false;
     });
   }
