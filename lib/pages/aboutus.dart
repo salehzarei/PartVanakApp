@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
+import 'package:html/dom.dart' as dom;
 
 class AboutUs extends StatelessWidget {
   @override
@@ -30,8 +31,7 @@ class AboutUs extends StatelessWidget {
                     // ),
                     InkWell(
                   onTap: () {},
-                  child: Image.network(
-                      'http://partvanak.com/store/files/static/1212-logo.png?610469873'),
+                  child: Image.asset('images/logo.png'),
                 ),
               ),
             ],
@@ -61,13 +61,12 @@ class AboutUs extends StatelessWidget {
                       //   '${_text_long.toString()}',
                       //   textDirection: TextDirection.rtl,
                       // ),
-                      
+
                       Html(
-                        defaultTextStyle: TextStyle(color: Colors.white) ,
-                          data: """ 
+                        defaultTextStyle: TextStyle(color: Colors.white),
+                        data: """ 
                           <html>
-                                <body>
-                                
+                                <body dir="rtl">
                                 <pre>
                                 <p style="color:white">
                                 <bdo dir="rtl">Swapped!</bdo>
@@ -91,17 +90,20 @@ class AboutUs extends StatelessWidget {
                                 </body>
                           </html>
                                   """,
-                          padding: EdgeInsets.all(15.0),
-
-                        ),
-                      Text(
-                        '${_text_long.toString()}',
-                        textDirection: TextDirection.rtl,
-                        style: TextStyle(color: Colors.white),
+                        padding: EdgeInsets.all(15.0),
+                        customRender: (node, children) {
+                          if (node is dom.Element) {
+                            switch (node.localName) {
+                              case "custom_tag":
+                                return ListView(children: children);
+                            }
+                          }
+                        },
                       ),
                       Text(
                         '${_text_long.toString()}',
                         textDirection: TextDirection.rtl,
+                        style: TextStyle(color: Colors.white),
                       ),
                     ],
                   ),
@@ -115,8 +117,10 @@ class AboutUs extends StatelessWidget {
           child: Material(
             color: Colors.transparent,
             child: Container(
+              decoration:
+                  BoxDecoration(borderRadius: BorderRadius.circular(20)),
               height: 50,
-              color: Colors.black.withOpacity(0.2),
+              color: Colors.black.withOpacity(0.5),
               width: MediaQuery.of(context).size.width,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
