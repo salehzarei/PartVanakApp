@@ -3,9 +3,10 @@ import 'package:flutter/rendering.dart';
 import '../model/passenger_model.dart';
 
 class ChekOut extends StatelessWidget {
-  final List<PassengerModel> passengersList;
+final List<PassengerModel> passengerlist ;
 
-  const ChekOut({Key key, this.passengersList}) : super(key: key);
+  const ChekOut({Key key, this.passengerlist}) : super(key: key);
+
 
   @override
   Widget build(BuildContext context) {
@@ -14,28 +15,28 @@ class ChekOut extends StatelessWidget {
     //     .toList();
 
     ///
-    List<PassengerModel> pList = [
-      PassengerModel(
-          name: 'هبدالصالح',
-          family: 'زارعی',
-          melicode: '09417162444',
-          brith: '1363/12/12',
-          sex: 'مرد'),
-      PassengerModel(
-          name: 'محمدرضا',
-          family: 'برومند',
-          melicode: '1561561565',
-          brith: '1363/12/12',
-          sex: 'مرد'),
-      PassengerModel(
-          name: 'ابراهیم',
-          family: 'عباسی',
-          melicode: '0972166255',
-          brith: '1363/12/12',
-          sex: 'مرد')
-    ];
+    // List<PassengerModel> pList = [
+    //   PassengerModel(
+    //       name: 'هبدالصالح',
+    //       family: 'زارعی',
+    //       melicode: '09417162444',
+    //       brith: '1363/12/12',
+    //       sex: 'مرد'),
+    //   PassengerModel(
+    //       name: 'محمدرضا',
+    //       family: 'برومند',
+    //       melicode: '1561561565',
+    //       brith: '1363/12/12',
+    //       sex: 'مرد'),
+    //   PassengerModel(
+    //       name: 'ابراهیم',
+    //       family: 'عباسی',
+    //       melicode: '0972166255',
+    //       brith: '1363/12/12',
+    //       sex: 'مرد')
+    // ];
 
-    List<DataRow> listpassanger = pList
+    List<DataRow> listpassanger = passengerlist
         .map((i) => DataRow(cells: [
               DataCell(Text(i.name + " " + i.family , style: Theme.of(context).textTheme.subtitle)),
               DataCell(Text(i.melicode, style: Theme.of(context).textTheme.subtitle)),

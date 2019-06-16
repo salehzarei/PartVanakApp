@@ -53,7 +53,8 @@ main() {
           '/aboutus': (context) => AboutUs(), 
           '/tourelist': (context) => ToureListPage(),
           '/touredetile': (context) => ToureDetilePage(),
-          '/buyticket': (context) => BuyTicket()
+          '/buyticket': (context) => BuyTicket(),
+          '/contact': (context) => ContactPage(model)
         }),
   ));
 }

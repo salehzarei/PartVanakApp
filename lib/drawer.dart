@@ -99,7 +99,6 @@ class MyDrawer extends StatelessWidget {
                 GestureDetector(
                     onTap: () {
                       print('kkkkk');
-                      Navigator.pushNamed(context, '/contact');
                     },
                     child: Container(
                       padding: EdgeInsets.only(top: 15.0, left: 15, right: 20),
@@ -131,7 +130,9 @@ class MyDrawer extends StatelessWidget {
                     )),
                 GestureDetector(
                     onTap: () {
-                      Navigator.pop(context);
+                      print('tp');
+                      Navigator.pushNamed(context, '/contact');
+                      // Navigator.pop(context);
                     },
                     child: Container(
                       padding: EdgeInsets.only(top: 15.0, left: 15, right: 20),
