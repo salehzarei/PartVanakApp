@@ -85,12 +85,12 @@ class AboutUs extends StatelessWidget {
                                 - اخذ گواهینامه بین المللی و پلاک ترانزیت.
                                 </p>
                                 <img src="https://images.unsplash.com/photo-1500835556837-99ac94a94552?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80">
-
                                 </pre>
                                 </body>
                           </html>
                                   """,
                         padding: EdgeInsets.all(15.0),
+                        
                         customRender: (node, children) {
                           if (node is dom.Element) {
                             switch (node.localName) {
