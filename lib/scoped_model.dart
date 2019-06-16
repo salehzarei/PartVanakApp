@@ -1,16 +1,19 @@
 import 'dart:convert';
+import 'package:flutter/cupertino.dart';
+import 'package:hello_flutter/model/about_model.dart';
 import 'package:scoped_model/scoped_model.dart';
 import 'package:http/http.dart' as http;
 import './model/toure_model.dart';
 import './model/contact.dart';
 import './model/passenger_model.dart';
 
-
 class MainModel extends Model {
   final String host = 'https://safirparvaz.ir/tourapi/';
   List<Toure> tourelist = [];
   List<ContactSubject> contactSubjectList = [];
   List<PassengerModel> passengers = [];
+  List<GlobalKey<FormState>> userFormKey = [];
+  AboutModel aboutmodel;
 
   
   bool _isLoading = false;
@@ -69,13 +72,10 @@ class MainModel extends Model {
     _isLoading = true;
     notifyListeners();
     final response = await http.get(host + 'contact/subjects');
-    
+
     if (response.statusCode == 200) {
       List<dynamic> data = json.decode(response.body);
 
-     // print(response.body);
-
-     print(data);
 
       if (data == null) {
         _isLoading = false;
@@ -83,9 +83,9 @@ class MainModel extends Model {
         return true;
       }
       ContactSubject _contactSubjectList;
-       data.forEach((touredata) {
+      data.forEach((touredata) {
         _contactSubjectList = ContactSubject(
-          id:touredata['Id'].toString(),
+          id: touredata['Id'].toString(),
           title: touredata['Title'].toString(),
         );
          contactSubjectList.add(_contactSubjectList);
@@ -128,4 +128,22 @@ class MainModel extends Model {
   }
 
   //    --------------  ./contact
+
+///// get About DATA
+  Future<bool> getAboutData() async {
+
+    _isLoading = true;
+    notifyListeners();
+    final response = await http.get(host + 'about');
+
+    if (response.statusCode == 200) {
+      Map<String,dynamic> data = json.decode(response.body);
+      aboutmodel=AboutModel(about:data['About'] ,name:data['Name'],cell:data['Cell'],tell: data['Tell'],address:data['Address'],email:data['Email'],web: data['Web'],social: data['Social']);
+      _isLoading = false;
+      notifyListeners();
+      return true;
+    } else {
+      throw Exception('خطا اتصال به دیتابیس');
+    }
+  }
 }
