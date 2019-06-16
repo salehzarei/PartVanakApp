@@ -46,9 +46,9 @@ main() {
         ),
         initialRoute: '/',
         routes: {
-          '/': (context) => HomePage(model: model),
-          //'/': (context) => AboutUs(),
-          '/aboutus': (context) => AboutUs(),
+         '/': (context) => HomePage(model: model),
+          // '/': (context) => AboutUs(mainmodel: model),
+          '/aboutus': (context) => AboutUs(mainmodel: model),
           '/tourelist': (context) => ToureListPage(),
           '/touredetile': (context) => ToureDetilePage(),
           '/buyticket': (context) => BuyTicket(),

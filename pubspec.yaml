@@ -54,6 +54,7 @@ flutter:
    - images/facebook.png
    - images/telegram.png
    - images/twitter.png
+   - images/logo.png
 
 
   # An image asset can refer to one or more resolution-specific "variants", see
