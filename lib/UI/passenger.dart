@@ -5,6 +5,8 @@ import '../model/passenger_model.dart';
 import '../UI/userform.dart';
 import '../UI/chekout.dart';
 
+
+
 class Passenger extends StatefulWidget {
   final List<String> personcount;
 
@@ -76,13 +78,13 @@ class _PassengerState extends State<Passenger> {
     // }
   }
 
-  void onDelete() {
-    print("Run OnDelete");
+  void onDelete(int index) {
+    print("Run OnDelete for $index");
+    
   }
 
   @override
   Widget build(BuildContext context) {
-    //var keys = selectedPersonList.keys.toList();
     return ScopedModelDescendant<MainModel>(
       builder: (context, child, model) {
         model.userFormKey.clear();
@@ -122,6 +124,7 @@ class _PassengerState extends State<Passenger> {
                       itemBuilder: (context, index) {
                         return UserForm(
                           index: index,
+                          onDelete: onDelete ,
                         );
                       },
                     ))));

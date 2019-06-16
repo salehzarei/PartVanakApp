@@ -10,32 +10,6 @@ final List<PassengerModel> passengerlist ;
 
   @override
   Widget build(BuildContext context) {
-    // List<DataCell> _dataCells = ['عبدالصالح زارعی', '0941716244', '1363/12/12']
-    //     .map((c) => DataCell(Text(c)))
-    //     .toList();
-
-    ///
-    // List<PassengerModel> pList = [
-    //   PassengerModel(
-    //       name: 'هبدالصالح',
-    //       family: 'زارعی',
-    //       melicode: '09417162444',
-    //       brith: '1363/12/12',
-    //       sex: 'مرد'),
-    //   PassengerModel(
-    //       name: 'محمدرضا',
-    //       family: 'برومند',
-    //       melicode: '1561561565',
-    //       brith: '1363/12/12',
-    //       sex: 'مرد'),
-    //   PassengerModel(
-    //       name: 'ابراهیم',
-    //       family: 'عباسی',
-    //       melicode: '0972166255',
-    //       brith: '1363/12/12',
-    //       sex: 'مرد')
-    // ];
-
     List<DataRow> listpassanger = passengerlist
         .map((i) => DataRow(cells: [
               DataCell(Text(i.name + " " + i.family , style: Theme.of(context).textTheme.subtitle)),
@@ -47,13 +21,13 @@ final List<PassengerModel> passengerlist ;
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        // backgroundColor: Theme.of(context).primaryColor,
+     
         title: Text('صورتحساب',
             style: TextStyle(color: Colors.white, fontSize: 20)),
       ),
-      //hit Ctrl+space in intellij to know what are the options you can use in flutter widgets
+      
       body: Container(
-        // textAlign: TextAlign.left,
+   
         padding: EdgeInsets.all(5.0),
         child: Container(
           child: ListView(
