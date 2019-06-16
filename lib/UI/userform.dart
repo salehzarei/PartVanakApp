@@ -6,7 +6,10 @@ import 'package:scoped_model/scoped_model.dart';
 class UserForm extends StatefulWidget {
   final int index;
 
-  const UserForm({Key key, this.index}) : super(key: key);
+  const UserForm({
+    Key key,
+    this.index,
+  }) : super(key: key);
 
   @override
   _UserFormState createState() => _UserFormState();
@@ -16,13 +19,7 @@ class UserForm extends StatefulWidget {
 
 class _UserFormState extends State<UserForm> {
   int _radioValue = 0;
-  // PassengerModel _passenger = PassengerModel();
-  GlobalKey<FormState> _keyform = GlobalKey<FormState>();
-  // TextEditingController _name = TextEditingController();
-  // TextEditingController _family = TextEditingController();
-  // TextEditingController _melicode = TextEditingController();
-
-  // String name;
+  GlobalKey<FormState> _keyform;
 
   _changeValue(value) {
     setState(() {
@@ -30,12 +27,12 @@ class _UserFormState extends State<UserForm> {
     });
   }
 
-  bool saveFormData() {
-    print("Run Save");
-    var valid = _keyform.currentState.validate();
-    if (valid) _keyform.currentState.save();
-    return valid;
-  }
+  // bool saveFormData() {
+  //   print("Run Save");
+  //   var valid = _keyform.currentState.validate();
+  //   if (valid) _keyform.currentState.save();
+  //   return valid;
+  // }
 
   String _year, _month, _day;
 
@@ -50,9 +47,25 @@ class _UserFormState extends State<UserForm> {
   }
 
   @override
+  void initState() {
+    super.initState();
+    _keyform = GlobalKey();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return ScopedModelDescendant<MainModel>(
       builder: (context, child, model) {
+        model.userFormKey.add(_keyform);
+        // ثبت و تغییر جنسیت هر مسافر در اسکوپ مدل
+        if (_radioValue == 0) {
+          model.passengers[widget.index].sex = 'مرد';
+        } else {
+          model.passengers[widget.index].sex = 'زن';
+        }
+        // ثبت و تغییر تاریخ تولد هر مسافر در اسکوپ مدل
+        model.passengers[widget.index].brith = "$_year/$_month/$_day";
+
         return Stack(
           children: <Widget>[
             Padding(
@@ -81,10 +94,10 @@ class _UserFormState extends State<UserForm> {
                           Expanded(
                             flex: 1,
                             child: TextFormField(
-                            //  initialValue: model.passengers[widget.index].name,
-                              onSaved: (val) =>
-                                  model.passengers[widget.index].name = val,
-                           
+                              onSaved: (val) => setState(
+                                    () => model.passengers[widget.index].name =
+                                        val,
+                                  ),
                               validator: (val) => val.length != null
                                   ? null
                                   : 'نام را وارد کنید',
@@ -103,8 +116,13 @@ class _UserFormState extends State<UserForm> {
                           Expanded(
                             flex: 1,
                             child: TextFormField(
-                              onSaved: (val) {},
-                      
+                              onSaved: (val) => setState(
+                                    () => model
+                                        .passengers[widget.index].family = val,
+                                  ),
+                              validator: (val) => val.length != null
+                                  ? null
+                                  : 'نام خانوادگی را وارد کنید',
                               decoration: InputDecoration(
                                 hintText: 'نام خانوادگی',
                                 hintStyle: TextStyle(fontSize: 13),
@@ -122,8 +140,13 @@ class _UserFormState extends State<UserForm> {
                           Expanded(
                             flex: 1,
                             child: TextFormField(
-                              onSaved: (val) {},
-                         
+                              onSaved: (val) => setState(
+                                    () => model.passengers[widget.index]
+                                        .melicode = val,
+                                  ),
+                              validator: (val) => val.length != null
+                                  ? null
+                                  : 'کد ملی را وارد کنید',
                               decoration: InputDecoration(
                                   hintText: 'کدملی/پاسپورت',
                                   hintStyle: TextStyle(fontSize: 13),
@@ -234,8 +257,7 @@ class _UserFormState extends State<UserForm> {
                         color: Colors.redAccent,
                         size: 25,
                       ),
-                      onPressed: () {
-                                }),
+                      onPressed: () {}),
                 ))
           ],
         );
