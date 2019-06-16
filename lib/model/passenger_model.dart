@@ -1,11 +1,11 @@
 class PassengerModel {
-  final String id;
-  final String title;
-   String name;
-  final String family;
-  final String melicode;
-  final String sex;
-  final String brith;
+  String id;
+  String title;
+  String name;
+  String family;
+  String melicode;
+  String sex;
+  String brith;
 
   PassengerModel(
       {this.id,

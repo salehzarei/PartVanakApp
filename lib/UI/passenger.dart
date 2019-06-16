@@ -3,6 +3,7 @@ import 'package:scoped_model/scoped_model.dart';
 import '../scoped_model.dart';
 import '../model/passenger_model.dart';
 import '../UI/userform.dart';
+import '../UI/chekout.dart';
 
 class Passenger extends StatefulWidget {
   final List<String> personcount;
@@ -75,32 +76,8 @@ class _PassengerState extends State<Passenger> {
     // }
   }
 
-  void saveForm(MainModel model) {
-    if (model.passengers.length > 0) {
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-            fullscreenDialog: true,
-            builder: (_) => Directionality(
-                  textDirection: TextDirection.rtl,
-                  child: Scaffold(
-                    appBar: AppBar(
-                      title: Text('List of Users'),
-                    ),
-                    body: ListView.builder(
-                      itemCount: model.passengers.length,
-                      itemBuilder: (_, i) => ListTile(
-                            leading: CircleAvatar(
-                              child: Text(model.passengers[i].id),
-                            ),
-                            //  title: Text(model.passengers[i].name),
-                            subtitle: Text(model.passengers[i].title),
-                          ),
-                    ),
-                  ),
-                )),
-      );
-    }
+  void onDelete() {
+    print("Run OnDelete");
   }
 
   @override
@@ -108,6 +85,7 @@ class _PassengerState extends State<Passenger> {
     //var keys = selectedPersonList.keys.toList();
     return ScopedModelDescendant<MainModel>(
       builder: (context, child, model) {
+        model.userFormKey.clear();
         return Scaffold(
             appBar: AppBar(
               centerTitle: true,
@@ -122,15 +100,16 @@ class _PassengerState extends State<Passenger> {
                           .copyWith(color: Colors.white, fontSize: 15),
                     ),
                     onPressed: () {
-                      saveForm(model);
-                    }
-                    // => Navigator.push(
-                    //     context,
-                    //     MaterialPageRoute(
-                    //         builder: (context) => ChekOut(
-                    //               passengerlist: model.passengers,
-                    //             ))),
-                    )
+                      model.userFormKey.forEach((index) {
+                        index.currentState.save();
+                      });
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => ChekOut(
+                                    passengerlist: model.passengers,
+                                  )));
+                    })
               ],
             ),
             body: Directionality(
@@ -138,11 +117,9 @@ class _PassengerState extends State<Passenger> {
                 child: Padding(
                     padding: const EdgeInsets.only(top: 15),
                     child: ListView.builder(
-                      // itemCount: keys.length,
                       addAutomaticKeepAlives: true,
                       itemCount: model.passengers.length,
                       itemBuilder: (context, index) {
-                        //  String _key = keys[index];
                         return UserForm(
                           index: index,
                         );

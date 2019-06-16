@@ -1,8 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:hello_flutter/UI/chekout.dart';
-import 'package:hello_flutter/UI/passenger.dart';
 import 'package:hello_flutter/buyticket.dart';
 import 'package:hello_flutter/toureDetile.dart';
 import 'package:hello_flutter/toureList.dart';
@@ -50,7 +48,7 @@ main() {
         routes: {
           '/': (context) => HomePage(model: model),
           //'/': (context) => AboutUs(),
-          '/aboutus': (context) => AboutUs(), 
+          '/aboutus': (context) => AboutUs(),
           '/tourelist': (context) => ToureListPage(),
           '/touredetile': (context) => ToureDetilePage(),
           '/buyticket': (context) => BuyTicket(),

@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:flutter/cupertino.dart';
 import 'package:scoped_model/scoped_model.dart';
 import 'package:http/http.dart' as http;
 import './model/toure_model.dart';
@@ -11,6 +12,7 @@ class MainModel extends Model {
   List<Toure> tourelist = [];
   List<ContactSubject> contactSubjectList = [];
   List<PassengerModel> passengers = [];
+  List<GlobalKey<FormState>> userFormKey = [];
 
   
   bool isloading = false;
