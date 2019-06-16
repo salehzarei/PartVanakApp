@@ -1,11 +1,11 @@
 import 'dart:convert';
 import 'package:flutter/cupertino.dart';
+import 'package:hello_flutter/model/about_model.dart';
 import 'package:scoped_model/scoped_model.dart';
 import 'package:http/http.dart' as http;
 import './model/toure_model.dart';
 import './model/contact.dart';
 import './model/passenger_model.dart';
-
 
 class MainModel extends Model {
   final String host = 'https://safirparvaz.ir/tourapi/';
@@ -13,8 +13,8 @@ class MainModel extends Model {
   List<ContactSubject> contactSubjectList = [];
   List<PassengerModel> passengers = [];
   List<GlobalKey<FormState>> userFormKey = [];
+  AboutModel aboutmodel;
 
-  
   bool isloading = false;
 
   // List<Toure> get tourData => _tourelist;
@@ -71,11 +71,11 @@ class MainModel extends Model {
     isloading = true;
     notifyListeners();
     final response = await http.get(host + 'contact/subjects');
-    
+
     if (response.statusCode == 200) {
       List<dynamic> data = json.decode(response.body);
 
-     // print(response.body);
+      // print(response.body);
 
       if (data == null) {
         isloading = false;
@@ -83,18 +83,17 @@ class MainModel extends Model {
         return true;
       }
       ContactSubject _contactSubjectList;
-       data.forEach((touredata) {
+      data.forEach((touredata) {
         _contactSubjectList = ContactSubject(
-          id:touredata['Id'].toString(),
+          id: touredata['Id'].toString(),
           title: touredata['Title'].toString(),
-         
         );
-         contactSubjectList.add(_contactSubjectList);
-        
-          isloading = false;
+        contactSubjectList.add(_contactSubjectList);
+
+        isloading = false;
         notifyListeners();
       });
-    //  print(contactSubjectList);
+      //  print(contactSubjectList);
       return true;
     } else {
       throw Exception('خطا اتصال به دیتابیس');
@@ -103,22 +102,53 @@ class MainModel extends Model {
 
   Future<bool> addContact(Map<String, dynamic> contactData) {
     return http
-    .post(host + 'contact/add', body: json.encode(contactData))
-      .then((http.Response response) {
-        if (response.statusCode != 200 && response.statusCode != 201) {
-          return false;
-        }
-        final Map<String, dynamic> responseData = json.decode(response.body);
-        if (responseData['error']) {
-          return false;
-        }
+        .post(host + 'contact/add', body: json.encode(contactData))
+        .then((http.Response response) {
+      if (response.statusCode != 200 && response.statusCode != 201) {
+        return false;
+      }
+      final Map<String, dynamic> responseData = json.decode(response.body);
+      if (responseData['error']) {
+        return false;
+      }
 
-        return true;
-      })
-    .catchError((error) {
+      return true;
+    }).catchError((error) {
       return false;
     });
   }
 
   //    --------------  ./contact
+
+///// get About DATA
+  Future getAboutData() async {
+    print("Run About");
+    isloading = true;
+    notifyListeners();
+    final response = await http.get(host + 'about');
+    print(response);
+    if (response.statusCode == 200) {
+      AboutModel data = json.decode(response.body);
+      AboutModel _about = AboutModel();
+      _about.about=data.about;
+      // data.forEach((aboutedata) {
+      //   _about = AboutModel(
+      //       about: aboutedata['About'],
+      //       address: aboutedata['Address'],
+      //       cell: aboutedata['Cell'],
+      //       email: aboutedata['Email'],
+      //       name: aboutedata['Name'],
+      //       social: aboutedata['Social'],
+      //       tell: aboutedata['Tell'],
+      //       web: aboutedata['Web']);
+      //   aboutmodel = _about;
+      //   notifyListeners();
+      // });
+      isloading = false;
+      notifyListeners();
+      return null;
+    } else {
+      throw Exception('خطا اتصال به دیتابیس');
+    }
+  }
 }
