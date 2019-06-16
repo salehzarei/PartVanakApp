@@ -3,18 +3,18 @@ import 'package:hello_flutter/scoped_model.dart';
 import 'package:jalali_calendar/jalali_calendar.dart';
 import 'package:scoped_model/scoped_model.dart';
 
+typedef OnDelete = void Function(int index);
+
 class UserForm extends StatefulWidget {
   final int index;
+ //final VoidCallback onDelete;
+ final OnDelete onDelete;
+   
 
-  const UserForm({
-    Key key,
-    this.index,
-  }) : super(key: key);
+  const UserForm({Key key, this.index, this.onDelete}) : super(key: key);
 
   @override
   _UserFormState createState() => _UserFormState();
-
-  //  bool isValid() => state.validate();
 }
 
 class _UserFormState extends State<UserForm> {
@@ -26,13 +26,6 @@ class _UserFormState extends State<UserForm> {
       _radioValue = value;
     });
   }
-
-  // bool saveFormData() {
-  //   print("Run Save");
-  //   var valid = _keyform.currentState.validate();
-  //   if (valid) _keyform.currentState.save();
-  //   return valid;
-  // }
 
   String _year, _month, _day;
 
@@ -151,7 +144,7 @@ class _UserFormState extends State<UserForm> {
                                   hintText: 'کدملی/پاسپورت',
                                   hintStyle: TextStyle(fontSize: 13),
                                   counterText: ''),
-                              keyboardType: TextInputType.text,
+                              keyboardType: TextInputType.number,
                               maxLength: 10,
                             ),
                           ),
@@ -257,7 +250,7 @@ class _UserFormState extends State<UserForm> {
                         color: Colors.redAccent,
                         size: 25,
                       ),
-                      onPressed: () {}),
+                      onPressed:()=> widget.onDelete(widget.index)),
                 ))
           ],
         );
