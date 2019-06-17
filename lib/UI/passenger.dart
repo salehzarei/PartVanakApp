@@ -102,10 +102,17 @@ class _PassengerState extends State<Passenger> {
                           .copyWith(color: Colors.white, fontSize: 15),
                     ),
                     onPressed: () {
+                      bool b=true;
                       model.userFormKey.forEach((index) {
-                        index.currentState.save();
+                        if (!index.currentState.validate()) {
+                           b=false;
+                          return;
+                        }
+                         index.currentState.save();
+                       
                       });
-                      Navigator.push(
+
+                     if(b) Navigator.push(
                           context,
                           MaterialPageRoute(
                               builder: (context) => ChekOut(

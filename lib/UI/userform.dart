@@ -44,6 +44,7 @@ class _UserFormState extends State<UserForm> {
   void initState() {
     super.initState();
     _keyform = GlobalKey();
+   
   }
 
   @override
@@ -92,9 +93,11 @@ class _UserFormState extends State<UserForm> {
                                     () => model.passengers[widget.index].name =
                                         val,
                                   ),
-                              validator: (val) => val.length != null
-                                  ? null
-                                  : 'نام را وارد کنید',
+                                  validator: (String value) {
+                                    if (value.isEmpty) {
+                                      return 'این فیلد ضروری می باشد';
+                                    }
+                                  },
                               decoration: InputDecoration(
                                   hintText: 'نام',
                                   isDense: true,
@@ -114,9 +117,11 @@ class _UserFormState extends State<UserForm> {
                                     () => model
                                         .passengers[widget.index].family = val,
                                   ),
-                              validator: (val) => val.length != null
-                                  ? null
-                                  : 'نام خانوادگی را وارد کنید',
+                                validator: (String value) {
+                                    if (value.isEmpty) {
+                                      return 'این فیلد ضروری می باشد';
+                                    }
+                                  },
                               decoration: InputDecoration(
                                 hintText: 'نام خانوادگی',
                                 hintStyle: TextStyle(fontSize: 13),
@@ -138,9 +143,11 @@ class _UserFormState extends State<UserForm> {
                                     () => model.passengers[widget.index]
                                         .melicode = val,
                                   ),
-                              validator: (val) => val.length != null
-                                  ? null
-                                  : 'کد ملی را وارد کنید',
+                               validator: (String value) {
+                                    if (value.isEmpty) {
+                                      return 'این فیلد ضروری می باشد';
+                                    }
+                                  },
                               decoration: InputDecoration(
                                   hintText: 'کدملی/پاسپورت',
                                   hintStyle: TextStyle(fontSize: 13),

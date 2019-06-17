@@ -24,7 +24,7 @@ class _ToureListPageState extends State<ToureListPage> {
             ScopedModelDescendant<MainModel>(
               builder: (context, child, model) {
                 return ListView.builder(
-                  itemCount: model.tourelist.length,
+                  itemCount: model.foreign.length,
                   padding: EdgeInsets.only(top: 50, left: 3, right: 3),
                   itemBuilder: (context, index) {
                     return GestureDetector(
@@ -32,10 +32,10 @@ class _ToureListPageState extends State<ToureListPage> {
                             context,
                             MaterialPageRoute(
                                 builder: (context) => ToureDetilePage(
-                                      toure: model.tourelist[index],
+                                      toure: model.foreign[index],
                                     ))),
                         child: ToureListItem(
-                          toure: model.tourelist[index],
+                          toure: model.foreign[index],
                         ));
                   },
                 );

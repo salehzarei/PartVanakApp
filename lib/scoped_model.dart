@@ -10,6 +10,8 @@ import './model/passenger_model.dart';
 class MainModel extends Model {
   final String host = 'https://safirparvaz.ir/tourapi/';
   List<Toure> tourelist = [];
+  List<Toure> foreign = [];
+  List<Toure> internal = [];
   List<ContactSubject> contactSubjectList = [];
   List<PassengerModel> passengers = [];
   List<GlobalKey<FormState>> userFormKey = [];
@@ -22,11 +24,14 @@ class MainModel extends Model {
     return _isLoading;
   }
 
-  Future getTourData() async {
+  Future getTourData({String query=''}) async {
+    print(query);
     tourelist.clear();
+    internal.clear();
+    foreign.clear();
     _isLoading = true;
     notifyListeners();
-    final response = await http.get(host + 'tours');
+    final response = await http.get(host + 'tours?'+query);
     if (response.statusCode == 200) {
       List<dynamic> data = json.decode(response.body);
       Toure _toure = Toure();
@@ -48,7 +53,27 @@ class MainModel extends Model {
           price: touredata['Adult_price'],
           currency: touredata['Currency_title'],
         );
-        tourelist.add(_toure);
+        switch (query) {
+        case "foreign=2":
+          {
+            foreign.add(_toure);
+          }
+          break;
+
+        case "foreign=1":
+          {
+            internal.add(_toure);
+          }
+          break;
+
+        
+        default:
+          {
+            tourelist.add(_toure);
+          }
+          break;
+      }
+        
         notifyListeners();
       });
       _isLoading = false;
