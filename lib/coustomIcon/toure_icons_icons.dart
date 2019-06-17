@@ -20,16 +20,36 @@ class ToureIcons {
 
   static const _kFontFam = 'ToureIcons';
 
-  static const IconData azadi = const IconData(0xe800, fontFamily: _kFontFam);
-  static const IconData around = const IconData(0xe801, fontFamily: _kFontFam);
-  static const IconData tent = const IconData(0xe802, fontFamily: _kFontFam);
-  static const IconData crown_of_royal_design = const IconData(0xe803, fontFamily: _kFontFam);
-  static const IconData first_day = const IconData(0xe804, fontFamily: _kFontFam);
-  static const IconData stopwatch = const IconData(0xe805, fontFamily: _kFontFam);
-  static const IconData control = const IconData(0xe806, fontFamily: _kFontFam);
-  static const IconData share = const IconData(0xe807, fontFamily: _kFontFam);
+  static const IconData coffee_cup = const IconData(0xe800, fontFamily: _kFontFam);
+  static const IconData cursor = const IconData(0xe801, fontFamily: _kFontFam);
+  static const IconData control = const IconData(0xe802, fontFamily: _kFontFam);
+  static const IconData cursors = const IconData(0xe803, fontFamily: _kFontFam);
+  static const IconData departures = const IconData(0xe804, fontFamily: _kFontFam);
+  static const IconData guarantees = const IconData(0xe805, fontFamily: _kFontFam);
+  static const IconData help = const IconData(0xe806, fontFamily: _kFontFam);
+  static const IconData instagram = const IconData(0xe807, fontFamily: _kFontFam);
   static const IconData passport_1 = const IconData(0xe808, fontFamily: _kFontFam);
-  static const IconData airport = const IconData(0xe809, fontFamily: _kFontFam);
-  static const IconData business_and_finance = const IconData(0xe80a, fontFamily: _kFontFam);
-  static const IconData passport = const IconData(0xe80b, fontFamily: _kFontFam);
+  static const IconData placeholder = const IconData(0xe809, fontFamily: _kFontFam);
+  static const IconData share = const IconData(0xe80a, fontFamily: _kFontFam);
+  static const IconData single = const IconData(0xe80b, fontFamily: _kFontFam);
+  static const IconData suitcase = const IconData(0xe80c, fontFamily: _kFontFam);
+  static const IconData telegram = const IconData(0xe80d, fontFamily: _kFontFam);
+  static const IconData address = const IconData(0xe80e, fontFamily: _kFontFam);
+  static const IconData addresss = const IconData(0xe80f, fontFamily: _kFontFam);
+  static const IconData aeroplane = const IconData(0xe810, fontFamily: _kFontFam);
+  static const IconData airport = const IconData(0xe811, fontFamily: _kFontFam);
+  static const IconData business_and_finance = const IconData(0xe812, fontFamily: _kFontFam);
+  static const IconData call = const IconData(0xe813, fontFamily: _kFontFam);
+  static const IconData call_center = const IconData(0xe814, fontFamily: _kFontFam);
+  static const IconData call_center_operator = const IconData(0xe815, fontFamily: _kFontFam);
+  static const IconData airplane_flight = const IconData(0xe816, fontFamily: _kFontFam);
+  static const IconData around = const IconData(0xe817, fontFamily: _kFontFam);
+  static const IconData azadi = const IconData(0xe818, fontFamily: _kFontFam);
+  static const IconData crown_of_royal_design = const IconData(0xe819, fontFamily: _kFontFam);
+  static const IconData first_day = const IconData(0xe81a, fontFamily: _kFontFam);
+  static const IconData hotel = const IconData(0xe81b, fontFamily: _kFontFam);
+  static const IconData passport = const IconData(0xe81c, fontFamily: _kFontFam);
+  static const IconData stopwatch = const IconData(0xe81d, fontFamily: _kFontFam);
+  static const IconData tent = const IconData(0xe81e, fontFamily: _kFontFam);
+  static const IconData world = const IconData(0xe81f, fontFamily: _kFontFam);
 }
