@@ -138,7 +138,16 @@ class MainModel extends Model {
 
     if (response.statusCode == 200) {
       Map<String,dynamic> data = json.decode(response.body);
-      aboutmodel=AboutModel(about:data['About'] ,name:data['Name'],cell:data['Cell'],tell: data['Tell'],address:data['Address'],email:data['Email'],web: data['Web'],social: data['Social']);
+      aboutmodel=AboutModel(
+        about:data['About'],
+        name:data['Name'],
+        cell:data['Cell'],
+        tell: data['Tell'],
+        address:data['Address'],
+        email:data['Email'],
+        web: data['Web'],
+        social: data['Social']
+        );
       _isLoading = false;
       notifyListeners();
       return true;

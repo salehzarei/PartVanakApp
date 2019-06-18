@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_html/flutter_html.dart';
-import 'package:html/dom.dart' as dom;
 import 'package:scoped_model/scoped_model.dart';
 import '../scoped_model.dart';
 import '../drawer.dart';
-import 'package:css_text/css_text.dart';
-
+// import 'package:css_text/css_text.dart';
+// import 'package:flutter_html/flutter_html.dart';
+// import 'package:html/dom.dart' as dom;
 class AboutUs extends StatefulWidget {
   final MainModel model;
   const AboutUs(this.model);
