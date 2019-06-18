@@ -1,21 +1,31 @@
 import 'package:flutter/material.dart';
-import 'package:hello_flutter/buyticket.dart';
+import 'dart:convert';
+import '../../buyticket.dart';
+import '../../model/accommodation_model.dart';
+import '../../model/toure_model.dart';
 
 class HotelDetile extends StatelessWidget {
   final double margin = 2.5;
+  final Toure toure;
 
+  const HotelDetile({Key key, this.toure}) : super(key: key);
 
- 
   @override
   Widget build(BuildContext context) {
+    ///استخراج لیست هتل ها
+    List<Accommodation> accommodation = [];
+var data =  toure.accommodation;
+  // var result = jsonDecode(toure.accommodation);
+  // List<String> placesList = new List<String>.from(result);
+    print(data);
 
- void _showModalSheet() {
-    showModalBottomSheet(context: context , builder: (builder) {
-      return Material(
-        child: BuyTicket()
-      );
-    });
-  }
+    void _showModalSheet() {
+      showModalBottomSheet(
+          context: context,
+          builder: (builder) {
+            return Material(child: BuyTicket());
+          });
+    }
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
@@ -231,7 +241,7 @@ class HotelDetile extends StatelessWidget {
         Container(
           margin: EdgeInsets.symmetric(vertical: 15),
           child: MaterialButton(
-            onPressed: _showModalSheet ,
+            onPressed: _showModalSheet,
             minWidth: 300,
             padding: EdgeInsets.symmetric(vertical: 15),
             child: Text(

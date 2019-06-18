@@ -7,13 +7,8 @@ import 'package:scoped_model/scoped_model.dart';
 
 import 'model/toure_model.dart';
 
-class HomeBody extends StatefulWidget {
-  @override
-  _HomeBodyState createState() => _HomeBodyState();
-}
-
-class _HomeBodyState extends State<HomeBody> {
-  
+class HomeBody extends StatelessWidget {
+  const HomeBody({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -24,9 +19,11 @@ class _HomeBodyState extends State<HomeBody> {
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
               MainCategory(),
-              CatDivider(),
+              CatDivider(
+                title: 'تورهای ویژه خارجی',
+              ),
               ToureScrollTitle(query: 'foreign=2'),
-              CatDivider(),
+              CatDivider(title: 'تورهای ویژه داخلی'),
               InternalToureScrollTitle(query: 'foreign=1'),
             ],
           )),
@@ -44,13 +41,12 @@ class ToureScrollTitle extends StatefulWidget {
 }
 
 class _ToureScrollTitleState extends State<ToureScrollTitle> {
-
-  List<Toure> toure=[];
-@override
+  List<Toure> toure = [];
+  @override
   void initState() {
     MainModel model = ScopedModel.of(context);
-     model.getTourData(query:widget.query);
-        super.initState();
+    model.getTourData(query: widget.query);
+    super.initState();
   }
 
   @override
@@ -82,24 +78,23 @@ class _ToureScrollTitleState extends State<ToureScrollTitle> {
   }
 }
 
-
 class InternalToureScrollTitle extends StatefulWidget {
   final String query;
 
   const InternalToureScrollTitle({Key key, this.query}) : super(key: key);
 
   @override
-  _InternalToureScrollTitleState createState() => _InternalToureScrollTitleState();
+  _InternalToureScrollTitleState createState() =>
+      _InternalToureScrollTitleState();
 }
 
 class _InternalToureScrollTitleState extends State<InternalToureScrollTitle> {
-
-  List<Toure> toure=[];
-@override
+  List<Toure> toure = [];
+  @override
   void initState() {
     MainModel model = ScopedModel.of(context);
-     model.getTourData(query:widget.query);
-        super.initState();
+    model.getTourData(query: widget.query);
+    super.initState();
   }
 
   @override

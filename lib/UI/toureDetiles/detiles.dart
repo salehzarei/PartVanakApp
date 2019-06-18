@@ -1,6 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:hello_flutter/coustomIcon/toure_icons_icons.dart';
+import '../../model/toure_model.dart';
+
 
 class Detiles extends StatelessWidget {
+  final Toure toure;
+
+  const Detiles({Key key, this.toure}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -16,30 +23,7 @@ class Detiles extends StatelessWidget {
           ),
         ),
         
-        Container(
-
-                margin: EdgeInsets.symmetric(horizontal: 10,vertical: 5),
-                padding: EdgeInsets.all(5),
-                 decoration: BoxDecoration(
-              border: Border(
-                top: BorderSide(color: Theme.of(context).accentColor))),
-                child: Row(
-                  textDirection: TextDirection.rtl,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                     Padding(
-                       padding: const EdgeInsets.only(top: 5),
-                       child: Text(
-                          'هتل پنج ستاره آنا کیش',
-                          style: Theme.of(context)
-                              .textTheme
-                              .headline
-                              .copyWith(fontSize: 14),
-                        ),
-                     ),
-                  ]
-                )),
-          Container(
+             Container(
           margin: EdgeInsets.symmetric(horizontal: 10),
           padding: EdgeInsets.only(left:8,right:8,bottom: 8),
           decoration: BoxDecoration(
@@ -60,18 +44,18 @@ class Detiles extends StatelessWidget {
                       textDirection: TextDirection.rtl,
                       children: <Widget>[
                         Icon(
-                          Icons.check,
+                          ToureIcons.departures,
                           size: 15,
                           color: Theme.of(context).iconTheme.color,
                         ),
                         SizedBox(width: 5),
                         Text(
-                          'نوع سفر',
+                          'وسیله نقلیه رفت و برگشت',
                           style: Theme.of(context).textTheme.display3,
                         ),
                         SizedBox(width: 5),
                         Text(
-                          'هوایی',
+                          toure.vehicl_went,
                           style: Theme.of(context).textTheme.display4,
                         ),
                       ],
@@ -82,46 +66,46 @@ class Detiles extends StatelessWidget {
                         textDirection: TextDirection.rtl,
                         children: <Widget>[
                           Icon(
-                            Icons.timer,
+                            ToureIcons.first_day,
                             size: 15,
                             color: Theme.of(context).iconTheme.color,
                           ),
                           SizedBox(width: 5),
                           Text(
-                            'تاریخ رفت',
+                            'تاریخ رفت    ',
                             style: Theme.of(context).textTheme.display3,
                           ),
                           SizedBox(width: 5),
                           Text(
-                            '98/9/12',
+                            toure.sdate,
                             style: Theme.of(context).textTheme.display4,
                           ),
                         ],
                       ),
                     ),
-                    Padding(
+                           Padding(
                       padding: const EdgeInsets.only(top: 5),
                       child: Row(
                         textDirection: TextDirection.rtl,
                         children: <Widget>[
                           Icon(
-                            Icons.timer,
+                            ToureIcons.first_day,
                             size: 15,
                             color: Theme.of(context).iconTheme.color,
                           ),
                           SizedBox(width: 5),
                           Text(
-                            'مدت تور',
+                            'تاریخ برگشت',
                             style: Theme.of(context).textTheme.display3,
                           ),
                           SizedBox(width: 5),
                           Text(
-                            '3 شب',
+                            toure.edate,
                             style: Theme.of(context).textTheme.display4,
                           ),
                         ],
                       ),
-                    )
+                    ),
                   ],
                 ),
               ),
@@ -136,18 +120,18 @@ class Detiles extends StatelessWidget {
                       textDirection: TextDirection.rtl,
                       children: <Widget>[
                         Icon(
-                          Icons.people,
+                          ToureIcons.tent,
                           size: 15,
                           color: Theme.of(context).iconTheme.color,
                         ),
                         SizedBox(width: 5),
                         Text(
-                          ' 111نوع سفر',
+                          'نوع تور',
                           style: Theme.of(context).textTheme.display3,
                         ),
                         SizedBox(width: 5),
                         Text(
-                          'هوایی',
+                          toure.difficulty,
                           style: Theme.of(context).textTheme.display4,
                         ),
                       ],
@@ -158,18 +142,18 @@ class Detiles extends StatelessWidget {
                         textDirection: TextDirection.rtl,
                         children: <Widget>[
                           Icon(
-                            Icons.timer,
+                            ToureIcons.suitcase,
                             size: 15,
                             color: Theme.of(context).iconTheme.color,
                           ),
                           SizedBox(width: 5),
                           Text(
-                            'تاریخ رفت',
+                            'ظرفیت تور',
                             style: Theme.of(context).textTheme.display3,
                           ),
                           SizedBox(width: 5),
                           Text(
-                            '98/9/12',
+                            '${toure.capacity.toString()} نفر',
                             style: Theme.of(context).textTheme.display4,
                           ),
                         ],
@@ -181,7 +165,7 @@ class Detiles extends StatelessWidget {
                         textDirection: TextDirection.rtl,
                         children: <Widget>[
                           Icon(
-                            Icons.timer,
+                            ToureIcons.hotel,
                             size: 15,
                             color: Theme.of(context).iconTheme.color,
                           ),
@@ -192,7 +176,7 @@ class Detiles extends StatelessWidget {
                           ),
                           SizedBox(width: 5),
                           Text(
-                            '3 شب',
+                            '${toure.nights.toString()} شب',
                             style: Theme.of(context).textTheme.display4,
                           ),
                         ],

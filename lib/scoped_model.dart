@@ -38,20 +38,27 @@ class MainModel extends Model {
       data.forEach((touredata) {
         _toure = Toure(
           id: touredata['Id'],
-          title: touredata['Title'].toString(),
+          title: touredata['Title'],
+          desc: touredata['Desc'],
           nights: touredata['Nights'],
           days: touredata['Days'],
           vehicl_went: touredata['Vehicl_went'],
           veicl_revert: touredata['Vehicl_revert'],
-          accommodation_type: touredata['Accommodation_type'],
           sdate: touredata['SDate'],
           edate: touredata['EDate'],
           source_title: touredata['Source_title'],
           destination_title: touredata['Destination_title'],
           thumb: touredata['Thumb'],
           pic: touredata['Pic'],
-          price: touredata['Adult_price'],
           currency: touredata['Currency_title'],
+          foreign: touredata['Foreign'],
+          price: touredata['Price'],
+          difficulty: touredata['Difficulty'],
+          capacity: touredata['Capacity'],
+          planning: touredata['Planning'],
+          accommodation: touredata['Accommodation'],
+          gallery: touredata['Gallery']
+          
         );
         switch (query) {
         case "foreign=2":
