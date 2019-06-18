@@ -14,6 +14,7 @@ class _ToureListPageState extends State<ToureListPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      //drawer: MyDrawer(),
       appBar: AppBar(
         centerTitle: true,
         title: Text("لیست تورهای خارجی"),
