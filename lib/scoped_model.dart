@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:hello_flutter/model/about_model.dart';
+import 'package:hello_flutter/model/accommodation_model.dart';
 import 'package:scoped_model/scoped_model.dart';
 import 'package:http/http.dart' as http;
 import './model/toure_model.dart';
@@ -17,21 +18,20 @@ class MainModel extends Model {
   List<GlobalKey<FormState>> userFormKey = [];
   AboutModel aboutmodel;
 
-  
   bool _isLoading = false;
 
   bool get isLoading {
     return _isLoading;
   }
 
-  Future getTourData({String query=''}) async {
+  Future getTourData({String query = ''}) async {
     print(query);
     tourelist.clear();
     internal.clear();
     foreign.clear();
     _isLoading = true;
     notifyListeners();
-    final response = await http.get(host + 'tours?'+query);
+    final response = await http.get(host + 'tours?' + query);
     if (response.statusCode == 200) {
       List<dynamic> data = json.decode(response.body);
       Toure _toure = Toure();
@@ -56,31 +56,31 @@ class MainModel extends Model {
           difficulty: touredata['Difficulty'],
           capacity: touredata['Capacity'],
           planning: touredata['Planning'],
-          accommodation: touredata['Accommodation'],
-          gallery: touredata['Gallery']
-          
+          //اضافه کردن لیست از مپ هتل ها 
+          accommodation: (touredata['Accommodation'] as List)
+              .map((i) => Accommodation.fromJson(i))
+              .toList(),
         );
         switch (query) {
-        case "foreign=2":
-          {
-            foreign.add(_toure);
-          }
-          break;
+          case "foreign=2":
+            {
+              foreign.add(_toure);
+            }
+            break;
 
-        case "foreign=1":
-          {
-            internal.add(_toure);
-          }
-          break;
+          case "foreign=1":
+            {
+              internal.add(_toure);
+            }
+            break;
 
-        
-        default:
-          {
-            tourelist.add(_toure);
-          }
-          break;
-      }
-        
+          default:
+            {
+              tourelist.add(_toure);
+            }
+            break;
+        }
+
         notifyListeners();
       });
       _isLoading = false;
@@ -108,7 +108,6 @@ class MainModel extends Model {
     if (response.statusCode == 200) {
       List<dynamic> data = json.decode(response.body);
 
-
       if (data == null) {
         _isLoading = false;
         notifyListeners();
@@ -120,8 +119,8 @@ class MainModel extends Model {
           id: touredata['Id'].toString(),
           title: touredata['Title'].toString(),
         );
-         contactSubjectList.add(_contactSubjectList);
-        
+        contactSubjectList.add(_contactSubjectList);
+
         _isLoading = false;
         notifyListeners();
       });
@@ -135,24 +134,23 @@ class MainModel extends Model {
     _isLoading = true;
     notifyListeners();
     return http
-    .post(host + 'contact/add', body: json.encode(contactData))
-      .then((http.Response response) {
-        if (response.statusCode != 200 && response.statusCode != 201) {
-          _isLoading = false;
-          notifyListeners();
-          return false;
-        }
-        final Map<String, dynamic> responseData = json.decode(response.body);
-        if (responseData['error']) {
-          _isLoading = false;
-          notifyListeners();
-          return false;
-        }
+        .post(host + 'contact/add', body: json.encode(contactData))
+        .then((http.Response response) {
+      if (response.statusCode != 200 && response.statusCode != 201) {
         _isLoading = false;
         notifyListeners();
-        return true;
-      })
-    .catchError((error) {
+        return false;
+      }
+      final Map<String, dynamic> responseData = json.decode(response.body);
+      if (responseData['error']) {
+        _isLoading = false;
+        notifyListeners();
+        return false;
+      }
+      _isLoading = false;
+      notifyListeners();
+      return true;
+    }).catchError((error) {
       _isLoading = false;
       notifyListeners();
       return false;
@@ -163,14 +161,21 @@ class MainModel extends Model {
 
 ///// get About DATA
   Future<bool> getAboutData() async {
-
     _isLoading = true;
     notifyListeners();
     final response = await http.get(host + 'about');
 
     if (response.statusCode == 200) {
-      Map<String,dynamic> data = json.decode(response.body);
-      aboutmodel=AboutModel(about:data['About'] ,name:data['Name'],cell:data['Cell'],tell: data['Tell'],address:data['Address'],email:data['Email'],web: data['Web'],social: data['Social']);
+      Map<String, dynamic> data = json.decode(response.body);
+      aboutmodel = AboutModel(
+          about: data['About'],
+          name: data['Name'],
+          cell: data['Cell'],
+          tell: data['Tell'],
+          address: data['Address'],
+          email: data['Email'],
+          web: data['Web'],
+          social: data['Social']);
       _isLoading = false;
       notifyListeners();
       return true;

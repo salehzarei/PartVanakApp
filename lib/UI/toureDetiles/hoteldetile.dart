@@ -1,32 +1,15 @@
 import 'package:flutter/material.dart';
-import 'dart:convert';
-import '../../buyticket.dart';
+import 'package:hello_flutter/UI/hotel.dart';
 import '../../model/accommodation_model.dart';
 import '../../model/toure_model.dart';
 
 class HotelDetile extends StatelessWidget {
-  final double margin = 2.5;
   final Toure toure;
 
   const HotelDetile({Key key, this.toure}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    ///استخراج لیست هتل ها
-    List<Accommodation> accommodation = [];
-var data =  toure.accommodation;
-  // var result = jsonDecode(toure.accommodation);
-  // List<String> placesList = new List<String>.from(result);
-    print(data);
-
-    void _showModalSheet() {
-      showModalBottomSheet(
-          context: context,
-          builder: (builder) {
-            return Material(child: BuyTicket());
-          });
-    }
-
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       mainAxisAlignment: MainAxisAlignment.center,
@@ -35,17 +18,44 @@ var data =  toure.accommodation;
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 5),
           child: Text(
-            'مشخصات محل اقامت',
+            'مشخصات ${toure.accommodation.length} محل اقامت برای این تور',
             style: Theme.of(context).textTheme.title.copyWith(fontSize: 17),
           ),
         ),
-        Container(
-          margin: EdgeInsets.symmetric(horizontal: 10),
+        Padding(
           padding: EdgeInsets.all(8),
-          decoration: BoxDecoration(
-              border: Border(
-                  bottom: BorderSide(color: Theme.of(context).accentColor),
-                  top: BorderSide(color: Theme.of(context).accentColor))),
+          child: ListView.builder(
+            itemCount: toure.accommodation.length,
+            shrinkWrap: true,
+            // ضروری است
+            physics: ClampingScrollPhysics(),
+            scrollDirection: Axis.vertical,
+            itemBuilder: (context, index) {
+              return HotelDetiles(
+                hotel: toure.accommodation[index],
+              );
+            },
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class HotelDetiles extends StatelessWidget {
+  final Accommodation hotel;
+  const HotelDetiles({Key key, this.hotel}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final double margin = 2.5;
+    return GestureDetector(
+      onTap: () => Navigator.push(
+          context, MaterialPageRoute(builder: (context) => HotelPage())),
+      child: Card(
+        color: Colors.grey.shade100,
+        child: Padding(
+          padding: const EdgeInsets.all(5),
           child: Column(
             children: <Widget>[
               Row(
@@ -58,7 +68,7 @@ var data =  toure.accommodation;
                     textDirection: TextDirection.rtl,
                     children: <Widget>[
                       Text(
-                        'هتل آنا کیش',
+                        '${hotel.title} ${hotel.hotel_title}',
                         style: Theme.of(context)
                             .textTheme
                             .headline
@@ -238,23 +248,7 @@ var data =  toure.accommodation;
             ],
           ),
         ),
-        Container(
-          margin: EdgeInsets.symmetric(vertical: 15),
-          child: MaterialButton(
-            onPressed: _showModalSheet,
-            minWidth: 300,
-            padding: EdgeInsets.symmetric(vertical: 15),
-            child: Text(
-              'رزرو تور',
-              style: TextStyle(fontSize: 18, color: Colors.white),
-            ),
-            elevation: 2,
-            color: Theme.of(context).accentColor,
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
-          ),
-        ),
-      ],
+      ),
     );
   }
 }

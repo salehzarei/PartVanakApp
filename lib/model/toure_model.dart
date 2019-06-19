@@ -1,3 +1,5 @@
+import './accommodation_model.dart';
+
 class Toure {
   final int id;
   final String title;
@@ -18,8 +20,8 @@ class Toure {
   final String difficulty;
   final int capacity;
   final dynamic planning;
-  final List accommodation;
-  final dynamic gallery;
+  final List<Accommodation> accommodation;
+  
 
   Toure(
       {this.id,
@@ -42,7 +44,7 @@ class Toure {
       this.capacity,
       this.planning,
       this.accommodation,
-      this.gallery});
+     });
 }
 
 // Id: 30,
