@@ -56,6 +56,7 @@ class ToureDetilePage extends StatelessWidget {
                 delegate: SliverChildBuilderDelegate((context, index) {
                   return HotelDetiles(
                     hotel: toure.accommodation[index],
+                    toure: toure,
                   );
                 }, childCount: toure.accommodation.length),
               )
