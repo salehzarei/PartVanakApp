@@ -13,6 +13,7 @@ class HotelDetiles extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    /// ساخت ستاره هتل ها
     makeStar(int type) {
       List<Widget> starIconList = [];
       for (int i = 1; i < 6; i++) {
@@ -32,7 +33,10 @@ class HotelDetiles extends StatelessWidget {
             ),
           );
       }
-      return starIconList;
+      return Row(
+        children: starIconList,
+        textDirection: TextDirection.rtl,
+      );
     }
 
     specification(List<dynamic> hotelSpecification) {
@@ -56,7 +60,12 @@ class HotelDetiles extends StatelessWidget {
 
     return GestureDetector(
       onTap: () => Navigator.push(
-          context, MaterialPageRoute(builder: (context) => HotelPage())),
+          context,
+          MaterialPageRoute(
+              builder: (context) => HotelPage(
+                    hotel: hotel,
+                    toure: toure,
+                  ))),
       child: Card(
         color: Colors.grey.shade200,
         child: Padding(
@@ -83,10 +92,7 @@ class HotelDetiles extends StatelessWidget {
                         ),
                         Padding(
                           padding: const EdgeInsets.symmetric(vertical: 5),
-                          child: Row(
-                            textDirection: TextDirection.rtl,
-                            children: makeStar(hotel.accommodation_type),
-                          ),
+                          child: makeStar(hotel.accommodation_type),
                         )
                       ],
                     ),
@@ -113,12 +119,12 @@ class HotelDetiles extends StatelessWidget {
               Container(
                   margin: EdgeInsets.symmetric(vertical: 5.0, horizontal: 0),
                   height: 50.0,
-                  width: MediaQuery.of(context).size.width-20,
+                  width: MediaQuery.of(context).size.width - 20,
                   child: CarouselSlider(
                     viewportFraction: 0.35,
-                    autoPlay: true,
-                    autoPlayAnimationDuration: Duration(milliseconds: 300) ,
                     enableInfiniteScroll: false,
+                    initialPage: 1,
+                    realPage: 5,
                     items: <Widget>[
                       PriceBox(
                         price: hotel.singel_price,
