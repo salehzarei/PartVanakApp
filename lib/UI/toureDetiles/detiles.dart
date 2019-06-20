@@ -15,14 +15,7 @@ class Detiles extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       mainAxisSize: MainAxisSize.min,
       children: <Widget>[
-        Padding(
-          padding: const EdgeInsets.symmetric(vertical: 5),
-          child: Text(
-            'مشخصات تور',
-            style: Theme.of(context).textTheme.title.copyWith(fontSize: 17),
-          ),
-        ),
-        
+            
              Container(
           margin: EdgeInsets.symmetric(horizontal: 10),
           padding: EdgeInsets.only(left:8,right:8,bottom: 8),
@@ -46,7 +39,7 @@ class Detiles extends StatelessWidget {
                         Icon(
                           ToureIcons.departures,
                           size: 15,
-                          color: Theme.of(context).iconTheme.color,
+                          color: Colors.white,
                         ),
                         SizedBox(width: 5),
                         Text(
@@ -56,7 +49,7 @@ class Detiles extends StatelessWidget {
                         SizedBox(width: 5),
                         Text(
                           toure.vehicl_went,
-                          style: Theme.of(context).textTheme.display4,
+                          style: Theme.of(context).textTheme.display4.copyWith(color: Colors.white),
                         ),
                       ],
                     ),
@@ -68,7 +61,7 @@ class Detiles extends StatelessWidget {
                           Icon(
                             ToureIcons.first_day,
                             size: 15,
-                            color: Theme.of(context).iconTheme.color,
+                            color: Colors.white,
                           ),
                           SizedBox(width: 5),
                           Text(
@@ -78,7 +71,7 @@ class Detiles extends StatelessWidget {
                           SizedBox(width: 5),
                           Text(
                             toure.sdate,
-                            style: Theme.of(context).textTheme.display4,
+                            style: Theme.of(context).textTheme.display4.copyWith(color: Colors.white),
                           ),
                         ],
                       ),
@@ -91,7 +84,7 @@ class Detiles extends StatelessWidget {
                           Icon(
                             ToureIcons.first_day,
                             size: 15,
-                            color: Theme.of(context).iconTheme.color,
+                            color: Colors.white,
                           ),
                           SizedBox(width: 5),
                           Text(
@@ -101,7 +94,7 @@ class Detiles extends StatelessWidget {
                           SizedBox(width: 5),
                           Text(
                             toure.edate,
-                            style: Theme.of(context).textTheme.display4,
+                            style: Theme.of(context).textTheme.display4.copyWith(color: Colors.white),
                           ),
                         ],
                       ),
@@ -122,7 +115,7 @@ class Detiles extends StatelessWidget {
                         Icon(
                           ToureIcons.tent,
                           size: 15,
-                          color: Theme.of(context).iconTheme.color,
+                          color: Colors.white,
                         ),
                         SizedBox(width: 5),
                         Text(
@@ -132,7 +125,7 @@ class Detiles extends StatelessWidget {
                         SizedBox(width: 5),
                         Text(
                           toure.difficulty,
-                          style: Theme.of(context).textTheme.display4,
+                          style: Theme.of(context).textTheme.display4.copyWith(color: Colors.white),
                         ),
                       ],
                     ),
@@ -144,7 +137,7 @@ class Detiles extends StatelessWidget {
                           Icon(
                             ToureIcons.suitcase,
                             size: 15,
-                            color: Theme.of(context).iconTheme.color,
+                            color: Colors.white,
                           ),
                           SizedBox(width: 5),
                           Text(
@@ -154,7 +147,7 @@ class Detiles extends StatelessWidget {
                           SizedBox(width: 5),
                           Text(
                             '${toure.capacity.toString()} نفر',
-                            style: Theme.of(context).textTheme.display4,
+                            style: Theme.of(context).textTheme.display4.copyWith(color: Colors.white),
                           ),
                         ],
                       ),
@@ -167,7 +160,7 @@ class Detiles extends StatelessWidget {
                           Icon(
                             ToureIcons.hotel,
                             size: 15,
-                            color: Theme.of(context).iconTheme.color,
+                            color: Colors.white,
                           ),
                           SizedBox(width: 5),
                           Text(
@@ -177,7 +170,7 @@ class Detiles extends StatelessWidget {
                           SizedBox(width: 5),
                           Text(
                             '${toure.nights.toString()} شب',
-                            style: Theme.of(context).textTheme.display4,
+                            style: Theme.of(context).textTheme.display4.copyWith(color: Colors.white),
                           ),
                         ],
                       ),
