@@ -22,9 +22,9 @@ class HomeBody extends StatelessWidget {
               CatDivider(
                 title: 'تورهای ویژه خارجی',
               ),
-              ToureScrollTitle(query: 'foreign=2'),
+              ToureScrollTitle(),
               CatDivider(title: 'تورهای ویژه داخلی'),
-              InternalToureScrollTitle(query: 'foreign=1'),
+              ToureScrollTitle(),
             ],
           )),
     );
@@ -45,7 +45,7 @@ class _ToureScrollTitleState extends State<ToureScrollTitle> {
   @override
   void initState() {
     MainModel model = ScopedModel.of(context);
-    model.getTourData(query: widget.query);
+    model.getTourData();
     super.initState();
   }
 
@@ -78,50 +78,4 @@ class _ToureScrollTitleState extends State<ToureScrollTitle> {
   }
 }
 
-class InternalToureScrollTitle extends StatefulWidget {
-  final String query;
 
-  const InternalToureScrollTitle({Key key, this.query}) : super(key: key);
-
-  @override
-  _InternalToureScrollTitleState createState() =>
-      _InternalToureScrollTitleState();
-}
-
-class _InternalToureScrollTitleState extends State<InternalToureScrollTitle> {
-  List<Toure> toure = [];
-  @override
-  void initState() {
-    MainModel model = ScopedModel.of(context);
-    model.getTourData(query: widget.query);
-    super.initState();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    /// برای نمایش لیست تورها باید حتما sizedbox باشد
-    return ScopedModelDescendant<MainModel>(
-      builder: (context, child, model) {
-        return SizedBox(
-          height: 171,
-          child: ListView.builder(
-            itemCount: model.internal.length,
-            shrinkWrap: true,
-            // ضروری است
-            physics: ClampingScrollPhysics(),
-            scrollDirection: Axis.horizontal,
-            reverse: true,
-            itemBuilder: (context, index) {
-              return Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 5),
-                child: ToureTitle(
-                  toure: model.internal[index],
-                ),
-              );
-            },
-          ),
-        );
-      },
-    );
-  }
-}

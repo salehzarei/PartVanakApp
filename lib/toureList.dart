@@ -5,17 +5,49 @@ import 'package:hello_flutter/toureDetile.dart';
 import 'package:scoped_model/scoped_model.dart';
 
 class ToureListPage extends StatefulWidget {
+  final int type;
+
+  const ToureListPage({Key key, this.type}) : super(key: key);
+
   @override
   _ToureListPageState createState() => _ToureListPageState();
 }
 
 class _ToureListPageState extends State<ToureListPage> {
+
+  String _title ;
+  
+  @override
+  void initState() {
+      super.initState();
+          switch (widget.type.toString()) {
+          case "2":
+            {
+              _title = 'تورهای خارجی';
+            }
+            break;
+
+          case "1":
+            {
+              _title = 'تورهای داخلی';
+            }
+            break;
+
+          default:
+            {
+              _title = 'همه تورها';
+            }
+            break;
+        }
+  }
+  
+  
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+   return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Text("لیست تورهای خارجی"),
+        title: Text(_title),
       ),
       body: Stack(
           // fit: StackFit.expand,

@@ -1,11 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+
+import '../model/accommodation_model.dart';
 import '../model/passenger_model.dart';
+import '../model/toure_model.dart';
 
 class ChekOut extends StatelessWidget {
 final List<PassengerModel> passengerlist ;
+final Toure toure ;
+final Accommodation hotel ;
 
-  const ChekOut({Key key, this.passengerlist}) : super(key: key);
+  const ChekOut({Key key, this.passengerlist , this.toure , this.hotel}) : super(key: key);
 
 
   @override
@@ -67,7 +72,7 @@ final List<PassengerModel> passengerlist ;
                                 width: 10,
                               ),
                               Expanded(
-                                  child: Text('ابرا هیم عباسی',
+                                  child: Text(passengerlist[0].name,
                                       textDirection: TextDirection.rtl,
                                       textAlign: TextAlign.right))
                             ],
@@ -86,7 +91,7 @@ final List<PassengerModel> passengerlist ;
                                 width: 10,
                               ),
                               Expanded(
-                                  child: Text('0876523659',
+                                  child: Text(passengerlist[0].melicode,
                                       textDirection: TextDirection.rtl,
                                       textAlign: TextAlign.right))
                             ],
@@ -105,7 +110,7 @@ final List<PassengerModel> passengerlist ;
                                 width: 10,
                               ),
                               Expanded(
-                                  child: Text('مرد',
+                                  child: Text(passengerlist[0].sex,
                                       textDirection: TextDirection.rtl,
                                       textAlign: TextAlign.right))
                             ],
@@ -124,7 +129,7 @@ final List<PassengerModel> passengerlist ;
                                 width: 10,
                               ),
                               Expanded(
-                                  child: Text('1398/03/12',
+                                  child: Text(passengerlist[0].brith,
                                       textDirection: TextDirection.rtl,
                                       textAlign: TextAlign.right))
                             ],

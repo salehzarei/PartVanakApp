@@ -11,9 +11,11 @@ class MainCategory extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             GestureDetector(
-                onTap: () => Navigator.pushNamed(context, '/tourelist'),
+                onTap: () => Navigator.pushNamed(context, '/foreigntourelist'),
                 child: HomeItem('تورهای خارجی', ToureIcons.around)),
-            HomeItem('تورهای داخلی', ToureIcons.azadi),
+            GestureDetector(
+              onTap: ()=> Navigator.pushNamed(context, '/internaltourelist'),
+              child: HomeItem('تورهای داخلی', ToureIcons.azadi)),
             HomeItem('تورهای طبیعتگردی', ToureIcons.tent)
           ],
         ),

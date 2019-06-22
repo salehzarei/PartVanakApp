@@ -59,7 +59,9 @@ class ToureDetilePage extends StatelessWidget {
                     toure: toure,
                   );
                 }, childCount: toure.accommodation.length),
-              )
+              ),
+             
+
             ],
           )),
     );
