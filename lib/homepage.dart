@@ -13,11 +13,11 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  @override
-  void initState() {
-    super.initState();
-    widget.model.getTourData();
-  }
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   widget.model.getTourData();
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -34,12 +34,17 @@ class _HomePageState extends State<HomePage> {
                 child: Scaffold(
                     backgroundColor: Colors.transparent,
                     appBar: AppBar(
+                      
                       backgroundColor: Theme.of(context).appBarTheme.color,
                       iconTheme: Theme.of(context)
                           .iconTheme
                           .copyWith(color: Color(0xFFD8B945)),
                       elevation: 5.0,
                       actions: <Widget>[
+                        Padding(
+                          padding: const EdgeInsets.only(left: 60,top:5),
+                          child: Image.asset('images/logo.png',height: 50,color: Theme.of(context).accentColor,),
+                        ),
                         Padding(
                           padding: const EdgeInsets.only(top: 8, bottom: 8),
                           child: Container(

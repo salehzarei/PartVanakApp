@@ -29,6 +29,7 @@ class MainModel extends Model {
     final response = await http.get(host + 'tours');
     if (response.statusCode == 200) {
       List<dynamic> data = json.decode(response.body);
+      print(data);
       Toure _toure = Toure();
       data.forEach((touredata) {
         _toure = Toure(
