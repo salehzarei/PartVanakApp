@@ -116,7 +116,7 @@ class MainModel extends Model {
     if (response.statusCode == 200) {
       List<dynamic> data = json.decode(response.body);
 
-      if (data == null) {
+      if (data.isEmpty) {
         _isLoading = false;
         notifyListeners();
         return true;
@@ -128,7 +128,6 @@ class MainModel extends Model {
           title: touredata['Title'].toString(),
         );
         contactSubjectList.add(_contactSubjectList);
-
         _isLoading = false;
         notifyListeners();
       });

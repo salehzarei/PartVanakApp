@@ -359,7 +359,6 @@ class MyDrawer extends StatelessWidget {
                       )),
                   GestureDetector(
                       onTap: () {
-                        print('contact');
                         Navigator.pushNamed(context, '/contact');
                       },
                       child: Container(
