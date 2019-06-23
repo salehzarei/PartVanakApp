@@ -2,173 +2,169 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
+import './coustomIcon/toure_icons_icons.dart';
+import './drawer.dart';
 import './UI/toureDetiles/hoteldetile.dart';
 import './model/toure_model.dart';
 import './UI/toureDetiles/detiles.dart';
 
 class ToureDetilePage extends StatelessWidget {
   final Toure toure;
-
   const ToureDetilePage({Key key, this.toure}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          'تور ${toure.title}',
-          style: Theme.of(context).textTheme.title,
-        ),
-        centerTitle: true,
-        backgroundColor: Colors.transparent,
-        elevation: 0.0,
-        iconTheme: Theme.of(context).iconTheme,
-        actions: <Widget>[
-          IconButton(
-            icon: Icon(Icons.menu),
-            onPressed: () {},
-          )
-        ],
-      ),
-      body: Column(
-        children: <Widget>[
-          Text(
-            toure.sdate,
-            style: Theme.of(context).textTheme.title.copyWith(fontSize: 17),
-          ),
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Container(
-                width: 100,
-                child: Column(
-                  children: <Widget>[
-                    Text(
-                      'مقصد',
-                      style: TextStyle(
-                          fontSize: 15, color: Theme.of(context).accentColor),
+    return Directionality(
+      textDirection: TextDirection.rtl,
+      child: Scaffold(
+          drawer: MyDrawer(),
+          body: CustomScrollView(
+            slivers: <Widget>[
+              SliverAppBar(
+                expandedHeight: 250,
+                actions: <Widget>[
+                  IconButton(
+                    icon: Icon(
+                      Icons.arrow_forward,
+                      color: Colors.white,
                     ),
-                    Text(
-                      'KSH',
-                      style: TextStyle(
-                          fontSize: 25,
-                          fontWeight: FontWeight.bold,
-                          color: Theme.of(context).accentColor),
-                    ),
-                    Text(
-                      toure.destination_title,
-                      style: TextStyle(fontSize: 15, color: Colors.grey),
-                    ),
-                  ],
+                    onPressed: () => Navigator.pop(context),
+                  )
+                ],
+                pinned: true,
+                flexibleSpace: FlexibleSpaceBar(
+                  centerTitle: true,
+                  title: Text(toure.title),
+                  background: ToureTitleBar(
+                    toure: toure,
+                  ),
                 ),
               ),
+              SliverToBoxAdapter(
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                    'برای این تور ${toure.accommodation.length} محل اقامت موجود است',
+                    style: Theme.of(context)
+                        .textTheme
+                        .title
+                        .copyWith(color: Colors.grey , fontSize: 15),
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+              ),
+                      SliverList(
+                delegate: SliverChildBuilderDelegate((context, index) {
+                  return HotelDetiles(
+                    hotel: toure.accommodation[index],
+                    currency: toure.currency,
+                    toureId: toure.id.toString(),
+                    );
+                }, childCount: toure.accommodation.length),
+              ),
+             
+
+            ],
+          )),
+    );
+  }
+}
+
+class ToureTitleBar extends StatelessWidget {
+  final Toure toure;
+  const ToureTitleBar({Key key, this.toure}) : super(key: key);
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      fit: StackFit.expand,
+      children: <Widget>[
+        Opacity(
+            opacity: 0.25, child: Image.network(toure.pic, fit: BoxFit.cover)),
+        Padding(
+          padding: const EdgeInsets.only(top: 35),
+          child: Column(
+            children: <Widget>[
               Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   Container(
-                    color: Theme.of(context).accentColor,
-                    height: 2,
-                    width: 50,
+                    width: 80,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: <Widget>[
+                        Text(
+                          'مبدا',
+                          style: TextStyle(
+                              fontSize: 15,
+                              color: Theme.of(context).accentColor),
+                        ),
+                        Text(
+                          toure.source_title,
+                          style: TextStyle(
+                              fontSize: 25,
+                              fontWeight: FontWeight.bold,
+                              color: Theme.of(context).accentColor),
+                        ),
+                      ],
+                    ),
                   ),
-                  Icon(
-                    Icons.airplanemode_active,
-                    size: 28,
-                    color: Theme.of(context).accentColor,
+                  Row(
+                    children: <Widget>[
+                      Container(
+                        color: Theme.of(context).accentColor,
+                        height: 2,
+                        width: 50,
+                      ),
+                      Icon(
+                        ToureIcons.airplane_flight,
+                        size: 20,
+                        color: Theme.of(context).accentColor,
+                      ),
+                      Container(
+                        color: Theme.of(context).accentColor,
+                        height: 2,
+                        width: 50,
+                      ),
+                    ],
                   ),
                   Container(
-                    color: Theme.of(context).accentColor,
-                    height: 2,
-                    width: 50,
+                    width: 80,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: <Widget>[
+                        Text(
+                          'مقصد',
+                          style: TextStyle(
+                              fontSize: 15,
+                              color: Theme.of(context).accentColor),
+                        ),
+                        Text(
+                          toure.destination_title,
+                          style: TextStyle(
+                              fontSize: 25,
+                              fontWeight: FontWeight.bold,
+                              color: Theme.of(context).accentColor),
+                        ),
+                      ],
+                    ),
                   ),
                 ],
               ),
-              Container(
-                width: 100,
-                child: Column(
-                  children: <Widget>[
-                    Text(
-                      'مبدا',
-                      style: TextStyle(
-                          fontSize: 15, color: Theme.of(context).accentColor),
-                    ),
-                    Text(
-                      'MHD',
-                      style: TextStyle(
-                          fontSize: 25,
-                          fontWeight: FontWeight.bold,
-                          color: Theme.of(context).accentColor),
-                    ),
-                    Text(
-                      toure.source_title,
-                      style: TextStyle(fontSize: 15, color: Colors.grey),
-                    ),
-                  ],
-                ),
+              Text(
+                toure.sdate,
+                style: Theme.of(context)
+                    .textTheme
+                    .title
+                    .copyWith(fontSize: 15, color: Colors.grey.shade200),
               ),
+              SizedBox(
+                height: 15,
+              ),
+              Detiles(toure: toure)
             ],
           ),
-          Padding(
-            padding: const EdgeInsets.only(top: 9.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Stack(
-                  alignment: Alignment.center,
-                  children: <Widget>[
-                    Container(
-                      color: Theme.of(context).accentColor,
-                      height: 1,
-                      width: MediaQuery.of(context).size.width,
-                    ),
-                    Container(
-                      height: 25,
-                      width: 150,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(25),
-                          color: Theme.of(context).accentColor),
-                      alignment: Alignment.center,
-                      child: Text(
-                        'تاریخ های شروع',
-                        style: TextStyle(fontSize: 15, color: Colors.white),
-                      ),
-                    )
-                  ],
-                )
-              ],
-            ),
-          ),
-          // CarouselSlider(
-          //   height: 50,
-          //   items: <Widget>[
-          //     IconButton(
-          //       icon: Icon(Icons.airplay),
-          //       onPressed: () {},
-          //     ),
-          //     IconButton(
-          //       icon: Icon(Icons.airplay),
-          //       onPressed: () {},
-          //     ),
-          //     IconButton(
-          //       icon: Icon(Icons.airplay),
-          //       onPressed: () {},
-          //     ),
-          //     IconButton(
-          //       icon: Icon(Icons.airplay),
-          //       onPressed: () {},
-          //     ),
-          //     IconButton(
-          //       icon: Icon(Icons.airplay),
-          //       onPressed: () {},
-          //     )
-          //   ],
-          // ),
-          Expanded(
-            child: ListView(
-              shrinkWrap: true,
-              children: <Widget>[Detiles(), HotelDetile()],
-            ),
-          ),
-        ],
-      ),
+        )
+      ],
     );
   }
 }

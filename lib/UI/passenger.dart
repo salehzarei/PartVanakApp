@@ -26,6 +26,7 @@ class _PassengerState extends State<Passenger> {
 
 // ساخت یک لیست خالی از مسافرین
     MainModel model = ScopedModel.of(context);
+    print(model.tmpCartData);
     // خالی کردن لیست قبلی
     model.passengers.clear();
     widget.personcount.sort();

@@ -1,14 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter_masked_text/flutter_masked_text.dart';
+
 import '../model/toure_model.dart';
 
 class ToureListItem extends StatelessWidget {
   final Toure toure;
 
   const ToureListItem({Key key, this.toure}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
+
+    /// پکیج تبدیل قیمت به نقاط هزارگان
+    var price = MoneyMaskedTextController(
+        precision: 0,
+        thousandSeparator: '.',
+        decimalSeparator: '',
+        initialValue: double.parse(toure.price.toString()));
+
     return Card(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
       color: Colors.white,
@@ -23,9 +34,7 @@ class ToureListItem extends StatelessWidget {
                 child: CachedNetworkImage(
                   fit: BoxFit.cover,
                   height: 90,
-                 
-                  imageUrl:
-                      toure.thumb,
+                  imageUrl: toure.thumb,
                   placeholder: (context, url) => SpinKitFadingFour(
                         color: Colors.red,
                         size: 50.0,
@@ -40,7 +49,7 @@ class ToureListItem extends StatelessWidget {
               shrinkWrap: true,
               children: <Widget>[
                 Text(
-                  'تور ${toure.title} - ${toure.sdate}',
+                  '${toure.title} - ${toure.sdate}',
                   style: Theme.of(context).textTheme.headline,
                   softWrap: true,
                   textAlign: TextAlign.right,
@@ -57,7 +66,7 @@ class ToureListItem extends StatelessWidget {
                       size: 20,
                     ),
                     SizedBox(width: 5),
-                    Text('قیمت ${toure.price} ${toure.currency}')
+                    Text('قیمت ${price.text} ${toure.currency}')
                   ],
                 ),
                 Divider(
@@ -73,7 +82,7 @@ class ToureListItem extends StatelessWidget {
                       color: Theme.of(context).iconTheme.color,
                       size: 20,
                     ),
-                    Text('${toure.destination_title}'),
+                    Text('مقصد: ${toure.destination_title}'),
                     SizedBox(
                       width: 10,
                     ),
@@ -83,7 +92,7 @@ class ToureListItem extends StatelessWidget {
                       size: 20,
                     ),
                     SizedBox(width: 5),
-                    Text('${toure.nights} شب'),
+                    Text('${toure.nights} شب ${toure.days} روز',textDirection: TextDirection.rtl,),
                   ],
                 )
               ],

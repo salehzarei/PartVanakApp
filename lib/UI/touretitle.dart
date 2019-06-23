@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter_masked_text/flutter_masked_text.dart';
 import '../model/toure_model.dart';
 import '../toureDetile.dart';
 
@@ -13,6 +14,14 @@ class ToureTitle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+/// تبدیل عدد به قیمت با اعشار
+var price = MoneyMaskedTextController(
+        precision: 0,
+        thousandSeparator: '.',
+        decimalSeparator: '',
+        initialValue: double.parse(toure.price.toString()));
+
     return InkWell(
         onTap: () => Navigator.push(
             context,
@@ -95,7 +104,7 @@ class ToureTitle extends StatelessWidget {
                         bottomRight: Radius.circular(8)),
                     color: Theme.of(context).accentColor,
                   ),
-                  child: Text("${toure.price} ${toure.currency}",
+                  child: Text("${price.text} ${toure.currency}",
                       style: TextStyle(fontSize: 14)),
                 )
               ],

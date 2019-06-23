@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 
 class CatDivider extends StatelessWidget {
+  final String title;
+
+  const CatDivider({Key key, this.title}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     //بدست آوردن اندازه عرض و طول صفحه نمایش
@@ -24,7 +28,7 @@ class CatDivider extends StatelessWidget {
             width: 5,
           ),
           Text(
-            "تورهای ویژه خارجی",
+            title,
             style: Theme.of(context).textTheme.subhead,
           ),
           SizedBox(
