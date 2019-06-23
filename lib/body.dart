@@ -44,13 +44,13 @@ class ToureScrollTitle extends StatelessWidget {
         switch (type.toString()) {
           case "1":
             {
-              toure = model.foreign;
+              toure = model.tourelist;
             }
             break;
 
           case "2":
             {
-              toure = model.internal;
+              toure = model.tourelist;
             }
             break;
         }

@@ -68,6 +68,7 @@ class _PassengerState extends State<Passenger> {
       PassengerModel _passenger = PassengerModel(
           id: i.toString(),
           title: _title,
+          type: widget.personcount[i],
           family: '',
           name: '',
           brith: '',
@@ -118,6 +119,7 @@ class _PassengerState extends State<Passenger> {
                           MaterialPageRoute(
                               builder: (context) => ChekOut(
                                     passengerlist: model.passengers,
+
                                   )));
                     })
               ],

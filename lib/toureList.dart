@@ -26,14 +26,14 @@ class _ToureListPageState extends State<ToureListPage> {
       case "1":
         {
           _title = 'تورهای خارجی';
-          _toure = model.foreign;
+          _toure = model.tourelist;
         }
         break;
 
       case "2":
         {
           _title = 'تورهای داخلی';
-          _toure = model.internal;
+          _toure = model.tourelist;
         }
         break;
 

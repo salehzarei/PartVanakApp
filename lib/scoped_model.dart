@@ -12,8 +12,8 @@ import './model/cart_model.dart';
 class MainModel extends Model {
   final String host = 'https://safirparvaz.ir/tourapi/';
   List<Toure> tourelist = [];
-  List<Toure> foreign = [];
-  List<Toure> internal = [];
+//  List<Toure> foreign = [];
+ // List<Toure> internal = [];
   List<CartModel> cart = [];
   List<ContactSubject> contactSubjectList = [];
   List<PassengerModel> passengers = [];
@@ -34,8 +34,8 @@ class MainModel extends Model {
 
   Future getTourData() async {
     tourelist.clear();
-    internal.clear();
-    foreign.clear();
+  //  internal.clear();
+   // foreign.clear();
     _isLoading = true;
     notifyListeners();
     final response = await http.get(host + 'tours?');
@@ -69,25 +69,26 @@ class MainModel extends Model {
               .toList(),
         );
 
-        switch (_toure.foreign.toString()) {
-          case "2":
-            {
-              foreign.add(_toure);
-            }
-            break;
+        // switch (_toure.foreign.toString()) {
+        //   case "2":
+        //     {
+        //       foreign.add(_toure);
+        //     }
+        //     break;
 
-          case "1":
-            {
-              internal.add(_toure);
-            }
-            break;
+        //   case "1":
+        //     {
+        //       internal.add(_toure);
+        //     }
+        //     break;
 
-          default:
-            {
-              tourelist.add(_toure);
-            }
-            break;
-        }
+        //   default:
+        //     {
+        //       tourelist.add(_toure);
+        //     }
+        //     break;
+        // }
+        tourelist.add(_toure);
 
         notifyListeners();
       });
