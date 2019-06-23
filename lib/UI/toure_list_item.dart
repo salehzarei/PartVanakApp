@@ -49,7 +49,7 @@ class ToureListItem extends StatelessWidget {
               shrinkWrap: true,
               children: <Widget>[
                 Text(
-                  'تور ${toure.title} - ${toure.sdate}',
+                  '${toure.title} - ${toure.sdate}',
                   style: Theme.of(context).textTheme.headline,
                   softWrap: true,
                   textAlign: TextAlign.right,

@@ -2,8 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
-import 'package:hello_flutter/coustomIcon/toure_icons_icons.dart';
-import 'package:hello_flutter/drawer.dart';
+import './coustomIcon/toure_icons_icons.dart';
+import './drawer.dart';
 import './UI/toureDetiles/hoteldetile.dart';
 import './model/toure_model.dart';
 import './UI/toureDetiles/detiles.dart';
@@ -56,8 +56,9 @@ class ToureDetilePage extends StatelessWidget {
                 delegate: SliverChildBuilderDelegate((context, index) {
                   return HotelDetiles(
                     hotel: toure.accommodation[index],
-                    toure: toure,
-                  );
+                    currency: toure.currency,
+                    toureId: toure.id.toString(),
+                    );
                 }, childCount: toure.accommodation.length),
               ),
              

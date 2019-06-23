@@ -20,15 +20,20 @@ class MainModel extends Model {
   List<GlobalKey<FormState>> userFormKey = [];
   AboutModel aboutmodel;
 
+//// اطلاعات موقت تور به ترتیب آی دی تور و آی دی هتل
+  Map<String, String> tmpCartData = {'ToureID': '0', 'HotelID': '0'};
+/////
+
   bool _isLoading = false;
 
   bool get isLoading {
     return _isLoading;
   }
+
 ///////// دریافت اطلاعات تور و هتل ها از سرور
 
   Future getTourData() async {
-  
+    tourelist.clear();
     internal.clear();
     foreign.clear();
     _isLoading = true;
@@ -58,12 +63,12 @@ class MainModel extends Model {
           difficulty: touredata['Difficulty'],
           capacity: touredata['Capacity'],
           planning: touredata['Planning'],
-          //اضافه کردن لیست از مپ هتل ها 
+          //اضافه کردن لیست از مپ هتل ها
           accommodation: (touredata['Accommodation'] as List)
               .map((i) => Accommodation.fromJson(i))
               .toList(),
         );
-        print(_toure.foreign);
+
         switch (_toure.foreign.toString()) {
           case "2":
             {
@@ -77,24 +82,24 @@ class MainModel extends Model {
             }
             break;
 
-          // default:
-          //   {
-          //     tourelist.add(_toure);
-          //   }
-          //   break;
+          default:
+            {
+              tourelist.add(_toure);
+            }
+            break;
         }
 
         notifyListeners();
       });
       _isLoading = false;
       notifyListeners();
-     // return tourelist;
+      // return tourelist;
     } else {
       throw Exception('خطا اتصال به دیتابیس');
     }
   }
 
-/// دریافت اصلاعات موضوع تماس از سرور
+  /// دریافت اصلاعات موضوع تماس از سرور
   Future<bool> fetchSubject() async {
     //  ContactSubject _contactSubjectList=ContactSubject();
     // for(int i=1; i<5 ;i++){

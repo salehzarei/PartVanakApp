@@ -49,8 +49,8 @@ main() {
          '/': (context) => HomePage(model: model),
           // '/': (context) => AboutUs(mainmodel: model),
           '/aboutus': (context) => AboutUs(model),
-          '/internaltourelist': (context) => ToureListPage(type :1),
-          '/foreigntourelist': (context) => ToureListPage(type :2),
+          '/internaltourelist': (context) => ToureListPage(type :2),
+          '/foreigntourelist': (context) => ToureListPage(type :1),
           '/touredetile': (context) => ToureDetilePage(),
           '/buyticket': (context) => BuyTicket(),
           '/contact': (context) => ContactPage(model)

@@ -1,7 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:hello_flutter/UI/passenger.dart';
+import './UI/passenger.dart';
+import './model/accommodation_model.dart';
+import './scoped_model.dart';
+import 'package:scoped_model/scoped_model.dart';
 
 class BuyTicket extends StatefulWidget {
+  final Accommodation hotel;
+  const BuyTicket({Key key, this.hotel}) : super(key: key);
+
   @override
   _BuyTicketState createState() => _BuyTicketState();
 }
@@ -9,16 +15,24 @@ class BuyTicket extends StatefulWidget {
 class _BuyTicketState extends State<BuyTicket> {
   int _bigPerson = 1;
   int _kids = 0;
-  int _kids_bed = 0;
+  int _kidsbed = 0;
   int _baby = 0;
   // لیست از تعداد نفرات مسافر - حروف مشخصه نوع افراد می باشد
   // یک نفر بزرگسال همیشه داخل لیست خواهد بود
-  
+
   List<String> _personcountList = ['a'];
 
   @override
-  Widget build(BuildContext context) {
+  void initState() {
+    super.initState();
 
+    /// ثبت آی دی هتل در لیست موقت خرید
+    MainModel model = ScopedModel.of(context);
+    model.tmpCartData['HotelID'] = widget.hotel.accommodation_id.toString();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     //// لیست را به ترتیب حروف الفبا مرتب میکنیم
     _personcountList.sort();
 
@@ -90,7 +104,7 @@ class _BuyTicketState extends State<BuyTicket> {
                       if (_bigPerson > 1)
                         setState(() {
                           _bigPerson--;
-                         _personcountList.remove('a');
+                          _personcountList.remove('a');
                         });
                     },
                   ),
@@ -154,7 +168,7 @@ class _BuyTicketState extends State<BuyTicket> {
                       if (_kids > 0)
                         setState(() {
                           _kids--;
-                    _personcountList.remove('b');
+                          _personcountList.remove('b');
                         });
                     },
                   ),
@@ -193,7 +207,7 @@ class _BuyTicketState extends State<BuyTicket> {
                       iconSize: 25,
                       onPressed: () {
                         setState(() {
-                          _kids_bed++;
+                          _kidsbed++;
                           _personcountList.add('c');
                         });
                       }),
@@ -202,7 +216,7 @@ class _BuyTicketState extends State<BuyTicket> {
                   width: 80,
                   alignment: Alignment.center,
                   child: Text(
-                    '${_kids_bed.toString()} نفر',
+                    '${_kidsbed.toString()} نفر',
                     style: Theme.of(context)
                         .textTheme
                         .headline
@@ -215,10 +229,10 @@ class _BuyTicketState extends State<BuyTicket> {
                     color: Colors.red,
                     iconSize: 25,
                     onPressed: () {
-                      if (_kids_bed > 0)
+                      if (_kidsbed > 0)
                         setState(() {
-                          _kids_bed--;
-                           _personcountList.remove('c');
+                          _kidsbed--;
+                          _personcountList.remove('c');
                         });
                     },
                   ),
@@ -282,7 +296,7 @@ class _BuyTicketState extends State<BuyTicket> {
                       if (_baby > 0)
                         setState(() {
                           _baby--;
-                           _personcountList.remove('d');
+                          _personcountList.remove('d');
                         });
                     },
                   ),
