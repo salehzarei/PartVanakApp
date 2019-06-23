@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:html/dom.dart' as dom;
@@ -114,92 +116,105 @@ class _AboutUsState extends State<AboutUs> {
                           ),
                         ),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.only(
-                            top: 545, left: 15, right: 15),
-                        child: Material(
-                          color: Colors.transparent,
-                          child: Container(
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(15),
-                                color: Theme.of(context)
-                                    .accentColor
-                                    .withOpacity(0.7)),
-                            height: 50,
-                            width: MediaQuery.of(context).size.width,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: <Widget>[
-                                InkWell(
-                                    onTap: () {
-                                      Navigator.pop(context);
-                                    },
-                                    child: Image.asset('images/instagram.png')),
-                                SizedBox(
-                                  width: 15,
-                                ),
-                                InkWell(
-                                    onTap: () {},
-                                    child: Image.asset('images/telegram.png')),
-                                SizedBox(
-                                  width: 15,
-                                ),
-                                InkWell(
-                                    onTap: () {},
-                                    child: Image.asset('images/twitter.png')),
-                                SizedBox(
-                                  width: 15,
-                                ),
-                                InkWell(
-                                    onTap: () {},
-                                    child: Image.asset('images/facebook.png')),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
-                    ])),
-              ],
-            ),
-          );
-        }
-      },
-    );
-  }
+                      _builSocialNetwork(model.aboutmodel.social),
+                                            Padding(
+                                              padding: const EdgeInsets.only(
+                                                  top: 545, left: 15, right: 15),
+                                              child: Material(
+                                                color: Colors.transparent,
+                                                child: Container(
+                                                  decoration: BoxDecoration(
+                                                      borderRadius: BorderRadius.circular(15),
+                                                      color: Theme.of(context)
+                                                          .accentColor
+                                                          .withOpacity(0.7)),
+                                                  height: 50,
+                                                  width: MediaQuery.of(context).size.width,
+                                                  child: Row(
+                                                    mainAxisAlignment: MainAxisAlignment.center,
+                                                    children: <Widget>[
+                                                      InkWell(
+                                                          onTap: () {
+                                                            Navigator.pop(context);
+                                                          },
+                                                          child: Image.asset('images/instagram.png')),
+                                                      SizedBox(
+                                                        width: 15,
+                                                      ),
+                                                      InkWell(
+                                                          onTap: () {},
+                                                          child: Image.asset('images/telegram.png')),
+                                                      SizedBox(
+                                                        width: 15,
+                                                      ),
+                                                      InkWell(
+                                                          onTap: () {},
+                                                          child: Image.asset('images/twitter.png')),
+                                                      SizedBox(
+                                                        width: 15,
+                                                      ),
+                                                      InkWell(
+                                                          onTap: () {},
+                                                          child: Image.asset('images/facebook.png')),
+                                                    ],
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ])),
+                                    ],
+                                  ),
+                                );
+                              }
+                            },
+                          );
+                        }
+                      
+                        Widget _buildCell() {
+                          Widget content = Container(
+                            width: 0.0,
+                            height: 0.0,
+                          );
+                          return content;
+                          // return ScopedModelDescendant(
+                          //   builder: (BuildContext context, Widget child, MainModel model) {
+                          //     if (model.contactSubjectList.length > 0 && !model.isLoading) {
+                          //       final List<DropdownMenuItem<String>> _subjectArr = [];
+                          //       model.contactSubjectList.forEach((subjectResponse) {
+                          //         _subjectArr.add(DropdownMenuItem<String>(
+                          //           value: subjectResponse.id,
+                          //           child: Text(subjectResponse.title),
+                          //         ));
+                          //       });
+                      
+                          //       content = DropdownButton(
+                          //           // value: _selected,
+                          //           hint: Text('انتخاب موضوع '),
+                          //           value: _selected,
+                          //           items: _subjectArr,
+                          //           onChanged: ((String newValue) {
+                          //             setState(() {
+                          //               _selected = newValue;
+                          //               _formData['subject'] = newValue;
+                          //             });
+                          //           }));
+                          //     } else if (model.isLoading) {
+                          //       content = Center(child: CircularProgressIndicator());
+                          //     }
+                          //     return RefreshIndicator(onRefresh: model.fetchSubject, child: content,) ;
+                          //   },
+                          // );
+                        }
+                      }
+                      
+                     Widget _builSocialNetwork(List<dynamic> social) {
+                        Widget content=Container(width: 0.0,height: 0.0,);
+                        if(social.length>0){
+                            social.forEach((v){
+                                      v.forEach((k,l) => print('${k}//// ${l}'));
+                            });
+                        }
+                        return content;
 
-  Widget _buildCell() {
-    Widget content = Container(
-      width: 0.0,
-      height: 0.0,
-    );
-    return content;
-    // return ScopedModelDescendant(
-    //   builder: (BuildContext context, Widget child, MainModel model) {
-    //     if (model.contactSubjectList.length > 0 && !model.isLoading) {
-    //       final List<DropdownMenuItem<String>> _subjectArr = [];
-    //       model.contactSubjectList.forEach((subjectResponse) {
-    //         _subjectArr.add(DropdownMenuItem<String>(
-    //           value: subjectResponse.id,
-    //           child: Text(subjectResponse.title),
-    //         ));
-    //       });
-
-    //       content = DropdownButton(
-    //           // value: _selected,
-    //           hint: Text('انتخاب موضوع '),
-    //           value: _selected,
-    //           items: _subjectArr,
-    //           onChanged: ((String newValue) {
-    //             setState(() {
-    //               _selected = newValue;
-    //               _formData['subject'] = newValue;
-    //             });
-    //           }));
-    //     } else if (model.isLoading) {
-    //       content = Center(child: CircularProgressIndicator());
-    //     }
-    //     return RefreshIndicator(onRefresh: model.fetchSubject, child: content,) ;
-    //   },
-    // );
-  }
+                        
 }
