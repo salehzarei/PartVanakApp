@@ -35,7 +35,6 @@ class _ContactPageState extends State<ContactPage> {
   @override
   initState() {
     widget.model.fetchSubject();
-    // print( widget.model.contactSubjectList);
     super.initState();
   }
 
@@ -167,17 +166,17 @@ class _ContactPageState extends State<ContactPage> {
   }
 
   Widget _buildSubjectList() {
-    Widget content= Container(width: 0.0,height: 0.0,) ;
     return ScopedModelDescendant(
       builder: (BuildContext context, Widget child, MainModel model) {
+         Widget content= Container(width: 0.0,height: 0.0,) ;
         if (model.contactSubjectList.length > 0 && !model.isLoading) {
-          final List<DropdownMenuItem<String>> _subjectArr = [];
-          model.contactSubjectList.forEach((subjectResponse) {
-            _subjectArr.add(DropdownMenuItem<String>(
-              value: subjectResponse.id,
-              child: Text(subjectResponse.title),
-            ));
-          });
+            final List<DropdownMenuItem<String>> _subjectArr = [];
+            model.contactSubjectList.forEach((subjectResponse) {
+              _subjectArr.add(DropdownMenuItem<String>(
+                value: subjectResponse.id,
+                child: Text(subjectResponse.title),
+              ));
+            });
 
           content = DropdownButton(
               // value: _selected,
@@ -193,7 +192,8 @@ class _ContactPageState extends State<ContactPage> {
         } else if (model.isLoading) {
           content = Center(child: CircularProgressIndicator());
         }
-        return RefreshIndicator(onRefresh: model.fetchSubject, child: content,) ;
+        return content;
+        // return RefreshIndicator(onRefresh: model.fetchSubject, child: content,) ;
       },
     );
   }
