@@ -9,6 +9,7 @@ import './homepage.dart';
 import './pages/contact.dart';
 import './pages/aboutus.dart';
 import './scoped_model.dart';
+import './pages/webview.dart';
 
 main() {
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
@@ -47,13 +48,16 @@ main() {
         initialRoute: '/',
         routes: {
          '/': (context) => HomePage(model: model),
-          // '/': (context) => AboutUs(mainmodel: model),
+           //'/': (context) => Webview(),
+
+
           '/aboutus': (context) => AboutUs(model),
           '/internaltourelist': (context) => ToureListPage(type :2),
           '/foreigntourelist': (context) => ToureListPage(type :1),
           '/touredetile': (context) => ToureDetilePage(),
           '/buyticket': (context) => BuyTicket(),
-          '/contact': (context) => ContactPage(model)
+          '/contact': (context) => ContactPage(model),
+          '/webview': (context) => Webview(),
         }),
   ));
 }

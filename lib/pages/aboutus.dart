@@ -1,14 +1,13 @@
-import 'dart:convert';
+// import 'dart:io';
+// import 'package:css_text/css_text.dart';
+// import 'package:flutter_html/flutter_html.dart';
+// import 'package:html/dom.dart' as dom;
+//import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_html/flutter_html.dart';
-import 'package:html/dom.dart' as dom;
 import 'package:scoped_model/scoped_model.dart';
 import '../scoped_model.dart';
 import '../drawer.dart';
-import 'package:css_text/css_text.dart';
-
-import 'package:url_launcher/url_launcher.dart';
 
 class AboutUs extends StatefulWidget {
   final MainModel model;
@@ -72,7 +71,8 @@ class _AboutUsState extends State<AboutUs> {
                                   textDirection: TextDirection.rtl,
                                   overflow: TextOverflow.fade,
                                   text: TextSpan(
-                                      text: " ${model.aboutmodel.about}",
+                                      text:
+                                          " ${model.aboutmodel.about} ${model.aboutmodel.about} ${model.aboutmodel.about}",
                                       style: Theme.of(context)
                                           .textTheme
                                           .body1
@@ -117,51 +117,48 @@ class _AboutUsState extends State<AboutUs> {
                           ),
                         ),
                       ),
-                      _builSocialNetwork(context, model.aboutmodel.social),
-                      // Padding(
-                      //   padding: const EdgeInsets.only(
-                      //       top: 500, left: 15, right: 15),
-                      //   child: Material(
-                      //     color: Colors.transparent,
-                      //     child: Container(
-                      //       decoration: BoxDecoration(
-                      //           borderRadius: BorderRadius.circular(15),
-                      //           color: Theme.of(context)
-                      //               .accentColor
-                      //               .withOpacity(0.7)),
-                      //       height: 50,
-                      //       width: MediaQuery.of(context).size.width,
-                      //       child: Row(
-                      //         mainAxisAlignment: MainAxisAlignment.center,
-                      //         children: <Widget>[
-                      //           InkWell(
-                      //               onTap: () {
-                      //                 Navigator.pop(context);
-                      //               },
-                      //               child: Image.asset('images/instagram.png')),
-                      //           SizedBox(
-                      //             width: 15,
-                      //           ),
-                      //           InkWell(
-                      //               onTap: () {},
-                      //               child: Image.asset('images/telegram.png')),
-                      //           SizedBox(
-                      //             width: 15,
-                      //           ),
-                      //           InkWell(
-                      //               onTap: () {},
-                      //               child: Image.asset('images/twitter.png')),
-                      //           SizedBox(
-                      //             width: 15,
-                      //           ),
-                      //           InkWell(
-                      //               onTap: () {},
-                      //               child: Image.asset('images/facebook.png')),
-                      //         ],
-                      //       ),
-                      //     ),
-                      //   ),
-                      // ),
+                      Padding(
+                        padding: const EdgeInsets.only(
+                            top: 640, left: 15, right: 15),
+                        child: Material(
+                          color: Colors.transparent,
+                          child: Container(
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(15),
+                                color: Theme.of(context)
+                                    .accentColor
+                                    .withOpacity(0.7)),
+                            height: 50,
+                            width: MediaQuery.of(context).size.width,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[
+                                InkWell(
+                                    onTap: () {},
+                                    child: Image.asset('images/instagram.png')),
+                                SizedBox(
+                                  width: 15,
+                                ),
+                                InkWell(
+                                    onTap: () {},
+                                    child: Image.asset('images/telegram.png')),
+                                SizedBox(
+                                  width: 15,
+                                ),
+                                InkWell(
+                                    onTap: () {},
+                                    child: Image.asset('images/twitter.png')),
+                                SizedBox(
+                                  width: 15,
+                                ),
+                                InkWell(
+                                    onTap: () {},
+                                    child: Image.asset('images/facebook.png')),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
                     ])),
               ],
             ),
@@ -177,60 +174,33 @@ class _AboutUsState extends State<AboutUs> {
       height: 0.0,
     );
     return content;
-  }
-}
+    // return ScopedModelDescendant(
+    //   builder: (BuildContext context, Widget child, MainModel model) {
+    //     if (model.contactSubjectList.length > 0 && !model.isLoading) {
+    //       final List<DropdownMenuItem<String>> _subjectArr = [];
+    //       model.contactSubjectList.forEach((subjectResponse) {
+    //         _subjectArr.add(DropdownMenuItem<String>(
+    //           value: subjectResponse.id,
+    //           child: Text(subjectResponse.title),
+    //         ));
+    //       });
 
-Widget _builSocialNetwork(BuildContext context, List<dynamic> social) {
-  List<Widget> _list=[];
-  Widget content = Container(
-    width: 0.0,
-    height: 0.0,
-  );
-  if (social.length > 0) {
-    social.forEach((v) {
-      v.forEach((k, l) {
-        print(l);
-        _list.add(
-          InkWell(onTap: (){}, child: Image.asset('images/facebook.png')),
-        );
-        _list.add(
-          SizedBox(
-            width: 15,
-          ),
-        );
-        // => print('${k}//// ${l}'));
-      });
-    });
-    content = Padding(
-      padding: const EdgeInsets.only(top: 500, left: 15, right: 15),
-      child: Material(
-        color: Colors.transparent,
-        child: Container(
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(15),
-              color: Theme.of(context).accentColor.withOpacity(0.7)),
-          height: 50,
-          width: MediaQuery.of(context).size.width,
-          child: SingleChildScrollView(
-            scrollDirection:Axis.horizontal ,
-                      child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: _list,
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-  return content;
-}
-
-
-_launchURL(String url) async {
-  // const url = url1;
-  if (await canLaunch(url)) {
-     await launch(url);
-  } else {
-    throw 'Could not launch $url';
+    //       content = DropdownButton(
+    //           // value: _selected,
+    //           hint: Text('انتخاب موضوع '),
+    //           value: _selected,
+    //           items: _subjectArr,
+    //           onChanged: ((String newValue) {
+    //             setState(() {
+    //               _selected = newValue;
+    //               _formData['subject'] = newValue;
+    //             });
+    //           }));
+    //     } else if (model.isLoading) {
+    //       content = Center(child: CircularProgressIndicator());
+    //     }
+    //     return RefreshIndicator(onRefresh: model.fetchSubject, child: content,) ;
+    //   },
+    // );
   }
 }
