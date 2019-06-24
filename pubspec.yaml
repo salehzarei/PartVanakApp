@@ -33,6 +33,10 @@ dependencies:
   css_text: ^0.9.9
   flutter_masked_text: ^0.8.0
   photo_view: ^0.3.3
+  webview_flutter: ^0.3.9+1
+  
+
+
  
 
 dev_dependencies:

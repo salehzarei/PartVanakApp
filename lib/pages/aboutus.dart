@@ -1,10 +1,13 @@
+// import 'dart:io';
+// import 'package:css_text/css_text.dart';
+// import 'package:flutter_html/flutter_html.dart';
+// import 'package:html/dom.dart' as dom;
+//import 'dart:io';
+
 import 'package:flutter/material.dart';
-import 'package:flutter_html/flutter_html.dart';
-import 'package:html/dom.dart' as dom;
 import 'package:scoped_model/scoped_model.dart';
 import '../scoped_model.dart';
 import '../drawer.dart';
-import 'package:css_text/css_text.dart';
 
 class AboutUs extends StatefulWidget {
   final MainModel model;
@@ -116,7 +119,7 @@ class _AboutUsState extends State<AboutUs> {
                       ),
                       Padding(
                         padding: const EdgeInsets.only(
-                            top: 545, left: 15, right: 15),
+                            top: 640, left: 15, right: 15),
                         child: Material(
                           color: Colors.transparent,
                           child: Container(
@@ -131,9 +134,7 @@ class _AboutUsState extends State<AboutUs> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: <Widget>[
                                 InkWell(
-                                    onTap: () {
-                                      Navigator.pop(context);
-                                    },
+                                    onTap: () {},
                                     child: Image.asset('images/instagram.png')),
                                 SizedBox(
                                   width: 15,

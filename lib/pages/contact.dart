@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:scoped_model/scoped_model.dart';
-
+import '../drawer.dart';
 import '../scoped_model.dart';
 
 class ContactPage extends StatefulWidget {
@@ -167,7 +167,10 @@ class _ContactPageState extends State<ContactPage> {
   }
 
   Widget _buildSubjectList() {
-    Widget content= Container(width: 0.0,height: 0.0,) ;
+    Widget content = Container(
+      width: 0.0,
+      height: 0.0,
+    );
     return ScopedModelDescendant(
       builder: (BuildContext context, Widget child, MainModel model) {
         if (model.contactSubjectList.length > 0 && !model.isLoading) {
@@ -193,7 +196,10 @@ class _ContactPageState extends State<ContactPage> {
         } else if (model.isLoading) {
           content = Center(child: CircularProgressIndicator());
         }
-        return RefreshIndicator(onRefresh: model.fetchSubject, child: content,) ;
+        return RefreshIndicator(
+          onRefresh: model.fetchSubject,
+          child: content,
+        );
       },
     );
   }
@@ -203,6 +209,7 @@ class _ContactPageState extends State<ContactPage> {
     final double deviceWidth = MediaQuery.of(context).size.width;
     final double targetWidth = deviceWidth > 550.0 ? 500.0 : deviceWidth * 0.95;
     return Scaffold(
+      //drawer: MyDrawer(),
       appBar: AppBar(
         title: Text('تماس با ما '),
       ),
@@ -237,10 +244,7 @@ class _ContactPageState extends State<ContactPage> {
                       SizedBox(
                         height: 10.0,
                       ),
-                      
-                        _buildSubjectList(),
-                    
-                     
+                      _buildSubjectList(),
                       ScopedModelDescendant<MainModel>(
                         builder: (BuildContext context, Widget child,
                             MainModel model) {
