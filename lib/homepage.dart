@@ -13,11 +13,11 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   widget.model.getTourData();
-  // }
+  @override
+  void initState() {
+    super.initState();
+    widget.model.getTourData();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -79,19 +79,6 @@ class _HomePageState extends State<HomePage> {
                     ),
                     drawer: MyDrawer(),
                     body: HomeBody()
-
-                    // LayoutBuilder(
-                    //   builder: (BuildContext context , BoxConstraints viewportConstraints){
-                    //     return SingleChildScrollView(
-                    //       child: ConstrainedBox(
-                    //         constraints: BoxConstraints(
-                    //           minHeight: viewportConstraints.minHeight
-                    //         ),
-                    //         child: HomeBody()
-                    //       ),
-                    //     );
-                    //   },
-                    // )
                     ),
               )
             ],

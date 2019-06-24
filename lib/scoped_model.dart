@@ -7,16 +7,22 @@ import 'package:http/http.dart' as http;
 import './model/toure_model.dart';
 import './model/contact.dart';
 import './model/passenger_model.dart';
+import './model/cart_model.dart';
 
 class MainModel extends Model {
   final String host = 'https://safirparvaz.ir/tourapi/';
   List<Toure> tourelist = [];
-  List<Toure> foreign = [];
-  List<Toure> internal = [];
+//  List<Toure> foreign = [];
+ // List<Toure> internal = [];
+  List<CartModel> cart = [];
   List<ContactSubject> contactSubjectList = [];
   List<PassengerModel> passengers = [];
   List<GlobalKey<FormState>> userFormKey = [];
   AboutModel aboutmodel;
+
+//// اطلاعات موقت تور به ترتیب آی دی تور و آی دی هتل
+  Map<String, String> tmpCartData = {'ToureID': '0', 'HotelID': '0'};
+/////
 
   bool _isLoading = false;
 
@@ -24,14 +30,15 @@ class MainModel extends Model {
     return _isLoading;
   }
 
-  Future getTourData({String query = ''}) async {
-    print(query);
+///////// دریافت اطلاعات تور و هتل ها از سرور
+
+  Future getTourData() async {
     tourelist.clear();
-    internal.clear();
-    foreign.clear();
+  //  internal.clear();
+   // foreign.clear();
     _isLoading = true;
     notifyListeners();
-    final response = await http.get(host + 'tours?' + query);
+    final response = await http.get(host + 'tours?');
     if (response.statusCode == 200) {
       List<dynamic> data = json.decode(response.body);
      
@@ -57,42 +64,44 @@ class MainModel extends Model {
           difficulty: touredata['Difficulty'],
           capacity: touredata['Capacity'],
           planning: touredata['Planning'],
-          //اضافه کردن لیست از مپ هتل ها 
+          //اضافه کردن لیست از مپ هتل ها
           accommodation: (touredata['Accommodation'] as List)
               .map((i) => Accommodation.fromJson(i))
               .toList(),
         );
-        switch (query) {
-          case "foreign=2":
-            {
-              foreign.add(_toure);
-            }
-            break;
 
-          case "foreign=1":
-            {
-              internal.add(_toure);
-            }
-            break;
+        // switch (_toure.foreign.toString()) {
+        //   case "2":
+        //     {
+        //       foreign.add(_toure);
+        //     }
+        //     break;
 
-          default:
-            {
-              tourelist.add(_toure);
-            }
-            break;
-        }
+        //   case "1":
+        //     {
+        //       internal.add(_toure);
+        //     }
+        //     break;
+
+        //   default:
+        //     {
+        //       tourelist.add(_toure);
+        //     }
+        //     break;
+        // }
+        tourelist.add(_toure);
 
         notifyListeners();
       });
       _isLoading = false;
       notifyListeners();
-      return tourelist;
+      // return tourelist;
     } else {
       throw Exception('خطا اتصال به دیتابیس');
     }
   }
 
-//    --------------  contact
+  /// دریافت اصلاعات موضوع تماس از سرور
   Future<bool> fetchSubject() async {
     //  ContactSubject _contactSubjectList=ContactSubject();
     // for(int i=1; i<5 ;i++){
@@ -109,7 +118,7 @@ class MainModel extends Model {
     if (response.statusCode == 200) {
       List<dynamic> data = json.decode(response.body);
 
-      if (data == null) {
+      if (data.isEmpty) {
         _isLoading = false;
         notifyListeners();
         return true;
@@ -121,7 +130,6 @@ class MainModel extends Model {
           title: touredata['Title'].toString(),
         );
         contactSubjectList.add(_contactSubjectList);
-
         _isLoading = false;
         notifyListeners();
       });
@@ -130,6 +138,7 @@ class MainModel extends Model {
       throw Exception('خطا اتصال به دیتابیس');
     }
   }
+///////////////////// ارسال فرم تماس به سرور
 
   Future<bool> addContact(Map<String, dynamic> contactData) {
     _isLoading = true;
@@ -160,7 +169,7 @@ class MainModel extends Model {
 
   //    --------------  ./contact
 
-///// get About DATA
+///// دریافت اطلاعات درباره ما از سرور
   Future<bool> getAboutData() async {
     _isLoading = true;
     notifyListeners();

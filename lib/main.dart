@@ -52,7 +52,8 @@ main() {
 
 
           '/aboutus': (context) => AboutUs(model),
-          '/tourelist': (context) => ToureListPage(),
+          '/internaltourelist': (context) => ToureListPage(type :2),
+          '/foreigntourelist': (context) => ToureListPage(type :1),
           '/touredetile': (context) => ToureDetilePage(),
           '/buyticket': (context) => BuyTicket(),
           '/contact': (context) => ContactPage(model),

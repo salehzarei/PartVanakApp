@@ -26,6 +26,7 @@ class _PassengerState extends State<Passenger> {
 
 // ساخت یک لیست خالی از مسافرین
     MainModel model = ScopedModel.of(context);
+    print(model.tmpCartData);
     // خالی کردن لیست قبلی
     model.passengers.clear();
     widget.personcount.sort();
@@ -67,6 +68,7 @@ class _PassengerState extends State<Passenger> {
       PassengerModel _passenger = PassengerModel(
           id: i.toString(),
           title: _title,
+          type: widget.personcount[i],
           family: '',
           name: '',
           brith: '',
@@ -117,6 +119,7 @@ class _PassengerState extends State<Passenger> {
                           MaterialPageRoute(
                               builder: (context) => ChekOut(
                                     passengerlist: model.passengers,
+
                                   )));
                     })
               ],

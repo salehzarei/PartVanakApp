@@ -5,14 +5,15 @@ import 'package:hello_flutter/drawer.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:photo_view/photo_view_gallery.dart';
 import '../model/accommodation_model.dart';
-import '../model/toure_model.dart';
 
 import '../buyticket.dart';
 
 class HotelPage extends StatelessWidget {
-  final Toure toure;
   final Accommodation hotel;
-  const HotelPage({Key key, this.hotel, this.toure}) : super(key: key);
+  const HotelPage({
+    Key key,
+    this.hotel,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -42,18 +43,13 @@ class HotelPage extends StatelessWidget {
       );
     }
 
-    Map<String, String> images = {
-      '1': toure.pic,
-      '2': toure.pic,
-      '3': toure.pic,
-      '4': toure.pic,
-    };
-
     void _showModalSheet() {
       showModalBottomSheet(
           context: context,
           builder: (builder) {
-            return Material(child: BuyTicket());
+            return Material(child: BuyTicket(
+              hotel:hotel
+            ));
           });
     }
 
@@ -65,21 +61,17 @@ class HotelPage extends StatelessWidget {
         Container(
           height: 280,
           width: MediaQuery.of(context).size.width,
-          // child: PhotoViewGallery.builder(
-          //   scrollPhysics: BouncingScrollPhysics(),
-          //   builder: (context, index) {
-          //     return PhotoViewGalleryPageOptions(
-          //         imageProvider:
-          //             NetworkImage(images.values.elementAt(index)),
-          //         initialScale: PhotoViewComputedScale.contained * 0.8,
-          //         heroTag: images.keys.elementAt(index));
-          //   },
-          //   itemCount: images.length,
-          //   backgroundDecoration: BoxDecoration(color: Colors.white),
-          // ),
-          decoration: BoxDecoration(
-              image: DecorationImage(
-                  image: NetworkImage(toure.pic), fit: BoxFit.cover)),
+          child: PhotoViewGallery.builder(
+            scrollPhysics: BouncingScrollPhysics(),
+            builder: (context, index) {
+              return PhotoViewGalleryPageOptions(
+                  imageProvider: NetworkImage(hotel.gallery[index].pic),
+                  initialScale: PhotoViewComputedScale.covered,
+                  heroTag: hotel.gallery[index].pic);
+            },
+            itemCount: hotel.gallery.length,
+            backgroundDecoration: BoxDecoration(color: Colors.white),
+          ),
         ),
         Directionality(
           textDirection: TextDirection.rtl,
@@ -124,7 +116,7 @@ class HotelPage extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
-                              Text('${hotel.title} ${hotel.hotel_title}',
+                              Text('${hotel.hotel_title}',
                                   style: Theme.of(context).textTheme.title),
                               SizedBox(
                                 height: 5,
@@ -160,7 +152,7 @@ class HotelPage extends StatelessWidget {
                     ),
                     Card(
                       color: Colors.grey.shade200,
-                                          child: Padding(
+                      child: Padding(
                         padding: const EdgeInsets.all(10.0),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -195,7 +187,7 @@ class HotelPage extends StatelessWidget {
                             height: 5,
                           ),
                           Text(
-                              'متن زیابدی ببایتنسیتدبنتیدکرتبدینترنیدکبترتینبدریدبرکیکن تنتددتتنکدنبتیربتندیتردبنتیدنتبیدبترنیبتدنتیبتبدنتتب'),
+                              'در این قسمت میتوانید توضحیات مفصلی از موقعیت هتل و امکانات رفاهی برای مسافران نوشته شود ، همچنین ساعت تحویل اتاق ها و سایر موارد'),
                         ],
                       ),
                     )

@@ -1,18 +1,27 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:hello_flutter/UI/hotel.dart';
-import 'package:hello_flutter/coustomIcon/toure_icons_icons.dart';
+import 'package:hello_flutter/model/accommodation_model.dart';
 import 'package:flutter_masked_text/flutter_masked_text.dart';
-import '../../model/accommodation_model.dart';
-import '../../model/toure_model.dart';
+import 'package:hello_flutter/scoped_model.dart';
+import 'package:scoped_model/scoped_model.dart';
+import '../../UI/hotel.dart';
+import '../../coustomIcon/toure_icons_icons.dart';
 
 class HotelDetiles extends StatelessWidget {
   final Accommodation hotel;
-  final Toure toure;
-  const HotelDetiles({Key key, this.hotel, this.toure}) : super(key: key);
+  final String currency, toureId;
+  const HotelDetiles({Key key, this.hotel, this.currency, this.toureId})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+
+
+    ///// دخیره آی تور به صورت موقت در اسکوپ مدل
+    MainModel _model = ScopedModel.of(context);
+    _model.tmpCartData['ToureID'] = toureId;
+    ///////
+
     /// ساخت ستاره هتل ها
     makeStar(int type) {
       List<Widget> starIconList = [];
@@ -64,7 +73,6 @@ class HotelDetiles extends StatelessWidget {
           MaterialPageRoute(
               builder: (context) => HotelPage(
                     hotel: hotel,
-                    toure: toure,
                   ))),
       child: Card(
         color: Colors.grey.shade200,
@@ -73,7 +81,6 @@ class HotelDetiles extends StatelessWidget {
           child: Column(
             children: <Widget>[
               Row(
-                //  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 textDirection: TextDirection.rtl,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
@@ -84,7 +91,7 @@ class HotelDetiles extends StatelessWidget {
                       textDirection: TextDirection.rtl,
                       children: <Widget>[
                         Text(
-                          '${hotel.title} ${hotel.hotel_title}',
+                          '${hotel.hotel_title} ',
                           style: Theme.of(context)
                               .textTheme
                               .headline
@@ -128,27 +135,27 @@ class HotelDetiles extends StatelessWidget {
                     items: <Widget>[
                       PriceBox(
                         price: hotel.singel_price,
-                        toure: toure,
+                        currency: currency,
                         title: 'تک نفر',
                       ),
                       PriceBox(
                         price: hotel.adult_price,
-                        toure: toure,
+                        currency: currency,
                         title: 'بزرگسال',
                       ),
                       PriceBox(
                         price: hotel.child_price_bed,
-                        toure: toure,
+                        currency: currency,
                         title: 'کودک با تخت',
                       ),
                       PriceBox(
                         price: hotel.child_price,
-                        toure: toure,
+                        currency: currency,
                         title: 'کودک بدون تخت',
                       ),
                       PriceBox(
                         price: hotel.baby_price,
-                        toure: toure,
+                        currency: currency,
                         title: 'نوزاد',
                       ),
                     ],
@@ -162,10 +169,10 @@ class HotelDetiles extends StatelessWidget {
 }
 
 class PriceBox extends StatelessWidget {
-  final Toure toure;
   final String title;
+  final String currency;
   final int price;
-  const PriceBox({Key key, this.toure, this.price, this.title})
+  const PriceBox({Key key, this.price, this.title, this.currency})
       : super(key: key);
 
   @override
@@ -201,7 +208,7 @@ class PriceBox extends StatelessWidget {
           alignment: Alignment.center,
           height: 25,
           width: 120.0,
-          child: Text('${fixPrice(price).text} ${toure.currency}',
+          child: Text('${fixPrice(price).text} $currency',
               textDirection: TextDirection.rtl,
               style: TextStyle(color: Colors.white)),
         ),
