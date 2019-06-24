@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
+import 'package:hello_flutter/model/about_model.dart';
 import 'package:html/dom.dart' as dom;
 import 'package:scoped_model/scoped_model.dart';
 import '../scoped_model.dart';
@@ -180,26 +181,23 @@ class _AboutUsState extends State<AboutUs> {
   }
 }
 
-Widget _builSocialNetwork(BuildContext context, List<dynamic> social) {
+Widget _builSocialNetwork(BuildContext context, List<Social> social) {
   List<Widget> _list=[];
   Widget content = Container(
     width: 0.0,
     height: 0.0,
   );
   if (social.length > 0) {
-    social.forEach((v) {
-      v.forEach((k, l) {
-        print(l);
+    social.forEach((Social s) {
+        print(s.icon);
         _list.add(
-          InkWell(onTap: (){}, child: Image.asset('images/facebook.png')),
+          InkWell(onTap:()=>_launchURL(s.link),child: Image.network(s.icon)),
         );
         _list.add(
           SizedBox(
             width: 15,
           ),
         );
-        // => print('${k}//// ${l}'));
-      });
     });
     content = Padding(
       padding: const EdgeInsets.only(top: 500, left: 15, right: 15),
@@ -225,11 +223,10 @@ Widget _builSocialNetwork(BuildContext context, List<dynamic> social) {
   return content;
 }
 
-
 _launchURL(String url) async {
-  // const url = url1;
+ 
   if (await canLaunch(url)) {
-     await launch(url);
+    await launch(url);
   } else {
     throw 'Could not launch $url';
   }
