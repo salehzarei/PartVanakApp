@@ -49,11 +49,9 @@ main() {
         routes: {
          '/': (context) => HomePage(model: model),
            //'/': (context) => Webview(),
-
-
           '/aboutus': (context) => AboutUs(model),
-          '/internaltourelist': (context) => ToureListPage(type :2),
-          '/foreigntourelist': (context) => ToureListPage(type :1),
+          '/internaltourelist': (context) => ToureListPage(),
+          '/foreigntourelist': (context) => ToureListPage(),
           '/touredetile': (context) => ToureDetilePage(),
           '/buyticket': (context) => BuyTicket(),
           '/contact': (context) => ContactPage(model),

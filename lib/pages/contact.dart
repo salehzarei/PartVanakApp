@@ -166,13 +166,6 @@ class _ContactPageState extends State<ContactPage> {
   }
 
   Widget _buildSubjectList() {
-<<<<<<< HEAD
-    Widget content = Container(
-      width: 0.0,
-      height: 0.0,
-    );
-=======
->>>>>>> 9e7d0fbdb002e61d48956830e2f76945557b81b4
     return ScopedModelDescendant(
       builder: (BuildContext context, Widget child, MainModel model) {
          Widget content= Container(width: 0.0,height: 0.0,) ;
@@ -199,15 +192,8 @@ class _ContactPageState extends State<ContactPage> {
         } else if (model.isLoading) {
           content = Center(child: CircularProgressIndicator());
         }
-<<<<<<< HEAD
-        return RefreshIndicator(
-          onRefresh: model.fetchSubject,
-          child: content,
-        );
-=======
         return content;
         // return RefreshIndicator(onRefresh: model.fetchSubject, child: content,) ;
->>>>>>> 9e7d0fbdb002e61d48956830e2f76945557b81b4
       },
     );
   }
