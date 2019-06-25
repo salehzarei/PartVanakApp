@@ -253,7 +253,10 @@ class MainModel extends Model {
           address: data['Address'],
           email: data['Email'],
           web: data['Web'],
-          social: data['Social']);
+          social: (data['Social'] as List)
+              .map((i) => Social.fromJson(i))
+              .toList(),
+          );
       _isLoading = false;
       notifyListeners();
       return true;
