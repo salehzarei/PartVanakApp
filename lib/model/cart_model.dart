@@ -1,26 +1,33 @@
-class CartModel {
-  String toure_id;
-  String hotel_id;
-  String name;
-  String family;
-  String name_en;
-  String family_en;
-  String national_code;
-  String gender;
-  String birth_date;
-  String ages;
-  String nationality;
+import './passenger_model.dart';
 
-  CartModel(
-      {this.toure_id,
-      this.hotel_id,
-      this.name,
-      this.family,
-      this.name_en,
-      this.family_en,
-      this.national_code,
-      this.gender,
-      this.ages,
-      this.birth_date,
-      this.nationality});
+class CartModel {
+  int toure_id;
+  int hotel_id;
+  String cell;
+  String tell;
+  String email;
+  List<PassengerModel> passengers;
+  int paymentType;
+
+  CartModel({
+    this.toure_id,
+    this.hotel_id,
+    this.cell,
+    this.tell,
+    this.email,
+    this.passengers,
+    this.paymentType,
+  });
+
+  toJson() {
+    return {
+      'toureId': toure_id,
+      'hotelId': hotel_id,
+      'cell': cell,
+      'tell': tell,
+      'email': email,
+      'data': passengers,
+      'paymentType': paymentType,
+    };
+  }
 }

@@ -98,6 +98,11 @@ class _ChekOutState extends State<ChekOut> {
         .text;
   }
 
+  sendToServer(){
+    MainModel _model = ScopedModel.of(context);
+   _model.sendDataToServer();
+  }
+
   @override
   Widget build(BuildContext context) {
     List<DataRow> listpassanger = widget.passengerlist
@@ -444,7 +449,7 @@ class _ChekOutState extends State<ChekOut> {
               Padding(
                 padding: EdgeInsets.only(top: 25),
                 child: MaterialButton(
-                  onPressed: () => {},
+                  onPressed: () => sendToServer(),
                   minWidth: 300,
                   padding: EdgeInsets.symmetric(vertical: 15),
                   child: Text(

@@ -13,7 +13,7 @@ class MainModel extends Model {
   final String host = 'https://safirparvaz.ir/tourapi/';
   List<Toure> tourelist = [];
 //  List<Toure> foreign = [];
- // List<Toure> internal = [];
+  // List<Toure> internal = [];
   List<CartModel> cart = [];
   List<ContactSubject> contactSubjectList = [];
   List<PassengerModel> passengers = [];
@@ -34,14 +34,14 @@ class MainModel extends Model {
 
   Future getTourData() async {
     tourelist.clear();
-  //  internal.clear();
-   // foreign.clear();
+    //  internal.clear();
+    // foreign.clear();
     _isLoading = true;
     notifyListeners();
     final response = await http.get(host + 'tours?');
     if (response.statusCode == 200) {
       List<dynamic> data = json.decode(response.body);
-     
+
       Toure _toure = Toure();
       data.forEach((touredata) {
         _toure = Toure(
@@ -138,6 +138,76 @@ class MainModel extends Model {
       throw Exception('خطا اتصال به دیتابیس');
     }
   }
+
+///////////////////// ارسال اطلاعات مسافر به سرور
+
+  Future<bool> sendDataToServer() async {
+    cart.clear();
+    notifyListeners();
+
+
+    CartModel _cartForOnePassenger = CartModel(
+        
+      toure_id: int.parse(tmpCartData['ToureID']) ,
+      hotel_id: int.parse(tmpCartData['HotelID']),
+      cell: '09154127181',
+      tell: '0915127181',
+      email: 'saleh.zarei@gmail.com',
+      paymentType: 1 ,
+      passengers: passengers
+      );
+
+      cart.add(_cartForOnePassenger);
+      print(json.encode(_cartForOnePassenger));
+      notifyListeners();
+
+    // passengers.forEach((person) {
+    //   CartModel _cartForOnePassenger = CartModel(
+    //     name: person.name,
+    //     family: person.family,
+    //     name_en: '',
+    //     family_en: '',
+    //     national_code: person.melicode,
+    //     gender: person.sex,
+    //     birth_date: person.brith,
+    //     ages: person.type,
+    //     nationality: '',
+    //     toure_id: tmpCartData['ToureID'],
+    //     hotel_id: tmpCartData['HotelID'],
+    //     cell: '09154127181',
+    //     paymentType: '1'
+    //   );
+
+    //   cart.add(_cartForOnePassenger);
+    //   print(json.encode(_cartForOnePassenger));
+    //   notifyListeners();
+    // });
+
+    // return http
+    //     .post(host + 'cart/add', body: json.encode(cart))
+    //     .then((http.Response response) {
+    //   if (response.statusCode != 200 && response.statusCode != 201) {
+    //     print("Ticket Data to Server send Succsesfuly !");
+    //     _isLoading = false;
+    //     notifyListeners();
+    //     return false;
+    //   }
+    //   final Map<String, dynamic> responseData = json.decode(response.body);
+    //   if (responseData['error']) {
+    //     _isLoading = false;
+    //     notifyListeners();
+    //     return false;
+    //   }
+    //   _isLoading = false;
+    //   notifyListeners();
+    //   return true;
+    // }).catchError((error) {
+    //   _isLoading = false;
+    //   notifyListeners();
+    //   return false;
+    // });
+  }
+
 ///////////////////// ارسال فرم تماس به سرور
 
   Future<bool> addContact(Map<String, dynamic> contactData) {
