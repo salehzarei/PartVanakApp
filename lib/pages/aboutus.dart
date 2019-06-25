@@ -1,14 +1,8 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
-import 'package:flutter_html/flutter_html.dart';
 import 'package:hello_flutter/model/about_model.dart';
-import 'package:html/dom.dart' as dom;
 import 'package:scoped_model/scoped_model.dart';
 import '../scoped_model.dart';
 import '../drawer.dart';
-import 'package:css_text/css_text.dart';
-
 import 'package:url_launcher/url_launcher.dart';
 
 class AboutUs extends StatefulWidget {
@@ -26,6 +20,64 @@ class _AboutUsState extends State<AboutUs> {
   void initState() {
     widget.model.getAboutData();
     super.initState();
+  }
+
+  Widget _buildCell() {
+    Widget content = Container(
+      width: 0.0,
+      height: 0.0,
+    );
+    return content;
+  }
+
+  Widget _builSocialNetwork(BuildContext context, List<Social> social) {
+    List<Widget> _list = [];
+    Widget content = Container(
+      width: 0.0,
+      height: 0.0,
+    );
+    if (social.length > 0) {
+      social.forEach((Social s) {
+        _list.add(
+          InkWell(
+              onTap: () => _launchURL(s.link), child: Image.network(s.icon)),
+        );
+        _list.add(
+          SizedBox(
+            width: 15,
+          ),
+        );
+      });
+      content = Padding(
+        padding: const EdgeInsets.only(top: 500, left: 15, right: 15),
+        child: Material(
+          color: Colors.transparent,
+          child: Container(
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(15),
+                color: Theme.of(context).accentColor.withOpacity(0.7)),
+            height: 50,
+            width: MediaQuery.of(context).size.width,
+            child: SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: _list,
+              ),
+            ),
+          ),
+        ),
+      );
+    }
+    return content;
+  }
+
+  _launchURL(String url) async {
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
   }
 
   @override
@@ -119,50 +171,6 @@ class _AboutUsState extends State<AboutUs> {
                         ),
                       ),
                       _builSocialNetwork(context, model.aboutmodel.social),
-                      // Padding(
-                      //   padding: const EdgeInsets.only(
-                      //       top: 500, left: 15, right: 15),
-                      //   child: Material(
-                      //     color: Colors.transparent,
-                      //     child: Container(
-                      //       decoration: BoxDecoration(
-                      //           borderRadius: BorderRadius.circular(15),
-                      //           color: Theme.of(context)
-                      //               .accentColor
-                      //               .withOpacity(0.7)),
-                      //       height: 50,
-                      //       width: MediaQuery.of(context).size.width,
-                      //       child: Row(
-                      //         mainAxisAlignment: MainAxisAlignment.center,
-                      //         children: <Widget>[
-                      //           InkWell(
-                      //               onTap: () {
-                      //                 Navigator.pop(context);
-                      //               },
-                      //               child: Image.asset('images/instagram.png')),
-                      //           SizedBox(
-                      //             width: 15,
-                      //           ),
-                      //           InkWell(
-                      //               onTap: () {},
-                      //               child: Image.asset('images/telegram.png')),
-                      //           SizedBox(
-                      //             width: 15,
-                      //           ),
-                      //           InkWell(
-                      //               onTap: () {},
-                      //               child: Image.asset('images/twitter.png')),
-                      //           SizedBox(
-                      //             width: 15,
-                      //           ),
-                      //           InkWell(
-                      //               onTap: () {},
-                      //               child: Image.asset('images/facebook.png')),
-                      //         ],
-                      //       ),
-                      //     ),
-                      //   ),
-                      // ),
                     ])),
               ],
             ),
@@ -170,64 +178,5 @@ class _AboutUsState extends State<AboutUs> {
         }
       },
     );
-  }
-
-  Widget _buildCell() {
-    Widget content = Container(
-      width: 0.0,
-      height: 0.0,
-    );
-    return content;
-  }
-}
-
-Widget _builSocialNetwork(BuildContext context, List<Social> social) {
-  List<Widget> _list=[];
-  Widget content = Container(
-    width: 0.0,
-    height: 0.0,
-  );
-  if (social.length > 0) {
-    social.forEach((Social s) {
-        print(s.icon);
-        _list.add(
-          InkWell(onTap:()=>_launchURL(s.link),child: Image.network(s.icon)),
-        );
-        _list.add(
-          SizedBox(
-            width: 15,
-          ),
-        );
-    });
-    content = Padding(
-      padding: const EdgeInsets.only(top: 500, left: 15, right: 15),
-      child: Material(
-        color: Colors.transparent,
-        child: Container(
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(15),
-              color: Theme.of(context).accentColor.withOpacity(0.7)),
-          height: 50,
-          width: MediaQuery.of(context).size.width,
-          child: SingleChildScrollView(
-            scrollDirection:Axis.horizontal ,
-                      child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: _list,
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-  return content;
-}
-
-_launchURL(String url) async {
- 
-  if (await canLaunch(url)) {
-    await launch(url);
-  } else {
-    throw 'Could not launch $url';
   }
 }

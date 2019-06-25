@@ -186,9 +186,6 @@ class MainModel extends Model {
           social: (data['Social'] as List)
               .map((i) => Social.fromJson(i))
               .toList(),
-          //  social:(data['Social'] as List<dynamic>)
-          //     .map((i) => Social(i['Title'],i['Link'],i['Icon']))
-          //     .toList()
           );
       _isLoading = false;
       notifyListeners();
