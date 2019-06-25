@@ -125,7 +125,8 @@ class _AboutUsState extends State<AboutUs> {
                                   textDirection: TextDirection.rtl,
                                   overflow: TextOverflow.fade,
                                   text: TextSpan(
-                                      text: " ${model.aboutmodel.about}",
+                                      text:
+                                          " ${model.aboutmodel.about} ${model.aboutmodel.about} ${model.aboutmodel.about}",
                                       style: Theme.of(context)
                                           .textTheme
                                           .body1
