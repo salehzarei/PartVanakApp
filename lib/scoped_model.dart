@@ -145,21 +145,17 @@ class MainModel extends Model {
     cart.clear();
     notifyListeners();
 
-
     CartModel _cartForOnePassenger = CartModel(
-        
-      toure_id: int.parse(tmpCartData['ToureID']) ,
-      hotel_id: int.parse(tmpCartData['HotelID']),
-      cell: '09154127181',
-      tell: '0915127181',
-      email: 'saleh.zarei@gmail.com',
-      paymentType: 1 ,
-      passengers: passengers
-      );
+        toure_id: int.parse(tmpCartData['ToureID']),
+        hotel_id: int.parse(tmpCartData['HotelID']),
+        cell: '09154127181',
+        tell: '0915127181',
+        email: 'saleh.zarei@gmail.com',
+        paymentType: 1,
+        passengers: passengers);
 
-      cart.add(_cartForOnePassenger);
-      print(json.encode(_cartForOnePassenger));
-      notifyListeners();
+    print(json.encode(_cartForOnePassenger));
+    notifyListeners();
 
     // passengers.forEach((person) {
     //   CartModel _cartForOnePassenger = CartModel(
@@ -183,29 +179,31 @@ class MainModel extends Model {
     //   notifyListeners();
     // });
 
-    // return http
-    //     .post(host + 'cart/add', body: json.encode(cart))
-    //     .then((http.Response response) {
-    //   if (response.statusCode != 200 && response.statusCode != 201) {
-    //     print("Ticket Data to Server send Succsesfuly !");
-    //     _isLoading = false;
-    //     notifyListeners();
-    //     return false;
-    //   }
-    //   final Map<String, dynamic> responseData = json.decode(response.body);
-    //   if (responseData['error']) {
-    //     _isLoading = false;
-    //     notifyListeners();
-    //     return false;
-    //   }
-    //   _isLoading = false;
-    //   notifyListeners();
-    //   return true;
-    // }).catchError((error) {
-    //   _isLoading = false;
-    //   notifyListeners();
-    //   return false;
-    // });
+    return http
+        .post(host + 'cart/add', body: json.encode(_cartForOnePassenger))
+        .then((http.Response response) {
+      if (response.statusCode != 200 && response.statusCode != 201) {
+        print("Ticket Data to Server send Succsesfuly !");
+        _isLoading = false;
+        notifyListeners();
+        return false;
+      }
+      final Map<String, dynamic> responseData = json.decode(response.body);
+      if (responseData['error']) {
+        print(responseData);
+        _isLoading = false;
+        notifyListeners();
+        return false;
+      }
+      _isLoading = false;
+      print(responseData);
+      notifyListeners();
+      return true;
+    }).catchError((error) {
+      _isLoading = false;
+      notifyListeners();
+      return false;
+    });
   }
 
 ///////////////////// ارسال فرم تماس به سرور
