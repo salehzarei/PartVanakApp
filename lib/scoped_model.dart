@@ -7,13 +7,13 @@ import 'package:http/http.dart' as http;
 import './model/toure_model.dart';
 import './model/contact.dart';
 import './model/passenger_model.dart';
+import './model/bank_model.dart';
 import './model/cart_model.dart';
 
 class MainModel extends Model {
   final String host = 'https://safirparvaz.ir/tourapi/';
   List<Toure> tourelist = [];
-//  List<Toure> foreign = [];
-  // List<Toure> internal = [];
+  List<Banks> bankList = [];
   List<CartModel> cart = [];
   List<ContactSubject> contactSubjectList = [];
   List<PassengerModel> passengers = [];
@@ -34,14 +34,11 @@ class MainModel extends Model {
 
   Future getTourData() async {
     tourelist.clear();
-    //  internal.clear();
-    // foreign.clear();
     _isLoading = true;
     notifyListeners();
     final response = await http.get(host + 'tours?');
     if (response.statusCode == 200) {
       List<dynamic> data = json.decode(response.body);
-
       Toure _toure = Toure();
       data.forEach((touredata) {
         _toure = Toure(
@@ -69,37 +66,43 @@ class MainModel extends Model {
               .map((i) => Accommodation.fromJson(i))
               .toList(),
         );
-
-        // switch (_toure.foreign.toString()) {
-        //   case "2":
-        //     {
-        //       foreign.add(_toure);
-        //     }
-        //     break;
-
-        //   case "1":
-        //     {
-        //       internal.add(_toure);
-        //     }
-        //     break;
-
-        //   default:
-        //     {
-        //       tourelist.add(_toure);
-        //     }
-        //     break;
-        // }
         tourelist.add(_toure);
-
         notifyListeners();
       });
       _isLoading = false;
       notifyListeners();
-      // return tourelist;
     } else {
       throw Exception('خطا اتصال به دیتابیس');
     }
   }
+
+
+///////// دریافت اطلاعات درگاه های بانکی از سرور
+
+  Future getBankData() async {
+    bankList.clear();
+    _isLoading = true;
+    notifyListeners();
+    final response = await http.get(host + 'cart/banks');
+    if (response.statusCode == 200) {
+      List<dynamic> data = json.decode(response.body);
+      Banks _banks = Banks();
+      data.forEach((bankdata) {
+        _banks = Banks(
+         bankid: bankdata['Id'],
+         bankTitle: bankdata['Title']
+        );
+        bankList.add(_banks);
+        notifyListeners();
+      });
+      _isLoading = false;
+      notifyListeners();
+     } else {
+      throw Exception('خطا اتصال به دیتابیس');
+    }
+  }
+
+
 
   /// دریافت اصلاعات موضوع تماس از سرور
   Future<bool> fetchSubject() async {
@@ -139,12 +142,11 @@ class MainModel extends Model {
     }
   }
 
-///////////////////// ارسال اطلاعات مسافر به سرور
+///// ارسال اطلاعات مسافر به سرور
 
   Future<bool> sendDataToServer() async {
     cart.clear();
     notifyListeners();
-
     CartModel _cartForOnePassenger = CartModel(
         toure_id: int.parse(tmpCartData['ToureID']),
         hotel_id: int.parse(tmpCartData['HotelID']),
@@ -153,32 +155,8 @@ class MainModel extends Model {
         email: 'saleh.zarei@gmail.com',
         paymentType: 1,
         passengers: passengers);
-
     print(json.encode(_cartForOnePassenger));
     notifyListeners();
-
-    // passengers.forEach((person) {
-    //   CartModel _cartForOnePassenger = CartModel(
-    //     name: person.name,
-    //     family: person.family,
-    //     name_en: '',
-    //     family_en: '',
-    //     national_code: person.melicode,
-    //     gender: person.sex,
-    //     birth_date: person.brith,
-    //     ages: person.type,
-    //     nationality: '',
-    //     toure_id: tmpCartData['ToureID'],
-    //     hotel_id: tmpCartData['HotelID'],
-    //     cell: '09154127181',
-    //     paymentType: '1'
-    //   );
-
-    //   cart.add(_cartForOnePassenger);
-    //   print(json.encode(_cartForOnePassenger));
-    //   notifyListeners();
-    // });
-
     return http
         .post(host + 'cart/add', body: json.encode(_cartForOnePassenger))
         .then((http.Response response) {
@@ -206,7 +184,7 @@ class MainModel extends Model {
     });
   }
 
-///////////////////// ارسال فرم تماس به سرور
+///// ارسال فرم تماس به سرور
 
   Future<bool> addContact(Map<String, dynamic> contactData) {
     _isLoading = true;
@@ -235,7 +213,6 @@ class MainModel extends Model {
     });
   }
 
-  //    --------------  ./contact
 
 ///// دریافت اطلاعات درباره ما از سرور
   Future<bool> getAboutData() async {

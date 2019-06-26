@@ -202,60 +202,68 @@ class _ContactPageState extends State<ContactPage> {
   Widget build(BuildContext context) {
     final double deviceWidth = MediaQuery.of(context).size.width;
     final double targetWidth = deviceWidth > 550.0 ? 500.0 : deviceWidth * 0.95;
-    return Scaffold(
-      //drawer: MyDrawer(),
-      appBar: AppBar(
-        title: Text('تماس با ما '),
-      ),
-      body: Directionality(
-        textDirection: TextDirection.rtl,
-        child: Container(
-          // decoration: BoxDecoration(
-          //   image: _buildBackgroundImage(),
-          // ),
-          padding: EdgeInsets.all(20.0),
-          child: Center(
-            child: SingleChildScrollView(
-              child: Container(
-                width: targetWidth,
-                child: Form(
-                  key: _formKey,
-                  child: Column(
-                    children: <Widget>[
-                      _buildNameTextField(),
-                      SizedBox(
-                        height: 10.0,
-                      ),
-                      _buildEmailTextField(),
-                      SizedBox(
-                        height: 10.0,
-                      ),
-                      _buildCellTextField(),
-                      SizedBox(
-                        height: 10.0,
-                      ),
-                      _buildMessageTextField(),
-                      SizedBox(
-                        height: 10.0,
-                      ),
-                      _buildSubjectList(),
-                      ScopedModelDescendant<MainModel>(
-                        builder: (BuildContext context, Widget child,
-                            MainModel model) {
-                          return RaisedButton(
-                            textColor: Colors.white,
-                            child: Text('ارسال '),
-                            onPressed: () => _submitForm(model.addContact),
-                          );
-                        },
-                      ),
-                    ],
+    return Directionality(
+      textDirection: TextDirection.rtl,
+          child: Scaffold(
+         appBar: AppBar(
+          centerTitle: true,
+          actions: <Widget>[
+            IconButton(
+              icon: Icon(Icons.arrow_forward , color: Colors.white,),
+              onPressed: ()=>Navigator.pop(context),
+            )
+          ],
+          title: Text('تماس با ما '),
+        ),
+        drawer: MyDrawer(),
+        
+        body: Container(
+            // decoration: BoxDecoration(
+            //   image: _buildBackgroundImage(),
+            // ),
+            padding: EdgeInsets.all(20.0),
+            child: Center(
+              child: SingleChildScrollView(
+                child: Container(
+                  width: targetWidth,
+                  child: Form(
+                    key: _formKey,
+                    child: Column(
+                      children: <Widget>[
+                        _buildNameTextField(),
+                        SizedBox(
+                          height: 10.0,
+                        ),
+                        _buildEmailTextField(),
+                        SizedBox(
+                          height: 10.0,
+                        ),
+                        _buildCellTextField(),
+                        SizedBox(
+                          height: 10.0,
+                        ),
+                        _buildMessageTextField(),
+                        SizedBox(
+                          height: 10.0,
+                        ),
+                        _buildSubjectList(),
+                        ScopedModelDescendant<MainModel>(
+                          builder: (BuildContext context, Widget child,
+                              MainModel model) {
+                            return RaisedButton(
+                              textColor: Colors.white,
+                              child: Text('ارسال '),
+                              onPressed: () => _submitForm(model.addContact),
+                            );
+                          },
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),
             ),
           ),
-        ),
       ),
     );
   }

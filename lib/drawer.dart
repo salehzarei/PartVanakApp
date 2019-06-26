@@ -1,8 +1,19 @@
 import 'package:flutter/material.dart';
 import './Theme/drawerTheme.dart';
 import './coustomIcon/toure_icons_icons.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class MyDrawer extends StatelessWidget {
+
+_launchURL(String url) async {
+   if (await canLaunch(url)) {
+    await launch(url);
+  } else {
+    throw 'Could not launch $url';
+  }
+}
+
+
   @override
   Widget build(BuildContext context) {
     return Material(
@@ -11,44 +22,55 @@ class MyDrawer extends StatelessWidget {
         decoration: BoxDecoration(
           color: Theme.of(context).appBarTheme.color,
         ),
-        child: Column(
+        child: ListView(
           children: <Widget>[
             Padding(
-              padding: const EdgeInsets.only(left: 100),
-              child: Container(
-                margin: EdgeInsets.only(top: 40),
-                decoration: BoxDecoration(
-                    color: Theme.of(context).cardColor,
-                    borderRadius: BorderRadius.only(
-                        bottomLeft: Radius.circular(15),
-                        topLeft: Radius.circular(15))),
-                child: Row(
-                  textDirection: TextDirection.rtl,
+                padding: const EdgeInsets.only(left: 8 ,top: 10),
+                child: Wrap(
+                  crossAxisAlignment: WrapCrossAlignment.center,
                   children: <Widget>[
-                    Text(
-                      '09154127181',
-                      style: Theme.of(context).appBarTheme.textTheme.display1,
+                    Container(
+                      width: 68,
+                      height: 68,
+                      decoration: BoxDecoration(
+                          image: DecorationImage(
+                              image: AssetImage('images/logo.png'),
+                              fit: BoxFit.fitHeight)),
                     ),
-                    Icon(
-                      Icons.phone,
-                      color: Theme.of(context).iconTheme.color,
+                    Column(
+                      crossAxisAlignment:CrossAxisAlignment.start,
+
+                      children: <Widget>[
+                         Text(
+                      'آژانس مسافرتی و گردشگری',
+                      style: TextStyle(
+                          fontSize: 13,
+                          fontWeight: FontWeight.w200,
+                          color: Theme.of(context).cardColor),
                     ),
+                    SizedBox(
+                      height: 5,
+                    ),
+                        Text(
+                      'پارت ونک',
+                      style: TextStyle(
+                          fontSize: 22,
+                          fontWeight: FontWeight.bold,
+                          color: Theme.of(context).cardColor),
+                    ),
+                      ],
+                    )
                   ],
-                ),
-              ),
-            ),
+                )),
             //___________________________________شبکه های اجتماعی___________________________
 
             Container(
-              margin: EdgeInsets.only(top: 50),
+              margin: EdgeInsets.only(top: 38),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   GestureDetector(
-                    onTap: () {
-                      print('تلگرام');
-                      //Navigator.pushNamed(context, '');
-                    },
+                    onTap: ()=>_launchURL('https://t.me/partvanak'),
                     child: Container(
                       width: 125,
                       child: Column(
@@ -69,10 +91,7 @@ class MyDrawer extends StatelessWidget {
                     ),
                   ),
                   GestureDetector(
-                    onTap: () {
-                      print('اینستاگرام');
-                      //Navigator.pushNamed(context, '');
-                    },
+                    onTap: ()=>_launchURL('https://www.instagram.com/partvanak.agency/'),
                     child: Container(
                       width: 125,
                       child: Column(
@@ -111,10 +130,7 @@ class MyDrawer extends StatelessWidget {
                   Column(
                     children: <Widget>[
                       GestureDetector(
-                          onTap: () {
-                            print('تورهای خارجی');
-                            Navigator.pushNamed(context, '/webview');
-                          },
+                          onTap: ()=>Navigator.pushNamed(context, '/foreigntourelist'),
                           child: Container(
                             padding:
                                 EdgeInsets.only(top: 15.0, left: 15, right: 20),
@@ -135,10 +151,7 @@ class MyDrawer extends StatelessWidget {
                             ),
                           )),
                       GestureDetector(
-                          onTap: () {
-                            print('تورهای داخلی');
-                            //Navigator.pushNamed(context, '');
-                          },
+                          onTap: ()=>Navigator.pushNamed(context, '/internaltourelist'),
                           child: Container(
                             padding:
                                 EdgeInsets.only(top: 15.0, left: 15, right: 20),
@@ -172,12 +185,12 @@ class MyDrawer extends StatelessWidget {
                                   padding: const EdgeInsets.only(left: 8.0),
                                   child: Icon(
                                     ToureIcons.tent,
-                                    color: Theme.of(context).accentColor,
+                                    color: Theme.of(context).accentColor.withOpacity(0.5),
                                   ),
                                 ),
                                 Text(
                                   'تور های طبیعتگردی',
-                                  style: DarwerThemeData.textTheme.title,
+                                  style: DarwerThemeData.textTheme.title.copyWith(color:Colors.white.withOpacity(0.5)),
                                 ),
                               ],
                             ),
@@ -197,12 +210,12 @@ class MyDrawer extends StatelessWidget {
                                   padding: const EdgeInsets.only(left: 8.0),
                                   child: Icon(
                                     ToureIcons.first_day,
-                                    color: Theme.of(context).accentColor,
+                                    color: Theme.of(context).accentColor.withOpacity(0.5),
                                   ),
                                 ),
                                 Text(
                                   'تور های یکروزه',
-                                  style: DarwerThemeData.textTheme.title,
+                                  style: DarwerThemeData.textTheme.title.copyWith(color:Colors.white.withOpacity(0.5)),
                                 ),
                               ],
                             ),
@@ -221,12 +234,12 @@ class MyDrawer extends StatelessWidget {
                                   padding: const EdgeInsets.only(left: 8.0),
                                   child: Icon(
                                     ToureIcons.crown_of_royal_design,
-                                    color: Theme.of(context).accentColor,
+                                    color: Theme.of(context).accentColor.withOpacity(0.5),
                                   ),
                                 ),
                                 Text(
                                   'تور های لاکچری',
-                                  style: DarwerThemeData.textTheme.title,
+                                  style: DarwerThemeData.textTheme.title.copyWith(color:Colors.white.withOpacity(0.5)),
                                 ),
                               ],
                             ),
@@ -245,12 +258,12 @@ class MyDrawer extends StatelessWidget {
                                   padding: const EdgeInsets.only(left: 8.0),
                                   child: Icon(
                                     ToureIcons.stopwatch,
-                                    color: Theme.of(context).accentColor,
+                                    color: Theme.of(context).accentColor.withOpacity(0.5),
                                   ),
                                 ),
                                 Text(
                                   'تور های لحظه آخری',
-                                  style: DarwerThemeData.textTheme.title,
+                                  style: DarwerThemeData.textTheme.title.copyWith(color:Colors.white.withOpacity(0.5)),
                                 ),
                               ],
                             ),
@@ -267,10 +280,7 @@ class MyDrawer extends StatelessWidget {
                       ),
                       //_________________________________اطلاعات_____________________________________
                       GestureDetector(
-                          onTap: () {
-                            print('اطلاعات پرواز فرودگاه ها');
-                            //Navigator.pushNamed(context, '');
-                          },
+                          onTap: ()=>Navigator.pushNamed(context, '/flyinfoSite'),
                           child: Container(
                             padding:
                                 EdgeInsets.only(top: 15.0, left: 15, right: 20),
@@ -291,10 +301,7 @@ class MyDrawer extends StatelessWidget {
                             ),
                           )),
                       GestureDetector(
-                          onTap: () {
-                            print('پرداخت عوارض خروج');
-                            //Navigator.pushNamed(context, '');
-                          },
+                          onTap: ()=>Navigator.pushNamed(context, '/tollpayment'),
                           child: Container(
                             padding:
                                 EdgeInsets.only(top: 15.0, left: 15, right: 20),

@@ -47,15 +47,22 @@ main() {
         ),
         initialRoute: '/',
         routes: {
-         '/': (context) => HomePage(model: model),
-           //'/': (context) => Webview(),
+          '/': (context) => HomePage(model: model),
+          //'/': (context) => Webview(),
           '/aboutus': (context) => AboutUs(model),
           '/internaltourelist': (context) => ToureListPage(),
           '/foreigntourelist': (context) => ToureListPage(),
           '/touredetile': (context) => ToureDetilePage(),
           '/buyticket': (context) => BuyTicket(),
           '/contact': (context) => ContactPage(model),
-          '/webview': (context) => Webview(),
+          '/flyinfoSite': (context) => Webview(
+                title: 'اطلاعات پرواز فرودگاه های کشور',
+                url: 'https://fids.airport.ir/',
+              ),
+          '/tollpayment': (context) => Webview(
+                title: 'سامانه پرداخت عوارض خروج از کشور',
+                url: 'https://sadadpsp.ir/tollpayment',
+              ),
         }),
   ));
 }

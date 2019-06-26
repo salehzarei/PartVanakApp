@@ -4,7 +4,6 @@ import './UI/maincategorei.dart';
 import './UI/touretitle.dart';
 import './scoped_model.dart';
 import 'package:scoped_model/scoped_model.dart';
-
 import 'model/toure_model.dart';
 
 class HomeBody extends StatelessWidget {
@@ -22,9 +21,9 @@ class HomeBody extends StatelessWidget {
               CatDivider(
                 title: 'تورهای ویژه خارجی',
               ),
-              ToureScrollTitle(type: 1),
-              CatDivider(title: 'تورهای ویژه داخلی'),
               ToureScrollTitle(type: 2),
+              CatDivider(title: 'تورهای ویژه داخلی'),
+              ToureScrollTitle(type: 1),
             ],
           )),
     );
@@ -36,47 +35,55 @@ class ToureScrollTitle extends StatelessWidget {
 
   const ToureScrollTitle({Key key, this.type}) : super(key: key);
 
+  makeList(List<Toure> toure) {
+    return ListView.builder(
+      itemCount: toure.length,
+      shrinkWrap: true,
+      // ضروری است
+      physics: ClampingScrollPhysics(),
+      scrollDirection: Axis.horizontal,
+      reverse: true,
+      itemBuilder: (context, index) {
+        return Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 5),
+          child: ToureTitle(
+            toure: toure[index],
+          ),
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    List<Toure> toure = [];
+    List<Toure> _external = [];
+    List<Toure> _inernal = [];
     return ScopedModelDescendant<MainModel>(
       builder: (context, child, model) {
-        switch (type.toString()) {
-          case "1":
-            {
-              toure = model.tourelist;
-            }
-            break;
+        model.tourelist.forEach((toure) {
+          /// جدا سازی و ساخت لیست از تورهای داخلی و خارجی
+          switch (toure.foreign.toString()) {
+            case "2":
+              {
+                _external.add(toure);
+              }
+              break;
 
-          case "2":
-            {
-              toure = model.tourelist;
-            }
-            break;
-        }
+            case "1":
+              {
+                _inernal.add(toure);
+              }
+              break;
+          }
+        });
+
         return SizedBox(
-          height: 171,
-          child: model.isLoading
-              ? Center(
-                  child: CircularProgressIndicator(),
-                )
-              : ListView.builder(
-                  itemCount: toure.length,
-                  shrinkWrap: true,
-                  // ضروری است
-                  physics: ClampingScrollPhysics(),
-                  scrollDirection: Axis.horizontal,
-                  reverse: true,
-                  itemBuilder: (context, index) {
-                    return Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 5),
-                      child: ToureTitle(
-                        toure: toure[index],
-                      ),
-                    );
-                  },
-                ),
-        );
+            height: 171,
+            child: model.isLoading
+                ? Center(
+                    child: CircularProgressIndicator(),
+                  )
+                : type == 2 ? makeList(_external) : makeList(_inernal));
       },
     );
   }
