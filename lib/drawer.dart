@@ -334,7 +334,7 @@ _launchURL(String url) async {
                                     ),
                                   ),
                                   Text(
-                                    'پرداخت عوارش خروج',
+                                    'پرداخت عوارض خروج',
                                     style: DarwerThemeData.textTheme.title,
                                   ),
                                 ],

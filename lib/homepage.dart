@@ -52,7 +52,7 @@ _launchURL() async {
                       elevation: 5.0,
                       actions: <Widget>[
                         Padding(
-                          padding: const EdgeInsets.only(left: 50,top:5),
+                          padding: const EdgeInsets.only(left: 70,top:5),
                           child: Image.asset('images/logo.png',height: 50,color: Colors.white,),
                         ),
                         Padding(

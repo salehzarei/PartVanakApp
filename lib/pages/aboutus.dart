@@ -49,7 +49,7 @@ class _AboutUsState extends State<AboutUs> {
         );
       });
       content = Padding(
-        padding: const EdgeInsets.only(top: 500, left: 15, right: 15),
+        padding: const EdgeInsets.only(top: 640, left: 15, right: 15),
         child: Material(
           color: Colors.transparent,
           child: Container(
