@@ -32,6 +32,7 @@ main() {
           fontFamily: 'IRANSans',
           textTheme: TextTheme(
               title: TextStyle(fontWeight: FontWeight.bold),
+              display2: TextStyle(fontSize: 20, fontWeight: FontWeight.w400 , color:Color(0xFFD8B945) ),
               display4: TextStyle(fontSize: 14, fontWeight: FontWeight.w400),
               display3: TextStyle(
                   fontSize: 11,
@@ -50,8 +51,8 @@ main() {
           '/': (context) => HomePage(model: model),
           //'/': (context) => Webview(),
           '/aboutus': (context) => AboutUs(model),
-          '/internaltourelist': (context) => ToureListPage(),
-          '/foreigntourelist': (context) => ToureListPage(),
+          '/internaltourelist': (context) => ToureListPage( toureType: 1,),
+          '/foreigntourelist': (context) => ToureListPage(toureType: 2,),
           '/touredetile': (context) => ToureDetilePage(),
           '/buyticket': (context) => BuyTicket(),
           '/contact': (context) => ContactPage(model),

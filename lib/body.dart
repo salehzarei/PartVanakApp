@@ -20,9 +20,13 @@ class HomeBody extends StatelessWidget {
               MainCategory(),
               CatDivider(
                 title: 'تورهای ویژه خارجی',
+                toureType: 2,
               ),
               ToureScrollTitle(type: 2),
-              CatDivider(title: 'تورهای ویژه داخلی'),
+              CatDivider(
+                title: 'تورهای ویژه داخلی',
+                toureType: 1,
+              ),
               ToureScrollTitle(type: 1),
             ],
           )),

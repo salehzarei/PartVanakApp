@@ -59,7 +59,7 @@ class HomeItem extends StatelessWidget {
         children: <Widget>[
           Icon(
             icon,
-            size: 45,
+            size: 32,
           ),
           SizedBox(height: 5),
           Text(
@@ -76,7 +76,7 @@ class ShapesPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     final paint = Paint();
-    paint.color = Colors.grey;
+    paint.color = Colors.grey.withOpacity(0.5);
     paint.strokeWidth = 0.5;
 
     canvas.drawLine(Offset(-200, 0), Offset(200, 0), paint);
@@ -92,10 +92,10 @@ class VerLine extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     final paint = Paint();
-    paint.color = Colors.grey;
+    paint.color = Colors.grey.withOpacity(0.5);
     paint.strokeWidth = 0.5;
 
-    canvas.drawLine(Offset(0, -125), Offset(0, 50), paint);
+    canvas.drawLine(Offset(0, -125), Offset(0, 40), paint);
   }
 
   @override
