@@ -312,89 +312,111 @@ _launchURL(String url) async {
                                   child: Icon(
                                     ToureIcons.passport_1,
                                     color: Theme.of(context).accentColor,
+                                  ),)
+                                  ]
+                              ),
+                            )),
+                        GestureDetector(
+                            onTap: () {
+                              print('پرداخت عوارض خروج');
+                              //Navigator.pushNamed(context, '');
+                            },
+                            child: Container(
+                              padding: EdgeInsets.only(
+                                  top: 15.0, left: 15, right: 20),
+                              child: Row(
+                                children: <Widget>[
+                                  Padding(
+                                    padding: const EdgeInsets.only(left: 8.0),
+                                    child: Icon(
+                                      ToureIcons.passport_1,
+                                      color: Theme.of(context).accentColor,
+                                    ),
                                   ),
-                                ),
-                                Text(
-                                  'پرداخت عوارش خروج',
-                                  style: DarwerThemeData.textTheme.title,
-                                ),
-                              ],
-                            ),
-                          )),
+                                  Text(
+                                    'پرداخت عوارش خروج',
+                                    style: DarwerThemeData.textTheme.title,
+                                  ),
+                                ],
+                              ),
+                            )),
 
-                      Container(
-                        margin: EdgeInsets.only(top: 20, left: 15.0, right: 15),
-                        height: 1,
-                        decoration: BoxDecoration(
-                            color: Theme.of(context).accentColor,
-                            borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(5),
-                                bottomLeft: Radius.circular(5))),
-                      ),
-                      //_________________________________درباره ما ، تماس با ما_____________________________________
+                        Container(
+                          margin:
+                              EdgeInsets.only(top: 20, left: 15.0, right: 15),
+                          height: 1,
+                          decoration: BoxDecoration(
+                              color: Theme.of(context).accentColor,
+                              borderRadius: BorderRadius.only(
+                                  topLeft: Radius.circular(5),
+                                  bottomLeft: Radius.circular(5))),
+                        ),
+                        //_________________________________درباره ما ، تماس با ما_____________________________________
 
-                      GestureDetector(
-                          onTap: () {
-                            print('aboutus');
-                            Navigator.pushNamed(context, '/aboutus');
-                          },
-                          child: Container(
-                            padding:
-                                EdgeInsets.only(top: 15.0, left: 15, right: 20),
-                            child: Row(
-                              children: <Widget>[
-                                Padding(
-                                  padding: const EdgeInsets.only(left: 8.0),
-                                  child: Icon(
-                                    ToureIcons.share,
-                                    color: Theme.of(context).accentColor,
+                        GestureDetector(
+                            onTap: () {
+                              print('aboutus');
+                              Navigator.pushNamed(context, '/aboutus');
+                            },
+                            child: Container(
+                              padding: EdgeInsets.only(
+                                  top: 15.0, left: 15, right: 20),
+                              child: Row(
+                                children: <Widget>[
+                                  Padding(
+                                    padding: const EdgeInsets.only(left: 8.0),
+                                    child: Icon(
+                                      ToureIcons.share,
+                                      color: Theme.of(context).accentColor,
+                                    ),
                                   ),
-                                ),
-                                Text(
-                                  'درباره ما',
-                                  style: DarwerThemeData.textTheme.title,
-                                )
-                              ],
-                            ),
-                          )),
-                      GestureDetector(
-                          onTap: () {
-                            print('contact');
-                            Navigator.pushNamed(context, '/contact');
-                          },
-                          child: Container(
-                            padding:
-                                EdgeInsets.only(top: 15.0, left: 15, right: 20),
-                            child: Row(
-                              children: <Widget>[
-                                Padding(
-                                  padding: const EdgeInsets.only(left: 8.0),
-                                  child: Icon(
-                                    ToureIcons.call,
-                                    color: Theme.of(context).accentColor,
+                                  Text(
+                                    'درباره ما',
+                                    style: DarwerThemeData.textTheme.title,
+                                  )
+                                ],
+                              ),
+                            )),
+                        GestureDetector(
+                            onTap: () {
+                              print('contact');
+                              Navigator.pushNamed(context, '/contact');
+                            },
+                            child: Container(
+                              padding: EdgeInsets.only(
+                                  top: 15.0, left: 15, right: 20),
+                              child: Row(
+                                children: <Widget>[
+                                  Padding(
+                                    padding: const EdgeInsets.only(left: 8.0),
+                                    child: Icon(
+                                      ToureIcons.call,
+                                      color: Theme.of(context).accentColor,
+                                    ),
                                   ),
-                                ),
-                                Text(
-                                  'تماس با ما',
-                                  style: DarwerThemeData.textTheme.title,
-                                )
-                              ],
-                            ),
-                          )),
-                      Container(
-                        margin: EdgeInsets.only(top: 20, left: 15.0, right: 15),
-                        height: 1,
-                        decoration: BoxDecoration(
-                            color: Theme.of(context).accentColor,
-                            borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(5),
-                                bottomLeft: Radius.circular(5))),
-                      ),
-                    ],
-                  ),
-                ],
+                                  Text(
+                                    'تماس با ما',
+                                    style: DarwerThemeData.textTheme.title,
+                                  )
+                                ],
+                              ),
+                            )),
+                        Container(
+                          margin:
+                              EdgeInsets.only(top: 20, left: 15.0, right: 15),
+                          height: 1,
+                          decoration: BoxDecoration(
+                              color: Theme.of(context).accentColor,
+                              borderRadius: BorderRadius.only(
+                                  topLeft: Radius.circular(5),
+                                  bottomLeft: Radius.circular(5))),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
               ),
-            ),
+            
             Padding(
               padding: const EdgeInsets.only(bottom: 5, top: 15),
               child: Container(
@@ -407,7 +429,7 @@ _launchURL(String url) async {
             ),
           ],
         ),
-      ),
+      )
     );
   }
 }

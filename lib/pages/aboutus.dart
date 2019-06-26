@@ -162,7 +162,6 @@ class _AboutUsState extends State<AboutUs> {
                       Padding(
                         padding: const EdgeInsets.only(bottom: 10),
                         child: Container(
-                          // width: MediaQuery.of(context).size.width,
                           height: 80,
                           alignment: Alignment.center,
                           color: Colors.transparent,
