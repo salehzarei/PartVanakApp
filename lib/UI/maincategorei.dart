@@ -1,6 +1,29 @@
 import 'package:flutter/material.dart';
 import '../coustomIcon/toure_icons_icons.dart';
 
+Future<void> _ackAlert(BuildContext context) {
+  return showDialog<void>(
+    context: context,
+    builder: (BuildContext context) {
+      return Directionality(
+        textDirection: TextDirection.rtl,
+        child: AlertDialog(
+          title: Text('شرمنده !'),
+          content: const Text('متاسفانه هنوز برای این قسمت تور قرار گرفته نشده'),
+          actions: <Widget>[
+            FlatButton(
+              child: Text('بستن'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        ),
+      );
+    },
+  );
+}
+
 class MainCategory extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -14,8 +37,8 @@ class MainCategory extends StatelessWidget {
                 onTap: () => Navigator.pushNamed(context, '/foreigntourelist'),
                 child: HomeItem('تورهای خارجی', ToureIcons.around)),
             GestureDetector(
-              onTap: ()=> Navigator.pushNamed(context, '/internaltourelist'),
-              child: HomeItem('تورهای داخلی', ToureIcons.azadi)),
+                onTap: () => Navigator.pushNamed(context, '/internaltourelist'),
+                child: HomeItem('تورهای داخلی', ToureIcons.azadi)),
             HomeItem('تورهای طبیعتگردی', ToureIcons.tent)
           ],
         ),
@@ -29,15 +52,22 @@ class MainCategory extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-            HomeItem('تورهای لاکچری', ToureIcons.crown_of_royal_design),
+            GestureDetector(
+                onTap: () => _ackAlert(context),
+                child: HomeItem(
+                    'تورهای لاکچری', ToureIcons.crown_of_royal_design)),
             CustomPaint(
               painter: VerLine(),
             ),
-            HomeItem('تورهای یکروزه', ToureIcons.first_day),
+            GestureDetector(
+                onTap: () => _ackAlert(context),
+                child: HomeItem('تورهای یکروزه', ToureIcons.first_day)),
             CustomPaint(
               painter: VerLine(),
             ),
-            HomeItem('تورهای لحظه آخری', ToureIcons.stopwatch)
+            GestureDetector(
+                onTap: () => _ackAlert(context),
+                child: HomeItem('تورهای لحظه آخری', ToureIcons.stopwatch))
           ],
         ),
       ],
@@ -59,7 +89,7 @@ class HomeItem extends StatelessWidget {
         children: <Widget>[
           Icon(
             icon,
-            size: 45,
+            size: 32,
           ),
           SizedBox(height: 5),
           Text(
@@ -76,7 +106,7 @@ class ShapesPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     final paint = Paint();
-    paint.color = Colors.grey;
+    paint.color = Colors.grey.withOpacity(0.5);
     paint.strokeWidth = 0.5;
 
     canvas.drawLine(Offset(-200, 0), Offset(200, 0), paint);
@@ -92,10 +122,10 @@ class VerLine extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     final paint = Paint();
-    paint.color = Colors.grey;
+    paint.color = Colors.grey.withOpacity(0.5);
     paint.strokeWidth = 0.5;
 
-    canvas.drawLine(Offset(0, -125), Offset(0, 50), paint);
+    canvas.drawLine(Offset(0, -125), Offset(0, 40), paint);
   }
 
   @override

@@ -300,26 +300,26 @@ _launchURL(String url) async {
                               ],
                             ),
                           )),
-                      GestureDetector(
-                          onTap: ()=>Navigator.pushNamed(context, '/tollpayment'),
-                          child: Container(
-                            padding:
-                                EdgeInsets.only(top: 15.0, left: 15, right: 20),
-                            child: Row(
-                              children: <Widget>[
-                                Padding(
-                                  padding: const EdgeInsets.only(left: 8.0),
-                                  child: Icon(
-                                    ToureIcons.passport_1,
-                                    color: Theme.of(context).accentColor,
-                                  ),)
-                                  ]
-                              ),
-                            )),
+                      // GestureDetector(
+                      //     onTap: ()=>Navigator.pushNamed(context, '/tollpayment'),
+                      //     child: Container(
+                      //       padding:
+                      //           EdgeInsets.only(top: 15.0, left: 15, right: 20),
+                      //       child: Row(
+                      //         children: <Widget>[
+                      //           Padding(
+                      //             padding: const EdgeInsets.only(left: 8.0),
+                      //             child: Icon(
+                      //               ToureIcons.passport_1,
+                      //               color: Theme.of(context).accentColor,
+                      //             ),)
+                      //             ]
+                      //         ),
+                      //       )),
                         GestureDetector(
                             onTap: () {
                               print('پرداخت عوارض خروج');
-                              //Navigator.pushNamed(context, '');
+                              Navigator.pushNamed(context, '/tollpayment');
                             },
                             child: Container(
                               padding: EdgeInsets.only(

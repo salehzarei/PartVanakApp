@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hello_flutter/buyticket.dart';
+import 'package:hello_flutter/pages/linkurl.dart';
 import 'package:hello_flutter/toureDetile.dart';
 import 'package:hello_flutter/toureList.dart';
 import 'package:scoped_model/scoped_model.dart';
@@ -10,7 +11,7 @@ import './pages/contact.dart';
 import './pages/aboutus.dart';
 import './scoped_model.dart';
 import './pages/webview.dart';
-
+import './pages/linkurl.dart';
 main() {
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   MainModel model = MainModel();
@@ -32,6 +33,7 @@ main() {
           fontFamily: 'IRANSans',
           textTheme: TextTheme(
               title: TextStyle(fontWeight: FontWeight.bold),
+              display2: TextStyle(fontSize: 20, fontWeight: FontWeight.w400 , color:Color(0xFFD8B945) ),
               display4: TextStyle(fontSize: 14, fontWeight: FontWeight.w400),
               display3: TextStyle(
                   fontSize: 11,
@@ -47,11 +49,13 @@ main() {
         ),
         initialRoute: '/',
         routes: {
-          '/': (context) => HomePage(model: model),
-          //'/': (context) => Webview(),
+         // '/': (context) => HomePage(model: model),
+          '/': (context) => LinkifyExample(),
+
+
           '/aboutus': (context) => AboutUs(model),
-          '/internaltourelist': (context) => ToureListPage(),
-          '/foreigntourelist': (context) => ToureListPage(),
+          '/internaltourelist': (context) => ToureListPage( toureType: 1,),
+          '/foreigntourelist': (context) => ToureListPage(toureType: 2,),
           '/touredetile': (context) => ToureDetilePage(),
           '/buyticket': (context) => BuyTicket(),
           '/contact': (context) => ContactPage(model),

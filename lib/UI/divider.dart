@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 
 class CatDivider extends StatelessWidget {
   final String title;
+  final int toureType;
 
-  const CatDivider({Key key, this.title}) : super(key: key);
+  const CatDivider({Key key, this.title, this.toureType}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -58,7 +59,21 @@ class CatDivider extends StatelessWidget {
                     fontSize: 11,
                     color: Colors.white,
                   )),
-              onPressed: () {},
+              onPressed: () {
+              switch (toureType.toString()) {
+                  case "1":
+                    {
+                      Navigator.pushNamed(context, '/internaltourelist');
+                    }
+                    break;
+
+                  case "2":
+                    {
+                      Navigator.pushNamed(context, '/foreigntourelist');
+                    }
+                    break;
+                }
+              },
             ),
           )
         ],
