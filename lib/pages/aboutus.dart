@@ -22,12 +22,186 @@ class _AboutUsState extends State<AboutUs> {
     super.initState();
   }
 
-  Widget _buildCell() {
-    Widget content = Container(
-      width: 0.0,
-      height: 0.0,
-    );
-    return content;
+  Widget _buildManagement(String data) {
+    Widget _content = Container(width: 0, height: 0);
+    if (data.length > 0) {
+      _content = Padding(
+        padding: const EdgeInsets.all(10.0),
+        child: Row(
+          textDirection: TextDirection.rtl,
+          children: <Widget>[
+            Expanded(
+              child: Text(
+                'نام متصدی :',
+                textDirection: TextDirection.rtl,
+                style: TextStyle(color: Colors.white),
+              ),
+            ),
+            Expanded(
+              child: Text(
+                '${data}',
+                textDirection: TextDirection.rtl,
+                style: TextStyle(color: Colors.white),
+              ),
+            ),
+          ],
+        ),
+      );
+    }
+    return _content;
+  }
+
+  Widget _buildCell(List<dynamic> data) {
+    Widget _content = Container(width: 0, height: 0);
+    if (data.isNotEmpty) {
+      _content = Padding(
+        padding: const EdgeInsets.all(10.0),
+        child: Row(
+          textDirection: TextDirection.rtl,
+          children: <Widget>[
+            Expanded(
+              child: Text(
+                ' تلفن همراه :',
+                textDirection: TextDirection.rtl,
+                style: TextStyle(color: Colors.white),
+              ),
+            ),
+            Expanded(
+              child: Text(
+                data.join(','),
+                textDirection: TextDirection.rtl,
+                style: TextStyle(color: Colors.white),
+              ),
+            ),
+          ],
+        ),
+      );
+    }
+
+    return _content;
+  }
+
+  Widget _buildTell(List<dynamic> data) {
+    Widget _content = Container(width: 0, height: 0);
+    if (data.isNotEmpty) {
+      _content = Padding(
+        padding: const EdgeInsets.all(10.0),
+        child: Row(
+          textDirection: TextDirection.rtl,
+          children: <Widget>[
+            Expanded(
+              child: Text(
+                ' تلفن ثابت :',
+                textDirection: TextDirection.rtl,
+                style: TextStyle(color: Colors.white),
+              ),
+            ),
+            Expanded(
+              child: Text(
+                data.join(','),
+                textDirection: TextDirection.rtl,
+                style: TextStyle(color: Colors.white),
+              ),
+            ),
+          ],
+        ),
+      );
+    }
+    return _content;
+  }
+
+  Widget _buildEmail(String data) {
+    Widget _content = Container(width: 0, height: 0);
+    if (data.length > 0) {
+      _content = Padding(
+        padding: const EdgeInsets.all(10.0),
+        child: Row(
+          textDirection: TextDirection.rtl,
+          children: <Widget>[
+            Expanded(
+              child: Text(
+                ' پست الکترونیک :',
+                textDirection: TextDirection.rtl,
+                style: TextStyle(color: Colors.white),
+              ),
+            ),
+            Expanded(
+              child: Text(
+                '${data}',
+                textDirection: TextDirection.rtl,
+                style: TextStyle(color: Colors.white),
+              ),
+            ),
+          ],
+        ),
+      );
+    }
+    return _content;
+  }
+
+  Widget _buildWeb(String data) {
+    Widget _content = Container(width: 0, height: 0);
+    if (data.length > 0) {
+      _content = Padding(
+        padding: const EdgeInsets.all(10.0),
+        child: Row(
+          textDirection: TextDirection.rtl,
+          children: <Widget>[
+            Expanded(
+              child: Text(
+                ' آدرس سایت :',
+                textDirection: TextDirection.rtl,
+                style: TextStyle(color: Colors.white),
+              ),
+            ),
+            Expanded(
+              child: InkWell(
+                  onTap: () => _launchURL('${data}'),
+                  child: Text(
+                    '${data}',
+                    textDirection: TextDirection.rtl,
+                    style: TextStyle(color: Colors.white),
+                  )),
+              // child: Text(
+              //   '${data}',
+              //   textDirection: TextDirection.rtl,
+              //   style: TextStyle(color: Colors.white),
+              // ),
+            ),
+          ],
+        ),
+      );
+    }
+    return _content;
+  }
+
+  Widget _buildAddress(String data) {
+    Widget _content = Container(width: 0, height: 0);
+    if (data != '') {
+      _content = Padding(
+        padding: const EdgeInsets.all(10.0),
+        child: Row(
+          textDirection: TextDirection.rtl,
+          children: <Widget>[
+            Expanded(
+              child: Text(
+                ' آدرس :',
+                textDirection: TextDirection.rtl,
+                style: TextStyle(color: Colors.white),
+              ),
+            ),
+            Expanded(
+              child: Text(
+                '${data}',
+                textDirection: TextDirection.rtl,
+                style: TextStyle(color: Colors.white),
+              ),
+            ),
+          ],
+        ),
+      );
+    }
+    return _content;
   }
 
   Widget _builSocialNetwork(BuildContext context, List<Social> social) {
@@ -90,12 +264,10 @@ class _AboutUsState extends State<AboutUs> {
           return Directionality(
             textDirection: TextDirection.rtl,
             child: Stack(
-              //fit: StackFit.expand,
-              //textDirection: TextDirection.rtl,
               children: <Widget>[
                 Container(
                   child: Image.network(
-                    'https://images.unsplash.com/photo-1500835556837-99ac94a94552?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80',
+                    model.aboutmodel.back,
                     fit: BoxFit.cover,
                   ),
                 ),
@@ -111,6 +283,15 @@ class _AboutUsState extends State<AboutUs> {
                         'درباره ما',
                         style: Theme.of(context).textTheme.title,
                       ),
+                      actions: <Widget>[
+                        IconButton(
+                          icon: Icon(
+                            Icons.arrow_forward,
+                            color: Colors.white,
+                          ),
+                          onPressed: () => Navigator.pop(context),
+                        )
+                      ],
                     ),
                     body: Stack(children: [
                       Padding(
@@ -135,25 +316,12 @@ class _AboutUsState extends State<AboutUs> {
                                               fontSize: 15))),
                             ),
 
-                            Row(
-                              textDirection: TextDirection.rtl,
-                              children: <Widget>[
-                                Expanded(
-                                  child: Text(
-                                    'نام متصدی :',
-                                    textDirection: TextDirection.rtl,
-                                    style: TextStyle(color: Colors.white),
-                                  ),
-                                ),
-                                Expanded(
-                                  child: Text(
-                                    '${model.aboutmodel.name}',
-                                    textDirection: TextDirection.rtl,
-                                    style: TextStyle(color: Colors.white),
-                                  ),
-                                ),
-                              ],
-                            ),
+                            _buildManagement(model.aboutmodel.name),
+                            _buildCell(model.aboutmodel.cell),
+                            _buildTell(model.aboutmodel.tell),
+                            _buildWeb(model.aboutmodel.web),
+                            _buildEmail(model.aboutmodel.email),
+                            _buildAddress(model.aboutmodel.address),
 
                             // _buildCell(),
                           ],

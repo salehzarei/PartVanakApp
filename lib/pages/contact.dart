@@ -68,7 +68,7 @@ class _ContactPageState extends State<ContactPage> {
   Widget _buildEmailTextField() {
     return TextFormField(
       decoration: InputDecoration(
-          labelText: '‍پست الکترونیک ‍', filled: true, fillColor: Colors.white),
+          labelText: ' پست الکترونیک ‍', filled: true, fillColor: Colors.white),
       keyboardType: TextInputType.emailAddress,
       textAlign: TextAlign.left,
       validator: (String value) {
