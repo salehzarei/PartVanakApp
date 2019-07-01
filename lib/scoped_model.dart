@@ -234,6 +234,7 @@ class MainModel extends Model {
           tell: data['Tell'],
           address: data['Address'],
           email: data['Email'],
+          back: data['back'],
           web: data['Web'],
           social: (data['Social'] as List)
               .map((i) => Social.fromJson(i))
