@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:hello_flutter/homepage.dart';
 import 'package:splashscreen/splashscreen.dart';
 
 class Splash extends StatelessWidget {
@@ -8,7 +7,7 @@ class Splash extends StatelessWidget {
     return Padding(
         padding: const EdgeInsets.all(10.0),
         child: SplashScreen(
-          seconds: 5,
+          seconds: 6,
           navigateAfterSeconds: '/homepage',
           title: Text(
             'به نرم افزار آژانس مسافرتی پارت ونک خوش آمدید',
