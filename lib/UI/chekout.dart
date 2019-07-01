@@ -31,6 +31,11 @@ class _ChekOutState extends State<ChekOut> {
   int _totalPrice = 0;
   int _currrentStep = 0;
   bool _visible = false;
+  bool _finalStep = false;
+
+  TextEditingController _phone = TextEditingController();
+  TextEditingController _mobile = TextEditingController();
+  TextEditingController _email = TextEditingController();
 
   @override
   void initState() {
@@ -38,7 +43,6 @@ class _ChekOutState extends State<ChekOut> {
 
     /// خواندن مدل هتل انتخاب شده برای مقداردهی اولیه قیمت ها
     MainModel _model = ScopedModel.of(context);
-
     _model.tourelist.forEach((toure) {
       toure.accommodation.forEach((acc) {
         if (acc.accommodation_id.toString() == _model.tmpCartData['HotelID']) {
@@ -51,7 +55,6 @@ class _ChekOutState extends State<ChekOut> {
       });
       if (toure.id.toString() == _model.tmpCartData['ToureID']) {
         _currency = toure.currency;
-        print(toure.title);
       }
     });
 
@@ -102,9 +105,44 @@ class _ChekOutState extends State<ChekOut> {
   }
 
   sendToServer() {
-    MainModel _model = ScopedModel.of(context);
-    _model.sendDataToServer();
-    _ackAlert(context);
+     MainModel _model = ScopedModel.of(context);
+    _model.sendDataToServer(
+        cell: _mobile.text, email: _email.text, tell: _phone.text).then((_){
+  _ackAlert(context);
+        });
+   
+  }
+
+///// دکمه برگشت
+  _onStepCancel(index) {
+    setState(() {
+      if (index > 0) _currrentStep--;
+      if (index - 1 == 0) _visible = false;
+    });
+  }
+
+  //// دکمه تایید
+  _onStepContinue(index) {
+    setState(() {
+      if (index < 2) {
+        _currrentStep++;
+        _visible = true;
+      }
+      if (index + 1 == 2) _finalStep = true;
+    });
+  }
+
+  /// تپ کردن روی هر مورد
+  _onStepTapped(index) {
+    setState(() {
+      _currrentStep = index;
+      if (index < 2 && index > 0) {
+        _visible = true;
+        _finalStep = false;
+      } else if (index == 0)
+        _visible = false;
+      else if (index == 2) _finalStep = true;
+    });
   }
 
   Future<void> _ackAlert(BuildContext context) {
@@ -114,7 +152,7 @@ class _ChekOutState extends State<ChekOut> {
         return Directionality(
           textDirection: TextDirection.rtl,
           child: AlertDialog(
-            title: Text('درگاه بانکی رو انتخاب کنید'),
+            title: Text('اطلاعات با موفقیت سمت سرور ارسال شد'),
             content:
                 const Text('متاسفانه هنوز برای این قسمت تور قرار گرفته نشده'),
             actions: <Widget>[
@@ -133,16 +171,27 @@ class _ChekOutState extends State<ChekOut> {
 
   @override
   Widget build(BuildContext context) {
-    List<DataRow> listpassanger = widget.passengerlist
-        .map((i) => DataRow(cells: [
-              DataCell(Text(i.sex + " " + i.name + " " + i.family,
-                  style: Theme.of(context).textTheme.subtitle)),
-              DataCell(Text(i.melicode,
-                  style: Theme.of(context).textTheme.subtitle)),
-              DataCell(
-                  Text(i.brith, style: Theme.of(context).textTheme.subtitle)),
-            ]))
-        .toList();
+    // List<DataRow> listpassanger = widget.passengerlist
+    //     .map((i) => DataRow(cells: [
+    //           DataCell(
+    //             Column(
+    //               crossAxisAlignment: CrossAxisAlignment.center,
+    //               children: <Widget>[
+    //                 Text(i.sex + " " + i.name + " " + i.family,
+    //                     style: Theme.of(context).textTheme.subtitle),
+    //                 Text(i.sex + " " + i.name + " " + i.family,
+    //                     style: Theme.of(context).textTheme.subtitle),
+    //                 Text(i.sex + " " + i.name + " " + i.family,
+    //                     style: Theme.of(context).textTheme.subtitle),
+    //               ],
+    //             ),
+    //           ),
+    //           DataCell(Text(i.melicode,
+    //               style: Theme.of(context).textTheme.subtitle)),
+    //           DataCell(
+    //               Text(i.brith, style: Theme.of(context).textTheme.subtitle)),
+    //         ]))
+    //     .toList();
 
 //// استخراج اطلاعات
 
@@ -170,58 +219,50 @@ class _ChekOutState extends State<ChekOut> {
               child: Stepper(
                 type: StepperType.vertical,
                 currentStep: _currrentStep,
-                controlsBuilder: (BuildContext context,
-                    {VoidCallback onStepContinue, VoidCallback onStepCancel}) {
-                  return Row(
-                    mainAxisSize: MainAxisSize.max,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      Visibility(
-                        visible: _visible,
-                        child: RaisedButton(
+                controlsBuilder: (
+                  BuildContext context, {
+                  VoidCallback onStepContinue,
+                  VoidCallback onStepCancel,
+                }) {
+                  return _finalStep
+                      ? RaisedButton(
+                          color: Colors.greenAccent,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(15),
                           ),
-                          onPressed: onStepCancel,
-                          child: const Text('برگشت'),
-                        ),
-                      ),
-                      RaisedButton(
-                        color: Theme.of(context).buttonColor,
-                        onPressed: onStepContinue,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(15),
-                        ),
-                        child: const Text('تایید'),
-                      ),
-                    ],
-                  );
+                          onPressed: () => sendToServer(),
+                          child: const Text('پرداخت صورتحساب'),
+                        )
+                      : Row(
+                          mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: <Widget>[
+                            Visibility(
+                              visible: _visible,
+                              child: RaisedButton(
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(15),
+                                ),
+                                onPressed: onStepCancel,
+                                child: const Text('برگشت'),
+                              ),
+                            ),
+                            RaisedButton(
+                              color: Theme.of(context).buttonColor,
+                              onPressed: onStepContinue,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(15),
+                              ),
+                              child: const Text('تایید'),
+                            ),
+                          ],
+                        );
                 },
-                onStepCancel: () {
-                  setState(() {
-                    if (_currrentStep > 0) {
-                      _currrentStep--;
-                      _visible = true;
-                    } else {
-                      _visible = false;
-                    }
-                  });
-                },
-                onStepContinue: () {
-                  setState(() {
-                    if (_currrentStep < 2) {
-                      _currrentStep++;
-                      _visible = true;
-                    }
-                  });
-                },
-                onStepTapped: (index) {
-                  setState(() {
-                    _currrentStep = index;
-                  });
-                },
+                onStepCancel: () => _onStepCancel(_currrentStep),
+                onStepContinue: () => _onStepContinue(_currrentStep),
+                onStepTapped: (index) => _onStepTapped(index),
                 steps: [
-                  masterPerson(context, widget.passengerlist),
+                  otherPassenger(context, widget.passengerlist),
                   factor(
                       context,
                       _singleCount,
@@ -235,9 +276,7 @@ class _ChekOutState extends State<ChekOut> {
                       _baby_price,
                       _adult_price,
                       _totalPrice),
-                  otherPassenger(context, listpassanger),
-                  pay(context),
-                  
+                  pay(context, _email, _mobile, _phone),
                 ],
               ))),
     );
@@ -350,34 +389,46 @@ Step masterPerson(BuildContext context, passengerlist) {
   );
 }
 
-Step otherPassenger(BuildContext context, List<DataRow> listpassanger) {
-  
-return Step(
-        title: Text('مشخصات سایر مسافرین'),
-        isActive: true,
-        content: Directionality(
-          textDirection: TextDirection.rtl,
-          child: SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            child: DataTable(
-              columns: [
-                DataColumn(
-                  label:
-                      Text('نام', style: Theme.of(context).textTheme.headline),
-                ),
-                DataColumn(
-                  label: Text('کدملی',
-                      style: Theme.of(context).textTheme.headline),
-                ),
-                DataColumn(
-                  label: Text('تاریخ تولد',
-                      style: Theme.of(context).textTheme.headline),
-                ),
-              ],
-              rows: listpassanger,
+Step otherPassenger(BuildContext context, List<PassengerModel> passengerList) {
+  return Step(
+      title: Text('مشخصات سایر مسافرین'),
+      isActive: true,
+      content: Directionality(
+        textDirection: TextDirection.rtl,
+        child: SizedBox(
+          height: passengerList.length < 3
+              ? double.parse("${80 * passengerList.length}")
+              : 250,
+          width: 330,
+          child: Scrollbar(
+            child: ListView.builder(
+              itemCount: passengerList.length,
+              itemBuilder: (context, index) {
+                return ListTile(
+                  title: Text(
+                    passengerList[index].sex +
+                        " " +
+                        passengerList[index].name +
+                        " " +
+                        passengerList[index].family,
+                  ),
+                  isThreeLine: true,
+                  leading: Text("${index + 1}"),
+                  subtitle: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Text("کد ملی :" + " " + passengerList[index].melicode),
+                      Text(
+                        "تاریخ تولد: " + passengerList[index].brith,
+                      ),
+                    ],
+                  ),
+                );
+              },
             ),
           ),
-        ));
+        ),
+      ));
 }
 
 Step factor(
@@ -558,12 +609,42 @@ Step factor(
   );
 }
 
-Step pay(
-  BuildContext context,
-) {
-  Step(
+Step pay(BuildContext context, _email, _mobile, _phone) {
+  return Step(
       title: Text('پرداخت صورتحساب'),
       content: Center(
-        child: Text('هیج همراهی با این مسافر نیست'),
-      ));
+          child: Column(
+        children: <Widget>[
+          TextField(
+            controller: _email,
+            decoration: InputDecoration(
+              hintText: 'آدرس ایمیل',
+              hintStyle: TextStyle(fontSize: 13),
+              counterText: '',
+            ),
+            keyboardType: TextInputType.emailAddress,
+            maxLength: 25,
+          ),
+          TextField(
+            controller: _mobile,
+            decoration: InputDecoration(
+              hintText: 'شماره همراه',
+              hintStyle: TextStyle(fontSize: 13),
+              counterText: '',
+            ),
+            keyboardType: TextInputType.phone,
+            maxLength: 11,
+          ),
+          TextField(
+            controller: _phone,
+            decoration: InputDecoration(
+              hintText: 'شماره ثابت',
+              hintStyle: TextStyle(fontSize: 13),
+              counterText: '',
+            ),
+            keyboardType: TextInputType.phone,
+            maxLength: 11,
+          )
+        ],
+      )));
 }

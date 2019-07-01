@@ -149,15 +149,15 @@ class MainModel extends Model {
 
 ///// ارسال اطلاعات مسافر به سرور
 
-  Future<bool> sendDataToServer() async {
+  Future<bool> sendDataToServer( {String cell , String tell , String email}) async {
     cart.clear();
     notifyListeners();
     CartModel _cartForOnePassenger = CartModel(
         toure_id: int.parse(tmpCartData['ToureID']),
         hotel_id: int.parse(tmpCartData['HotelID']),
-        cell: '09154127181',
-        tell: '0915127181',
-        email: 'saleh.zarei@gmail.com',
+        cell: cell,
+        tell: tell,
+        email: email,
         paymentType: 1,
         passengers: passengers);
     print(json.encode(_cartForOnePassenger));
