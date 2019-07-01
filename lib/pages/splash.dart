@@ -10,7 +10,7 @@ class Splash extends StatelessWidget {
           seconds: 6,
           navigateAfterSeconds: '/homepage',
           title: Text(
-            'به نرم افزار آژانس مسافرتی پارت ونک خوش آمدید',
+            'آژانس مسافرتی پارت ونک',
             style: TextStyle(
       fontWeight: FontWeight.bold,
       fontSize: 18.0,

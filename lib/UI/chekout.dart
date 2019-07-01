@@ -6,6 +6,7 @@ import 'package:hello_flutter/drawer.dart';
 import 'package:scoped_model/scoped_model.dart';
 import '../scoped_model.dart';
 import '../model/passenger_model.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class ChekOut extends StatefulWidget {
   final List<PassengerModel> passengerlist;
@@ -105,12 +106,23 @@ class _ChekOutState extends State<ChekOut> {
   }
 
   sendToServer() {
-     MainModel _model = ScopedModel.of(context);
-    _model.sendDataToServer(
-        cell: _mobile.text, email: _email.text, tell: _phone.text).then((_){
-  _ackAlert(context);
-        });
-   
+    MainModel _model = ScopedModel.of(context);
+    _model
+        .sendDataToServer(
+            cell: _mobile.text, email: _email.text, tell: _phone.text)
+        .then((_) => _launchURL(_model.serverCartResponse)
+            // _ackAlert(context,_model.serverCartResponse);
+
+            );
+  }
+
+  _launchURL(String url) async {
+    print('llll'+url);
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch ' + url;
+    }
   }
 
 ///// دکمه برگشت
@@ -145,7 +157,7 @@ class _ChekOutState extends State<ChekOut> {
     });
   }
 
-  Future<void> _ackAlert(BuildContext context) {
+  Future<void> _ackAlert(BuildContext context, String url) {
     return showDialog<void>(
       context: context,
       builder: (BuildContext context) {
@@ -153,8 +165,7 @@ class _ChekOutState extends State<ChekOut> {
           textDirection: TextDirection.rtl,
           child: AlertDialog(
             title: Text('اطلاعات با موفقیت سمت سرور ارسال شد'),
-            content:
-                const Text('متاسفانه هنوز برای این قسمت تور قرار گرفته نشده'),
+            content: Text(url),
             actions: <Widget>[
               FlatButton(
                 child: Text('بستن'),

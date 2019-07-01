@@ -158,7 +158,7 @@ class MainModel extends Model {
         cell: cell,
         tell: tell,
         email: email,
-        paymentType: 1,
+        paymentType: 7,
         passengers: passengers);
     print(json.encode(_cartForOnePassenger));
     notifyListeners();
@@ -172,7 +172,7 @@ class MainModel extends Model {
         return false;
       }
       final Map<String, dynamic> responseData = json.decode(response.body);
-      if (responseData['error']) {
+       if (responseData['error']) {
        _isLoading = false;
        _serverCartResponse = 'error';
         notifyListeners();
