@@ -24,6 +24,7 @@ main() {
           primaryColor: Color(0xFF19335C),
           accentColor: Color(0xFFD8B945),
           cardColor: Color(0xFFD8B945),
+          buttonColor: Color(0xFFD8B945),
           iconTheme: IconThemeData(color: Color(0xFF19335C)),
           appBarTheme: AppBarTheme(
               color: Color(0xFF19335C),

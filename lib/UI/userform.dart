@@ -54,9 +54,9 @@ class _UserFormState extends State<UserForm> {
         model.userFormKey.add(_keyform);
         // ثبت و تغییر جنسیت هر مسافر در اسکوپ مدل
         if (_radioValue == 0) {
-          model.passengers[widget.index].sex = 'مرد';
+          model.passengers[widget.index].sex = 'آقای';
         } else {
-          model.passengers[widget.index].sex = 'زن';
+          model.passengers[widget.index].sex = 'خانم';
         }
         // ثبت و تغییر تاریخ تولد هر مسافر در اسکوپ مدل
         model.passengers[widget.index].brith = "$_year/$_month/$_day";
