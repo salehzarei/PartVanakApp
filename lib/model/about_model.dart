@@ -6,6 +6,7 @@ class AboutModel {
   String address;
   String email;
   String web;
+  String back;
   List<Social> social;
 
   AboutModel(
@@ -15,6 +16,7 @@ class AboutModel {
       this.tell,
       this.address,
       this.email,
+      this.back,
       this.web,
       this.social});
 }

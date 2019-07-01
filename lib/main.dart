@@ -10,6 +10,7 @@ import './pages/contact.dart';
 import './pages/aboutus.dart';
 import './scoped_model.dart';
 import './pages/webview.dart';
+import './pages/splash.dart';
 
 main() {
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
@@ -32,7 +33,10 @@ main() {
           fontFamily: 'IRANSans',
           textTheme: TextTheme(
               title: TextStyle(fontWeight: FontWeight.bold),
-              display2: TextStyle(fontSize: 20, fontWeight: FontWeight.w400 , color:Color(0xFFD8B945) ),
+              display2: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.w400,
+                  color: Color(0xFFD8B945)),
               display4: TextStyle(fontSize: 14, fontWeight: FontWeight.w400),
               display3: TextStyle(
                   fontSize: 11,
@@ -48,23 +52,27 @@ main() {
         ),
         initialRoute: '/',
         routes: {
-          '/': (context) => HomePage(model: model),
-           //'/': (context) => LinkifyExample(),
+          '/': (context) => Splash(),
 
 
+          '/homepage': (context) => HomePage(model: model),
           '/aboutus': (context) => AboutUs(model),
-          '/internaltourelist': (context) => ToureListPage( toureType: 1,),
-          '/foreigntourelist': (context) => ToureListPage(toureType: 2,),
+          '/internaltourelist': (context) => ToureListPage(
+                toureType: 1,
+              ),
+          '/foreigntourelist': (context) => ToureListPage(
+                toureType: 2,
+              ),
           '/touredetile': (context) => ToureDetilePage(),
           '/buyticket': (context) => BuyTicket(),
-        
+
           '/contact': (context) => ContactPage(model),
           '/flyinfoSite': (context) => Webview(
                 title: 'اطلاعات پرواز فرودگاه های کشور',
                 url: 'https://fids.airport.ir/',
               ),
           '/tollpayment': (context) => Webview(
-                title:  'پرداخت عوارض خروج از کشور',
+                title: 'پرداخت عوارض خروج از کشور',
                 url: 'https://sadadpsp.ir/tollpayment',
               ),
         }),

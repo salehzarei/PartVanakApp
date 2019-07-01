@@ -36,6 +36,13 @@ dependencies:
   webview_flutter: ^0.3.9+1
   url_launcher: ^5.0.3
   flutter_linkify: ^2.1.0
+  splashscreen: ^1.2.0
+  flare_splash_screen: ^2.1.1
+  connectivity: ^0.4.3+2
+
+
+
+
 
  
 
