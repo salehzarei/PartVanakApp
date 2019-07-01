@@ -87,22 +87,31 @@ class _AboutUsState extends State<AboutUs> {
         if (model.isLoading) {
           return Center(child: CircularProgressIndicator());
         } else {
-          return Directionality(
-            textDirection: TextDirection.rtl,
-            child: Stack(
-              //fit: StackFit.expand,
-              //textDirection: TextDirection.rtl,
-              children: <Widget>[
-                Container(
-                  child: Image.network(
-                    'https://images.unsplash.com/photo-1500835556837-99ac94a94552?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80',
-                    fit: BoxFit.cover,
-                  ),
+          return Stack(
+            //fit: StackFit.expand,
+            //textDirection: TextDirection.rtl,
+            children: <Widget>[
+              Container(
+                child: Image.network(
+                  'https://images.unsplash.com/photo-1500835556837-99ac94a94552?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80',
+                  fit: BoxFit.cover,
                 ),
-                Scaffold(
-                    backgroundColor: Colors.transparent,
+              ),
+              Directionality(
+                textDirection: TextDirection.rtl,
+                child: Scaffold(
                     drawer: MyDrawer(),
+                    backgroundColor: Colors.transparent,
                     appBar: AppBar(
+                      actions: <Widget>[
+                        IconButton(
+                          icon: Icon(
+                            Icons.arrow_forward,
+                            color: Theme.of(context).appBarTheme.color,
+                          ),
+                          onPressed: () => Navigator.pop(context),
+                        )
+                      ],
                       elevation: 0.0,
                       backgroundColor: Colors.transparent,
                       centerTitle: true,
@@ -122,11 +131,11 @@ class _AboutUsState extends State<AboutUs> {
                               padding: const EdgeInsets.only(
                                   top: 10, right: 10, left: 10),
                               child: RichText(
+                                  //textAlign: TextAlign.justify,
                                   textDirection: TextDirection.rtl,
                                   overflow: TextOverflow.fade,
                                   text: TextSpan(
-                                      text:
-                                          " ${model.aboutmodel.about} ${model.aboutmodel.about} ${model.aboutmodel.about}",
+                                      text: " ${model.aboutmodel.about}",
                                       style: Theme.of(context)
                                           .textTheme
                                           .body1
@@ -135,24 +144,28 @@ class _AboutUsState extends State<AboutUs> {
                                               fontSize: 15))),
                             ),
 
-                            Row(
-                              textDirection: TextDirection.rtl,
-                              children: <Widget>[
-                                Expanded(
-                                  child: Text(
-                                    'نام متصدی :',
-                                    textDirection: TextDirection.rtl,
-                                    style: TextStyle(color: Colors.white),
+                            Padding(
+                              padding: const EdgeInsets.only(
+                                  top: 10, right: 10, left: 10),
+                              child: Row(
+                                textDirection: TextDirection.rtl,
+                                children: <Widget>[
+                                  Expanded(
+                                    child: Text(
+                                      'نام متصدی :',
+                                      textDirection: TextDirection.rtl,
+                                      style: TextStyle(color: Colors.white),
+                                    ),
                                   ),
-                                ),
-                                Expanded(
-                                  child: Text(
-                                    '${model.aboutmodel.name}',
-                                    textDirection: TextDirection.rtl,
-                                    style: TextStyle(color: Colors.white),
+                                  Expanded(
+                                    child: Text(
+                                      '${model.aboutmodel.name}',
+                                      textDirection: TextDirection.rtl,
+                                      style: TextStyle(color: Colors.white),
+                                    ),
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
 
                             // _buildCell(),
@@ -172,8 +185,8 @@ class _AboutUsState extends State<AboutUs> {
                       ),
                       _builSocialNetwork(context, model.aboutmodel.social),
                     ])),
-              ],
-            ),
+              ),
+            ],
           );
         }
       },

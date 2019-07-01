@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:hello_flutter/drawer.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -22,6 +23,15 @@ class _WebviewState extends State<Webview> {
       child: Scaffold(
           backgroundColor: Colors.transparent,
           appBar: AppBar(
+            actions: <Widget>[
+              IconButton(
+                icon: Icon(
+                  Icons.arrow_forward,
+                  color: Theme.of(context).accentColor,
+                ),
+                onPressed: () => Navigator.pop(context),
+              )
+            ],
             centerTitle: true,
             title: Text(widget.title),
             backgroundColor: Theme.of(context).appBarTheme.color,

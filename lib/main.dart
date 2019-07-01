@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hello_flutter/buyticket.dart';
-import 'package:hello_flutter/pages/linkurl.dart';
 import 'package:hello_flutter/toureDetile.dart';
 import 'package:hello_flutter/toureList.dart';
 import 'package:scoped_model/scoped_model.dart';
@@ -11,7 +10,7 @@ import './pages/contact.dart';
 import './pages/aboutus.dart';
 import './scoped_model.dart';
 import './pages/webview.dart';
-import './pages/linkurl.dart';
+
 main() {
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   MainModel model = MainModel();
@@ -49,8 +48,8 @@ main() {
         ),
         initialRoute: '/',
         routes: {
-         // '/': (context) => HomePage(model: model),
-          '/': (context) => LinkifyExample(),
+          '/': (context) => HomePage(model: model),
+           //'/': (context) => LinkifyExample(),
 
 
           '/aboutus': (context) => AboutUs(model),
@@ -58,13 +57,14 @@ main() {
           '/foreigntourelist': (context) => ToureListPage(toureType: 2,),
           '/touredetile': (context) => ToureDetilePage(),
           '/buyticket': (context) => BuyTicket(),
+        
           '/contact': (context) => ContactPage(model),
           '/flyinfoSite': (context) => Webview(
                 title: 'اطلاعات پرواز فرودگاه های کشور',
                 url: 'https://fids.airport.ir/',
               ),
           '/tollpayment': (context) => Webview(
-                title: 'سامانه پرداخت عوارض خروج از کشور',
+                title:  'پرداخت عوارض خروج از کشور',
                 url: 'https://sadadpsp.ir/tollpayment',
               ),
         }),
