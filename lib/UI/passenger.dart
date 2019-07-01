@@ -93,7 +93,9 @@ class _PassengerState extends State<Passenger> {
         return Scaffold(
             appBar: AppBar(
               centerTitle: true,
-              title: Text('مشخصات مسافرین'),
+              iconTheme: Theme.of(context).iconTheme.copyWith(color: Theme.of(context).accentColor),
+              title: Text('مشخصات مسافرین' , style: TextStyle(
+                    color: Theme.of(context).accentColor, fontSize: 20),),
               actions: <Widget>[
                 FlatButton(
                     child: Text(

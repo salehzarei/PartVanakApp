@@ -25,9 +25,14 @@ class MainModel extends Model {
 /////
 
   bool _isLoading = false;
+  String _serverCartResponse ;
 
   bool get isLoading {
     return _isLoading;
+  }
+
+  String get serverCartResponse {
+    return _serverCartResponse;
   }
 
 ///////// دریافت اطلاعات تور و هتل ها از سرور
@@ -144,15 +149,15 @@ class MainModel extends Model {
 
 ///// ارسال اطلاعات مسافر به سرور
 
-  Future<bool> sendDataToServer() async {
+  Future<bool> sendDataToServer( {String cell , String tell , String email}) async {
     cart.clear();
     notifyListeners();
     CartModel _cartForOnePassenger = CartModel(
         toure_id: int.parse(tmpCartData['ToureID']),
         hotel_id: int.parse(tmpCartData['HotelID']),
-        cell: '09154127181',
-        tell: '0915127181',
-        email: 'saleh.zarei@gmail.com',
+        cell: cell,
+        tell: tell,
+        email: email,
         paymentType: 1,
         passengers: passengers);
     print(json.encode(_cartForOnePassenger));
@@ -161,21 +166,21 @@ class MainModel extends Model {
         .post(host + 'cart/add', body: json.encode(_cartForOnePassenger))
         .then((http.Response response) {
       if (response.statusCode != 200 && response.statusCode != 201) {
-        print("Ticket Data to Server send Succsesfuly !");
+        print("اطلاعات بلیط با موفقیت به سرور ارسال شد");
         _isLoading = false;
         notifyListeners();
         return false;
       }
       final Map<String, dynamic> responseData = json.decode(response.body);
       if (responseData['error']) {
-        print(responseData);
-        _isLoading = false;
+       _isLoading = false;
+       _serverCartResponse = 'error';
         notifyListeners();
         return false;
       }
       _isLoading = false;
-      print(responseData);
-      notifyListeners();
+      _serverCartResponse = responseData['url'];
+       notifyListeners();
       return true;
     }).catchError((error) {
       _isLoading = false;
