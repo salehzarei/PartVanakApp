@@ -7,7 +7,7 @@ class Splash extends StatelessWidget {
     return Padding(
         padding: const EdgeInsets.all(10.0),
         child: SplashScreen(
-          seconds: 6,
+          seconds: 3,
           navigateAfterSeconds: '/homepage',
           title: Text(
             'آژانس مسافرتی پارت ونک',

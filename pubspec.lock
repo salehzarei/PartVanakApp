@@ -71,20 +71,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.0.6"
-  css_text:
-    dependency: "direct main"
-    description:
-      name: css_text
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.9.9"
-  csslib:
-    dependency: transitive
-    description:
-      name: csslib
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.16.0"
   cupertino_icons:
     dependency: "direct main"
     description:
@@ -92,34 +78,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.1.2"
-  flare_dart:
-    dependency: transitive
-    description:
-      name: flare_dart
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.4.2"
-  flare_flutter:
-    dependency: transitive
-    description:
-      name: flare_flutter
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.5.2"
-  flare_loading:
-    dependency: transitive
-    description:
-      name: flare_loading
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "2.0.1"
-  flare_splash_screen:
-    dependency: "direct main"
-    description:
-      name: flare_splash_screen
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "2.1.1"
   flutter:
     dependency: "direct main"
     description: flutter
@@ -132,20 +90,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.3.2"
-  flutter_html:
-    dependency: "direct main"
-    description:
-      name: flutter_html
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.10.4"
-  flutter_linkify:
-    dependency: "direct main"
-    description:
-      name: flutter_linkify
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "2.1.0"
   flutter_masked_text:
     dependency: "direct main"
     description:
@@ -165,13 +109,6 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
-  html:
-    dependency: transitive
-    description:
-      name: html
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.14.0+2"
   http:
     dependency: "direct main"
     description:
@@ -200,13 +137,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.1.6+2"
-  linkify:
-    dependency: transitive
-    description:
-      name: linkify
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.0.1"
   matcher:
     dependency: transitive
     description:
@@ -249,13 +179,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.1.5"
-  petitparser:
-    dependency: transitive
-    description:
-      name: petitparser
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "2.2.1"
   photo_view:
     dependency: "direct main"
     description:
@@ -380,13 +303,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.3.9+1"
-  xml:
-    dependency: transitive
-    description:
-      name: xml
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "3.4.1"
 sdks:
   dart: ">=2.2.0 <3.0.0"
   flutter: ">=1.5.0 <2.0.0"

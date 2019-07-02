@@ -11,6 +11,9 @@ import './pages/aboutus.dart';
 import './scoped_model.dart';
 import './pages/webview.dart';
 import './pages/splash.dart';
+import './login/login.dart';
+import './login/reset_password.dart';
+import './login/register.dart';
 
 main() {
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
@@ -54,8 +57,12 @@ main() {
         initialRoute: '/',
         routes: {
           '/': (context) => Splash(),
+         // '/': (context) => Login(),
 
 
+          '/login': (context) => Login(),
+          '/register': (context) => Register(),
+          '/resetpassword': (context) => ResetPassword(),
           '/homepage': (context) => HomePage(model: model),
           '/aboutus': (context) => AboutUs(model),
           '/internaltourelist': (context) => ToureListPage(
