@@ -43,7 +43,7 @@ class _ContactPageState extends State<ContactPage> {
       fit: BoxFit.cover,
       colorFilter:
           ColorFilter.mode(Colors.black.withOpacity(0.5), BlendMode.dstATop),
-      // image: AssetImage('assets/background.jpg'),
+      // image: AssetImage('assets/air.jpg'),
     );
   }
 

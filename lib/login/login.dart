@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:hello_flutter/drawer.dart';
 
 class Login extends StatelessWidget {
@@ -22,15 +23,16 @@ class Login extends StatelessWidget {
           ],
         ),
         body: Stack(
-          fit: StackFit.expand,
+          //fit: StackFit.expand,
           children: <Widget>[
-            Container(
-                child: Image.asset(
-              'images/air.jpg',
-              fit: BoxFit.cover,
-            )),
+            // Container(
+            //     child: Image.asset(
+            //   'images/air.jpg',
+            //   fit: BoxFit.cover,
+            // )),
             Padding(
-              padding: const EdgeInsets.only(bottom:30,top: 200, left: 15, right: 15),
+              padding: const EdgeInsets.only(
+                  bottom: 30, top: 200, left: 15, right: 15),
               child: ListView(
                 children: <Widget>[
                   Container(
@@ -46,13 +48,15 @@ class Login extends StatelessWidget {
                               textColor: Colors.white,
                               child: Text('ارسال '),
                               onPressed: () => print('ارسال شد')),
-                          //SizedBox(height: 2,),
-                          RaisedButton(
-                              elevation: 0.0,
-                              color: Colors.transparent,
-                              textColor: Colors.black,
-                              child: Text('رمز عبور خود را فراموش کردید؟'),
-                              onPressed: () => Navigator.pushNamed(
+                          SizedBox(
+                            height: 7,
+                          ),
+                          GestureDetector(
+                              child: Text(
+                                'رمز عبور خود را فراموش کردید؟',
+                                style: TextStyle(color: Colors.black),
+                              ),
+                              onTap: () => Navigator.pushNamed(
                                   context, '/resetpassword')),
                         ],
                       ),
@@ -87,7 +91,7 @@ Widget _password() {
   return TextFormField(
     decoration: InputDecoration(
         labelText: 'رمز عبور', filled: true, fillColor: Colors.white),
-    keyboardType: TextInputType.text,
+    keyboardType: TextInputType.number,
     validator: (String value) {
       if (value.isEmpty) {
         return 'این فیلد ضروریست ';

@@ -22,16 +22,17 @@ class ResetPassword extends StatelessWidget {
           ],
         ),
         body: Stack(
-          fit: StackFit.expand,
+          //fit: StackFit.expand,
           children: <Widget>[
-            Container(
-                child: Image.asset(
-              'images/air.jpg',
-              fit: BoxFit.cover,
-            )),
+            // Container(
+            //     child: Image.asset(
+            //   'images/air.jpg',
+            //   fit: BoxFit.cover,
+            // )),
             Container(
               child: Padding(
-                padding: const EdgeInsets.only(bottom:30,top: 200,left: 15, right: 15),
+                padding: const EdgeInsets.only(
+                    bottom: 30, top: 200, left: 15, right: 15),
                 child: SingleChildScrollView(
                   child: Container(
                     child: Form(
@@ -60,7 +61,8 @@ class ResetPassword extends StatelessWidget {
                                 RaisedButton(
                                     textColor: Colors.white,
                                     child: Text('انصراف'),
-                                    onPressed: () => print('انصراف')),
+                                    onPressed: () => Navigator.pushNamed(
+                                        context, '/homepage')),
                               ],
                             ),
                           ),

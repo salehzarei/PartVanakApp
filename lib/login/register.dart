@@ -10,7 +10,7 @@ class Register extends StatelessWidget {
         drawer: MyDrawer(),
         appBar: AppBar(
           centerTitle: true,
-          title: Text('بازیابی رمز ورود'),
+          title: Text('ثبت نام'),
           actions: <Widget>[
             IconButton(
               icon: Icon(
@@ -22,13 +22,13 @@ class Register extends StatelessWidget {
           ],
         ),
         body: Stack(
-          fit: StackFit.expand,
+          //fit: StackFit.expand,
           children: <Widget>[
-            Container(
-                child: Image.asset(
-              'images/air.jpg',
-              fit: BoxFit.cover,
-            )),
+            // Container(
+            //     child: Image.asset(
+            //   'images/air.jpg',
+            //   fit: BoxFit.cover,
+            // )),
             Container(
               child: Padding(
                 padding: const EdgeInsets.only(bottom:30,top: 100,left:15,right:15),
@@ -62,7 +62,8 @@ class Register extends StatelessWidget {
                                 RaisedButton(
                                     textColor: Colors.white,
                                     child: Text('انصراف'),
-                                    onPressed: () => print('انصراف')),
+                                    onPressed: () => Navigator.pushNamed(
+                                  context, '/homepage')),
                               ],
                             ),
                           ),
@@ -126,9 +127,9 @@ Widget _phone() {
   return TextFormField(
     decoration: InputDecoration(
         labelText: 'شماره موبایل', filled: true, fillColor: Colors.white),
-    keyboardType: TextInputType.phone,
+    keyboardType: TextInputType.number,
     validator: (String value) {
-      if (value.isEmpty) {
+      if (value.length != 11) {
         return 'این فیلد ضروریست ';
       }
     },
