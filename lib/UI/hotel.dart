@@ -2,8 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:hello_flutter/drawer.dart';
-import 'package:photo_view/photo_view.dart';
-import 'package:photo_view/photo_view_gallery.dart';
 import '../model/accommodation_model.dart';
 
 import '../buyticket.dart';
@@ -61,17 +59,7 @@ class HotelPage extends StatelessWidget {
         Container(
           height: 280,
           width: MediaQuery.of(context).size.width,
-          child: PhotoViewGallery.builder(
-            scrollPhysics: BouncingScrollPhysics(),
-            builder: (context, index) {
-              return PhotoViewGalleryPageOptions(
-                  imageProvider: NetworkImage(hotel.gallery[index].pic),
-                  initialScale: PhotoViewComputedScale.covered,
-                  heroTag: hotel.gallery[index].pic);
-            },
-            itemCount: hotel.gallery.length,
-            backgroundDecoration: BoxDecoration(color: Colors.white),
-          ),
+          child: Image.network(hotel.gallery[0].pic)
         ),
         Directionality(
           textDirection: TextDirection.rtl,
