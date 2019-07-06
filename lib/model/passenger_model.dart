@@ -5,6 +5,7 @@ class PassengerModel {
   String name;
   String family;
   String melicode;
+  String nationality;
   String sex;
   String brith;
 
@@ -15,6 +16,7 @@ class PassengerModel {
       this.name,
       this.family,
       this.melicode,
+      this.nationality,
       this.sex,
       this.brith});
 
@@ -23,7 +25,7 @@ class PassengerModel {
       'Name': name,
       'Family': family,
       'Gender': sex,
-      'Nationality': 'ایران',
+      'Nationality': nationality,
       'Birth_date': brith,
       'Ages': 1,
       'National_code': melicode

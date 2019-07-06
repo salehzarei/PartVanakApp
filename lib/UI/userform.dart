@@ -3,16 +3,14 @@ import 'package:hello_flutter/scoped_model.dart';
 import 'package:jalali_calendar/jalali_calendar.dart';
 import 'package:scoped_model/scoped_model.dart';
 
-
 typedef OnDelete = void Function(int index);
 
 class UserForm extends StatefulWidget {
   final int index;
- //final VoidCallback onDelete;
- final OnDelete onDelete;
-   
+  //final VoidCallback onDelete;
+// final OnDelete onDelete;
 
-  const UserForm({Key key, this.index, this.onDelete}) : super(key: key);
+  const UserForm({Key key, this.index}) : super(key: key);
 
   @override
   _UserFormState createState() => _UserFormState();
@@ -20,6 +18,7 @@ class UserForm extends StatefulWidget {
 
 class _UserFormState extends State<UserForm> {
   int _radioValue = 0;
+  int _national;
   GlobalKey<FormState> _keyform;
 
   _changeValue(value) {
@@ -44,7 +43,6 @@ class _UserFormState extends State<UserForm> {
   void initState() {
     super.initState();
     _keyform = GlobalKey();
-   
   }
 
   @override
@@ -60,6 +58,7 @@ class _UserFormState extends State<UserForm> {
         }
         // ثبت و تغییر تاریخ تولد هر مسافر در اسکوپ مدل
         model.passengers[widget.index].brith = "$_year/$_month/$_day";
+        model.passengers[widget.index].nationality = _national.toString();
 
         return Stack(
           children: <Widget>[
@@ -90,14 +89,13 @@ class _UserFormState extends State<UserForm> {
                             flex: 1,
                             child: TextFormField(
                               onSaved: (val) => setState(
-                                    () => model.passengers[widget.index].name =
-                                        val,
-                                  ),
-                                  validator: (String value) {
-                                    if (value.isEmpty) {
-                                      return 'این فیلد ضروری می باشد';
-                                    }
-                                  },
+                                () => model.passengers[widget.index].name = val,
+                              ),
+                              validator: (String value) {
+                                if (value.isEmpty) {
+                                  return 'این فیلد ضروری می باشد';
+                                }
+                              },
                               decoration: InputDecoration(
                                   hintText: 'نام',
                                   isDense: true,
@@ -114,14 +112,14 @@ class _UserFormState extends State<UserForm> {
                             flex: 1,
                             child: TextFormField(
                               onSaved: (val) => setState(
-                                    () => model
-                                        .passengers[widget.index].family = val,
-                                  ),
-                                validator: (String value) {
-                                    if (value.isEmpty) {
-                                      return 'این فیلد ضروری می باشد';
-                                    }
-                                  },
+                                () =>
+                                    model.passengers[widget.index].family = val,
+                              ),
+                              validator: (String value) {
+                                if (value.isEmpty) {
+                                  return 'این فیلد ضروری می باشد';
+                                }
+                              },
                               decoration: InputDecoration(
                                 hintText: 'نام خانوادگی',
                                 hintStyle: TextStyle(fontSize: 13),
@@ -140,14 +138,14 @@ class _UserFormState extends State<UserForm> {
                             flex: 1,
                             child: TextFormField(
                               onSaved: (val) => setState(
-                                    () => model.passengers[widget.index]
-                                        .melicode = val,
-                                  ),
-                               validator: (String value) {
-                                    if (value.isEmpty) {
-                                      return 'این فیلد ضروری می باشد';
-                                    }
-                                  },
+                                () => model.passengers[widget.index].melicode =
+                                    val,
+                              ),
+                              validator: (String value) {
+                                if (value.isEmpty) {
+                                  return 'این فیلد ضروری می باشد';
+                                }
+                              },
                               decoration: InputDecoration(
                                   hintText: 'کدملی/پاسپورت',
                                   hintStyle: TextStyle(fontSize: 13),
@@ -160,17 +158,37 @@ class _UserFormState extends State<UserForm> {
                             width: 10,
                           ),
                           Expanded(
-                            flex: 1,
-                            child: TextFormField(
-                              decoration: InputDecoration(
-                                hintText: 'محل تولد',
-                                hintStyle: TextStyle(fontSize: 13),
-                                counterText: '',
-                              ),
-                              keyboardType: TextInputType.text,
-                              maxLength: 25,
-                            ),
-                          )
+                              flex: 1,
+                              child: DropdownButtonFormField(
+                                validator: (int valid) {
+                                  if (valid == null)
+                                    return 'ملیت را انتخاب کنید';
+                                },
+                                items: [
+                                  DropdownMenuItem(
+                                    child: Text('ایرانی',
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .display4),
+                                    value: 1,
+                                  ),
+                                  DropdownMenuItem(
+                                    child: Text('غیر ایرانی',
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .display4),
+                                    value: 2,
+                                  ),
+                                ],
+                                onChanged: (selectedItem) {
+                                  print(selectedItem);
+                                  setState(() {
+                                    _national = selectedItem;
+                                  });
+                                },
+                                value: _national,
+                                hint: Text('ملیت مسافر'),
+                              ))
                         ],
                       ),
                       Row(
@@ -247,19 +265,6 @@ class _UserFormState extends State<UserForm> {
                 ),
               ),
             ),
-            Positioned(
-                left: -8,
-                top: -8,
-                child: RotationTransition(
-                  turns: AlwaysStoppedAnimation(45 / 360),
-                  child: IconButton(
-                      icon: Icon(
-                        Icons.add_circle,
-                        color: Colors.redAccent,
-                        size: 25,
-                      ),
-                      onPressed:()=> widget.onDelete(widget.index)),
-                ))
           ],
         );
       },

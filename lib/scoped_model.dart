@@ -35,6 +35,16 @@ class MainModel extends Model {
     return _serverCartResponse;
   }
 
+deleteFromList(index){
+  passengers.removeAt(index);
+  userFormKey.removeAt(index);
+  notifyListeners();
+  print(passengers.length);
+  print(userFormKey.length);
+
+}
+
+
 ///////// دریافت اطلاعات تور و هتل ها از سرور
 
   Future getTourData() async {

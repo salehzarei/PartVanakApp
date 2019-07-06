@@ -4,28 +4,25 @@ import 'package:splashscreen/splashscreen.dart';
 class Splash extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Padding(
-        padding: const EdgeInsets.all(10.0),
-        child: SplashScreen(
-          seconds: 3,
-          navigateAfterSeconds: '/homepage',
-          title: Text(
-            'آژانس مسافرتی پارت ونک',
-            style: TextStyle(
+    return SplashScreen(
+      seconds: 3,
+      navigateAfterSeconds: '/homepage',
+      title: Text(
+        'آژانس مسافرتی پارت ونک',
+        style: TextStyle(
       fontWeight: FontWeight.bold,
       fontSize: 18.0,
       color: Colors.white),
-          ),
-          image: Image.asset('images/logo.png'),
-          backgroundColor: Theme.of(context).appBarTheme.color,
-          styleTextUnderTheLoader: TextStyle(),
-          photoSize: 100.0,
-          loaderColor: Colors.red,
-          loadingText: Text(
-            'صبر کنید',
-            style: TextStyle(color: Colors.white),
-          ),
-        ),
-      );
+      ),
+      image: Image.asset('images/logo.png'),
+      backgroundColor: Theme.of(context).appBarTheme.color,
+      styleTextUnderTheLoader: TextStyle(),
+      photoSize: 100.0,
+      loaderColor: Colors.red,
+      loadingText: Text(
+        'صبر کنید',
+        style: TextStyle(color: Colors.white),
+      ),
+    );
   }
 }
