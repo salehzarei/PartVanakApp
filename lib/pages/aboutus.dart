@@ -236,7 +236,7 @@ class _AboutUsState extends State<AboutUs> {
               scrollDirection: Axis.horizontal,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: _list,
+                children:_list ,
               ),
             ),
           ),

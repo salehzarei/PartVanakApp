@@ -32,7 +32,6 @@ dependencies:
   flutter_masked_text: ^0.8.0
   webview_flutter: ^0.3.9+1
   url_launcher: ^5.0.3
-  flutter_linkify: ^2.1.0
   splashscreen: ^1.2.0
   connectivity: ^0.4.3+2
 
@@ -65,6 +64,7 @@ flutter:
    - images/telegram.png
    - images/twitter.png
    - images/logo.png
+   - images/air.jpg
 
 
   # An image asset can refer to one or more resolution-specific "variants", see
@@ -90,6 +90,15 @@ flutter:
     - family:  ToureIcons
       fonts:
         - asset: fonts/ToureIcons.ttf
+
+
+
+    - family:  Loginicon
+      fonts:
+       - asset: fonts/Loginicon.ttf
+
+
+        
   #         style: italic
   #   - family: Trajan Pro
   #     fonts:
