@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hello_flutter/buyticket.dart';
-import 'package:hello_flutter/test.dart';
+import 'package:hello_flutter/pages/connectivity.dart';
 import 'package:hello_flutter/toureDetile.dart';
 import 'package:hello_flutter/toureList.dart';
 import 'package:scoped_model/scoped_model.dart';
@@ -15,6 +15,8 @@ import './pages/splash.dart';
 import './login/login.dart';
 import './login/reset_password.dart';
 import './login/register.dart';
+import './pages/connectivity.dart';
+import './login/check_phone.dart';
 
 
 main() {
@@ -58,10 +60,12 @@ main() {
         ),
         initialRoute: '/',
         routes: {
-          //'/': (context) => Test(),
+          //'/': (context) => CheckPhone(),
           '/': (context) => Splash(),
-          // '/': (context) => Login(),
+
+          '/checkphone': (context) => CheckPhone(),
           '/login': (context) => Login(),
+          '/checkconnection': (context) => ConnectionCheck(),
           '/register': (context) => Register(),
           '/resetpassword': (context) => ResetPassword(),
           '/homepage': (context) => HomePage(model: model),

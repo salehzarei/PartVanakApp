@@ -32,7 +32,7 @@ class ResetPassword extends StatelessWidget {
             Container(
               child: Padding(
                 padding: const EdgeInsets.only(
-                    bottom: 30, top: 200, left: 15, right: 15),
+                     left: 15, right: 15),
                 child: SingleChildScrollView(
                   child: Container(
                     child: Form(
@@ -54,7 +54,8 @@ class ResetPassword extends StatelessWidget {
                                 RaisedButton(
                                     textColor: Colors.white,
                                     child: Text('ارسال '),
-                                    onPressed: () => print('ارسال شد')),
+                                    onPressed: () =>  Navigator.pushNamed(
+                                        context, '/checkphone')),
                                 SizedBox(
                                   width: 10,
                                 ),
