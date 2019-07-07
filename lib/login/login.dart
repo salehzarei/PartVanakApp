@@ -4,6 +4,7 @@ import 'package:hello_flutter/drawer.dart';
 
 class Login extends StatelessWidget {
   @override
+  // integer _size MediaQuery.of(context).size.height/2;
   Widget build(BuildContext context) {
     return Directionality(
       textDirection: TextDirection.rtl,
@@ -31,8 +32,7 @@ class Login extends StatelessWidget {
             //   fit: BoxFit.cover,
             // )),
             Padding(
-              padding: const EdgeInsets.only(
-                  bottom: 30, top: 200, left: 15, right: 15),
+              padding: const EdgeInsets.only(left: 15, right: 15),
               child: ListView(
                 children: <Widget>[
                   Container(

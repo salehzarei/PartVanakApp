@@ -31,22 +31,32 @@ class Register extends StatelessWidget {
             // )),
             Container(
               child: Padding(
-                padding: const EdgeInsets.only(bottom:30,top: 100,left:15,right:15),
+                padding: const EdgeInsets.only(left: 15, right: 15),
                 child: SingleChildScrollView(
                   child: Container(
                     child: Form(
                       child: Column(
                         children: <Widget>[
                           _name(),
-                          SizedBox(height: 10,),
+                          SizedBox(
+                            height: 10,
+                          ),
                           _familyname(),
-                          SizedBox(height: 10,),
+                          SizedBox(
+                            height: 10,
+                          ),
                           _email(),
-                          SizedBox(height: 10,),
+                          SizedBox(
+                            height: 10,
+                          ),
                           _phone(),
-                          SizedBox(height: 10,),
+                          SizedBox(
+                            height: 10,
+                          ),
                           _password(),
-                          SizedBox(height: 10,),
+                          SizedBox(
+                            height: 10,
+                          ),
                           _repeatpassword(),
                           Padding(
                             padding: const EdgeInsets.only(right: 100),
@@ -55,7 +65,8 @@ class Register extends StatelessWidget {
                                 RaisedButton(
                                     textColor: Colors.white,
                                     child: Text('ارسال '),
-                                    onPressed: () => print('ارسال شد')),
+                                    onPressed: () => Navigator.pushNamed(
+                                        context, '/checkphone')),
                                 SizedBox(
                                   width: 10,
                                 ),
@@ -63,7 +74,7 @@ class Register extends StatelessWidget {
                                     textColor: Colors.white,
                                     child: Text('انصراف'),
                                     onPressed: () => Navigator.pushNamed(
-                                  context, '/homepage')),
+                                        context, '/homepage')),
                               ],
                             ),
                           ),
@@ -95,7 +106,7 @@ Widget _name() {
   );
 }
 
-//
+
 Widget _familyname() {
   return TextFormField(
     decoration: InputDecoration(
@@ -123,19 +134,22 @@ Widget _email() {
     onSaved: (String value) {},
   );
 }
+
 Widget _phone() {
   return TextFormField(
+    
     decoration: InputDecoration(
         labelText: 'شماره موبایل', filled: true, fillColor: Colors.white),
     keyboardType: TextInputType.number,
     validator: (String value) {
       if (value.length != 11) {
-        return 'این فیلد ضروریست ';
+        return 'این فیلد ضروریست';
       }
     },
     onSaved: (String value) {},
   );
 }
+
 Widget _password() {
   return TextFormField(
     decoration: InputDecoration(
@@ -149,6 +163,7 @@ Widget _password() {
     onSaved: (String value) {},
   );
 }
+
 Widget _repeatpassword() {
   return TextFormField(
     decoration: InputDecoration(
