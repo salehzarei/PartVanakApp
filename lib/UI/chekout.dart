@@ -351,10 +351,10 @@ class _ChekOutState extends State<ChekOut> {
                             borderRadius: BorderRadius.circular(15),
                           ),
                           onPressed: () {
-                            if (_key.currentState.validate()) {
-                              _key.currentState.save();
+                            // if (_key.currentState.validate()) {
+                            //   _key.currentState.save();
                               sendToServer();
-                            }
+                           // }
                           },
                           child: const Text('پرداخت صورتحساب'),
                         )
@@ -742,11 +742,8 @@ Step pay(BuildContext context, _email, _mobile, _phone, Key _key) {
         key: _key,
         child: Column(
           children: <Widget>[
-            TextFormField(
+            TextField(
               controller: _email,
-              onSaved: (val) {
-                _email = val;
-              },
               decoration: InputDecoration(
                 hintText: 'آدرس ایمیل',
                 hintStyle: TextStyle(fontSize: 13),
@@ -755,16 +752,8 @@ Step pay(BuildContext context, _email, _mobile, _phone, Key _key) {
               keyboardType: TextInputType.emailAddress,
               maxLength: 25,
             ),
-            TextFormField(
+            TextField(
               controller: _mobile,
-              onSaved: (val) {
-                _mobile = val;
-              },
-              validator: (String value) {
-                if (value.isEmpty) {
-                  return 'این فیلد ضروری می باشد';
-                }
-              },
               decoration: InputDecoration(
                 hintText: 'شماره همراه',
                 hintStyle: TextStyle(fontSize: 13),

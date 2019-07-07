@@ -17,7 +17,7 @@ class Detiles extends StatelessWidget {
       children: <Widget>[
             
              Container(
-          margin: EdgeInsets.symmetric(horizontal: 10),
+          margin: EdgeInsets.symmetric(horizontal: 5),
           padding: EdgeInsets.only(left:8,right:8,bottom: 8),
           decoration: BoxDecoration(
               border: Border(

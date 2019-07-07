@@ -40,10 +40,11 @@ class _ContactPageState extends State<ContactPage> {
 
   DecorationImage _buildBackgroundImage() {
     return DecorationImage(
+    
       fit: BoxFit.cover,
       colorFilter:
           ColorFilter.mode(Colors.black.withOpacity(0.5), BlendMode.dstATop),
-      // image: AssetImage('assets/air.jpg'),
+       image: AssetImage('assets/air.jpg'),
     );
   }
 

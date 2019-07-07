@@ -65,6 +65,7 @@ class _PassengerState extends State<Passenger> {
           }
           break;
       }
+
       // اضافه کردن مسافر بدون نام و مشخصات به لیست مسافران
       PassengerModel _passenger = PassengerModel(
           id: i.toString(),
