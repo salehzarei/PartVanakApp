@@ -184,7 +184,7 @@ deleteFromList(index){
       final Map<String, dynamic> responseData = json.decode(response.body);
        if (responseData['error']) {
        _isLoading = false;
-       _serverCartResponse = 'error';
+       _serverCartResponse = responseData['error_msg'];
         notifyListeners();
         return false;
       }

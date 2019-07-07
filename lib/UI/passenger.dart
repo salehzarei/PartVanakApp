@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hello_flutter/test.dart';
 import 'package:scoped_model/scoped_model.dart';
 import '../scoped_model.dart';
 import '../model/passenger_model.dart';
@@ -127,9 +128,12 @@ class _PassengerState extends State<Passenger> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => ChekOut(
+                                builder: (context) =>
+                                 ChekOut(
                                       passengerlist: model.passengers,
-                                    )));
+                                    )
+                     
+                                    ));
                     })
               ],
             ),

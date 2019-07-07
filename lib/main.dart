@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hello_flutter/buyticket.dart';
+import 'package:hello_flutter/test.dart';
 import 'package:hello_flutter/toureDetile.dart';
 import 'package:hello_flutter/toureList.dart';
 import 'package:scoped_model/scoped_model.dart';
@@ -14,6 +15,7 @@ import './pages/splash.dart';
 import './login/login.dart';
 import './login/reset_password.dart';
 import './login/register.dart';
+
 
 main() {
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
@@ -56,10 +58,9 @@ main() {
         ),
         initialRoute: '/',
         routes: {
+          //'/': (context) => Test(),
           '/': (context) => Splash(),
-         // '/': (context) => Login(),
-
-
+          // '/': (context) => Login(),
           '/login': (context) => Login(),
           '/register': (context) => Register(),
           '/resetpassword': (context) => ResetPassword(),
