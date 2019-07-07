@@ -25,7 +25,7 @@ class PassengerModel {
       'Name': name,
       'Family': family,
       'Gender': sex,
-      'Nationality': nationality,
+      'Nationality': nationality.toString(),
       'Birth_date': brith,
       'Ages': 1,
       'National_code': melicode

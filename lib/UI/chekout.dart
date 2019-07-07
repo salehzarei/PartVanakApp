@@ -3,6 +3,10 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter_masked_text/flutter_masked_text.dart';
 import 'package:hello_flutter/drawer.dart';
 
+import 'dart:async';
+import 'package:flutter/services.dart';
+import 'package:uni_links/uni_links.dart';
+
 import 'package:scoped_model/scoped_model.dart';
 import '../scoped_model.dart';
 import '../model/passenger_model.dart';
@@ -16,6 +20,8 @@ class ChekOut extends StatefulWidget {
   @override
   _ChekOutState createState() => _ChekOutState();
 }
+
+enum UniLinksType { string, uri }
 
 class _ChekOutState extends State<ChekOut> {
   int _single_price = 0;
@@ -33,7 +39,7 @@ class _ChekOutState extends State<ChekOut> {
   int _currrentStep = 0;
   bool _visible = false;
   bool _finalStep = false;
-
+  GlobalKey<FormState> _key;
   TextEditingController _phone = TextEditingController();
   TextEditingController _mobile = TextEditingController();
   TextEditingController _email = TextEditingController();
@@ -41,6 +47,8 @@ class _ChekOutState extends State<ChekOut> {
   @override
   void initState() {
     super.initState();
+
+    initPlatformState();
 
     /// خواندن مدل هتل انتخاب شده برای مقداردهی اولیه قیمت ها
     MainModel _model = ScopedModel.of(context);
@@ -110,20 +118,144 @@ class _ChekOutState extends State<ChekOut> {
     _model
         .sendDataToServer(
             cell: _mobile.text, email: _email.text, tell: _phone.text)
-        .then((_) => _launchURL(_model.serverCartResponse)
-            // _ackAlert(context,_model.serverCartResponse);
-
-            );
+        .then((_) => _launchURL(_model.serverCartResponse));
   }
 
   _launchURL(String url) async {
-    print('llll' + url);
     if (await canLaunch(url)) {
+      _ackAlert(context, 'ارسال اطلاعات به سرور');
       await launch(url);
     } else {
+      _ackAlert(context, 'خطا در اتصال به سرور');
       throw 'Could not launch ' + url;
     }
   }
+
+///// Deep Link Test
+
+  String _latestLink = 'Unknown';
+  Uri _latestUri;
+  UniLinksType _type = UniLinksType.string;
+  StreamSubscription _sub;
+
+  // Platform messages are asynchronous, so we initialize in an async method.
+  initPlatformState() async {
+    print("Run initPlatformState");
+    if (_type == UniLinksType.string) {
+      await initPlatformStateForStringUniLinks();
+    } else {
+      await initPlatformStateForUriUniLinks();
+    }
+  }
+
+  /// An implementation using a [String] link
+  initPlatformStateForStringUniLinks() async {
+    print("initPlatformStateFor...");
+    // Attach a listener to the links stream
+    _sub = getLinksStream().listen((String link) {
+      if (!mounted) return;
+      setState(() {
+        _latestLink = link ?? 'Unknown';
+        _latestUri = null;
+        try {
+          if (link != null) _latestUri = Uri.parse(link);
+        } on FormatException {}
+      });
+    }, onError: (err) {
+      if (!mounted) return;
+      setState(() {
+        _latestLink = 'Failed to get latest link: $err.';
+        _latestUri = null;
+      });
+    });
+    // Attach a second listener to the stream
+    getLinksStream().listen((String link) {
+      print('got link: $link');
+    }, onError: (err) {
+      print('got err: $err');
+    });
+
+    // Get the latest link
+    String initialLink;
+    Uri initialUri;
+    // Platform messages may fail, so we use a try/catch PlatformException.
+    try {
+      initialLink = await getInitialLink();
+      print('initial link: $initialLink');
+      if (initialLink != null) initialUri = Uri.parse(initialLink);
+    } on PlatformException {
+      initialLink = 'Failed to get initial link.';
+      initialUri = null;
+    } on FormatException {
+      initialLink = 'Failed to parse the initial link as Uri.';
+      initialUri = null;
+    }
+
+    // If the widget was removed from the tree while the asynchronous platform
+    // message was in flight, we want to discard the reply rather than calling
+    // setState to update our non-existent appearance.
+    if (!mounted) return;
+
+    setState(() {
+      _latestLink = initialLink;
+      _latestUri = initialUri;
+    });
+  }
+
+  /// An implementation using the [Uri] convenience helpers
+  initPlatformStateForUriUniLinks() async {
+    print("Run  initPlatformStateForUriUniLinks");
+    // Attach a listener to the Uri links stream
+    _sub = getUriLinksStream().listen((Uri uri) {
+      if (!mounted) return;
+      setState(() {
+        _latestUri = uri;
+        _latestLink = uri?.toString() ?? 'Unknown';
+      });
+    }, onError: (err) {
+      if (!mounted) return;
+      setState(() {
+        _latestUri = null;
+        _latestLink = 'Failed to get latest link: $err.';
+      });
+    });
+
+    // Attach a second listener to the stream
+    getUriLinksStream().listen((Uri uri) {
+      print('got uri: ${uri?.path} ${uri?.queryParametersAll}');
+    }, onError: (err) {
+      print('got err: $err');
+    });
+
+    // Get the latest Uri
+    Uri initialUri;
+    String initialLink;
+    // Platform messages may fail, so we use a try/catch PlatformException.
+    try {
+      initialUri = await getInitialUri();
+      print('initial uri: ${initialUri?.path}'
+          ' ${initialUri?.queryParametersAll}');
+      initialLink = initialUri?.toString();
+    } on PlatformException {
+      initialUri = null;
+      initialLink = 'Failed to get initial uri.';
+    } on FormatException {
+      initialUri = null;
+      initialLink = 'Bad parse the initial link as Uri.';
+    }
+
+    // If the widget was removed from the tree while the asynchronous platform
+    // message was in flight, we want to discard the reply rather than calling
+    // setState to update our non-existent appearance.
+    if (!mounted) return;
+
+    setState(() {
+      _latestUri = initialUri;
+      _latestLink = initialLink;
+    });
+  }
+
+////
 
 ///// دکمه برگشت
   _onStepCancel(index) {
@@ -157,15 +289,14 @@ class _ChekOutState extends State<ChekOut> {
     });
   }
 
-  Future<void> _ackAlert(BuildContext context, String url) {
+  Future<void> _ackAlert(BuildContext context, String massage) {
     return showDialog<void>(
       context: context,
       builder: (BuildContext context) {
         return Directionality(
           textDirection: TextDirection.rtl,
           child: AlertDialog(
-            title: Text('اطلاعات با موفقیت سمت سرور ارسال شد'),
-            content: Text(url),
+            title: Text(massage),
             actions: <Widget>[
               FlatButton(
                 child: Text('بستن'),
@@ -182,30 +313,8 @@ class _ChekOutState extends State<ChekOut> {
 
   @override
   Widget build(BuildContext context) {
-    // List<DataRow> listpassanger = widget.passengerlist
-    //     .map((i) => DataRow(cells: [
-    //           DataCell(
-    //             Column(
-    //               crossAxisAlignment: CrossAxisAlignment.center,
-    //               children: <Widget>[
-    //                 Text(i.sex + " " + i.name + " " + i.family,
-    //                     style: Theme.of(context).textTheme.subtitle),
-    //                 Text(i.sex + " " + i.name + " " + i.family,
-    //                     style: Theme.of(context).textTheme.subtitle),
-    //                 Text(i.sex + " " + i.name + " " + i.family,
-    //                     style: Theme.of(context).textTheme.subtitle),
-    //               ],
-    //             ),
-    //           ),
-    //           DataCell(Text(i.melicode,
-    //               style: Theme.of(context).textTheme.subtitle)),
-    //           DataCell(
-    //               Text(i.brith, style: Theme.of(context).textTheme.subtitle)),
-    //         ]))
-    //     .toList();
-
 //// استخراج اطلاعات
-
+    print(_latestLink);
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Scaffold(
@@ -241,7 +350,12 @@ class _ChekOutState extends State<ChekOut> {
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(15),
                           ),
-                          onPressed: () => sendToServer(),
+                          onPressed: () {
+                            if (_key.currentState.validate()) {
+                              _key.currentState.save();
+                              sendToServer();
+                            }
+                          },
                           child: const Text('پرداخت صورتحساب'),
                         )
                       : Row(
@@ -287,7 +401,7 @@ class _ChekOutState extends State<ChekOut> {
                       _baby_price,
                       _adult_price,
                       _totalPrice),
-                  pay(context, _email, _mobile, _phone),
+                  pay(context, _email, _mobile, _phone, _key),
                 ],
               ))),
     );
@@ -620,42 +734,56 @@ Step factor(
   );
 }
 
-Step pay(BuildContext context, _email, _mobile, _phone) {
+Step pay(BuildContext context, _email, _mobile, _phone, Key _key) {
   return Step(
       title: Text('پرداخت صورتحساب'),
       content: Center(
-          child: Column(
-        children: <Widget>[
-          TextField(
-            controller: _email,
-            decoration: InputDecoration(
-              hintText: 'آدرس ایمیل',
-              hintStyle: TextStyle(fontSize: 13),
-              counterText: '',
+          child: Form(
+        key: _key,
+        child: Column(
+          children: <Widget>[
+            TextFormField(
+              controller: _email,
+              onSaved: (val) {
+                _email = val;
+              },
+              decoration: InputDecoration(
+                hintText: 'آدرس ایمیل',
+                hintStyle: TextStyle(fontSize: 13),
+                counterText: '',
+              ),
+              keyboardType: TextInputType.emailAddress,
+              maxLength: 25,
             ),
-            keyboardType: TextInputType.emailAddress,
-            maxLength: 25,
-          ),
-          TextField(
-            controller: _mobile,
-            decoration: InputDecoration(
-              hintText: 'شماره همراه',
-              hintStyle: TextStyle(fontSize: 13),
-              counterText: '',
+            TextFormField(
+              controller: _mobile,
+              onSaved: (val) {
+                _mobile = val;
+              },
+              validator: (String value) {
+                if (value.isEmpty) {
+                  return 'این فیلد ضروری می باشد';
+                }
+              },
+              decoration: InputDecoration(
+                hintText: 'شماره همراه',
+                hintStyle: TextStyle(fontSize: 13),
+                counterText: '',
+              ),
+              keyboardType: TextInputType.phone,
+              maxLength: 11,
             ),
-            keyboardType: TextInputType.phone,
-            maxLength: 11,
-          ),
-          TextField(
-            controller: _phone,
-            decoration: InputDecoration(
-              hintText: 'شماره ثابت',
-              hintStyle: TextStyle(fontSize: 13),
-              counterText: '',
-            ),
-            keyboardType: TextInputType.phone,
-            maxLength: 11,
-          )
-        ],
+            TextFormField(
+              controller: _phone,
+              decoration: InputDecoration(
+                hintText: 'شماره ثابت',
+                hintStyle: TextStyle(fontSize: 13),
+                counterText: '',
+              ),
+              keyboardType: TextInputType.phone,
+              maxLength: 11,
+            )
+          ],
+        ),
       )));
 }

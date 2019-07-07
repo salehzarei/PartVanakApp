@@ -18,6 +18,7 @@ import './login/register.dart';
 import './pages/connectivity.dart';
 import './login/check_phone.dart';
 
+
 main() {
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   MainModel model = MainModel();
