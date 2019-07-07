@@ -117,7 +117,7 @@ class _ChekOutState extends State<ChekOut> {
   }
 
   _launchURL(String url) async {
-    print('llll'+url);
+    print('llll' + url);
     if (await canLaunch(url)) {
       await launch(url);
     } else {
