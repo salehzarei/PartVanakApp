@@ -48,7 +48,7 @@ class ResetPassword extends StatelessWidget {
                           ),
                           _repeatpassword(),
                           Padding(
-                            padding: const EdgeInsets.only(right: 100),
+                            padding: const EdgeInsets.only(right: 80),
                             child: Row(
                               children: <Widget>[
                                 RaisedButton(
@@ -84,7 +84,7 @@ class ResetPassword extends StatelessWidget {
 Widget _username() {
   return TextFormField(
     decoration: InputDecoration(
-        labelText: 'نام کاربری', filled: true, fillColor: Colors.white),
+        labelText: 'شماره همراه', filled: true, fillColor: Colors.white),
     keyboardType: TextInputType.text,
     validator: (String value) {
       if (value.isEmpty) {

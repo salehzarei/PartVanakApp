@@ -66,10 +66,52 @@ class MyDrawer extends StatelessWidget {
                   )
                 ],
               )),
-          //___________________________________شبکه های اجتماعی___________________________
+          //  ______________________________________ورود و ثبت نام_________________________________________
 
+          GestureDetector(
+            onTap: () => Navigator.pushNamed(context, '/login'),
+            child: Container(
+              width: 20,
+              color: Theme.of(context).cardColor.withOpacity(0.7),
+              margin: EdgeInsets.only(top: 15),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  GestureDetector(
+                    onTap: () => Navigator.pushNamed(context, '/login'),
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 15),
+                      child: Container(
+                        width: 110,
+                        child: Row(
+                          children: <Widget>[
+                            Padding(
+                              padding:
+                                  const EdgeInsets.only(bottom: 10, top: 5),
+                              child: Icon(
+                                Icons.account_circle,
+                                color: Colors.black.withOpacity(0.5),
+                              ),
+                            ),
+                            SizedBox(
+                              width: 5,
+                            ),
+                            Text(
+                              'ورود/ثبت نام',
+                              style: DarwerThemeData.textTheme.title,
+                            )
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          //___________________________________شبکه های اجتماعی___________________________
           Container(
-            margin: EdgeInsets.only(top: 38),
+            margin: EdgeInsets.only(top: 15),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
@@ -133,374 +175,373 @@ class MyDrawer extends StatelessWidget {
             child: Stack(
               children: <Widget>[
                 Column(
-                    children: <Widget>[
-                       GestureDetector(
-                          onTap: () =>
-                Navigator.pushNamed(context, '/homepage'),
-                          child: Container(
-                            padding:
-                EdgeInsets.only(top: 15.0, left: 15, right: 20),
-                            child: Row(
-                children: <Widget>[
-                Padding(
-                padding: const EdgeInsets.only(left: 8.0),
-                child: Icon(
-                  Icons.home,
-                  color: Theme.of(context).accentColor,
-                ),
-                ),
-                Text(
-                'صفحه اصلی',
-                style: DarwerThemeData.textTheme.title,
-                ),
-                ],
-                            ),
-                          )),
-                      GestureDetector(
-                          onTap: () =>
-                Navigator.pushNamed(context, '/foreigntourelist'),
-                          child: Container(
-                            padding:
-                EdgeInsets.only(top: 15.0, left: 15, right: 20),
-                            child: Row(
-                children: <Widget>[
-                Padding(
-                padding: const EdgeInsets.only(left: 8.0),
-                child: Icon(
-                  ToureIcons.around,
-                  color: Theme.of(context).accentColor,
-                ),
-                ),
-                Text(
-                'تور های خارجی',
-                style: DarwerThemeData.textTheme.title,
-                ),
-                ],
-                            ),
-                          )),
-                      GestureDetector(
-                          onTap: () =>
-                Navigator.pushNamed(context, '/internaltourelist'),
-                          child: Container(
-                            padding:
-                EdgeInsets.only(top: 15.0, left: 15, right: 20),
-                            child: Row(
-                children: <Widget>[
-                Padding(
-                padding: const EdgeInsets.only(left: 8.0),
-                child: Icon(
-                  ToureIcons.azadi,
-                  color: Theme.of(context).accentColor,
-                ),
-                ),
-                Text(
-                'تور های داخلی',
-                style: DarwerThemeData.textTheme.title,
-                ),
-                ],
-                            ),
-                          )),
-                      GestureDetector(
-                          onTap: () {
-                            print('تورهای طبیعتگردی');
-                            //Navigator.pushNamed(context, '');
-                          },
-                          child: Container(
-                            padding:
-                EdgeInsets.only(top: 15.0, left: 15, right: 20),
-                            child: Row(
-                children: <Widget>[
-                Padding(
-                padding: const EdgeInsets.only(left: 8.0),
-                child: Icon(
-                  ToureIcons.tent,
-                  color: Theme.of(context)
-                      .accentColor
-                      .withOpacity(0.5),
-                ),
-                ),
-                Text(
-                'تور های طبیعتگردی',
-                style: DarwerThemeData.textTheme.title.copyWith(
-                    color: Colors.white.withOpacity(0.5)),
-                ),
-                ],
-                            ),
-                          )),
+                  children: <Widget>[
+                    GestureDetector(
+                        onTap: () => Navigator.pushNamed(context, '/homepage'),
+                        child: Container(
+                          padding:
+                              EdgeInsets.only(top: 15.0, left: 15, right: 20),
+                          child: Row(
+                            children: <Widget>[
+                              Padding(
+                                padding: const EdgeInsets.only(left: 8.0),
+                                child: Icon(
+                                  Loginicon.home_outline,
+                                  color: Theme.of(context).accentColor,
+                                ),
+                              ),
+                              Text(
+                                'صفحه اصلی',
+                                style: DarwerThemeData.textTheme.title,
+                              ),
+                            ],
+                          ),
+                        )),
+                    GestureDetector(
+                        onTap: () =>
+                            Navigator.pushNamed(context, '/foreigntourelist'),
+                        child: Container(
+                          padding:
+                              EdgeInsets.only(top: 15.0, left: 15, right: 20),
+                          child: Row(
+                            children: <Widget>[
+                              Padding(
+                                padding: const EdgeInsets.only(left: 8.0),
+                                child: Icon(
+                                  ToureIcons.around,
+                                  color: Theme.of(context).accentColor,
+                                ),
+                              ),
+                              Text(
+                                'تور های خارجی',
+                                style: DarwerThemeData.textTheme.title,
+                              ),
+                            ],
+                          ),
+                        )),
+                    GestureDetector(
+                        onTap: () =>
+                            Navigator.pushNamed(context, '/internaltourelist'),
+                        child: Container(
+                          padding:
+                              EdgeInsets.only(top: 15.0, left: 15, right: 20),
+                          child: Row(
+                            children: <Widget>[
+                              Padding(
+                                padding: const EdgeInsets.only(left: 8.0),
+                                child: Icon(
+                                  ToureIcons.azadi,
+                                  color: Theme.of(context).accentColor,
+                                ),
+                              ),
+                              Text(
+                                'تور های داخلی',
+                                style: DarwerThemeData.textTheme.title,
+                              ),
+                            ],
+                          ),
+                        )),
+                    GestureDetector(
+                        onTap: () {
+                          print('تورهای طبیعتگردی');
+                          //Navigator.pushNamed(context, '');
+                        },
+                        child: Container(
+                          padding:
+                              EdgeInsets.only(top: 15.0, left: 15, right: 20),
+                          child: Row(
+                            children: <Widget>[
+                              Padding(
+                                padding: const EdgeInsets.only(left: 8.0),
+                                child: Icon(
+                                  ToureIcons.tent,
+                                  color: Theme.of(context)
+                                      .accentColor
+                                      .withOpacity(0.5),
+                                ),
+                              ),
+                              Text(
+                                'تور های طبیعتگردی',
+                                style: DarwerThemeData.textTheme.title.copyWith(
+                                    color: Colors.white.withOpacity(0.5)),
+                              ),
+                            ],
+                          ),
+                        )),
 
-                      GestureDetector(
-                          onTap: () {
-                            print('تور های یکروزه');
-                            //Navigator.pushNamed(context, '');
-                          },
-                          child: Container(
-                            padding:
-                EdgeInsets.only(top: 15.0, left: 15, right: 20),
-                            child: Row(
-                children: <Widget>[
-                Padding(
-                padding: const EdgeInsets.only(left: 8.0),
-                child: Icon(
-                  ToureIcons.first_day,
-                  color: Theme.of(context)
-                      .accentColor
-                      .withOpacity(0.5),
-                ),
-                ),
-                Text(
-                'تور های یکروزه',
-                style: DarwerThemeData.textTheme.title.copyWith(
-                    color: Colors.white.withOpacity(0.5)),
-                ),
-                ],
-                            ),
-                          )),
-                      GestureDetector(
-                          onTap: () {
-                            print('تور های لاکچری');
-                            //Navigator.pushNamed(context, '');
-                          },
-                          child: Container(
-                            padding:
-                EdgeInsets.only(top: 15.0, left: 15, right: 20),
-                            child: Row(
-                children: <Widget>[
-                Padding(
-                padding: const EdgeInsets.only(left: 8.0),
-                child: Icon(
-                  ToureIcons.crown_of_royal_design,
-                  color: Theme.of(context)
-                      .accentColor
-                      .withOpacity(0.5),
-                ),
-                ),
-                Text(
-                'تور های لاکچری',
-                style: DarwerThemeData.textTheme.title.copyWith(
-                    color: Colors.white.withOpacity(0.5)),
-                ),
-                ],
-                            ),
-                          )),
-                      GestureDetector(
-                          onTap: () {
-                            print('تور های لحظه آخری');
-                            //Navigator.pushNamed(context, '');
-                          },
-                          child: Container(
-                            padding:
-                EdgeInsets.only(top: 15.0, left: 15, right: 20),
-                            child: Row(
-                children: <Widget>[
-                Padding(
-                padding: const EdgeInsets.only(left: 8.0),
-                child: Icon(
-                  ToureIcons.stopwatch,
-                  color: Theme.of(context)
-                      .accentColor
-                      .withOpacity(0.5),
-                ),
-                ),
-                Text(
-                'تور های لحظه آخری',
-                style: DarwerThemeData.textTheme.title.copyWith(
-                    color: Colors.white.withOpacity(0.5)),
-                ),
-                ],
-                            ),
-                          )),
+                    GestureDetector(
+                        onTap: () {
+                          print('تور های یکروزه');
+                          //Navigator.pushNamed(context, '');
+                        },
+                        child: Container(
+                          padding:
+                              EdgeInsets.only(top: 15.0, left: 15, right: 20),
+                          child: Row(
+                            children: <Widget>[
+                              Padding(
+                                padding: const EdgeInsets.only(left: 8.0),
+                                child: Icon(
+                                  ToureIcons.first_day,
+                                  color: Theme.of(context)
+                                      .accentColor
+                                      .withOpacity(0.5),
+                                ),
+                              ),
+                              Text(
+                                'تور های یکروزه',
+                                style: DarwerThemeData.textTheme.title.copyWith(
+                                    color: Colors.white.withOpacity(0.5)),
+                              ),
+                            ],
+                          ),
+                        )),
+                    GestureDetector(
+                        onTap: () {
+                          print('تور های لاکچری');
+                          //Navigator.pushNamed(context, '');
+                        },
+                        child: Container(
+                          padding:
+                              EdgeInsets.only(top: 15.0, left: 15, right: 20),
+                          child: Row(
+                            children: <Widget>[
+                              Padding(
+                                padding: const EdgeInsets.only(left: 8.0),
+                                child: Icon(
+                                  ToureIcons.crown_of_royal_design,
+                                  color: Theme.of(context)
+                                      .accentColor
+                                      .withOpacity(0.5),
+                                ),
+                              ),
+                              Text(
+                                'تور های لاکچری',
+                                style: DarwerThemeData.textTheme.title.copyWith(
+                                    color: Colors.white.withOpacity(0.5)),
+                              ),
+                            ],
+                          ),
+                        )),
+                    GestureDetector(
+                        onTap: () {
+                          print('تور های لحظه آخری');
+                          //Navigator.pushNamed(context, '');
+                        },
+                        child: Container(
+                          padding:
+                              EdgeInsets.only(top: 15.0, left: 15, right: 20),
+                          child: Row(
+                            children: <Widget>[
+                              Padding(
+                                padding: const EdgeInsets.only(left: 8.0),
+                                child: Icon(
+                                  ToureIcons.stopwatch,
+                                  color: Theme.of(context)
+                                      .accentColor
+                                      .withOpacity(0.5),
+                                ),
+                              ),
+                              Text(
+                                'تور های لحظه آخری',
+                                style: DarwerThemeData.textTheme.title.copyWith(
+                                    color: Colors.white.withOpacity(0.5)),
+                              ),
+                            ],
+                          ),
+                        )),
 
-                      Container(
-                        margin: EdgeInsets.only(top: 20, left: 15.0, right: 15),
-                        height: 1,
-                        decoration: BoxDecoration(
-                            color: Theme.of(context).accentColor,
-                            borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(5),
-                bottomLeft: Radius.circular(5))),
-                      ),
-                      //_________________________________اطلاعات_____________________________________
-                      GestureDetector(
-                          onTap: () =>
-                Navigator.pushNamed(context, '/flyinfoSite'),
-                          child: Container(
-                            padding:
-                EdgeInsets.only(top: 15.0, left: 15, right: 20),
-                            child: Row(
-                children: <Widget>[
-                Padding(
-                padding: const EdgeInsets.only(left: 8.0),
-                child: Icon(
-                  ToureIcons.airport,
-                  color: Theme.of(context).accentColor,
-                ),
-                ),
-                Text(
-                'اطلاعات پرواز فرودگاه ها',
-                style: DarwerThemeData.textTheme.title,
-                ),
-                ],
-                            ),
-                          )),
-                      // GestureDetector(
-                      //     onTap: ()=>Navigator.pushNamed(context, '/tollpayment'),
-                      //     child: Container(
-                      //       padding:
-                      //           EdgeInsets.only(top: 15.0, left: 15, right: 20),
-                      //       child: Row(
-                      //         children: <Widget>[
-                      //           Padding(
-                      //             padding: const EdgeInsets.only(left: 8.0),
-                      //             child: Icon(
-                      //               ToureIcons.passport_1,
-                      //               color: Theme.of(context).accentColor,
-                      //             ),)
-                      //             ]
-                      //         ),
-                      //       )),
-                      GestureDetector(
-                          onTap: () {
-                            print('پرداخت عوارض خروج');
-                            Navigator.pushNamed(context, '/tollpayment');
-                          },
-                          child: Container(
-                            padding:
-                EdgeInsets.only(top: 15.0, left: 15, right: 20),
-                            child: Row(
-                children: <Widget>[
-                Padding(
-                padding: const EdgeInsets.only(left: 8.0),
-                child: Icon(
-                  ToureIcons.passport_1,
-                  color: Theme.of(context).accentColor,
-                ),
-                ),
-                Text(
-                'پرداخت عوارض خروج',
-                style: DarwerThemeData.textTheme.title,
-                ),
-                ],
-                            ),
-                          )),
+                    Container(
+                      margin: EdgeInsets.only(top: 20, left: 15.0, right: 15),
+                      height: 1,
+                      decoration: BoxDecoration(
+                          color: Theme.of(context).accentColor,
+                          borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(5),
+                              bottomLeft: Radius.circular(5))),
+                    ),
+                    //_________________________________اطلاعات_____________________________________
+                    GestureDetector(
+                        onTap: () =>
+                            Navigator.pushNamed(context, '/flyinfoSite'),
+                        child: Container(
+                          padding:
+                              EdgeInsets.only(top: 15.0, left: 15, right: 20),
+                          child: Row(
+                            children: <Widget>[
+                              Padding(
+                                padding: const EdgeInsets.only(left: 8.0),
+                                child: Icon(
+                                  ToureIcons.airport,
+                                  color: Theme.of(context).accentColor,
+                                ),
+                              ),
+                              Text(
+                                'اطلاعات پرواز فرودگاه ها',
+                                style: DarwerThemeData.textTheme.title,
+                              ),
+                            ],
+                          ),
+                        )),
+                    // GestureDetector(
+                    //     onTap: ()=>Navigator.pushNamed(context, '/tollpayment'),
+                    //     child: Container(
+                    //       padding:
+                    //           EdgeInsets.only(top: 15.0, left: 15, right: 20),
+                    //       child: Row(
+                    //         children: <Widget>[
+                    //           Padding(
+                    //             padding: const EdgeInsets.only(left: 8.0),
+                    //             child: Icon(
+                    //               ToureIcons.passport_1,
+                    //               color: Theme.of(context).accentColor,
+                    //             ),)
+                    //             ]
+                    //         ),
+                    //       )),
+                    GestureDetector(
+                        onTap: () {
+                          print('پرداخت عوارض خروج');
+                          Navigator.pushNamed(context, '/tollpayment');
+                        },
+                        child: Container(
+                          padding:
+                              EdgeInsets.only(top: 15.0, left: 15, right: 20),
+                          child: Row(
+                            children: <Widget>[
+                              Padding(
+                                padding: const EdgeInsets.only(left: 8.0),
+                                child: Icon(
+                                  ToureIcons.passport_1,
+                                  color: Theme.of(context).accentColor,
+                                ),
+                              ),
+                              Text(
+                                'پرداخت عوارض خروج',
+                                style: DarwerThemeData.textTheme.title,
+                              ),
+                            ],
+                          ),
+                        )),
 
-                      Container(
-                        margin: EdgeInsets.only(top: 20, left: 15.0, right: 15),
-                        height: 1,
-                        decoration: BoxDecoration(
-                            color: Theme.of(context).accentColor,
-                            borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(5),
-                bottomLeft: Radius.circular(5))),
-                      ),
-                      //_________________________________درباره ما ، تماس با ما_____________________________________
+                    Container(
+                      margin: EdgeInsets.only(top: 20, left: 15.0, right: 15),
+                      height: 1,
+                      decoration: BoxDecoration(
+                          color: Theme.of(context).accentColor,
+                          borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(5),
+                              bottomLeft: Radius.circular(5))),
+                    ),
+                    //_________________________________درباره ما ، تماس با ما_____________________________________
 
-                      GestureDetector(
-                          onTap: () {
-                            print('aboutus');
-                            Navigator.pushNamed(context, '/aboutus');
-                          },
-                          child: Container(
-                            padding:
-                EdgeInsets.only(top: 15.0, left: 15, right: 20),
-                            child: Row(
-                children: <Widget>[
-                Padding(
-                padding: const EdgeInsets.only(left: 8.0),
-                child: Icon(
-                  ToureIcons.share,
-                  color: Theme.of(context).accentColor,
+                    GestureDetector(
+                        onTap: () {
+                          print('aboutus');
+                          Navigator.pushNamed(context, '/aboutus');
+                        },
+                        child: Container(
+                          padding:
+                              EdgeInsets.only(top: 15.0, left: 15, right: 20),
+                          child: Row(
+                            children: <Widget>[
+                              Padding(
+                                padding: const EdgeInsets.only(left: 8.0),
+                                child: Icon(
+                                  ToureIcons.share,
+                                  color: Theme.of(context).accentColor,
+                                ),
+                              ),
+                              Text(
+                                'درباره ما',
+                                style: DarwerThemeData.textTheme.title,
+                              )
+                            ],
+                          ),
+                        )),
+                    GestureDetector(
+                        onTap: () {
+                          print('contact');
+                          Navigator.pushNamed(context, '/contact');
+                        },
+                        child: Container(
+                          padding:
+                              EdgeInsets.only(top: 15.0, left: 15, right: 20),
+                          child: Row(
+                            children: <Widget>[
+                              Padding(
+                                padding: const EdgeInsets.only(left: 8.0),
+                                child: Icon(
+                                  ToureIcons.call,
+                                  color: Theme.of(context).accentColor,
+                                ),
+                              ),
+                              Text(
+                                'تماس با ما',
+                                style: DarwerThemeData.textTheme.title,
+                              )
+                            ],
+                          ),
+                        )),
+                    //       GestureDetector(
+                    //           onTap: () {
+                    //             print('ورود');
+                    //             Navigator.pushNamed(context, '/login');
+                    //           },
+                    //           child: Container(
+                    //             padding:
+                    // EdgeInsets.only(top: 15.0, left: 15, right: 20),
+                    //             child: Row(
+                    // children: <Widget>[
+                    // Padding(
+                    // padding: const EdgeInsets.only(left: 8.0),
+                    // child: Icon(
+                    //   Loginicon.account_circle,
+                    //   color: Theme.of(context).accentColor,
+                    // ),
+                    // ),
+                    // Text(
+                    // 'ورود',
+                    // style: DarwerThemeData.textTheme.title,
+                    // )
+                    // ],
+                    //             ),
+                    //           )),
+                    //       GestureDetector(
+                    //           onTap: () {
+                    //             print('ثبت نام');
+                    //             Navigator.pushNamed(context, '/register');
+                    //           },
+                    //           child: Container(
+                    //             padding:
+                    // EdgeInsets.only(top: 15.0, left: 15, right: 20),
+                    //             child: Row(
+                    // children: <Widget>[
+                    // Padding(
+                    // padding: const EdgeInsets.only(left: 8.0),
+                    // child: Icon(
+                    //  Loginicon.border_color,
+                    //   color: Theme.of(context).accentColor,
+                    // ),
+                    // ),
+                    // Text(
+                    // 'ثبت نام',
+                    // style: DarwerThemeData.textTheme.title,
+                    // )
+                    // ],
+                    //             ),
+                    //           )),
+                    Container(
+                      margin: EdgeInsets.only(top: 20, left: 15.0, right: 15),
+                      height: 1,
+                      decoration: BoxDecoration(
+                          color: Theme.of(context).accentColor,
+                          borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(5),
+                              bottomLeft: Radius.circular(5))),
+                    ),
+                  ],
                 ),
-                ),
-                Text(
-                'درباره ما',
-                style: DarwerThemeData.textTheme.title,
-                )
-                ],
-                            ),
-                          )),
-                      GestureDetector(
-                          onTap: () {
-                            print('contact');
-                            Navigator.pushNamed(context, '/contact');
-                          },
-                          child: Container(
-                            padding:
-                EdgeInsets.only(top: 15.0, left: 15, right: 20),
-                            child: Row(
-                children: <Widget>[
-                Padding(
-                padding: const EdgeInsets.only(left: 8.0),
-                child: Icon(
-                  ToureIcons.call,
-                  color: Theme.of(context).accentColor,
-                ),
-                ),
-                Text(
-                'تماس با ما',
-                style: DarwerThemeData.textTheme.title,
-                )
-                ],
-                            ),
-                          )),
-                      GestureDetector(
-                          onTap: () {
-                            print('ورود');
-                            Navigator.pushNamed(context, '/login');
-                          },
-                          child: Container(
-                            padding:
-                EdgeInsets.only(top: 15.0, left: 15, right: 20),
-                            child: Row(
-                children: <Widget>[
-                Padding(
-                padding: const EdgeInsets.only(left: 8.0),
-                child: Icon(
-                  Loginicon.account_circle,
-                  color: Theme.of(context).accentColor,
-                ),
-                ),
-                Text(
-                'ورود',
-                style: DarwerThemeData.textTheme.title,
-                )
-                ],
-                            ),
-                          )),
-                      GestureDetector(
-                          onTap: () {
-                            print('ثبت نام');
-                            Navigator.pushNamed(context, '/register');
-                          },
-                          child: Container(
-                            padding:
-                EdgeInsets.only(top: 15.0, left: 15, right: 20),
-                            child: Row(
-                children: <Widget>[
-                Padding(
-                padding: const EdgeInsets.only(left: 8.0),
-                child: Icon(
-                 Loginicon.border_color,
-                  color: Theme.of(context).accentColor,
-                ),
-                ),
-                Text(
-                'ثبت نام',
-                style: DarwerThemeData.textTheme.title,
-                )
-                ],
-                            ),
-                          )),
-                      Container(
-                        margin: EdgeInsets.only(top: 20, left: 15.0, right: 15),
-                        height: 1,
-                        decoration: BoxDecoration(
-                            color: Theme.of(context).accentColor,
-                            borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(5),
-                bottomLeft: Radius.circular(5))),
-                      ),
-                    ],
-                  ),
               ],
             ),
           ),

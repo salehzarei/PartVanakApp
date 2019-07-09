@@ -59,7 +59,7 @@ class Register extends StatelessWidget {
                           ),
                           _repeatpassword(),
                           Padding(
-                            padding: const EdgeInsets.only(right: 100),
+                            padding: const EdgeInsets.only(right: 80),
                             child: Row(
                               children: <Widget>[
                                 RaisedButton(
@@ -139,7 +139,7 @@ Widget _phone() {
   return TextFormField(
     
     decoration: InputDecoration(
-        labelText: 'شماره موبایل', filled: true, fillColor: Colors.white),
+        labelText: 'شماره همراه', filled: true, fillColor: Colors.white),
     keyboardType: TextInputType.number,
     validator: (String value) {
       if (value.length != 11) {

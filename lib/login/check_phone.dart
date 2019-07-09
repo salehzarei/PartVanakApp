@@ -9,7 +9,7 @@ class CheckPhone extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(
           centerTitle: true,
-          title: Text('تایید شماره موبایل'),
+          title: Text('تایید شماره همراه'),
         ),
         body: Padding(
           padding: const EdgeInsets.only(top: 30, left: 25),

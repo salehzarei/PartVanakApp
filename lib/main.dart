@@ -25,7 +25,7 @@ main() {
   runApp(ScopedModel<MainModel>(
     model: model,
     child: MaterialApp(
-        title: 'Ticket and Toure Reservsion',
+        title: 'آژانس مسافرتی پارت ونک',
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
           backgroundColor: Colors.amber,

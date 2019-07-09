@@ -44,10 +44,25 @@ class Login extends StatelessWidget {
                             height: 10,
                           ),
                           _password(),
-                          RaisedButton(
-                              textColor: Colors.white,
-                              child: Text('ارسال '),
-                              onPressed: () => print('ارسال شد')),
+                          Padding(
+                            padding: const EdgeInsets.only(right:80),
+                            child: Row(
+                              children: <Widget>[
+                                RaisedButton(
+                                    textColor: Colors.white,
+                                    child: Text('ورود'),
+                                    onPressed: () => print('ارسال شد')),
+                                SizedBox(
+                                  width: 10,
+                                ),
+                                RaisedButton(
+                                    textColor: Colors.white,
+                                    child: Text('ثبت نام'),
+                                    onPressed: () => Navigator.pushNamed(
+                                        context, '/register')),
+                              ],
+                            ),
+                          ),
                           SizedBox(
                             height: 7,
                           ),
@@ -75,7 +90,7 @@ class Login extends StatelessWidget {
 Widget _username() {
   return TextFormField(
     decoration: InputDecoration(
-        labelText: 'نام کاربری', filled: true, fillColor: Colors.white),
+        labelText: 'شماره همراه', filled: true, fillColor: Colors.white),
     keyboardType: TextInputType.text,
     validator: (String value) {
       if (value.isEmpty) {
