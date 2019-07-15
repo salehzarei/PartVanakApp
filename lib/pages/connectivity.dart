@@ -9,13 +9,18 @@ class ConnectionCheck extends StatefulWidget {
 class _ConnectivityState extends State<ConnectionCheck> {
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Container(
-        child: RaisedButton(
-          child: Text('click'),
-          onPressed: _checkinternetconnectivity,
-        ),
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Check internet connection'),
+        centerTitle: true,
       ),
+      body: Center(
+          child: RaisedButton(
+        child: Text('click'),
+        onPressed: () {
+          _checkinternetconnectivity();
+        },
+      )),
     );
   }
 
@@ -23,6 +28,7 @@ class _ConnectivityState extends State<ConnectionCheck> {
     var result = await Connectivity().checkConnectivity();
     if (result == ConnectivityResult.none) {
       _showDialog('لطفا اینترنت خود را متصل کنید');
+      
     } else if (result == ConnectivityResult.mobile) {
       _showDialog('شما به اینترنت گوشی متصل هستید');
     } else if (result == ConnectivityResult.wifi) {
@@ -37,7 +43,6 @@ class _ConnectivityState extends State<ConnectionCheck> {
           return Center(
             child: AlertDialog(
               backgroundColor: Colors.red,
-              // title: Text(title),
               content: Text(text),
               actions: <Widget>[
                 FlatButton(

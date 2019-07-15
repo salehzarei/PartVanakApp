@@ -194,7 +194,7 @@ class _ContactPageState extends State<ContactPage> {
           content = Center(child: CircularProgressIndicator());
         }
         return content;
-        // return RefreshIndicator(onRefresh: model.fetchSubject, child: content,) ;
+         //return RefreshIndicator(onRefresh: model.fetchSubject, child: content,) ;
       },
     );
   }

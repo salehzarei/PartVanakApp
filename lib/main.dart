@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hello_flutter/buyticket.dart';
 import 'package:hello_flutter/pages/connectivity.dart';
+import 'package:hello_flutter/pages/news_list.dart';
 import 'package:hello_flutter/toureDetile.dart';
 import 'package:hello_flutter/toureList.dart';
 import 'package:scoped_model/scoped_model.dart';
@@ -17,8 +18,9 @@ import './login/reset_password.dart';
 import './login/register.dart';
 import './pages/connectivity.dart';
 import './login/check_phone.dart';
-
-
+import './pages/firebase.dart';
+import 'login/new_password.dart';
+import 'pages/grouping_page.dart';
 main() {
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   MainModel model = MainModel();
@@ -60,12 +62,18 @@ main() {
         ),
         initialRoute: '/',
         routes: {
-          //'/': (context) => CheckPhone(),
-          '/': (context) => Splash(),
 
+
+          // '/': (context) => Messagingwidget(),
+         '/': (context) => Splash(),
+          
+            '/grouping': (context) => Grouping(),
+          '/newslist': (context) => NewsList(),
+          '/newpassword': (context) => NewPassword(),
+          '/firebase': (context) => Messagingwidget(),
           '/checkphone': (context) => CheckPhone(),
           '/login': (context) => Login(),
-          '/checkconnection': (context) => ConnectionCheck(),
+          '/connectioncheck': (context) => ConnectionCheck(),
           '/register': (context) => Register(),
           '/resetpassword': (context) => ResetPassword(),
           '/homepage': (context) => HomePage(model: model),

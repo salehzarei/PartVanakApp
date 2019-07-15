@@ -299,7 +299,7 @@ class MyDrawer extends StatelessWidget {
                     GestureDetector(
                         onTap: () {
                           print('تور های لاکچری');
-                          //Navigator.pushNamed(context, '');
+                          Navigator.pushNamed(context, '/newslist');
                         },
                         child: Container(
                           padding:
@@ -326,7 +326,7 @@ class MyDrawer extends StatelessWidget {
                     GestureDetector(
                         onTap: () {
                           print('تور های لحظه آخری');
-                          //Navigator.pushNamed(context, '');
+                         // Navigator.pushNamed(context, '/firebase');
                         },
                         child: Container(
                           padding:

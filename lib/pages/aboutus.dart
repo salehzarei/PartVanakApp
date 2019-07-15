@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:hello_flutter/model/about_model.dart';
+import 'package:hello_flutter/pages/webview.dart';
 import 'package:scoped_model/scoped_model.dart';
 import '../scoped_model.dart';
 import '../drawer.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:webview_flutter/webview_flutter.dart';
 
 class AboutUs extends StatefulWidget {
   final MainModel model;
@@ -236,7 +238,7 @@ class _AboutUsState extends State<AboutUs> {
               scrollDirection: Axis.horizontal,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
-                children:_list ,
+                children: _list,
               ),
             ),
           ),
@@ -271,83 +273,95 @@ class _AboutUsState extends State<AboutUs> {
                     fit: BoxFit.cover,
                   ),
                 ),
-              
-              Directionality(
-                textDirection: TextDirection.rtl,
-                child: Scaffold(
-                    drawer: MyDrawer(),
-                    backgroundColor: Colors.transparent,
-                    appBar: AppBar(
-                      actions: <Widget>[
-                        IconButton(
-                          icon: Icon(
-                            Icons.arrow_forward,
-                            color: Theme.of(context).appBarTheme.color,
-                          ),
-                          onPressed: () => Navigator.pop(context),
-                        )
-                      ],
-                      elevation: 0.0,
+                Directionality(
+                  textDirection: TextDirection.rtl,
+                  child: Scaffold(
+                      drawer: MyDrawer(),
                       backgroundColor: Colors.transparent,
-                      centerTitle: true,
-                      iconTheme: Theme.of(context).iconTheme,
-                      title: Text(
-                        'درباره ما',
-                        style: Theme.of(context).textTheme.title,
-                      ),
-                     
-                    ),
-                    body: Stack(children: [
-                      Padding(
-                        padding: const EdgeInsets.only(
-                            top: 80, bottom: 60, left: 15, right: 15),
-                        child: ListView(
-                          children: <Widget>[
-                            Padding(
-                              padding: const EdgeInsets.only(
-                                  top: 10, right: 10, left: 10),
-                              child: RichText(
-                                  //textAlign: TextAlign.justify,
-                                  textDirection: TextDirection.rtl,
-                                  overflow: TextOverflow.fade,
-                                  text: TextSpan(
-                                      text: " ${model.aboutmodel.about}",
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .body1
-                                          .copyWith(
-                                              color: Colors.white,
-                                              fontSize: 15))),
+                      appBar: AppBar(
+                        actions: <Widget>[
+                          IconButton(
+                            icon: Icon(
+                              Icons.arrow_forward,
+                              color: Theme.of(context).appBarTheme.color,
                             ),
-
-                            _buildManagement(model.aboutmodel.name),
-                            _buildCell(model.aboutmodel.cell),
-                            _buildTell(model.aboutmodel.tell),
-                            _buildWeb(model.aboutmodel.web),
-                            _buildEmail(model.aboutmodel.email),
-                            _buildAddress(model.aboutmodel.address),
-
-                            // _buildCell(),
-                          ],
+                            onPressed: () => Navigator.pop(context),
+                          )
+                        ],
+                        elevation: 0.0,
+                        backgroundColor: Colors.transparent,
+                        centerTitle: true,
+                        iconTheme: Theme.of(context).iconTheme,
+                        title: Text(
+                          'درباره ما',
+                          style: Theme.of(context).textTheme.title,
                         ),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.only(bottom: 10),
-                        child: Container(
-                          height: 80,
-                          alignment: Alignment.center,
-                          color: Colors.transparent,
-                          child: Image.asset(
-                            'images/logo.png',
+                      body: Stack(children: [
+                        Padding(
+                          padding: const EdgeInsets.only(
+                              top: 80, bottom: 60, left: 15, right: 15),
+                          child: ListView(
+                            children: <Widget>[
+                              Padding(
+                                padding: const EdgeInsets.only(
+                                    top: 10, right: 10, left: 10),
+                                child: RichText(
+                                    //textAlign: TextAlign.justify,
+                                    textDirection: TextDirection.rtl,
+                                    overflow: TextOverflow.fade,
+                                    text: TextSpan(
+                                        text: " ${model.aboutmodel.about}",
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .body1
+                                            .copyWith(
+                                                color: Colors.white,
+                                                fontSize: 15))),
+                              ),
+
+                              _buildManagement(model.aboutmodel.name),
+                              _buildCell(model.aboutmodel.cell),
+                              _buildTell(model.aboutmodel.tell),
+                              _buildWeb(model.aboutmodel.web),
+                              _buildEmail(model.aboutmodel.email),
+                              _buildAddress(model.aboutmodel.address),
+                                  Container(
+                                      height: 300,
+                                      child: WebView(
+                                        initialUrl: Uri.dataFromString(
+                                                '<html><body><iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3215.430086183154!2d59.579547315701774!3d36.301875980054355!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzbCsDE4JzA2LjgiTiA1OcKwMzQnNTQuMyJF!5e0!3m2!1sen!2sde!4v1562842754779!5m2!1sen!2sde" width="400" height="300" frameborder="0" style="border:0" allowfullscreen></iframe></body></html',
+                                                mimeType: 'text/html')
+                                            .toString(),
+                                        javascriptMode:
+                                            JavascriptMode.unrestricted,
+                                            
+                                      )),
+                                ],
+                              
+
+                              // _buildCell(),
+                            
                           ),
                         ),
-                      ),
-                      _builSocialNetwork(context, model.aboutmodel.social),
-                    ])),
-              ),
-            ],
-          ),
-          );}
+                        Padding(
+                          padding: const EdgeInsets.only(bottom: 10),
+                          child: Container(
+                            height: 80,
+                            alignment: Alignment.center,
+                            color: Colors.transparent,
+                            child: Image.asset(
+                              'images/logo.png',
+                            ),
+                          ),
+                        ),
+                        _builSocialNetwork(context, model.aboutmodel.social),
+                      ])),
+                ),
+              ],
+            ),
+          );
+        }
       },
     );
   }

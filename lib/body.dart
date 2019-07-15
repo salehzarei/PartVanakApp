@@ -11,25 +11,30 @@ class HomeBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Padding(
-          padding: const EdgeInsets.only(top: 10),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: <Widget>[
-              MainCategory(),
-              CatDivider(
-                title: 'تورهای ویژه خارجی',
-                toureType: 2,
-              ),
-              ToureScrollTitle(type: 2),
-              CatDivider(
-                title: 'تورهای ویژه داخلی',
-                toureType: 1,
-              ),
-              ToureScrollTitle(type: 1),
-            ],
-          )),
+    return RefreshIndicator(
+      onRefresh: () => Navigator.pushNamed(context, '/homepage'),
+      color: Colors.red,
+      backgroundColor: Theme.of(context).cardColor,
+      child: SingleChildScrollView(
+        child: Padding(
+            padding: const EdgeInsets.only(top: 10),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                MainCategory(),
+                CatDivider(
+                  title: 'تورهای ویژه خارجی',
+                  toureType: 2,
+                ),
+                ToureScrollTitle(type: 2),
+                CatDivider(
+                  title: 'تورهای ویژه داخلی',
+                  toureType: 1,
+                ),
+                ToureScrollTitle(type: 1),
+              ],
+            )),
+      ),
     );
   }
 }
