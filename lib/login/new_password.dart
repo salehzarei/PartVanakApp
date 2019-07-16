@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hello_flutter/drawer.dart';
 
-class ResetPassword extends StatelessWidget {
+class NewPassword extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Directionality(
@@ -38,16 +38,18 @@ class ResetPassword extends StatelessWidget {
                     child: Form(
                       child: Column(
                         children: <Widget>[
-                          _username(),
+                          _password(),
+                          SizedBox(height: 10,),
+                          _repeatpassword(),
+                          SizedBox(height: 10,),
                           Padding(
                             padding: const EdgeInsets.only(right: 80),
                             child: Row(
                               children: <Widget>[
                                 RaisedButton(
                                     textColor: Colors.white,
-                                    child: Text('ارسال '),
-                                    onPressed: () =>  Navigator.pushNamed(
-                                        context, '/checkphone')),
+                                    child: Text('تایید'),
+                                    onPressed: () =>  {}),
                                 SizedBox(
                                   width: 10,
                                 ),
@@ -73,10 +75,11 @@ class ResetPassword extends StatelessWidget {
   }
 }
 
-Widget _username() {
+
+Widget _password() {
   return TextFormField(
     decoration: InputDecoration(
-        labelText: 'شماره همراه', filled: true, fillColor: Colors.white),
+        labelText: 'رمز عبور', filled: true, fillColor: Colors.white),
     keyboardType: TextInputType.text,
     validator: (String value) {
       if (value.isEmpty) {
@@ -87,31 +90,16 @@ Widget _username() {
   );
 }
 
-
-// Widget _password() {
-//   return TextFormField(
-//     decoration: InputDecoration(
-//         labelText: 'رمز عبور', filled: true, fillColor: Colors.white),
-//     keyboardType: TextInputType.text,
-//     validator: (String value) {
-//       if (value.isEmpty) {
-//         return 'این فیلد ضروریست ';
-//       }
-//     },
-//     onSaved: (String value) {},
-//   );
-// }
-
-// Widget _repeatpassword() {
-//   return TextFormField(
-//     decoration: InputDecoration(
-//         labelText: 'تکرار روز عبود', filled: true, fillColor: Colors.white),
-//     keyboardType: TextInputType.text,
-//     validator: (String value) {
-//       if (value.isEmpty) {
-//         return 'این فیلد ضروریست ';
-//       }
-//     },
-//     onSaved: (String value) {},
-//   );
-// }
+Widget _repeatpassword() {
+  return TextFormField(
+    decoration: InputDecoration(
+        labelText: 'تکرار روز عبود', filled: true, fillColor: Colors.white),
+    keyboardType: TextInputType.text,
+    validator: (String value) {
+      if (value.isEmpty) {
+        return 'این فیلد ضروریست ';
+      }
+    },
+    onSaved: (String value) {},
+  );
+}

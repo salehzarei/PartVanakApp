@@ -45,7 +45,8 @@ class CheckPhone extends StatelessWidget {
                     RaisedButton(
                         textColor: Colors.white,
                         child: Text('تایید'),
-                        onPressed: () => print('ارسال شد')),
+                        onPressed: () => Navigator.pushNamed(
+                                        context, '/newpassword')),
                   ],
                 ),
               ),
