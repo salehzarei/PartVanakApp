@@ -4,7 +4,6 @@ import 'package:hello_flutter/drawer.dart';
 import 'package:hello_flutter/scoped_model.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-
 class HomePage extends StatefulWidget {
   final MainModel model;
   const HomePage({Key key, this.model}) : super(key: key);
@@ -20,46 +19,49 @@ class _HomePageState extends State<HomePage> {
     widget.model.getTourData();
   }
 
-_launchURL() async {
-  const url = 'tel:+985137675030';
-  if (await canLaunch(url)) {
-    await launch(url);
-  } else {
-    throw 'Could not launch $url';
+  _launchURL() async {
+    const url = 'tel:+985137675030';
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
   }
-}
 
   @override
   Widget build(BuildContext context) {
     return Container(
-          child: Stack(
+      child: Stack(
+        textDirection: TextDirection.rtl,
+        fit: StackFit.expand,
+        children: <Widget>[
+          Container(
+            color: Colors.white,
+          ),
+          Directionality(
             textDirection: TextDirection.rtl,
-            fit: StackFit.expand,
-            children: <Widget>[
-              Container(
-                color: Colors.white,
-              ),
-              Directionality(
-                textDirection: TextDirection.rtl,
-                child: Scaffold(
-                    backgroundColor: Colors.transparent,
-                    appBar: AppBar(
-                      
-                      backgroundColor: Theme.of(context).appBarTheme.color,
-                      iconTheme: Theme.of(context)
-                          .iconTheme
-                          .copyWith(color: Color(0xFFD8B945)),
-                      elevation: 5.0,
-                      actions: <Widget>[
-                        Padding(
-                          padding: const EdgeInsets.only(left: 70,top:5),
-                          child: Image.asset('images/logo.png',height: 50,color: Colors.white,),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(top: 10, bottom: 10),
-                          child: GestureDetector(
-                            onTap: ()=>_launchURL(),
-                            child: Container(
+            child: Scaffold(
+                backgroundColor: Colors.transparent,
+                appBar: AppBar(
+                  backgroundColor: Theme.of(context).appBarTheme.color,
+                  iconTheme: Theme.of(context)
+                      .iconTheme
+                      .copyWith(color: Color(0xFFD8B945)),
+                  elevation: 5.0,
+                  actions: <Widget>[
+                    Padding(
+                      padding: const EdgeInsets.only(left: 70, top: 5),
+                      child: Image.asset(
+                        'images/logo.png',
+                        height: 50,
+                        color: Colors.white,
+                      ),
+                    ),
+                    Padding(
+                        padding: const EdgeInsets.only(top: 10, bottom: 10),
+                        child: GestureDetector(
+                          onTap: () => _launchURL(),
+                          child: Container(
                             width: 125,
                             padding: EdgeInsets.only(left: 10, right: 10),
                             decoration: BoxDecoration(
@@ -77,7 +79,8 @@ _launchURL() async {
                                   style: Theme.of(context)
                                       .appBarTheme
                                       .textTheme
-                                      .display1.copyWith(fontSize: 15),
+                                      .display1
+                                      .copyWith(fontSize: 15),
                                 ),
                                 Icon(
                                   Icons.phone,
@@ -87,16 +90,14 @@ _launchURL() async {
                               ],
                             ),
                           ),
-                          )
-                        )
-                      ],
-                    ),
-                    drawer: MyDrawer(),
-                    body: HomeBody()
-                    ),
-              )
-            ],
-          ),
-        );
+                        ))
+                  ],
+                ),
+                drawer: MyDrawer(),
+                body: HomeBody()),
+          )
+        ],
+      ),
+    );
   }
 }

@@ -1,97 +1,136 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:hello_flutter/drawer.dart';
+import 'package:scoped_model/scoped_model.dart';
+import '../drawer.dart';
+import '../scoped_model.dart';
 
-class Login extends StatelessWidget {
+class Login extends StatefulWidget {
+  @override
+  _LoginState createState() => _LoginState();
+}
+
+class _LoginState extends State<Login> {
+  final _loginkeyform = GlobalKey<FormState>();
+  TextEditingController _mobile = TextEditingController();
+  TextEditingController _pass = TextEditingController();
+
   @override
   // integer _size MediaQuery.of(context).size.height/2;
   Widget build(BuildContext context) {
-    return Directionality(
-      textDirection: TextDirection.rtl,
-      child: Scaffold(
-        drawer: MyDrawer(),
-        appBar: AppBar(
-          centerTitle: true,
-          title: Text('ورود'),
-          actions: <Widget>[
-            IconButton(
-              icon: Icon(
-                Icons.arrow_forward,
-                color: Colors.white,
-              ),
-              onPressed: () => Navigator.pop(context),
-            )
-          ],
-        ),
-        body: Stack(
-          //fit: StackFit.expand,
-          children: <Widget>[
-            // Container(
-            //     child: Image.asset(
-            //   'images/air.jpg',
-            //   fit: BoxFit.cover,
-            // )),
-            Padding(
-              padding: const EdgeInsets.only(left: 15, right: 15),
-              child: ListView(
-                children: <Widget>[
-                  Container(
-                    child: Form(
-                      child: Column(
-                        children: <Widget>[
-                          _username(),
-                          SizedBox(
-                            height: 10,
-                          ),
-                          _password(),
-                          Padding(
-                            padding: const EdgeInsets.only(right:80),
-                            child: Row(
-                              children: <Widget>[
-                                RaisedButton(
-                                    textColor: Colors.white,
-                                    child: Text('ورود'),
-                                    onPressed: () => print('ارسال شد')),
-                                SizedBox(
-                                  width: 10,
-                                ),
-                                RaisedButton(
-                                    textColor: Colors.white,
-                                    child: Text('ثبت نام'),
-                                    onPressed: () => Navigator.pushNamed(
-                                        context, '/register')),
-                              ],
+    return ScopedModelDescendant<MainModel>(builder: (context, child, model) {
+      return Directionality(
+        textDirection: TextDirection.rtl,
+        child: Scaffold(
+          drawer: MyDrawer(),
+          appBar: AppBar(
+            centerTitle: true,
+            title: Text('ورود به اپلیکیشن'),
+            actions: <Widget>[
+              IconButton(
+                icon: Icon(
+                  Icons.arrow_forward,
+                  color: Colors.white,
+                ),
+                onPressed: () => Navigator.pop(context),
+              )
+            ],
+          ),
+          body: Stack(
+            //fit: StackFit.expand,
+            children: <Widget>[
+              // Container(
+              //     child: Image.asset(
+              //   'images/air.jpg',
+              //   fit: BoxFit.cover,
+              // )),
+              Padding(
+                padding: const EdgeInsets.only(left: 15, right: 15, top: 10),
+                child: ListView(
+                  children: <Widget>[
+                    Container(
+                      child: Form(
+                        key: _loginkeyform,
+                        child: Column(
+                          children: <Widget>[
+                            _username(_mobile),
+                            SizedBox(
+                              height: 5,
                             ),
-                          ),
-                          SizedBox(
-                            height: 7,
-                          ),
-                          GestureDetector(
-                              child: Text(
-                                'رمز عبور خود را فراموش کردید؟',
-                                style: TextStyle(color: Colors.black),
+                            _password(_pass),
+                            Padding(
+                              padding:
+                                  const EdgeInsets.only(right: 80, top: 10),
+                              child: Row(
+                                children: <Widget>[
+                                  RaisedButton(
+                                      textColor: Colors.white,
+                                      child: Text('ورود'),
+                                      onPressed: () {
+                                        if (_loginkeyform.currentState
+                                            .validate()) {
+                                          model
+                                              .loginData(
+                                                  mobile: _mobile.text,
+                                                  pass: _pass.text)
+                                              .whenComplete(() {
+                                            model.getToken().whenComplete(() {
+                                              if (model.userToken != null) {
+                                                Navigator.pushNamed(
+                                                    context, '/');
+                                              }
+                                            });
+                                          });
+                                        }
+                                      }),
+                                  SizedBox(
+                                    width: 10,
+                                  ),
+                                  RaisedButton(
+                                      textColor: Colors.white,
+                                      child: Text('ثبت نام'),
+                                      onPressed: () => Navigator.pushNamed(
+                                          context, '/register')),
+                                ],
                               ),
-                              onTap: () => Navigator.pushNamed(
-                                  context, '/resetpassword')),
-                        ],
+                            ),
+                            SizedBox(
+                              height: 7,
+                            ),
+                            GestureDetector(
+                                child: Text(
+                                  'رمز عبور خود را فراموش کردید؟',
+                                  style: TextStyle(color: Colors.black),
+                                ),
+                                onTap: () => Navigator.pushNamed(
+                                    context, '/resetpassword')),
+                          ],
+                        ),
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
-      ),
-    );
+      );
+    });
   }
 }
 
-Widget _username() {
+Widget _username(mobile) {
   return TextFormField(
+    controller: mobile,
+    maxLength: 11,
+    style: TextStyle(color: Colors.black, fontSize: 20),
     decoration: InputDecoration(
-        labelText: 'شماره همراه', filled: true, fillColor: Colors.white),
-    keyboardType: TextInputType.text,
+        hintText: 'مثلا : 09154127181',
+        counterText: '',
+        hintStyle: TextStyle(color: Colors.grey.shade300),
+        labelText: 'شماره همراه',
+        filled: true,
+        fillColor: Colors.white),
+    keyboardType: TextInputType.phone,
     validator: (String value) {
       if (value.isEmpty) {
         return 'این فیلد ضروریست ';
@@ -102,8 +141,11 @@ Widget _username() {
 }
 
 //
-Widget _password() {
+Widget _password(pass) {
   return TextFormField(
+    controller: pass,
+    obscureText: true,
+    style: TextStyle(color: Colors.black, fontSize: 20),
     decoration: InputDecoration(
         labelText: 'رمز عبور', filled: true, fillColor: Colors.white),
     keyboardType: TextInputType.number,
