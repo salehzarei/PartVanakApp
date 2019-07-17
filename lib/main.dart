@@ -20,7 +20,6 @@ import './pages/connectivity.dart';
 import './login/check_phone.dart';
 import './pages/firebase.dart';
 import 'login/new_password.dart';
-import 'pages/grouping_page.dart';
 main() {
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   MainModel model = MainModel();
@@ -67,7 +66,7 @@ main() {
           // '/': (context) => Messagingwidget(),
          '/': (context) => Splash(),
           
-            '/grouping': (context) => Grouping(),
+          
           '/newslist': (context) => NewsList(),
           '/newpassword': (context) => NewPassword(),
           '/firebase': (context) => Messagingwidget(),
