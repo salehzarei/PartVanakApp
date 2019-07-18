@@ -403,7 +403,9 @@ class _ChekOutState extends State<ChekOut> {
                       _totalPrice),
                   pay(context, _email, _mobile, _phone, _key),
                 ],
-              ))),
+              )
+              )
+              ),
     );
   }
 }

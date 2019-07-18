@@ -21,6 +21,8 @@ class MainModel extends Model {
   List<GlobalKey<FormState>> userFormKey = [];
   AboutModel aboutmodel;
   String userToken;
+  String verificationCode;
+  String errorMassage;
 
 //// اطلاعات موقت تور به ترتیب آی دی تور و آی دی هتل
   Map<String, String> tmpCartData = {'ToureID': '0', 'HotelID': '0'};
@@ -47,6 +49,7 @@ class MainModel extends Model {
 
   Future loginData({String mobile, String pass}) async {
     _isLoading = true;
+    errorMassage = "";
     notifyListeners();
     final response = await http.post(host + 'user/login',
         encoding: Encoding.getByName('utf-8'),
@@ -55,11 +58,10 @@ class MainModel extends Model {
     if (response.statusCode == 200 && !chekerror) {
       String _token = json.decode(response.body)['token'];
       setToken(_token);
-      print("کاربر وارد شد!");
-      return true;
-    } else
-      print("خطادر اهراز هویت کاربر");
-    return false;
+    } else if (response.statusCode == 200 && chekerror) {
+      errorMassage = json.decode(response.body)['error_msg'];
+      notifyListeners();
+    }
   }
 
   /// ثبت توکن جدید یا خالی در شیرپروفرمنس
@@ -83,25 +85,78 @@ class MainModel extends Model {
     }
   }
 
+  /////// ثبت نام  کاربر جدید
 
-
-  ///////// ثبت نام كاربر جدید
-
-  Future registerUser({String mobile, String pass}) async {
+  Future<void> registerUser({
+    String name,
+    String family,
+    String email,
+    String mobile,
+    String code,
+    String pass,
+  }) async {
     _isLoading = true;
+    errorMassage = "";
     notifyListeners();
-    final response = await http.post(host + 'user/login',
+    final response = await http.post(host + 'user/register',
         encoding: Encoding.getByName('utf-8'),
-        body: {'mobile': mobile, 'pass': pass});
+        body: {
+          'name': name,
+          'family': family,
+          'mobile': mobile,
+          'email': email,
+          'code': code,
+          'pass': pass,
+          'verification_token': verificationCode
+        });
     bool chekerror = json.decode(response.body)['error'];
     if (response.statusCode == 200 && !chekerror) {
-      String _token = json.decode(response.body)['token'];
-      setToken(_token);
+       print("کاربر ثبت نام شد!");
+
+    } else if (response.statusCode == 200 && chekerror) {
+      print(json.decode(response.body)['error_msg']);
+      errorMassage = json.decode(response.body)['error_msg'];
+      notifyListeners();
+    }
+  }
+
+///////// دریافت و چک کردن اطلاعات شماره موبایل از سرور
+
+  Future<bool> checkMobile(String mobile) async {
+    errorMassage = "";
+    _isLoading = true;
+    notifyListeners();
+    final response = await http.post(host + 'user/checkmobile',
+        encoding: Encoding.getByName('utf-8'), body: {'mobile': mobile});
+    bool chekerror = json.decode(response.body)['error'];
+    if (response.statusCode == 200 && !chekerror) {
       print("کاربر وارد شد!");
       return true;
-    } else
-      print("خطادر اهراز هویت کاربر");
+    } else {
+      String _errorMassage = json.decode(response.body)['error_msg'];
+      errorMassage = _errorMassage;
+      notifyListeners();
+    }
+    _isLoading = false;
+    notifyListeners();
     return false;
+  }
+
+///////// درخواست کد اهراز هویت به سرور پیامک
+
+  Future<void> getVerificationCode(String mobile) async {
+    verificationCode = "";
+    notifyListeners();
+    final response = await http.post(host + 'user/getVerificationCode',
+        encoding: Encoding.getByName('utf-8'), body: {'mobile': mobile});
+    bool chekerror = json.decode(response.body)['error'];
+    if (response.statusCode == 200 && !chekerror) {
+      verificationCode = json.decode(response.body)['verification_token'];
+      print(verificationCode);
+      notifyListeners();
+    } else {
+      print(json.decode(response.body)['error_msg']);
+    }
   }
 
 ///////// دریافت اطلاعات تور و هتل ها از سرور
