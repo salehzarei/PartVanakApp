@@ -65,8 +65,8 @@ main() {
         ),
         initialRoute: '/',
         routes: {
-           '/': (context) => Profile(),
-          //'/': (context) => Splash(model: model),
+          // '/': (context) => Profile(),
+          '/': (context) => Splash(model: model),
           
 
 
@@ -74,7 +74,7 @@ main() {
 
 
 
-
+          '/profile': (context) => Profile(),  
           '/newslist': (context) => NewsList(),
           '/newpassword': (context) => NewPassword(),
           '/firebase': (context) => Messagingwidget(),
