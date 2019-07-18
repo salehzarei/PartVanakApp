@@ -1,14 +1,15 @@
 import 'dart:convert';
 import 'package:flutter/cupertino.dart';
-import 'package:hello_flutter/model/about_model.dart';
-import 'package:hello_flutter/model/accommodation_model.dart';
 import 'package:scoped_model/scoped_model.dart';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 import './model/toure_model.dart';
 import './model/contact.dart';
 import './model/passenger_model.dart';
 import './model/bank_model.dart';
 import './model/cart_model.dart';
+import './model/about_model.dart';
+import './model/accommodation_model.dart';
 
 class MainModel extends Model {
   final String host = 'https://safirparvaz.ir/tourapi/';
@@ -19,13 +20,14 @@ class MainModel extends Model {
   List<PassengerModel> passengers = [];
   List<GlobalKey<FormState>> userFormKey = [];
   AboutModel aboutmodel;
+  String userToken;
 
 //// اطلاعات موقت تور به ترتیب آی دی تور و آی دی هتل
   Map<String, String> tmpCartData = {'ToureID': '0', 'HotelID': '0'};
 /////
 
   bool _isLoading = false;
-  String _serverCartResponse ;
+  String _serverCartResponse;
 
   bool get isLoading {
     return _isLoading;
@@ -35,15 +37,72 @@ class MainModel extends Model {
     return _serverCartResponse;
   }
 
-deleteFromList(index){
-  passengers.removeAt(index);
-  userFormKey.removeAt(index);
-  notifyListeners();
-  print(passengers.length);
-  print(userFormKey.length);
+  deleteFromList(index) {
+    passengers.removeAt(index);
+    userFormKey.removeAt(index);
+    notifyListeners();
+  }
 
-}
+///////// دریافت و چک کردن اطلاعات لاگین از سرور
 
+  Future loginData({String mobile, String pass}) async {
+    _isLoading = true;
+    notifyListeners();
+    final response = await http.post(host + 'user/login',
+        encoding: Encoding.getByName('utf-8'),
+        body: {'mobile': mobile, 'pass': pass});
+    bool chekerror = json.decode(response.body)['error'];
+    if (response.statusCode == 200 && !chekerror) {
+      String _token = json.decode(response.body)['token'];
+      setToken(_token);
+      print("کاربر وارد شد!");
+      return true;
+    } else
+      print(json.decode(response.body)['error_msg']);
+    return false;
+  }
+
+  /// ثبت توکن جدید یا خالی در شیرپروفرمنس
+  Future setToken(String token) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString('token', token);
+  }
+
+  /// خواندن توکن از داخل گوشی برای احراز هویت مشتری
+  Future getToken() async {
+    final prefs = await SharedPreferences.getInstance();
+    final _userToken = prefs.getString('token');
+    if (_userToken == null) {
+      print("ShredPreTkoen is Empty");
+      userToken = null;
+      notifyListeners();
+    } else {
+      print("SharedTokne is : $_userToken");
+      userToken = _userToken;
+      notifyListeners();
+    }
+  }
+
+
+
+  ///////// ثبت نام كاربر جدید
+
+  Future registerUser({String mobile, String pass}) async {
+    _isLoading = true;
+    notifyListeners();
+    final response = await http.post(host + 'user/login',
+        encoding: Encoding.getByName('utf-8'),
+        body: {'mobile': mobile, 'pass': pass});
+    bool chekerror = json.decode(response.body)['error'];
+    if (response.statusCode == 200 && !chekerror) {
+      String _token = json.decode(response.body)['token'];
+      setToken(_token);
+      print("کاربر وارد شد!");
+      return true;
+    } else
+      print("خطادر اهراز هویت کاربر");
+    return false;
+  }
 
 ///////// دریافت اطلاعات تور و هتل ها از سرور
 
@@ -91,7 +150,6 @@ deleteFromList(index){
     }
   }
 
-
 ///////// دریافت اطلاعات درگاه های بانکی از سرور
 
   Future getBankData() async {
@@ -103,21 +161,16 @@ deleteFromList(index){
       List<dynamic> data = json.decode(response.body);
       Banks _banks = Banks();
       data.forEach((bankdata) {
-        _banks = Banks(
-         bankid: bankdata['Id'],
-         bankTitle: bankdata['Title']
-        );
+        _banks = Banks(bankid: bankdata['Id'], bankTitle: bankdata['Title']);
         bankList.add(_banks);
         notifyListeners();
       });
       _isLoading = false;
       notifyListeners();
-     } else {
+    } else {
       throw Exception('خطا اتصال به دیتابیس');
     }
   }
-
-
 
   /// دریافت اصلاعات موضوع تماس از سرور
   Future<bool> fetchSubject() async {
@@ -159,7 +212,8 @@ deleteFromList(index){
 
 ///// ارسال اطلاعات مسافر به سرور
 
-  Future<bool> sendDataToServer( {String cell , String tell , String email}) async {
+  Future<bool> sendDataToServer(
+      {String cell, String tell, String email}) async {
     cart.clear();
     notifyListeners();
     CartModel _cartForOnePassenger = CartModel(
@@ -182,15 +236,15 @@ deleteFromList(index){
         return false;
       }
       final Map<String, dynamic> responseData = json.decode(response.body);
-       if (responseData['error']) {
-       _isLoading = false;
-       _serverCartResponse = responseData['error_msg'];
+      if (responseData['error']) {
+        _isLoading = false;
+        _serverCartResponse = responseData['error_msg'];
         notifyListeners();
         return false;
       }
       _isLoading = false;
       _serverCartResponse = responseData['url'];
-       notifyListeners();
+      notifyListeners();
       return true;
     }).catchError((error) {
       _isLoading = false;
@@ -228,7 +282,6 @@ deleteFromList(index){
     });
   }
 
-
 ///// دریافت اطلاعات درباره ما از سرور
   Future<bool> getAboutData() async {
     _isLoading = true;
@@ -238,18 +291,17 @@ deleteFromList(index){
     if (response.statusCode == 200) {
       Map<String, dynamic> data = json.decode(response.body);
       aboutmodel = AboutModel(
-          about: data['About'],
-          name: data['Name'],
-          cell: data['Cell'],
-          tell: data['Tell'],
-          address: data['Address'],
-          email: data['Email'],
-          back: data['back'],
-          web: data['Web'],
-          social: (data['Social'] as List)
-              .map((i) => Social.fromJson(i))
-              .toList(),
-          );
+        about: data['About'],
+        name: data['Name'],
+        cell: data['Cell'],
+        tell: data['Tell'],
+        address: data['Address'],
+        email: data['Email'],
+        back: data['back'],
+        web: data['Web'],
+        social:
+            (data['Social'] as List).map((i) => Social.fromJson(i)).toList(),
+      );
       _isLoading = false;
       notifyListeners();
       return true;

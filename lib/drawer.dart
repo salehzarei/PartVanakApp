@@ -3,6 +3,7 @@ import './Theme/drawerTheme.dart';
 import './coustomIcon/toure_icons_icons.dart';
 import 'package:url_launcher/url_launcher.dart';
 import './coustomIcon/loginicon_icons.dart';
+import './pages/userprofile.dart';
 
 class MyDrawer extends StatelessWidget {
   _launchURL(String url) async {
@@ -30,7 +31,7 @@ class MyDrawer extends StatelessWidget {
                 children: <Widget>[
                   GestureDetector(
                     onTap: () {
-                      print('تور های یکروزه');
+                      print('برگشت به صفحه نخست');
                       Navigator.pushNamed(context, '/homepage');
                     },
                     child: Container(
@@ -66,49 +67,7 @@ class MyDrawer extends StatelessWidget {
                   )
                 ],
               )),
-          //  ______________________________________ورود و ثبت نام_________________________________________
-
-          GestureDetector(
-            onTap: () => Navigator.pushNamed(context, '/login'),
-            child: Container(
-              width: 20,
-              color: Theme.of(context).cardColor.withOpacity(0.7),
-              margin: EdgeInsets.only(top: 15),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  GestureDetector(
-                    onTap: () => Navigator.pushNamed(context, '/login'),
-                    child: Padding(
-                      padding: const EdgeInsets.only(left: 15),
-                      child: Container(
-                        width: 110,
-                        child: Row(
-                          children: <Widget>[
-                            Padding(
-                              padding:
-                                  const EdgeInsets.only(bottom: 10, top: 5),
-                              child: Icon(
-                                Icons.account_circle,
-                                color: Colors.black.withOpacity(0.5),
-                              ),
-                            ),
-                            SizedBox(
-                              width: 5,
-                            ),
-                            Text(
-                              'ورود/ثبت نام',
-                              style: DarwerThemeData.textTheme.title,
-                            )
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
+         
           //___________________________________شبکه های اجتماعی___________________________
           Container(
             margin: EdgeInsets.only(top: 15),
@@ -170,6 +129,8 @@ class MyDrawer extends StatelessWidget {
                     topLeft: Radius.circular(5),
                     bottomLeft: Radius.circular(5))),
           ),
+           //  ________________ مشخصات پروفایل یا ورود و ثبت نام______________
+         UserProfile(),
           //______________________________تورها_________________________________
           Container(
             child: Stack(

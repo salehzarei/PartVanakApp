@@ -2,11 +2,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hello_flutter/buyticket.dart';
-import 'package:hello_flutter/pages/connectivity.dart';
 import 'package:hello_flutter/pages/news_list.dart';
 import 'package:hello_flutter/toureDetile.dart';
 import 'package:hello_flutter/toureList.dart';
 import 'package:scoped_model/scoped_model.dart';
+import './buyticket.dart';
+import './toureDetile.dart';
+import './toureList.dart';
 import './homepage.dart';
 import './pages/contact.dart';
 import './pages/aboutus.dart';
@@ -16,10 +18,12 @@ import './pages/splash.dart';
 import './login/login.dart';
 import './login/reset_password.dart';
 import './login/register.dart';
-import './pages/connectivity.dart';
 import './login/check_phone.dart';
 import './pages/firebase.dart';
 import 'login/new_password.dart';
+import './pages/user_profile_page.dart';
+import 'login/profile.dart';
+
 main() {
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   MainModel model = MainModel();
@@ -61,22 +65,26 @@ main() {
         ),
         initialRoute: '/',
         routes: {
+           '/': (context) => Profile(),
+          //'/': (context) => Splash(model: model),
+          
 
 
-          // '/': (context) => Messagingwidget(),
-         '/': (context) => Splash(),
-          
-          
+
+
+
+
+
           '/newslist': (context) => NewsList(),
           '/newpassword': (context) => NewPassword(),
           '/firebase': (context) => Messagingwidget(),
           '/checkphone': (context) => CheckPhone(),
           '/login': (context) => Login(),
-          '/connectioncheck': (context) => ConnectionCheck(),
           '/register': (context) => Register(),
           '/resetpassword': (context) => ResetPassword(),
           '/homepage': (context) => HomePage(model: model),
           '/aboutus': (context) => AboutUs(model),
+          '/userprofile': (context) => UserProfilePage(),
           '/internaltourelist': (context) => ToureListPage(
                 toureType: 1,
               ),

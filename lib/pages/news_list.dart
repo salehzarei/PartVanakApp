@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import '../drawer.dart';
 
 class NewsList extends StatelessWidget {
-  final double _name = 45;
+  
   makeList() {
     return ListView.builder(
         itemCount: 4,
