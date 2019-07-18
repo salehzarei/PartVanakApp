@@ -58,18 +58,10 @@ class MainModel extends Model {
     if (response.statusCode == 200 && !chekerror) {
       String _token = json.decode(response.body)['token'];
       setToken(_token);
-<<<<<<< HEAD
     } else if (response.statusCode == 200 && chekerror) {
       errorMassage = json.decode(response.body)['error_msg'];
       notifyListeners();
     }
-=======
-      print("کاربر وارد شد!");
-      return true;
-    } else
-      print(json.decode(response.body)['error_msg']);
-    return false;
->>>>>>> 400c0e6a391cf0b2265551a3c841fa44005c3794
   }
 
   /// ثبت توکن جدید یا خالی در شیرپروفرمنس

@@ -43,7 +43,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.14.11"
-<<<<<<< HEAD
   connectivity:
     dependency: "direct main"
     description:
@@ -51,8 +50,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.4.3+6"
-=======
->>>>>>> 400c0e6a391cf0b2265551a3c841fa44005c3794
   convert:
     dependency: transitive
     description:
