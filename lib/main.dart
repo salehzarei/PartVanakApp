@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hello_flutter/buyticket.dart';
-import 'package:hello_flutter/pages/connectivity.dart';
 import 'package:hello_flutter/pages/news_list.dart';
 import 'package:hello_flutter/toureDetile.dart';
 import 'package:hello_flutter/toureList.dart';
@@ -19,12 +18,11 @@ import './pages/splash.dart';
 import './login/login.dart';
 import './login/reset_password.dart';
 import './login/register.dart';
-import './pages/connectivity.dart';
 import './login/check_phone.dart';
 import './pages/firebase.dart';
 import 'login/new_password.dart';
-import 'pages/grouping_page.dart';
 import './pages/user_profile_page.dart';
+import 'login/profile.dart';
 
 main() {
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
@@ -67,15 +65,21 @@ main() {
         ),
         initialRoute: '/',
         routes: {
-          // '/': (context) => Messagingwidget(),
+          // '/': (context) => Profile(),
           '/': (context) => Splash(model: model),
-          '/grouping': (context) => Grouping(),
+          
+
+
+
+
+
+
+          '/profile': (context) => Profile(),  
           '/newslist': (context) => NewsList(),
           '/newpassword': (context) => NewPassword(),
           '/firebase': (context) => Messagingwidget(),
           '/checkphone': (context) => CheckPhone(),
           '/login': (context) => Login(),
-          '/connectioncheck': (context) => ConnectionCheck(),
           '/register': (context) => Register(),
           '/resetpassword': (context) => ResetPassword(),
           '/homepage': (context) => HomePage(model: model),

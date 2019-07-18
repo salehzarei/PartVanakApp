@@ -287,7 +287,7 @@ class MyDrawer extends StatelessWidget {
                     GestureDetector(
                         onTap: () {
                           print('تور های لحظه آخری');
-                         // Navigator.pushNamed(context, '/firebase');
+                          Navigator.pushNamed(context, '/profile');
                         },
                         child: Container(
                           padding:

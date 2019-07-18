@@ -1,50 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:hello_flutter/coustomIcon/bloglist_icons.dart';
 import '../drawer.dart';
 
 class NewsList extends StatelessWidget {
+  
   makeList() {
     return ListView.builder(
-        itemCount: 10,
+        itemCount: 4,
         padding: EdgeInsets.only(top: 50, left: 10, right: 10, bottom: 10),
         itemBuilder: (context, index) {
-          return //GestureDetector(onTap: () => {}, child: Image.asset('images/logo.png'));
-
-              //     Column(
-              //       children: <Widget>[
-              //         SizedBox(height: 10,),
-              //         Container(
-              //           //decoration: BoxDecoration(borderRadius: BorderRadius.circular(5)),
-
-              //   color: Colors.black26,
-              //   child: Row(
-              //         children: <Widget>[
-              //           Container(
-              //             child: Image.asset(
-              //               'images/logo.png',
-              //               width: 50,
-              //               height: 50,
-              //             ),
-              //           ),
-
-              //           Column(
-              //             children: <Widget>[
-              //               Text('متن نمونه'),
-              //               //Container(height: 1,color: Colors.black,width: 100,),
-              //               Text('متن نمونه'),
-              //              // Container(height: 1,color: Colors.black,width: 100,),
-              //               Text('متن نمونه'),
-              //               //Container(height: 1,color: Colors.black,width: 100,),
-              //               Text('متن نمونه'),
-              //             ],
-              //           ),
-              //         ],
-              //   ),
-              // ),
-              //       ],
-              //     );
-
-              Column(
+          return Column(
             children: <Widget>[
               GestureDetector(
                 onTap: () {
@@ -71,11 +35,16 @@ class NewsList extends StatelessWidget {
                           ),
                         ],
                       ),
-                      SizedBox(height: 10,),
-                      
-                         Container(child: Text('توضیح درباره عکس توضیح درباره عکس  توضیح درباره عکس  توضیح درباره عکس '),),
-                      
-                      SizedBox(height: 10,),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Container(
+                        child: Text(
+                            'توضیح درباره عکس توضیح درباره عکس  توضیح درباره عکس  توضیح درباره عکس '),
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
                       ButtonTheme.bar(
                         child: ButtonBar(
                           alignment: MainAxisAlignment.end,
@@ -84,8 +53,10 @@ class NewsList extends StatelessWidget {
                               children: <Widget>[
                                 Text('بازدید کل'),
                                 IconButton(
-                                  icon: Icon(Bloglist.eye_eyes,
-                                      color: Colors.black,),
+                                  icon: Icon(
+                                    Icons.visibility,
+                                    color: Colors.black,
+                                  ),
                                   onPressed: () {},
                                 ),
                               ],
@@ -94,8 +65,10 @@ class NewsList extends StatelessWidget {
                               children: <Widget>[
                                 Text('98/4/24'),
                                 IconButton(
-                                  icon: Icon(Bloglist.date_range,
-                                      color: Colors.black,),
+                                  icon: Icon(
+                                    Icons.calendar_today,
+                                    color: Colors.black,
+                                  ),
                                   onPressed: () {},
                                 ),
                               ],
@@ -114,177 +87,140 @@ class NewsList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Directionality(
-      textDirection: TextDirection.rtl,
-      child: Scaffold(
-        drawer: MyDrawer(),
-        appBar: AppBar(
-          centerTitle: true,
-          title: Text(
-            'لیست اخبار سایت',
-            style: Theme.of(context).textTheme.display2,
-          ),
-          iconTheme: Theme.of(context)
-              .iconTheme
-              .copyWith(color: Theme.of(context).accentColor),
-          actions: <Widget>[
-            IconButton(
-              icon: Icon(Icons.arrow_forward,
-                  color: Theme.of(context).accentColor),
-              onPressed: () => Navigator.pop(context),
-            )
-          ],
-        ),
-        body: Stack(textDirection: TextDirection.rtl, children: <Widget>[
-          makeList(),
-          Container(
-            color: Colors.white,
-            height: 45,
-            child: Padding(
-              padding: const EdgeInsets.only(top: 10, right: 5),
-              child: Row(
-                textDirection: TextDirection.rtl,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: <Widget>[
-                  GestureDetector(onTap: (){Navigator.pushNamed(context, '/grouping');},
-                                      child: Row(
-                      children: <Widget>[
-                        Text("دسته بندی"),
-                        Icon(Icons.filter_list),
-                      ],
-                    ),
-                  ),
-                ],
+    return Stack(
+      children: <Widget>[
+        Directionality(
+          textDirection: TextDirection.rtl,
+          child: Scaffold(
+            drawer: MyDrawer(),
+            appBar: AppBar(
+              centerTitle: true,
+              title: Text(
+                'لیست اخبار سایت',
+                style: Theme.of(context).textTheme.display2,
               ),
+              iconTheme: Theme.of(context)
+                  .iconTheme
+                  .copyWith(color: Theme.of(context).accentColor),
+              actions: <Widget>[
+                IconButton(
+                  icon: Icon(Icons.arrow_forward,
+                      color: Theme.of(context).accentColor),
+                  onPressed: () => Navigator.pop(context),
+                )
+              ],
             ),
-          )
-        ]),
-      ),
+            body: Stack(textDirection: TextDirection.rtl, children: <Widget>[
+              makeList(),
+              // Container(
+              //   color: Colors.white,
+              //   height: _name,
+              //   child: Padding(
+              //     padding: const EdgeInsets.only(top: 10, right: 5),
+              //     child: Row(
+              //       textDirection: TextDirection.rtl,
+              //       crossAxisAlignment: CrossAxisAlignment.start,
+              //       mainAxisAlignment: MainAxisAlignment.start,
+              //       children: <Widget>[
+              //         GestureDetector(
+              //           onTap: () {
+
+              //             _groupinglist();
+
+              //           },
+              //           child: Row(
+              //             children: <Widget>[
+              //               Text("دسته بندی"),
+              //               Icon(Icons.filter_list),
+              //             ],
+              //           ),
+              //         ),
+              //       ],
+              //     ),
+              //   ),
+              // ),
+              Container(
+                color: Colors.white,
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 5, right: 10),
+                  child: Row(
+                    children: <Widget>[
+                      Text('دسته بندی'),
+                      PopupMenuButton<String>(
+                        icon: Icon(Icons.filter_list),
+                        onSelected: choiceAction,
+                        itemBuilder: (BuildContext context) {
+                          return Constants.choices.map((String choice) {
+                            return PopupMenuItem<String>(
+                              value: choice,
+                              child: Text(
+                                choice,
+                                style: TextStyle(color: Colors.black),
+                              ),
+                            );
+                          }).toList();
+                        },
+                      ),
+                    ],
+                  ),
+                ),
+              )
+            ]),
+          ),
+        ),
+      ],
     );
   }
+
+  //https://github.com/best-flutter/flutter_dropdown_menu
 }
 
-// import 'package:flutter/material.dart';
+class Constants {
+  static const String Item1 = 'کلیک 1';
+  static const String Item2 = 'کلیک 2';
+  static const String Item3 = 'کلیک 3';
+  static const String Item4 = 'کلیک 4';
+  static const String Item5 = 'کلیک 5';
+  static const String Item6 = 'کلیک 6';
+  static const String Item7 = 'کلیک 7';
+  static const String Item8 = 'کلیک 8';
+  static const String Item9 = 'کلیک 9';
+  static const String Item10 = 'کلیک 10';
 
-// class HomeCards extends StatelessWidget {
-//   @override
-//   Widget build(BuildContext context) {
-//     return
-//     SingleChildScrollView(
-//       child:  Column(
-//         children: <Widget>[
-//            Card(
-//             color: Color(0xFFFFF59D),
-//             child:  Column(
-//               mainAxisSize: MainAxisSize.min,
-//               children: <Widget>[
-//                 const ListTile(
-//                   leading: const Icon(Icons.image),
-//                   title: const Text('This Is A Title'),
-//                   subtitle: const Text('This is a subtitle in a list tile.'),
-//                 ),
-//                  ButtonTheme.bar(
-//                   // make buttons use the appropriate styles for cards
-//                   child:  ButtonBar(
-//                     children: <Widget>[
-//                        FlatButton(
-//                         child: const Text('Button1'),
-//                         onPressed: () {},
-//                       ),
-//                        FlatButton(
-//                         child: const Text('Button2'),
-//                         onPressed: () {},
-//                       ),
-//                     ],
-//                   ),
-//                 ),
-//               ],
-//             ),
-//           ),
-//            Card(
-//             child:  Column(
-//               mainAxisSize: MainAxisSize.min,
-//               children: <Widget>[
-//                  Image.asset(
-//                   'images/logo.png',
-// //                  height: 192.0,
-//                   fit: BoxFit.fill,
-//                 ),
-//                 const ListTile(
-//                   title: const Text('This Is A Title'),
-//                   subtitle: const Text('This is a subtitle in a card.'),
-//                 ),
-//                  ButtonTheme.bar(
-//                   // make buttons use the appropriate styles for cards
-//                   child:  ButtonBar(
-//                     alignment: MainAxisAlignment.start,
-//                     children: <Widget>[
-//                        FlatButton(
-//                         child: const Text('Button1'),
-//                         onPressed: () {},
-//                       ),
-//                        FlatButton(
-//                         child: const Text('Button2'),
-//                         onPressed: () {},
-//                       ),
-//                     ],
-//                   ),
-//                 ),
-//               ],
-//             ),
-//           ),
-//            Card(
-//             child:  Column(
-//               mainAxisSize: MainAxisSize.min,
-//               children: <Widget>[
-//                  Stack(
-//                   alignment: AlignmentDirectional.bottomStart,
-//                   children: <Widget>[
-//                      Image.asset(
-//                       'images/logo.png',
-// //                      height: 192.0,
-//                       fit: BoxFit.fill,
-//                     ),
-//                      ListTile(
-//                       title:  Text(
-//                         'This Is A Title',
-//                         style:
-//                              TextStyle(color: Colors.white, fontSize: 24.0),
-//                       ),
-//                     ),
-//                   ],
-//                 ),
-//                  ButtonTheme.bar(
-//                   child:  ButtonBar(
-//                     alignment: MainAxisAlignment.end,
-//                     children: <Widget>[
-//                        IconButton(
-//                         icon:  Icon(Icons.favorite, color: Colors.grey),
-//                         onPressed: () {},
-//                       ),
-//                        IconButton(
-//                         icon:  Icon(Icons.bookmark, color: Colors.grey),
-//                         onPressed: () {},
-//                       ),
-//                        IconButton(
-//                         icon:  Icon(Icons.share, color: Colors.grey),
-//                         onPressed: () {},
-//                       ),
-//                     ],
-//                   ),
-//                 )
-//               ],
-//             ),
-//           ),
-//         ].map((Widget widget) {
-//           // Add a little space between the widgets
-//           return  Container(
-//             padding: const EdgeInsets.symmetric(vertical: 4.0),
-//             child: widget,
-//           );
-//         }).toList(),
-//       ),
-//     );
-//   }
-// }
+  static const List<String> choices = <String>[
+    Item1,
+    Item2,
+    Item3,
+    Item4,
+    Item5,
+    Item6,
+    Item7,
+    Item8,
+    Item9,
+    Item10,
+  ];
+}
+
+void choiceAction(String choice) {
+  if (choice == Constants.Item1) {
+    print('لینک اول');
+  } else if (choice == Constants.Item2) {
+    print('لینک دوم');
+  } else if (choice == Constants.Item3) {
+    print('لینک سوم');
+  } else if (choice == Constants.Item4) {
+    print('لینک چهارم');
+  } else if (choice == Constants.Item5) {
+    print('لینک پنجم');
+  } else if (choice == Constants.Item6) {
+    print('لینک ششم');
+  } else if (choice == Constants.Item7) {
+    print('لینک هفتم');
+  } else if (choice == Constants.Item8) {
+    print('لینک هشتم');
+  } else if (choice == Constants.Item9) {
+    print('لینک نهم');
+  } else if (choice == Constants.Item10) {
+    print('لینک دهم');
+  }
+}
