@@ -116,7 +116,7 @@ class _HomePageState extends State<Profile>
                             child: Column(
                               children: <Widget>[
                                 Container(
-                                  height: 30,
+                                  height: 40,
                                   color: Colors.white,
                                   child: Row(
                                     children: <Widget>[
@@ -150,7 +150,7 @@ class _HomePageState extends State<Profile>
                                   height: 10,
                                 ),
                                 Container(
-                                  height: 30,
+                                  height: 40,
                                   color: Colors.white,
                                   child: Row(
                                     children: <Widget>[
@@ -167,7 +167,7 @@ class _HomePageState extends State<Profile>
                                   height: 10,
                                 ),
                                 Container(
-                                  height: 30,
+                                  height: 40,
                                   color: Colors.grey,
                                   child: Row(
                                     children: <Widget>[
@@ -184,7 +184,7 @@ class _HomePageState extends State<Profile>
                                   height: 10,
                                 ),
                                 Container(
-                                  height: 30,
+                                  height: 40,
                                   color: Colors.white,
                                   child: Row(
                                     children: <Widget>[
@@ -201,7 +201,7 @@ class _HomePageState extends State<Profile>
                                   height: 10,
                                 ),
                                 Container(
-                                  height: 30,
+                                  height: 40,
                                   color: Colors.grey,
                                   child: Row(
                                     children: <Widget>[
