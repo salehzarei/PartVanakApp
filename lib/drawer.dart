@@ -232,8 +232,9 @@ class MyDrawer extends StatelessWidget {
 
                     GestureDetector(
                         onTap: () {
-                          print('تور های یکروزه');
+                          print('بلاگ');
                           //Navigator.pushNamed(context, '');
+                          Navigator.pushNamed(context, '/bloglist');
                         },
                         child: Container(
                           padding:
@@ -250,7 +251,7 @@ class MyDrawer extends StatelessWidget {
                                 ),
                               ),
                               Text(
-                                'تور های یکروزه',
+                                'بلاگ',
                                 style: DarwerThemeData.textTheme.title.copyWith(
                                     color: Colors.white.withOpacity(0.5)),
                               ),
@@ -260,7 +261,7 @@ class MyDrawer extends StatelessWidget {
                     GestureDetector(
                         onTap: () {
                           print('تور های لاکچری');
-                          Navigator.pushNamed(context, '/newslist');
+                          // Navigator.pushNamed(context, '/newslist');
                         },
                         child: Container(
                           padding:

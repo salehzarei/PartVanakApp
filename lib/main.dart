@@ -1,10 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:hello_flutter/buyticket.dart';
-import 'package:hello_flutter/pages/news_list.dart';
-import 'package:hello_flutter/toureDetile.dart';
-import 'package:hello_flutter/toureList.dart';
+import './pages/news_list.dart';
+import './pages/blog_list.dart';
 import 'package:scoped_model/scoped_model.dart';
 import './buyticket.dart';
 import './toureDetile.dart';
@@ -75,7 +73,7 @@ main() {
 
 
           '/profile': (context) => Profile(),  
-          '/newslist': (context) => NewsList(),
+          '/bloglist': (context) => BlogList(),
           '/newpassword': (context) => NewPassword(),
           '/firebase': (context) => Messagingwidget(),
           '/checkphone': (context) => CheckPhone(),
