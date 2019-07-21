@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:flutter/cupertino.dart';
+import 'package:hello_flutter/model/user_model.dart';
 import 'package:scoped_model/scoped_model.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
@@ -20,6 +21,7 @@ class MainModel extends Model {
   List<PassengerModel> passengers = [];
   List<GlobalKey<FormState>> userFormKey = [];
   AboutModel aboutmodel;
+  UserModel userProfile;
   String userToken;
   String verificationCode;
   String errorMassage;
@@ -111,8 +113,7 @@ class MainModel extends Model {
         });
     bool chekerror = json.decode(response.body)['error'];
     if (response.statusCode == 200 && !chekerror) {
-       print("کاربر ثبت نام شد!");
-
+      print("کاربر ثبت نام شد!");
     } else if (response.statusCode == 200 && chekerror) {
       print(json.decode(response.body)['error_msg']);
       errorMassage = json.decode(response.body)['error_msg'];
@@ -156,6 +157,22 @@ class MainModel extends Model {
       notifyListeners();
     } else {
       print(json.decode(response.body)['error_msg']);
+    }
+  }
+
+///////// دریافت اطلاعات پروفایل کاربری از سرور
+  /// روش جدید و بهتر برای ارسال درخواست و دریافت داده ها وذخیره در مدل
+  /// به ساختار مدل پروفایل توجه شود
+
+  Future loadingUserData() async {
+    _isLoading = true;
+    notifyListeners();
+    final response = await http.post(host + 'profile',
+        encoding: Encoding.getByName('utf-8'), body: {'token': userToken});
+    if (response.statusCode == 200) {
+      userProfile = UserModel.fromJson(json.decode(response.body));
+      _isLoading = false;
+      notifyListeners();
     }
   }
 

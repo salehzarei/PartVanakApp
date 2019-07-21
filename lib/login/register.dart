@@ -264,7 +264,7 @@ class _RegisterState extends State<Register> {
                               validator: (value) {
                                 if (value.isEmpty)
                                   return 'واردکردن پسورد ضروری است';
-                                if (value.length < 4)
+                                if (value.length < 5)
                                   return 'وارد کردن حداقل 4 کارکتر اجیاری است';
                               },
                               keyboardType: TextInputType.text,

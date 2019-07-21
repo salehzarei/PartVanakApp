@@ -17,6 +17,7 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     super.initState();
     widget.model.getTourData();
+    if (widget.model.userToken != null) widget.model.loadingUserData();
   }
 
   _launchURL() async {

@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:hello_flutter/drawer.dart';
+import 'package:flutter/rendering.dart';
+import 'package:flutter/services.dart';
+import 'package:scoped_model/scoped_model.dart';
+import '../drawer.dart';
+import '../scoped_model.dart';
 
 class Profile extends StatefulWidget {
   @override
@@ -18,264 +22,246 @@ class _HomePageState extends State<Profile>
 
   @override
   Widget build(BuildContext context) {
-    return Directionality(textDirection: TextDirection.rtl,
-          child: Scaffold(
-        
-      drawer: MyDrawer(),
-        appBar: AppBar(
-          actions: <Widget>[
-            IconButton(
-                icon: Icon(
-                  Icons.arrow_forward,
-                  color: Colors.white,
-                ),
-                onPressed: () => Navigator.pop(context),
-              )
-          ],
-          centerTitle: true,
-          title: Text("پروفایل من"),
-          bottom: TabBar(
-            unselectedLabelColor: Colors.white,
-            labelColor: Colors.amber,
-            tabs: [
-              Tab(
-                icon: Icon(Icons.account_circle),
-                text: 'پروفایل',
+    return Directionality(
+        textDirection: TextDirection.rtl,
+        child:
+            ScopedModelDescendant<MainModel>(builder: (context, child, model) {
+          return Scaffold(
+            drawer: MyDrawer(),
+            appBar: AppBar(
+              actions: <Widget>[
+                IconButton(
+                  icon: Icon(
+                    Icons.arrow_forward,
+                    color: Colors.white,
+                  ),
+                  onPressed: () => Navigator.pop(context),
+                )
+              ],
+              centerTitle: true,
+              title: Text("پروفایل من"),
+              bottom: TabBar(
+                unselectedLabelColor: Colors.white,
+                labelColor: Colors.amber,
+                tabs: [
+                  Tab(
+                    icon: Icon(Icons.account_circle),
+                    text: 'پروفایل',
+                  ),
+                  Tab(
+                    icon: Icon(Icons.payment),
+                    text: 'خرید های من',
+                  ),
+                  Tab(
+                    icon: Icon(Icons.attach_money),
+                    text: 'تراکنش ها',
+                  )
+                ],
+                controller: _tabController,
+                indicatorColor: Colors.white,
+                indicatorSize: TabBarIndicatorSize.tab,
               ),
-              Tab(
-                icon: Icon(Icons.payment),
-                text: 'خرید های من',
-              ),
-              Tab(
-                icon: Icon(Icons.attach_money),
-                text: 'تراکنش ها',
-              )
-            ],
-            controller: _tabController,
-            indicatorColor: Colors.white,
-            indicatorSize: TabBarIndicatorSize.tab,
-          ),
-          bottomOpacity: 1,
-        ),
-        body: Directionality(
-          textDirection: TextDirection.rtl,
-          child: TabBarView(
-            children: [
-              Container(
-                child: Column(
-                  children: <Widget>[
-                    Stack(
+              bottomOpacity: 1,
+            ),
+            body: Directionality(
+              textDirection: TextDirection.rtl,
+              child: TabBarView(
+                children: [
+                  Container(
+                    child: Column(
                       children: <Widget>[
-                        Container(
-                          child: Image.asset(
-                            'images/profile.jpg',
-                            fit: BoxFit.cover,
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(top: 140, right: 15),
-                          child: Row(
-                            children: <Widget>[
-                              Container(
-                                //decoration: BoxDecoration(shape: BoxShape.circle),
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(5.0)),
-
-                                child: Image.asset(
-                                  'images/air.jpg',
-                                  width: 40,
-                                  height: 40,
-                                ),
-                              ),
-                              Container(
-                                  child: Column(
+                        Stack(
+                          children: <Widget>[
+                            Container(
+                              margin: EdgeInsets.symmetric(horizontal: 7),
+                              height: 180,
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.only(
+                                      bottomLeft: Radius.circular(10),
+                                      bottomRight: Radius.circular(10)),
+                                  image: DecorationImage(
+                                    fit: BoxFit.cover,
+                                    colorFilter: ColorFilter.mode(
+                                        Colors.white.withOpacity(0.5),
+                                        BlendMode.overlay),
+                                    image: model.userProfile.pic == "" ? AssetImage(
+                                      'images/profile.jpg',
+                                    ) : NetworkImage(model.userProfile.pic)
+                                  )),
+                            ),
+                            Padding(
+                              padding:
+                                  const EdgeInsets.only(top: 115, right: 10),
+                              child: Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: <Widget>[
-                                  Text(
-                                    'نوید نجاتی',
-                                    style: TextStyle(fontSize: 20),
+                                  SizedBox(
+                                    width: 10,
                                   ),
-                                  Text(
-                                    'امتیاز شما:50',
-                                    style: TextStyle(fontSize: 12),
+                                  CircleAvatar(
+                                    backgroundImage: model.userProfile.thumb ==
+                                            ""
+                                        ? AssetImage('images/air.jpg')
+                                        : NetworkImage(model.userProfile.thumb),
+                                    maxRadius: 25,
+                                  ),
+                                  Spacer(
+                                    flex: 1,
+                                  ),
+                                  Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: <Widget>[
+                                      Text(
+                                        '${model.userProfile.name} ${model.userProfile.family}',
+                                        style: TextStyle(fontSize: 20),
+                                      ),
+                                      Text(
+                                        'نام کاربری : ${model.userProfile.user}',
+                                        style: TextStyle(fontSize: 12),
+                                      ),
+                                    ],
+                                  ),
+                                  Spacer(
+                                    flex: 12,
                                   ),
                                 ],
-                              )),
-                            ],
-                          ),
+                              ),
+                            ),
+                          ],
                         ),
-                        GestureDetector(
-                          onTap: () {
-                            print('ok');
-                          },
-                          child: Padding(
-                            padding: EdgeInsets.only(top: 140, right: 350),
-                            child: Container(
-                              // decoration: BoxDecoration(borderRadius: BorderRadius.circular(10.0)),
-                              width: 30,
-                              height: 30,
-                              child: Icon(Icons.edit),
-                              color: Colors.white,
+                        Expanded(
+                          child: Container(
+                            margin: EdgeInsets.symmetric(
+                                vertical: 7, horizontal: 7),
+                            decoration: BoxDecoration(
+                                color: Colors.grey.shade300,
+                                borderRadius: BorderRadius.circular(10)),
+                            child: ListView(
+                              children: <Widget>[
+                                ListTile(
+                                  title: Text(
+                                    'آدرس ایمیل',
+                                    style: TextStyle(
+                                        color: Colors.black, fontSize: 12),
+                                  ),
+                                  trailing: model.userProfile.email != ""
+                                      ? Text(model.userProfile.email)
+                                      : Text('هنوز ثبت نشده'),
+                                  dense: true,
+                                  
+                                ),
+                                
+                                ListTile(
+                                  title: Text(
+                                    'تاریخ تولد',
+                                    style: TextStyle(
+                                        color: Colors.black, fontSize: 12),
+                                  ),
+                                  trailing: model.userProfile.birthDate != ""
+                                      ? Text(model.userProfile.birthDate)
+                                      : Text('هنوز ثبت نشده'),
+                                  dense: true,
+                                ),
+                                ListTile(
+                                  title: Text(
+                                    'شماره تلفن ثابت',
+                                    style: TextStyle(
+                                        color: Colors.black, fontSize: 12),
+                                  ),
+                                  trailing: model.userProfile.tell != ""
+                                      ? Text(model.userProfile.tell)
+                                      : Text('هنوز ثبت نشده'),
+                                  dense: true,
+                                ),
+                                ListTile(
+                                  title: Text(
+                                    'شماره تلفن همراه',
+                                    style: TextStyle(
+                                        color: Colors.black, fontSize: 12),
+                                  ),
+                                  trailing: model.userProfile.cell != ""
+                                      ? Text(model.userProfile.cell)
+                                      : Text('هنوز ثبت نشده'),
+                                  dense: true,
+                                ),
+                                ListTile(
+                                  title: Text(
+                                    'کد ملی/پاسپورت',
+                                    style: TextStyle(
+                                        color: Colors.black, fontSize: 12),
+                                  ),
+                                  trailing: model.userProfile.nationalCode != ""
+                                      ? Text(model.userProfile.nationalCode)
+                                      : Text('هنوز ثبت نشده'),
+                                  dense: true,
+                                ),
+                                ListTile(
+                                  title: Text(
+                                    'محل اقامت',
+                                    style: TextStyle(
+                                        color: Colors.black, fontSize: 12),
+                                  ),
+                                  trailing: model.userProfile.address != ""
+                                      ? Text(
+                                          "${model.userProfile.ostan} ${model.userProfile.city} ${model.userProfile.address}")
+                                      : Text('هنوز ثبت نشده'),
+                                  dense: true,
+                                ),
+                                ListTile(
+                                  title: Text(
+                                    'کد پستی',
+                                    style: TextStyle(
+                                        color: Colors.black, fontSize: 12),
+                                  ),
+                                  trailing: model.userProfile.postalCode != ""
+                                      ? Text(model.userProfile.postalCode)
+                                      : Text('هنوز ثبت نشده'),
+                                  dense: true,
+                                ),
+                              ],
                             ),
                           ),
-                        ),
+                        )
                       ],
                     ),
-                    Expanded(
-                      child: ListView(
-                        children: <Widget>[
-                          Padding(
-                            padding: const EdgeInsets.only(top: 10),
-                            child: Container(
-                              child: Column(
-                                children: <Widget>[
-                                  Container(
-                                    height: 40,
-                                    color: Colors.white,
-                                    child: Row(
-                                      children: <Widget>[
-                                        Text('موجودی حساب:'),
-                                        Padding(
-                                          padding:
-                                              const EdgeInsets.only(right: 270),
-                                          child: Text('0ریال'),
-                                        )
-                                      ],
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    height: 10,
-                                  ),
-                                  Container(
-                                    height: 30,
-                                    color: Colors.grey,
-                                    child: Row(
-                                      children: <Widget>[
-                                        Text('ایمیل:'),
-                                        Padding(
-                                          padding:
-                                              const EdgeInsets.only(right: 200),
-                                          child: Text('navidnejati76@gmail.com'),
-                                        )
-                                      ],
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    height: 10,
-                                  ),
-                                  Container(
-                                    height: 40,
-                                    color: Colors.white,
-                                    child: Row(
-                                      children: <Widget>[
-                                        Text('شماره همراه:'),
-                                        Padding(
-                                          padding:
-                                              const EdgeInsets.only(right: 250),
-                                          child: Text('09309722107'),
-                                        )
-                                      ],
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    height: 10,
-                                  ),
-                                  Container(
-                                    height: 40,
-                                    color: Colors.grey,
-                                    child: Row(
-                                      children: <Widget>[
-                                        Text('جنیست:'),
-                                        Padding(
-                                          padding:
-                                              const EdgeInsets.only(right: 300),
-                                          child: Text('مرد'),
-                                        )
-                                      ],
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    height: 10,
-                                  ),
-                                  Container(
-                                    height: 40,
-                                    color: Colors.white,
-                                    child: Row(
-                                      children: <Widget>[
-                                        Text('کد ملی:'),
-                                        Padding(
-                                          padding:
-                                              const EdgeInsets.only(right: 280),
-                                          child: Text('0924258357'),
-                                        )
-                                      ],
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    height: 10,
-                                  ),
-                                  Container(
-                                    height: 40,
-                                    color: Colors.grey,
-                                    child: Row(
-                                      children: <Widget>[
-                                        Text('تاریخ تولد:'),
-                                        Padding(
-                                          padding:
-                                              const EdgeInsets.only(right: 280),
-                                          child: Text('76/11/12'),
-                                        )
-                                      ],
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    height: 70,
-                                  )
-                                ],
+                  ),
+                  Container(
+                      child: ListView.builder(
+                          itemCount: 10,
+                          padding: EdgeInsets.only(
+                              top: 50, left: 10, right: 10, bottom: 10),
+                          itemBuilder: (context, index) {
+                            return Column(
+                              children: <Widget>[
+                                SizedBox(
+                                  height: 10,
+                                ),
+                                Text('لیست بلیط ها')
+                              ],
+                            );
+                          })),
+                  Container(
+                    child: ListView.builder(
+                        itemCount: 10,
+                        padding: EdgeInsets.only(
+                            top: 50, left: 10, right: 10, bottom: 10),
+                        itemBuilder: (context, index) {
+                          return Column(
+                            children: <Widget>[
+                              SizedBox(
+                                height: 10,
                               ),
-                            ),
-                          )
-                        ],
-                      ),
-                    )
-                  ],
-                ),
+                              Text('لیست تراکنش ها')
+                            ],
+                          );
+                        }),
+                  )
+                ],
+                controller: _tabController,
               ),
-              Container(
-                  child: ListView.builder(
-                      itemCount: 10,
-                      padding: EdgeInsets.only(
-                          top: 50, left: 10, right: 10, bottom: 10),
-                      itemBuilder: (context, index) {
-                        return Column(
-                          children: <Widget>[
-                            SizedBox(
-                              height: 10,
-                            ),
-                            Text('لیست بلیط ها')
-                          ],
-                        );
-                      })),
-              Container(
-                child: ListView.builder(
-                    itemCount: 10,
-                    padding:
-                        EdgeInsets.only(top: 50, left: 10, right: 10, bottom: 10),
-                    itemBuilder: (context, index) {
-                      return Column(
-                        children: <Widget>[
-                          SizedBox(
-                            height: 10,
-                          ),
-                          Text('لیست تراکنش ها')
-                        ],
-                      );
-                    }),
-              )
-            ],
-            controller: _tabController,
-          ),
-        ),
-      ),
-    );
+            ),
+          );
+        }));
   }
 }

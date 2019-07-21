@@ -25,14 +25,14 @@ class _UserProfileState extends State<UserProfile> {
                       size: 20,
                     ),
                     title: Text(
-                      'ابراهیم عباسی',
+                      '${model.userProfile.name} ${model.userProfile.family}',
                       style: TextStyle(color: Colors.white, fontSize: 16),
                     ),
                     dense: true,
-                    onTap: () => Navigator.pushNamed(context, '/userprofile'),
+                    onTap: () => Navigator.pushNamed(context, '/profile'),
                     subtitle: Padding(
                       padding: const EdgeInsets.only(top: 8.0),
-                      child: Text('تلفن : 09154127181',
+                      child: Text('${model.userProfile.cell}',
                           style: TextStyle(color: Colors.white)),
                     ),
                   ),

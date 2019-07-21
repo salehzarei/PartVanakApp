@@ -9,6 +9,7 @@ class UserProfilePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return ScopedModelDescendant<MainModel>(
       builder: (context, child, model) {
+        
         return Scaffold(
           body: Center(
             child: FlatButton(

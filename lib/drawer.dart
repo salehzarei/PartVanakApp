@@ -247,13 +247,13 @@ class MyDrawer extends StatelessWidget {
                                   ToureIcons.first_day,
                                   color: Theme.of(context)
                                       .accentColor
-                                      .withOpacity(0.5),
+                                      ,
                                 ),
                               ),
                               Text(
                                 'بلاگ',
                                 style: DarwerThemeData.textTheme.title.copyWith(
-                                    color: Colors.white.withOpacity(0.5)),
+                                    color: Colors.white),
                               ),
                             ],
                           ),
