@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import './pages/news_list.dart';
+//import './pages/news_list.dart';
 import './pages/blog_list.dart';
 import 'package:scoped_model/scoped_model.dart';
 import './buyticket.dart';
