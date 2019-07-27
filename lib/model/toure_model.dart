@@ -47,18 +47,3 @@ class Toure {
      });
 }
 
-// Id: 30,
-// Title: "دبی",
-// Nights: 3,
-// Days: 4,
-// Vehicl_went: " هواپیما",
-// Vehicl_revert: " هواپیما",
-// Accommodation_type: 3,
-// SDate: "شنبه 25 خرداد 1398",
-// EDate: "سه شنبه 28 خرداد 1398",
-// Source_title: "تهران",
-// Destination_title: "دبی",
-// Thumb: "http://partvanak.com/store/files/tours/30-thumb.jpg",
-// Pic: "http://partvanak.com/store/files/tours/30-pic.jpg",
-// Price: "3500000",
-// Currency_title: "تومان"

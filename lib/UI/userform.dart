@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:hello_flutter/scoped_model.dart';
 import 'package:jalali_calendar/jalali_calendar.dart';
 import 'package:scoped_model/scoped_model.dart';
@@ -7,8 +8,6 @@ typedef OnDelete = void Function(int index);
 
 class UserForm extends StatefulWidget {
   final int index;
-  //final VoidCallback onDelete;
-// final OnDelete onDelete;
 
   const UserForm({Key key, this.index}) : super(key: key);
 
@@ -18,7 +17,7 @@ class UserForm extends StatefulWidget {
 
 class _UserFormState extends State<UserForm> {
   int _radioValue = 0;
-  int _national;
+  bool _national = true;
   GlobalKey<FormState> _keyform;
 
   _changeValue(value) {
@@ -67,10 +66,10 @@ class _UserFormState extends State<UserForm> {
               child: Form(
                 key: _keyform,
                 child: Container(
-                  padding: EdgeInsets.symmetric(horizontal: 15, vertical: 5),
+                  padding: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
                   decoration: BoxDecoration(
                       color: Colors.white,
-                      borderRadius: BorderRadius.circular(15),
+                      borderRadius: BorderRadius.circular(10),
                       boxShadow: [
                         BoxShadow(
                             color: Theme.of(context).primaryColor,
@@ -78,154 +77,112 @@ class _UserFormState extends State<UserForm> {
                             offset: Offset(0.0, 1.0),
                             spreadRadius: 0.5),
                       ]),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    textDirection: TextDirection.rtl,
-                    children: <Widget>[
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: <Widget>[
-                          Expanded(
-                            flex: 1,
-                            child: TextFormField(
-                              onSaved: (val) => setState(
-                                () => model.passengers[widget.index].name = val,
-                              ),
-                              validator: (String value) {
-                                if (value.isEmpty) {
-                                  return 'این فیلد ضروری می باشد';
-                                }
-                              },
-                              decoration: InputDecoration(
-                                  hintText: 'نام',
-                                  isDense: true,
-                                  hintStyle: TextStyle(fontSize: 13),
-                                  counterText: ''),
-                              keyboardType: TextInputType.text,
-                              maxLength: 10,
-                            ),
-                          ),
-                          SizedBox(
-                            width: 10,
-                          ),
-                          Expanded(
-                            flex: 1,
-                            child: TextFormField(
-                              onSaved: (val) => setState(
-                                () =>
-                                    model.passengers[widget.index].family = val,
-                              ),
-                              validator: (String value) {
-                                if (value.isEmpty) {
-                                  return 'این فیلد ضروری می باشد';
-                                }
-                              },
-                              decoration: InputDecoration(
-                                hintText: 'نام خانوادگی',
-                                hintStyle: TextStyle(fontSize: 13),
-                                counterText: '',
-                              ),
-                              keyboardType: TextInputType.text,
-                              maxLength: 25,
-                            ),
-                          )
-                        ],
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: <Widget>[
-                          Expanded(
-                            flex: 1,
-                            child: TextFormField(
-                              onSaved: (val) => setState(
-                                () => model.passengers[widget.index].melicode =
-                                    val,
-                              ),
-                              validator: (String value) {
-                                if (value.isEmpty) {
-                                  return 'این فیلد ضروری می باشد';
-                                }
-                              },
-                              decoration: InputDecoration(
-                                  hintText: 'کدملی/پاسپورت',
-                                  hintStyle: TextStyle(fontSize: 13),
-                                  counterText: ''),
-                              keyboardType: TextInputType.number,
-                              maxLength: 10,
-                            ),
-                          ),
-                          SizedBox(
-                            width: 10,
-                          ),
-                          Expanded(
-                              flex: 1,
-                              child: DropdownButtonFormField(
-                                validator: (int valid) {
-                                  if (valid == null)
-                                    return 'ملیت را انتخاب کنید';
+                  child: Padding(
+                    padding: const EdgeInsets.all(5.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: <Widget>[
+                        Expanded(
+                          flex: 1,
+                          child: Column(
+                            children: <Widget>[
+                              TextFormField(
+                                onSaved: (val) => setState(
+                                  () =>
+                                      model.passengers[widget.index].name = val,
+                                ),
+                                validator: (String value) {
+                                  if (value.isEmpty) {
+                                    return 'این فیلد ضروری می باشد';
+                                  }
                                 },
-                                items: [
-                                  DropdownMenuItem(
-                                    child: Text('ایرانی',
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .display4),
-                                    value: 1,
-                                  ),
-                                  DropdownMenuItem(
-                                    child: Text('غیر ایرانی',
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .display4),
-                                    value: 2,
+                                decoration: InputDecoration(
+                                    hintText: 'نام',
+                                    isDense: true,
+                                    hintStyle: TextStyle(fontSize: 13),
+                                    counterText: ''),
+                                keyboardType: TextInputType.text,
+                                maxLength: 10,
+                              ),
+                              TextFormField(
+                                onSaved: (val) => setState(
+                                  () => model.passengers[widget.index].family =
+                                      val,
+                                ),
+                                validator: (String value) {
+                                  if (value.isEmpty) {
+                                    return 'این فیلد ضروری می باشد';
+                                  }
+                                },
+                                decoration: InputDecoration(
+                                  hintText: 'نام خانوادگی',
+                                  hintStyle: TextStyle(fontSize: 13),
+                                  counterText: '',
+                                ),
+                                keyboardType: TextInputType.text,
+                                maxLength: 25,
+                              ),
+                              TextFormField(
+                                onSaved: (val) => setState(
+                                  () => model
+                                      .passengers[widget.index].melicode = val,
+                                ),
+                                validator: (String value) {
+                                  if (value.isEmpty) {
+                                    return 'این فیلد ضروری می باشد';
+                                  }
+                                },
+                                decoration: InputDecoration(
+                                    hintText: 'کدملی/پاسپورت',
+                                    hintStyle: TextStyle(fontSize: 13),
+                                    counterText: ''),
+                                keyboardType: TextInputType.number,
+                                maxLength: 10,
+                              ),
+                            ],
+                          ),
+                        ),
+                        Expanded(
+                          flex: 1,
+                          child: Column(
+                            children: <Widget>[
+                              Row(
+                                children: <Widget>[
+                                  Text('غیر ایرانی'),
+                                  Checkbox(
+                                    onChanged: (val) {
+                                      setState(() {
+                                        _national = val;
+                                      });
+                                    },
+                                    value: _national,
                                   ),
                                 ],
-                                onChanged: (selectedItem) {
-                                  print(selectedItem);
-                                  setState(() {
-                                    _national = selectedItem;
-                                  });
-                                },
-                                value: _national,
-                                hint: Text('ملیت مسافر'),
-                              ))
-                        ],
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: <Widget>[
-                          Expanded(
-                            flex: 1,
-                            child: Wrap(
-                                crossAxisAlignment: WrapCrossAlignment.center,
-                                alignment: WrapAlignment.start,
-                                children: <Widget>[
-                                  Text(
-                                    'مرد',
-                                    style: TextStyle(fontSize: 14),
-                                  ),
-                                  Radio(
-                                    value: 0,
-                                    groupValue: _radioValue,
-                                    onChanged: _changeValue,
-                                  ),
-                                  Text(
-                                    'زن',
-                                    style: TextStyle(fontSize: 14),
-                                  ),
-                                  Radio(
-                                    value: 1,
-                                    groupValue: _radioValue,
-                                    onChanged: _changeValue,
-                                  ),
-                                ]),
-                          ),
-                          SizedBox(
-                            width: 10,
-                          ),
-                          Expanded(
-                              flex: 1,
-                              child: GestureDetector(
+                              ),
+                              Wrap(
+                                  crossAxisAlignment: WrapCrossAlignment.center,
+                                  alignment: WrapAlignment.start,
+                                  children: <Widget>[
+                                    Text(
+                                      'مرد',
+                                      style: TextStyle(fontSize: 14),
+                                    ),
+                                    Radio(
+                                      value: 0,
+                                      groupValue: _radioValue,
+                                      onChanged: _changeValue,
+                                    ),
+                                    Text(
+                                      'زن',
+                                      style: TextStyle(fontSize: 14),
+                                    ),
+                                    Radio(
+                                      value: 1,
+                                      groupValue: _radioValue,
+                                      onChanged: _changeValue,
+                                    ),
+                                  ]),
+                              GestureDetector(
                                 onTap: () => _selectDate(context),
                                 child: Container(
                                   child: _year == null
@@ -241,10 +198,12 @@ class _UserFormState extends State<UserForm> {
                                           style: TextStyle(fontSize: 15),
                                         ),
                                 ),
-                              ))
-                        ],
-                      )
-                    ],
+                              )
+                            ],
+                          ),
+                        )
+                      ],
+                    ),
                   ),
                 ),
               ),

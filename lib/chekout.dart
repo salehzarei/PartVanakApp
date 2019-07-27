@@ -8,8 +8,8 @@ import 'package:flutter/services.dart';
 import 'package:uni_links/uni_links.dart';
 
 import 'package:scoped_model/scoped_model.dart';
-import '../scoped_model.dart';
-import '../model/passenger_model.dart';
+import './scoped_model.dart';
+import './model/passenger_model.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class ChekOut extends StatefulWidget {
@@ -353,8 +353,8 @@ class _ChekOutState extends State<ChekOut> {
                           onPressed: () {
                             // if (_key.currentState.validate()) {
                             //   _key.currentState.save();
-                              sendToServer();
-                           // }
+                            sendToServer();
+                            // }
                           },
                           child: const Text('پرداخت صورتحساب'),
                         )
@@ -403,9 +403,7 @@ class _ChekOutState extends State<ChekOut> {
                       _totalPrice),
                   pay(context, _email, _mobile, _phone, _key),
                 ],
-              )
-              )
-              ),
+              ))),
     );
   }
 }

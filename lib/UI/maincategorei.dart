@@ -1,136 +1,151 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
+import 'package:hello_flutter/scoped_model.dart';
+import 'package:scoped_model/scoped_model.dart';
 import '../coustomIcon/toure_icons_icons.dart';
 
-Future<void> _ackAlert(BuildContext context) {
-  return showDialog<void>(
-    context: context,
-    builder: (BuildContext context) {
-      return Directionality(
-        textDirection: TextDirection.rtl,
-        child: AlertDialog(
-          title: Text('شرمنده !'),
-          content: const Text('متاسفانه هنوز برای این قسمت تور قرار گرفته نشده'),
-          actions: <Widget>[
-            FlatButton(
-              child: Text('بستن'),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-          ],
-        ),
-      );
-    },
-  );
+class HomeCategorei extends StatefulWidget {
+  final Function(int index) tapedcategory;
+  HomeCategorei({Key key, this.tapedcategory}) : super(key: key);
+
+  _HomeCategoreiState createState() => _HomeCategoreiState();
 }
 
-class MainCategory extends StatelessWidget {
+class _HomeCategoreiState extends State<HomeCategorei> {
+  List<bool> selected = [true, false, false, false];
+
+  _selectedChange(index) {
+    /// ایندکس دکمه را به ویجت والد ارسال می کند
+    widget.tapedcategory(index);
+
+    /// تغییر وضعیت دکمه ها
+    switch (index) {
+      case 0:
+        {
+          setState(() {
+            selected = [true, false, false, false];
+          });
+        }
+        break;
+
+      case 1:
+        {
+          setState(() {
+            selected = [false, true, false, false];
+          });
+        }
+        break;
+
+      case 2:
+        {
+          setState(() {
+            selected = [false, false, true, false];
+          });
+        }
+        break;
+
+      case 3:
+        {
+          setState(() {
+            selected = [false, false, false, true];
+          });
+        }
+        break;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: <Widget>[
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-            GestureDetector(
-                onTap: () => Navigator.pushNamed(context, '/foreigntourelist'),
-                child: HomeItem('تورهای خارجی', ToureIcons.around)),
-            GestureDetector(
-                onTap: () => Navigator.pushNamed(context, '/internaltourelist'),
-                child: HomeItem('تورهای داخلی', ToureIcons.azadi)),
-            HomeItem('تورهای طبیعتگردی', ToureIcons.tent)
-          ],
-        ),
-        Padding(
-          padding: const EdgeInsets.only(top: 5, bottom: 5),
-          child: CustomPaint(
-            painter: ShapesPainter(),
+    return ScopedModelDescendant<MainModel>(
+      builder: (context, child, model) {
+        return Container(
+          height: 102,
+          child: ListView(
+            physics: ClampingScrollPhysics(),
+            scrollDirection: Axis.horizontal,
+            shrinkWrap: true,
+            children: <Widget>[
+              GestureDetector(
+                child: HomeCategoriItem(
+                  icon: ToureIcons.around,
+                  title: 'تورهای خارجی',
+                  selected: selected[0],
+                ),
+                onTap: () => _selectedChange(0),
+                onLongPress: () => Navigator.pushNamed(
+                    context, model.touretypes[0]['pushNamed']),
+              ),
+              GestureDetector(
+                child: HomeCategoriItem(
+                  icon: ToureIcons.azadi,
+                  title: 'تورهای داخلی',
+                  selected: selected[1],
+                ),
+                onTap: () => _selectedChange(1),
+                onLongPress: () => Navigator.pushNamed(
+                    context, model.touretypes[1]['pushNamed']),
+              ),
+              GestureDetector(
+                child: HomeCategoriItem(
+                  icon: ToureIcons.first_day,
+                  title: 'تورهای یکروزه',
+                  selected: selected[2],
+                ),
+                onTap: () => _selectedChange(2),
+                onLongPress: () => Navigator.pushNamed(
+                    context, model.touretypes[2]['pushNamed']),
+              ),
+              GestureDetector(
+                child: HomeCategoriItem(
+                  icon: ToureIcons.stopwatch,
+                  title: 'تورهای لحظه آخری',
+                  selected: selected[3],
+                ),
+                onTap: () => _selectedChange(3),
+                onLongPress: () => Navigator.pushNamed(
+                    context, model.touretypes[3]['pushNamed']),
+              ),
+            ],
           ),
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-            GestureDetector(
-                onTap: () => _ackAlert(context),
-                child: HomeItem(
-                    'تورهای لاکچری', ToureIcons.crown_of_royal_design)),
-            CustomPaint(
-              painter: VerLine(),
-            ),
-            GestureDetector(
-                onTap: () => _ackAlert(context),
-                child: HomeItem('تورهای یکروزه', ToureIcons.first_day)),
-            CustomPaint(
-              painter: VerLine(),
-            ),
-            GestureDetector(
-                onTap: () => _ackAlert(context),
-                child: HomeItem('تورهای لحظه آخری', ToureIcons.stopwatch))
-          ],
-        ),
-      ],
+        );
+      },
     );
   }
 }
 
-class HomeItem extends StatelessWidget {
-  String title;
-  IconData icon;
-  HomeItem(this.title, this.icon);
+class HomeCategoriItem extends StatelessWidget {
+  final String title;
+  final IconData icon;
+  final bool selected;
+
+  const HomeCategoriItem({Key key, this.title, this.icon, this.selected})
+      : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(6.0),
+      padding: const EdgeInsets.all(5.0),
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
-          Icon(
-            icon,
-            size: 32,
+          CircleAvatar(
+            backgroundColor: selected
+                ? Theme.of(context).accentColor.withOpacity(0.5)
+                : Colors.grey.shade300,
+            radius: 35,
+            child: Icon(
+              icon,
+              size: 33,
+              color: selected ? Colors.brown : Colors.brown.shade200,
+            ),
           ),
-          SizedBox(height: 5),
-          Text(
-            title,
-            style: Theme.of(context).textTheme.caption,
-          )
+          SizedBox(height: 4),
+          Text(title,
+              style: TextStyle(
+                  fontSize: 10,
+                  fontWeight: FontWeight.bold,
+                  color: selected ? Colors.brown : Colors.brown.shade200))
         ],
       ),
     );
-  }
-}
-
-class ShapesPainter extends CustomPainter {
-  @override
-  void paint(Canvas canvas, Size size) {
-    final paint = Paint();
-    paint.color = Colors.grey.withOpacity(0.5);
-    paint.strokeWidth = 0.5;
-
-    canvas.drawLine(Offset(-200, 0), Offset(200, 0), paint);
-  }
-
-  @override
-  bool shouldRepaint(CustomPainter oldDelegate) {
-    return false;
-  }
-}
-
-class VerLine extends CustomPainter {
-  @override
-  void paint(Canvas canvas, Size size) {
-    final paint = Paint();
-    paint.color = Colors.grey.withOpacity(0.5);
-    paint.strokeWidth = 0.5;
-
-    canvas.drawLine(Offset(0, -125), Offset(0, 40), paint);
-  }
-
-  @override
-  bool shouldRepaint(CustomPainter oldDelegate) {
-    // TODO: implement shouldRepaint
-    return false;
   }
 }

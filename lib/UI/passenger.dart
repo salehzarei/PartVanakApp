@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:hello_flutter/test.dart';
 import 'package:scoped_model/scoped_model.dart';
 import '../scoped_model.dart';
 import '../model/passenger_model.dart';
 import '../UI/userform.dart';
-import '../UI/chekout.dart';
+import '../chekout.dart';
 
 class Passenger extends StatefulWidget {
   final List<String> personcount;
@@ -21,14 +20,12 @@ class _PassengerState extends State<Passenger> {
   @override
   void initState() {
     super.initState();
-    // تبدیل لیست به مپ برای سهولت در انجام حذف لیست
-    // for (var i = 0; i < widget.personcount.length; i++) {
-    //   passengerListMap[i.toString()] = UserForm(type: widget.personcount[i]);
 
 // ساخت یک لیست خالی از مسافرین
     MainModel model = ScopedModel.of(context);
     // خالی کردن لیست قبلی
     model.passengers.clear();
+    //مرتب کردن لیست تعداد مسافرین
     widget.personcount.sort();
 
     for (var i = 0; i < widget.personcount.length; i++) {
@@ -66,7 +63,7 @@ class _PassengerState extends State<Passenger> {
           break;
       }
 
-      // اضافه کردن مسافر بدون نام و مشخصات به لیست مسافران
+      // اضافه کردن مسافرین بدون نام و مشخصات به لیست مسافران
       PassengerModel _passenger = PassengerModel(
           id: i.toString(),
           title: _title,
@@ -79,11 +76,9 @@ class _PassengerState extends State<Passenger> {
       model.passengers.add(_passenger);
     }
     _itemCount = model.passengers.length;
-    // }
   }
 
   void onDelete(int index, MainModel model) {
-    print("Run OnDelete for $index");
     model.deleteFromList(index);
     setState(() {
       _itemCount = model.passengers.length;
@@ -116,25 +111,22 @@ class _PassengerState extends State<Passenger> {
                           .copyWith(color: Colors.white, fontSize: 15),
                     ),
                     onPressed: () {
-                      bool b = true;
+                      bool isformOK = true;
                       model.userFormKey.forEach((index) {
                         if (!index.currentState.validate()) {
-                          b = false;
+                          isformOK = false;
                           return;
                         }
                         index.currentState.save();
                       });
 
-                      if (b)
+                      if (isformOK)
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) =>
-                                 ChekOut(
+                                builder: (context) => ChekOut(
                                       passengerlist: model.passengers,
-                                    )
-                     
-                                    ));
+                                    )));
                     })
               ],
             ),

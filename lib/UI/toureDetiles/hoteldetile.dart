@@ -1,10 +1,8 @@
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:hello_flutter/model/accommodation_model.dart';
-import 'package:flutter_masked_text/flutter_masked_text.dart';
-import 'package:hello_flutter/scoped_model.dart';
 import 'package:scoped_model/scoped_model.dart';
-import '../../UI/hotel.dart';
+import '../../model/accommodation_model.dart';
+import '../../scoped_model.dart';
+import '../../buyticket.dart';
 import '../../coustomIcon/toure_icons_icons.dart';
 
 class HotelDetiles extends StatelessWidget {
@@ -15,37 +13,21 @@ class HotelDetiles extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
-
     ///// دخیره آی تور به صورت موقت در اسکوپ مدل
     MainModel _model = ScopedModel.of(context);
     _model.tmpCartData['ToureID'] = toureId;
-    ///////
 
-    /// ساخت ستاره هتل ها
-    makeStar(int type) {
-      List<Widget> starIconList = [];
-      for (int i = 1; i < 6; i++) {
-        if (type > 0) {
-          starIconList.add(Icon(
-            Icons.star,
-            size: 15,
-            color: Colors.orange.shade300,
-          ));
-          type--;
-        } else
-          starIconList.add(
-            Icon(
-              Icons.star_border,
-              size: 15,
-              color: Colors.orange.shade300,
-            ),
-          );
-      }
-      return Row(
-        children: starIconList,
-        textDirection: TextDirection.rtl,
-      );
+    void _showModalSheet() {
+      showModalBottomSheet(
+          context: context,
+          builder: (builder) {
+            return Material(
+              child: BuyTicket(hotel: hotel),
+              color: Theme.of(context).canvasColor,
+              borderRadius: BorderRadius.only(
+                  topRight: Radius.circular(25), topLeft: Radius.circular(25)),
+            );
+          });
     }
 
     specification(List<dynamic> hotelSpecification) {
@@ -68,12 +50,9 @@ class HotelDetiles extends StatelessWidget {
     }
 
     return GestureDetector(
-      onTap: () => Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (context) => HotelPage(
-                    hotel: hotel,
-                  ))),
+      onTap: () {
+        _showModalSheet();
+      },
       child: Card(
         color: Colors.grey.shade200,
         child: Padding(
@@ -99,7 +78,7 @@ class HotelDetiles extends StatelessWidget {
                         ),
                         Padding(
                           padding: const EdgeInsets.symmetric(vertical: 5),
-                          child: makeStar(hotel.accommodation_type),
+                          child: _model.makeStar(hotel.accommodation_type),
                         )
                       ],
                     ),
@@ -127,34 +106,32 @@ class HotelDetiles extends StatelessWidget {
                   margin: EdgeInsets.symmetric(vertical: 5.0, horizontal: 0),
                   height: 50.0,
                   width: MediaQuery.of(context).size.width - 20,
-                  child: CarouselSlider(
-                    viewportFraction: 0.35,
-                    enableInfiniteScroll: false,
-                    initialPage: 1,
-                    realPage: 5,
-                    items: <Widget>[
+                  child: ListView(
+                    scrollDirection: Axis.horizontal,
+                    children: <Widget>[
                       PriceBox(
-                        price: hotel.singel_price,
+                        price: _model.fixPrice(hotel.singel_price.toString()),
                         currency: currency,
                         title: 'تک نفر',
                       ),
                       PriceBox(
-                        price: hotel.adult_price,
+                        price: _model.fixPrice(hotel.adult_price.toString()),
                         currency: currency,
                         title: 'بزرگسال',
                       ),
                       PriceBox(
-                        price: hotel.child_price_bed,
+                        price:
+                            _model.fixPrice(hotel.child_price_bed.toString()),
                         currency: currency,
                         title: 'کودک با تخت',
                       ),
                       PriceBox(
-                        price: hotel.child_price,
+                        price: _model.fixPrice(hotel.child_price.toString()),
                         currency: currency,
                         title: 'کودک بدون تخت',
                       ),
                       PriceBox(
-                        price: hotel.baby_price,
+                        price: _model.fixPrice(hotel.baby_price.toString()),
                         currency: currency,
                         title: 'نوزاد',
                       ),
@@ -171,44 +148,42 @@ class HotelDetiles extends StatelessWidget {
 class PriceBox extends StatelessWidget {
   final String title;
   final String currency;
-  final int price;
+  final String price;
   const PriceBox({Key key, this.price, this.title, this.currency})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final double margin = 2.5;
-
-    /// تبدیل عدد به قیمت با اعشار
-    fixPrice(int hotelprice) {
-      var price = MoneyMaskedTextController(
-          precision: 0,
-          thousandSeparator: '.',
-          decimalSeparator: '',
-          initialValue: double.parse(hotelprice.toString()));
-
-      return price;
-    }
-
     return Wrap(
       direction: Axis.vertical,
       children: <Widget>[
         Container(
           margin: EdgeInsets.only(left: margin, right: margin),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(8), topRight: Radius.circular(8)),
+            color: Colors.grey.shade300,
+          ),
           width: 120.0,
-          color: Colors.grey.shade300,
           alignment: Alignment.center,
-          height: 25,
+          height: 20,
           child: Text(title,
-              style: TextStyle(color: Theme.of(context).primaryColor)),
+              style: TextStyle(color: Theme.of(context).primaryColor)
+                  .copyWith(fontSize: 12)),
         ),
         Container(
           margin: EdgeInsets.only(left: margin, right: margin),
-          color: Theme.of(context).primaryColor,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.only(
+                bottomLeft: Radius.circular(8),
+                bottomRight: Radius.circular(8)),
+            color: Theme.of(context).primaryColor,
+          ),
           alignment: Alignment.center,
           height: 25,
           width: 120.0,
-          child: Text('${fixPrice(price).text} $currency',
+          child: Text('$price $currency',
               textDirection: TextDirection.rtl,
               style: TextStyle(color: Colors.white)),
         ),

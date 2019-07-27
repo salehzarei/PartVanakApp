@@ -1,48 +1,13 @@
 import 'package:flutter/material.dart';
-import './UI/divider.dart';
-import './UI/maincategorei.dart';
-import './UI/touretitle.dart';
-import './scoped_model.dart';
 import 'package:scoped_model/scoped_model.dart';
-import 'model/toure_model.dart';
-
-class HomeBody extends StatelessWidget {
-  const HomeBody({Key key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return RefreshIndicator(
-      onRefresh: () => Navigator.pushNamed(context, '/homepage'),
-      color: Colors.red,
-      backgroundColor: Theme.of(context).cardColor,
-      child: SingleChildScrollView(
-        child: Padding(
-            padding: const EdgeInsets.only(top: 10),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                MainCategory(),
-                CatDivider(
-                  title: 'تورهای ویژه خارجی',
-                  toureType: 2,
-                ),
-                ToureScrollTitle(type: 2),
-                CatDivider(
-                  title: 'تورهای ویژه داخلی',
-                  toureType: 1,
-                ),
-                ToureScrollTitle(type: 1),
-              ],
-            )),
-      ),
-    );
-  }
-}
+import '../model/toure_model.dart';
+import '../scoped_model.dart';
+import 'touretitle.dart';
 
 class ToureScrollTitle extends StatelessWidget {
-  final int type;
+  final int toureTypeindex;
 
-  const ToureScrollTitle({Key key, this.type}) : super(key: key);
+  const ToureScrollTitle({Key key, this.toureTypeindex}) : super(key: key);
 
   makeList(List<Toure> toure) {
     return ListView.builder(
@@ -87,12 +52,12 @@ class ToureScrollTitle extends StatelessWidget {
         });
 
         return SizedBox(
-            height: 171,
-            child: model.isLoading
+            height: 200,
+            child: model.isLoading || toureTypeindex > 1 
                 ? Center(
                     child: CircularProgressIndicator(),
                   )
-                : type == 2 ? makeList(_external) : makeList(_inernal));
+                : toureTypeindex == 0 ? makeList(_external) : makeList(_inernal));
       },
     );
   }

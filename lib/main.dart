@@ -32,13 +32,14 @@ main() {
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
           backgroundColor: Colors.amber,
-          primaryColor: Color(0xFF19335C),
+          primaryColor: Colors.grey.shade700,
           accentColor: Color(0xFFD8B945),
           cardColor: Color(0xFFD8B945),
           buttonColor: Color(0xFFD8B945),
           iconTheme: IconThemeData(color: Color(0xFF19335C)),
           appBarTheme: AppBarTheme(
-              color: Color(0xFF19335C),
+              //color: Color(0xFF19335C),
+              color: Colors.grey.shade800,
               textTheme: TextTheme(
                   display1: TextStyle(color: Color(0xFF19335C), fontSize: 20))),
           fontFamily: 'IRANSans',
@@ -55,7 +56,7 @@ main() {
                   color: Color(0xFFD8B945)),
               caption: TextStyle(color: Color(0xFF19335C)),
               subhead: TextStyle(
-                  color: Color(0xFFD8B945),
+                  color: Colors.grey.shade700,
                   fontSize: 15,
                   fontWeight: FontWeight.bold),
               headline: TextStyle(fontSize: 13, fontWeight: FontWeight.bold),
@@ -65,13 +66,6 @@ main() {
         routes: {
           // '/': (context) => Profile(),
           '/': (context) => Splash(model: model),
-          
-
-
-
-
-
-
           '/profile': (context) => Profile(),  
           '/bloglist': (context) => BlogList(),
           '/newpassword': (context) => NewPassword(),
@@ -80,7 +74,7 @@ main() {
           '/login': (context) => Login(),
           '/register': (context) => Register(),
           '/resetpassword': (context) => ResetPassword(),
-          '/homepage': (context) => HomePage(model: model),
+          '/homepage': (context) => HomePage(),
           '/aboutus': (context) => AboutUs(model),
           '/userprofile': (context) => UserProfilePage(),
           '/internaltourelist': (context) => ToureListPage(
@@ -92,7 +86,7 @@ main() {
           '/touredetile': (context) => ToureDetilePage(),
           '/buyticket': (context) => BuyTicket(),
 
-          '/contact': (context) => ContactPage(model),
+          '/contactUs': (context) => ContactPage(model),
           '/flyinfoSite': (context) => Webview(
                 title: 'اطلاعات پرواز فرودگاه های کشور',
                 url: 'https://fids.airport.ir/',

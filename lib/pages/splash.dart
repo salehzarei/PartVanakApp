@@ -13,16 +13,24 @@ class Splash extends StatefulWidget {
 }
 
 class _SplashState extends State<Splash> {
+  int splashtime = 3;
+
   @override
   void initState() {
     super.initState();
-    widget.model.getToken();
+    widget.model.getTourData();
+    widget.model.getToken().whenComplete(() {
+      if (widget.model.userToken != null) widget.model.loadingUserData();
+      setState(() {
+        splashtime = 0;
+      });
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     return SplashScreen(
-      seconds: 3,
+      seconds: splashtime,
       navigateAfterSeconds: '/homepage',
       title: Text(
         'آژانس مسافرتی پارت ونک',

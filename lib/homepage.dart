@@ -1,33 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:hello_flutter/body.dart';
-import 'package:hello_flutter/drawer.dart';
-import 'package:hello_flutter/scoped_model.dart';
-import 'package:url_launcher/url_launcher.dart';
+import './drawer.dart';
+import './UI/divider.dart';
+import './UI/maincategorei.dart';
+import './UI/toure_scroll_title.dart';
 
 class HomePage extends StatefulWidget {
-  final MainModel model;
-  const HomePage({Key key, this.model}) : super(key: key);
+  const HomePage({Key key}) : super(key: key);
 
   @override
   _HomePageState createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
-  @override
-  void initState() {
-    super.initState();
-    widget.model.getTourData();
-    if (widget.model.userToken != null) widget.model.loadingUserData();
-  }
-
-  _launchURL() async {
-    const url = 'tel:+985137675030';
-    if (await canLaunch(url)) {
-      await launch(url);
-    } else {
-      throw 'Could not launch $url';
-    }
-  }
+  int categoryindex = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -37,65 +22,79 @@ class _HomePageState extends State<HomePage> {
         fit: StackFit.expand,
         children: <Widget>[
           Container(
-            color: Colors.white,
+            color: Colors.grey.shade200,
           ),
           Directionality(
             textDirection: TextDirection.rtl,
             child: Scaffold(
                 backgroundColor: Colors.transparent,
                 appBar: AppBar(
-                  backgroundColor: Theme.of(context).appBarTheme.color,
+                  backgroundColor: Colors.transparent,
                   iconTheme: Theme.of(context)
                       .iconTheme
                       .copyWith(color: Color(0xFFD8B945)),
-                  elevation: 5.0,
+                  elevation: 0.0,
                   actions: <Widget>[
                     Padding(
-                      padding: const EdgeInsets.only(left: 70, top: 5),
-                      child: Image.asset(
-                        'images/logo.png',
-                        height: 50,
-                        color: Colors.white,
+                      padding: const EdgeInsets.only(left: 7, top: 5),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: <Widget>[
+                          Text(
+                            'پارت ونک',
+                            style: TextStyle(
+                                color: Color(0xFFD8B945),
+                                fontWeight: FontWeight.bold,
+                                fontSize: 20),
+                          ),
+                          SizedBox(height: 3),
+                          Text(
+                            'آژانس مسافرتی و گردشگری',
+                            style: TextStyle(
+                                color: Colors.brown.shade400,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 11),
+                          )
+                        ],
                       ),
                     ),
                     Padding(
-                        padding: const EdgeInsets.only(top: 10, bottom: 10),
-                        child: GestureDetector(
-                          onTap: () => _launchURL(),
-                          child: Container(
-                            width: 125,
-                            padding: EdgeInsets.only(left: 10, right: 10),
-                            decoration: BoxDecoration(
-                                color: Theme.of(context).cardColor,
-                                borderRadius: BorderRadius.only(
-                                    bottomRight: Radius.circular(15),
-                                    topRight: Radius.circular(15))),
-                            child: Row(
-                              textDirection: TextDirection.rtl,
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: <Widget>[
-                                Text(
-                                  '05137675030',
-                                  style: Theme.of(context)
-                                      .appBarTheme
-                                      .textTheme
-                                      .display1
-                                      .copyWith(fontSize: 15),
-                                ),
-                                Icon(
-                                  Icons.phone,
-                                  size: 18,
-                                  color: Theme.of(context).iconTheme.color,
-                                ),
-                              ],
-                            ),
-                          ),
-                        ))
+                      padding: const EdgeInsets.only(left: 7, top: 5),
+                      child: Image.asset(
+                        'images/logo.png',
+                        height: 50,
+                      ),
+                    ),
                   ],
                 ),
                 drawer: MyDrawer(),
-                body: HomeBody()),
+                body: Padding(
+                  padding: const EdgeInsets.only(top: 10),
+                  child: Column(
+                    children: <Widget>[
+                      HomeCategorei(tapedcategory: (index) {
+                        setState(() {
+                          categoryindex = index;
+                        });
+                      }),
+                      Container(
+                        height: MediaQuery.of(context).size.height - 198,
+                        child: ListView(
+                          children: <Widget>[
+                            CatDivider(
+                              toureTypeindex: categoryindex,
+                            ),
+                            ToureScrollTitle(toureTypeindex: categoryindex),
+                            CatDivider(
+                              toureTypeindex: 4,
+                            ),
+                            ToureScrollTitle(toureTypeindex: 4),
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
+                )),
           )
         ],
       ),

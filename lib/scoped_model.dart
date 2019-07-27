@@ -1,9 +1,12 @@
 import 'dart:convert';
+import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:hello_flutter/model/user_model.dart';
 import 'package:scoped_model/scoped_model.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter_masked_text/flutter_masked_text.dart';
+import 'package:url_launcher/url_launcher.dart';
 import './model/toure_model.dart';
 import './model/contact.dart';
 import './model/passenger_model.dart';
@@ -25,13 +28,90 @@ class MainModel extends Model {
   String userToken;
   String verificationCode;
   String errorMassage;
-
-//// اطلاعات موقت تور به ترتیب آی دی تور و آی دی هتل
-  Map<String, String> tmpCartData = {'ToureID': '0', 'HotelID': '0'};
-/////
-
   bool _isLoading = false;
   String _serverCartResponse;
+//// اطلاعات موقت تور به ترتیب آی دی تور و آی دی هتل
+  Map<String, String> tmpCartData = {'ToureID': '0', 'HotelID': '0'};
+
+/////لیستی از انواع تورها برای استفاده مختلف در اپ
+  List<Map<String, String>> touretypes = [
+    {'title': 'تورهای خارجی', 'pushNamed': '/foreigntourelist'},
+    {'title': 'تورهای داخلی', 'pushNamed': '/internaltourelist'},
+    {'title': 'تورهای یکروزه', 'pushNamed': '/homepage'},
+    {'title': 'تورهای لحظه آخری', 'pushNamed': '/homepage'},
+    {'title': 'پیشنهادات ویژه', 'pushNamed': '/homepage'},
+
+    /// بقیه انواع تور باید اینجا تعریف بشه
+  ];
+
+//توابع خواندن URL بازکردن
+  launchURL(String url) async {
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
+
+  /// تبدیل رقم به تومان با نقاط جداکننده 1000 گان
+  fixPrice(String price) {
+    return MoneyMaskedTextController(
+            precision: 0,
+            thousandSeparator: '.',
+            decimalSeparator: '',
+            initialValue: double.parse(price))
+        .text;
+  }
+
+  /// ساخت ستاره هتل ها
+  makeStar(int type) {
+    List<Widget> starIconList = [];
+    for (int i = 1; i < 6; i++) {
+      if (type > 0) {
+        starIconList.add(Icon(
+          Icons.star,
+          size: 15,
+          color: Colors.orange.shade300,
+        ));
+        type--;
+      } else
+        starIconList.add(
+          Icon(
+            Icons.star_border,
+            size: 15,
+            color: Colors.orange.shade300,
+          ),
+        );
+    }
+    return Row(
+      children: starIconList,
+      textDirection: TextDirection.rtl,
+    );
+  }
+
+//// تابع دیالوگ باکس برای همه برنامه
+  Future<void> ackAlert(BuildContext context, {String massage}) {
+    return showDialog<void>(
+      context: context,
+      builder: (BuildContext context) {
+        return Directionality(
+          textDirection: TextDirection.rtl,
+          child: AlertDialog(
+            title: Text('شرمنده !'),
+            content: Text( massage != null ?'متاسفانه هنوز برای این قسمت تور قرار گرفته نشده' : massage),
+            actions: <Widget>[
+              FlatButton(
+                child: Text('بستن'),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
 
   bool get isLoading {
     return _isLoading;
@@ -48,7 +128,6 @@ class MainModel extends Model {
   }
 
 ///////// دریافت و چک کردن اطلاعات لاگین از سرور
-
   Future loginData({String mobile, String pass}) async {
     _isLoading = true;
     errorMassage = "";
