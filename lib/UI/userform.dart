@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 import 'package:hello_flutter/scoped_model.dart';
 import 'package:jalali_calendar/jalali_calendar.dart';
@@ -17,12 +18,18 @@ class UserForm extends StatefulWidget {
 
 class _UserFormState extends State<UserForm> {
   int _radioValue = 0;
-  bool _national = true;
+  bool _national = false;
   GlobalKey<FormState> _keyform;
 
   _changeValue(value) {
     setState(() {
       _radioValue = value;
+    });
+  }
+
+  _changenational(value) {
+    setState(() {
+      _national = value;
     });
   }
 
@@ -57,7 +64,12 @@ class _UserFormState extends State<UserForm> {
         }
         // ثبت و تغییر تاریخ تولد هر مسافر در اسکوپ مدل
         model.passengers[widget.index].brith = "$_year/$_month/$_day";
-        model.passengers[widget.index].nationality = _national.toString();
+        // ثبت و تغییر ملیت هر مسافر در اسکوپ مدل
+        if (_national == true) {
+          model.passengers[widget.index].nationality = '1';
+        } else {
+          model.passengers[widget.index].nationality = '2';
+        }
 
         return Stack(
           children: <Widget>[
@@ -81,6 +93,7 @@ class _UserFormState extends State<UserForm> {
                     padding: const EdgeInsets.all(5.0),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: <Widget>[
                         Expanded(
                           flex: 1,
@@ -144,62 +157,74 @@ class _UserFormState extends State<UserForm> {
                         ),
                         Expanded(
                           flex: 1,
-                          child: Column(
-                            children: <Widget>[
-                              Row(
-                                children: <Widget>[
-                                  Text('غیر ایرانی'),
-                                  Checkbox(
-                                    onChanged: (val) {
-                                      setState(() {
-                                        _national = val;
-                                      });
-                                    },
-                                    value: _national,
+                          child: Padding(
+                            padding: const EdgeInsets.only(right: 20),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: <Widget>[
+                                CheckboxListTile(
+                                  onChanged: _changenational,
+                                  value: _national,
+                                  dense: true,
+                                  title: Text(
+                                    'غیر ایرانی',
+                                    style: TextStyle(fontSize: 10),
                                   ),
-                                ],
-                              ),
-                              Wrap(
-                                  crossAxisAlignment: WrapCrossAlignment.center,
-                                  alignment: WrapAlignment.start,
-                                  children: <Widget>[
-                                    Text(
-                                      'مرد',
-                                      style: TextStyle(fontSize: 14),
-                                    ),
-                                    Radio(
-                                      value: 0,
-                                      groupValue: _radioValue,
-                                      onChanged: _changeValue,
-                                    ),
-                                    Text(
-                                      'زن',
-                                      style: TextStyle(fontSize: 14),
-                                    ),
-                                    Radio(
-                                      value: 1,
-                                      groupValue: _radioValue,
-                                      onChanged: _changeValue,
-                                    ),
-                                  ]),
-                              GestureDetector(
-                                onTap: () => _selectDate(context),
-                                child: Container(
+                                ),
+                                Container(
                                   child: _year == null
-                                      ? Text(
-                                          'تاریخ تولد را انتخاب کنید',
-                                          style: TextStyle(
-                                              fontSize: 14,
-                                              color: Colors.grey.shade700),
+                                      ? RaisedButton.icon(
+                                          shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(8)),
+                                          icon: Icon(
+                                            Icons.date_range,
+                                            color: Colors.white,
+                                          ),
+                                          label: Text(
+                                            'تاریخ تولد',
+                                            style:
+                                                TextStyle(color: Colors.white),
+                                          ),
+                                          onPressed: () {
+                                            _selectDate(context);
+                                          },
                                         )
                                       : Text(
-                                          "$_year/$_month/$_day",
+                                          "تاریخ تولد $_year/$_month/$_day",
                                           textDirection: TextDirection.rtl,
-                                          style: TextStyle(fontSize: 15),
+                                          style: TextStyle(
+                                              fontSize: 15,
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.grey.shade700),
                                         ),
                                 ),
-                              )
-                            ],
+                                Wrap(
+                                    crossAxisAlignment:
+                                        WrapCrossAlignment.center,
+                                    alignment: WrapAlignment.start,
+                                    children: <Widget>[
+                                      Text(
+                                        'مرد',
+                                        style: TextStyle(fontSize: 14),
+                                      ),
+                                      Radio(
+                                        value: 0,
+                                        groupValue: _radioValue,
+                                        onChanged: _changeValue,
+                                      ),
+                                      Text(
+                                        'زن',
+                                        style: TextStyle(fontSize: 14),
+                                      ),
+                                      Radio(
+                                        value: 1,
+                                        groupValue: _radioValue,
+                                        onChanged: _changeValue,
+                                      ),
+                                    ]),
+                              ],
+                            ),
                           ),
                         )
                       ],

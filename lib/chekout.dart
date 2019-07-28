@@ -1,16 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_masked_text/flutter_masked_text.dart';
-import 'package:hello_flutter/drawer.dart';
-
 import 'dart:async';
 import 'package:flutter/services.dart';
 import 'package:uni_links/uni_links.dart';
-
+import 'package:url_launcher/url_launcher.dart';
+import './drawer.dart';
 import 'package:scoped_model/scoped_model.dart';
 import './scoped_model.dart';
 import './model/passenger_model.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class ChekOut extends StatefulWidget {
   final List<PassengerModel> passengerlist;
@@ -103,32 +101,15 @@ class _ChekOutState extends State<ChekOut> {
         _baby_price * _babyCount;
   }
 
-  /// پکیج تبدیل قیمت به نقاط هزارگان
-  changemony(int price) {
-    return MoneyMaskedTextController(
-            precision: 0,
-            thousandSeparator: '.',
-            decimalSeparator: '',
-            initialValue: double.parse(price.toString()))
-        .text;
-  }
-
   sendToServer() {
     MainModel _model = ScopedModel.of(context);
-    _model
-        .sendDataToServer(
-            cell: _mobile.text, email: _email.text, tell: _phone.text)
-        .then((_) => _launchURL(_model.serverCartResponse));
-  }
-
-  _launchURL(String url) async {
-    if (await canLaunch(url)) {
-      _ackAlert(context, 'ارسال اطلاعات به سرور');
-      await launch(url);
-    } else {
-      _ackAlert(context, 'خطا در اتصال به سرور');
-      throw 'Could not launch ' + url;
-    }
+    _model.sendDataToServer(
+        cell: _mobile.text, email: _email.text, tell: _phone.text)
+      .then((_) =>print(_model.serverCartResponse)
+      
+       //_model.launchURL(_model.serverCartResponse)
+      
+      );
   }
 
 ///// Deep Link Test
@@ -148,10 +129,8 @@ class _ChekOutState extends State<ChekOut> {
     }
   }
 
-  /// An implementation using a [String] link
   initPlatformStateForStringUniLinks() async {
     print("initPlatformStateFor...");
-    // Attach a listener to the links stream
     _sub = getLinksStream().listen((String link) {
       if (!mounted) return;
       setState(() {
@@ -168,7 +147,6 @@ class _ChekOutState extends State<ChekOut> {
         _latestUri = null;
       });
     });
-    // Attach a second listener to the stream
     getLinksStream().listen((String link) {
       print('got link: $link');
     }, onError: (err) {
@@ -289,121 +267,100 @@ class _ChekOutState extends State<ChekOut> {
     });
   }
 
-  Future<void> _ackAlert(BuildContext context, String massage) {
-    return showDialog<void>(
-      context: context,
-      builder: (BuildContext context) {
-        return Directionality(
-          textDirection: TextDirection.rtl,
-          child: AlertDialog(
-            title: Text(massage),
-            actions: <Widget>[
-              FlatButton(
-                child: Text('بستن'),
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-              ),
-            ],
-          ),
-        );
-      },
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
-//// استخراج اطلاعات
-    print(_latestLink);
-    return Directionality(
-      textDirection: TextDirection.rtl,
-      child: Scaffold(
-          drawer: MyDrawer(),
-          appBar: AppBar(
-            centerTitle: true,
-            iconTheme: Theme.of(context)
-                .iconTheme
-                .copyWith(color: Theme.of(context).accentColor),
-            actions: <Widget>[
-              IconButton(
-                icon: Icon(Icons.arrow_forward),
-                onPressed: () => Navigator.pop(context),
-              )
-            ],
-            title: Text('صورتحساب',
-                style: TextStyle(
-                    color: Theme.of(context).accentColor, fontSize: 20)),
-          ),
-          body: Container(
-              padding: EdgeInsets.all(5.0),
-              child: Stepper(
-                type: StepperType.vertical,
-                currentStep: _currrentStep,
-                controlsBuilder: (
-                  BuildContext context, {
-                  VoidCallback onStepContinue,
-                  VoidCallback onStepCancel,
-                }) {
-                  return _finalStep
-                      ? RaisedButton(
-                          color: Colors.greenAccent,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(15),
-                          ),
-                          onPressed: () {
-                            // if (_key.currentState.validate()) {
-                            //   _key.currentState.save();
-                            sendToServer();
-                            // }
-                          },
-                          child: const Text('پرداخت صورتحساب'),
-                        )
-                      : Row(
-                          mainAxisSize: MainAxisSize.max,
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: <Widget>[
-                            Visibility(
-                              visible: _visible,
-                              child: RaisedButton(
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(15),
-                                ),
-                                onPressed: onStepCancel,
-                                child: const Text('برگشت'),
-                              ),
-                            ),
-                            RaisedButton(
-                              color: Theme.of(context).buttonColor,
-                              onPressed: onStepContinue,
+    return ScopedModelDescendant<MainModel>(
+      builder: (context, child, model) {
+        return Directionality(
+          textDirection: TextDirection.rtl,
+          child: Scaffold(
+              drawer: MyDrawer(),
+              appBar: AppBar(
+                centerTitle: true,
+                iconTheme: Theme.of(context)
+                    .iconTheme
+                    .copyWith(color: Theme.of(context).accentColor),
+                actions: <Widget>[
+                  IconButton(
+                    icon: Icon(Icons.arrow_forward),
+                    onPressed: () => Navigator.pop(context),
+                  )
+                ],
+                title: Text('صورتحساب',
+                    style: TextStyle(
+                        color: Theme.of(context).accentColor, fontSize: 20)),
+              ),
+              body: Container(
+                  padding: EdgeInsets.all(5.0),
+                  child: Stepper(
+                    type: StepperType.vertical,
+                    currentStep: _currrentStep,
+                    controlsBuilder: (
+                      BuildContext context, {
+                      VoidCallback onStepContinue,
+                      VoidCallback onStepCancel,
+                    }) {
+                      return _finalStep
+                          ? RaisedButton(
+                              color: Colors.greenAccent,
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(15),
                               ),
-                              child: const Text('تایید'),
-                            ),
-                          ],
-                        );
-                },
-                onStepCancel: () => _onStepCancel(_currrentStep),
-                onStepContinue: () => _onStepContinue(_currrentStep),
-                onStepTapped: (index) => _onStepTapped(index),
-                steps: [
-                  otherPassenger(context, widget.passengerlist),
-                  factor(
-                      context,
-                      _singleCount,
-                      changemony,
-                      _single_price,
-                      _currency,
-                      _adultCount,
-                      _childbedCount,
-                      _child_price_bed,
-                      _babyCount,
-                      _baby_price,
-                      _adult_price,
-                      _totalPrice),
-                  pay(context, _email, _mobile, _phone, _key),
-                ],
-              ))),
+                              onPressed: () {
+                                sendToServer();
+                              },
+                              child: model.isLoading
+                                  ? CircularProgressIndicator()
+                                  : Text('پرداخت صورتحساب'),
+                            )
+                          : Row(
+                              mainAxisSize: MainAxisSize.max,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: <Widget>[
+                                Visibility(
+                                  visible: _visible,
+                                  child: RaisedButton(
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(15),
+                                    ),
+                                    onPressed: onStepCancel,
+                                    child: const Text('برگشت'),
+                                  ),
+                                ),
+                                RaisedButton(
+                                  color: Theme.of(context).buttonColor,
+                                  onPressed: onStepContinue,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(15),
+                                  ),
+                                  child: const Text('تایید'),
+                                ),
+                              ],
+                            );
+                    },
+                    onStepCancel: () => _onStepCancel(_currrentStep),
+                    onStepContinue: () => _onStepContinue(_currrentStep),
+                    onStepTapped: (index) => _onStepTapped(index),
+                    steps: [
+                      otherPassenger(context, widget.passengerlist),
+                      factor(context,
+                          adult_price: model.fixPrice(_adult_price.toString()),
+                          adultCount: _adultCount,
+                          baby_price: model.fixPrice(_baby_price.toString()),
+                          babyCount: _babyCount,
+                          child_price_bed:
+                              model.fixPrice(_child_price_bed.toString()),
+                          childbedCount: _childbedCount,
+                          currency: _currency,
+                          single_price:
+                              model.fixPrice(_single_price.toString()),
+                          singleCount: _singleCount,
+                          totalPrice: model.fixPrice(_totalPrice.toString())),
+                      pay(context, _email, _mobile, _phone, _key),
+                    ],
+                  ))),
+        );
+      },
     );
   }
 }
@@ -556,19 +513,17 @@ Step otherPassenger(BuildContext context, List<PassengerModel> passengerList) {
       ));
 }
 
-Step factor(
-    BuildContext context,
-    _singleCount,
-    changemony,
-    _single_price,
-    _currency,
-    _adultCount,
-    _childbedCount,
-    _child_price_bed,
-    _babyCount,
-    _baby_price,
-    _adult_price,
-    _totalPrice) {
+Step factor(BuildContext context,
+    {singleCount,
+    single_price,
+    currency,
+    adultCount,
+    childbedCount,
+    child_price_bed,
+    babyCount,
+    baby_price,
+    adult_price,
+    totalPrice}) {
   return Step(
     title: Text('صورتحساب هزینه ها'),
     isActive: true,
@@ -590,13 +545,13 @@ Step factor(
                   Expanded(
                     flex: 1,
                     child: Text(
-                      ' X ${_singleCount.toString()}',
+                      ' X ${singleCount.toString()}',
                       textAlign: TextAlign.left,
                     ),
                   ),
                   Expanded(
                     flex: 3,
-                    child: Text('${changemony(_single_price)} $_currency ',
+                    child: Text('$single_price $currency ',
                         textDirection: TextDirection.rtl,
                         textAlign: TextAlign.left),
                   ),
@@ -604,7 +559,7 @@ Step factor(
               ),
             ),
             ////// نوجوان
-            _adultCount != 0
+            adultCount != 0
                 ? Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Row(
@@ -618,13 +573,13 @@ Step factor(
                         Expanded(
                           flex: 1,
                           child: Text(
-                            ' X ${_adultCount.toString()}',
+                            ' X ${adultCount.toString()}',
                             textAlign: TextAlign.left,
                           ),
                         ),
                         Expanded(
                           flex: 3,
-                          child: Text('${changemony(_adult_price)} $_currency ',
+                          child: Text('$adult_price $currency ',
                               textDirection: TextDirection.rtl,
                               textAlign: TextAlign.left),
                         ),
@@ -636,7 +591,7 @@ Step factor(
                     child: Container(),
                   ),
             //////کودک با تخت
-            _childbedCount != 0
+            childbedCount != 0
                 ? Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Row(
@@ -650,14 +605,13 @@ Step factor(
                         Expanded(
                           flex: 1,
                           child: Text(
-                            ' X ${_childbedCount.toString()}',
+                            ' X ${childbedCount.toString()}',
                             textAlign: TextAlign.left,
                           ),
                         ),
                         Expanded(
                           flex: 3,
-                          child: Text(
-                              '${changemony(_child_price_bed)} $_currency ',
+                          child: Text('$child_price_bed $currency ',
                               textDirection: TextDirection.rtl,
                               textAlign: TextAlign.left),
                         ),
@@ -669,7 +623,7 @@ Step factor(
                     child: Container(),
                   ),
             //////نوزاد
-            _babyCount != 0
+            babyCount != 0
                 ? Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Row(
@@ -683,13 +637,13 @@ Step factor(
                         Expanded(
                           flex: 1,
                           child: Text(
-                            ' X ${_babyCount.toString()}',
+                            ' X ${babyCount.toString()}',
                             textAlign: TextAlign.left,
                           ),
                         ),
                         Expanded(
                           flex: 3,
-                          child: Text('${changemony(_baby_price)} $_currency ',
+                          child: Text('$baby_price $currency ',
                               textDirection: TextDirection.rtl,
                               textAlign: TextAlign.left),
                         ),
@@ -721,7 +675,7 @@ Step factor(
                   ),
                   Expanded(
                     flex: 3,
-                    child: Text('${changemony(_totalPrice)} $_currency ',
+                    child: Text('$totalPrice $currency ',
                         style: TextStyle(fontWeight: FontWeight.bold),
                         textDirection: TextDirection.rtl,
                         textAlign: TextAlign.left),

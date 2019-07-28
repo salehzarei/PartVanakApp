@@ -98,7 +98,9 @@ class MainModel extends Model {
           textDirection: TextDirection.rtl,
           child: AlertDialog(
             title: Text('شرمنده !'),
-            content: Text( massage != null ?'متاسفانه هنوز برای این قسمت تور قرار گرفته نشده' : massage),
+            content: Text(massage != null
+                ? 'متاسفانه هنوز برای این قسمت تور قرار گرفته نشده'
+                : massage),
             actions: <Widget>[
               FlatButton(
                 child: Text('بستن'),
@@ -375,13 +377,13 @@ class MainModel extends Model {
         email: email,
         paymentType: 7,
         passengers: passengers);
-    print(json.encode(_cartForOnePassenger));
+    _isLoading = true;
     notifyListeners();
     return http
         .post(host + 'cart/add', body: json.encode(_cartForOnePassenger))
         .then((http.Response response) {
-      if (response.statusCode != 200 && response.statusCode != 201) {
-        print("اطلاعات بلیط با موفقیت به سرور ارسال شد");
+      if (response.statusCode == 200) {
+        print(response.body);
         _isLoading = false;
         notifyListeners();
         return false;
@@ -389,12 +391,14 @@ class MainModel extends Model {
       final Map<String, dynamic> responseData = json.decode(response.body);
       if (responseData['error']) {
         _isLoading = false;
+        print(responseData['error_msg']);
         _serverCartResponse = responseData['error_msg'];
         notifyListeners();
         return false;
       }
       _isLoading = false;
       _serverCartResponse = responseData['url'];
+      print(responseData['url']);
       notifyListeners();
       return true;
     }).catchError((error) {
