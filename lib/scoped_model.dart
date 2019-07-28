@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:hello_flutter/model/tourefilter_model.dart';
 import 'package:hello_flutter/model/user_model.dart';
 import 'package:scoped_model/scoped_model.dart';
 import 'package:http/http.dart' as http;
@@ -14,6 +15,7 @@ import './model/bank_model.dart';
 import './model/cart_model.dart';
 import './model/about_model.dart';
 import './model/accommodation_model.dart';
+
 
 class MainModel extends Model {
   final String host = 'https://safirparvaz.ir/tourapi/';
@@ -35,9 +37,24 @@ class MainModel extends Model {
 
 /////لیستی از انواع تورها برای استفاده مختلف در اپ
   List<Map<String, String>> touretypes = [
-    {'title': 'تورهای خارجی', 'pushNamed': '/foreigntourelist'},
-    {'title': 'تورهای داخلی', 'pushNamed': '/internaltourelist'},
-    {'title': 'تورهای یکروزه', 'pushNamed': '/homepage'},
+    {
+      'title': 'تورهای خارجی',
+      'pushNamed': '/foreigntourelist',
+      'foregin': '2',
+      'tour_type': ''
+    },
+    {
+      'title': 'تورهای داخلی',
+      'pushNamed': '/internaltourelist',
+      'foregin': '1',
+      'tour_type': ''
+    },
+    {
+      'title': 'تورهای یکروزه',
+      'pushNamed': '/homepage',
+      'foregin': '',
+      'tour_type': ''
+    },
     {'title': 'تورهای لحظه آخری', 'pushNamed': '/homepage'},
     {'title': 'پیشنهادات ویژه', 'pushNamed': '/homepage'},
 
@@ -259,13 +276,15 @@ class MainModel extends Model {
 
 ///////// دریافت اطلاعات تور و هتل ها از سرور
 
-  Future getTourData() async {
+  Future getTourData({ToureFilterModel filter }) async {
+    print(json.encode(filter));
     tourelist.clear();
     _isLoading = true;
     notifyListeners();
-    final response = await http.get(host + 'tours?');
+    final response = await http.post(host + 'tours', body: json.encode(filter));
     if (response.statusCode == 200) {
       List<dynamic> data = json.decode(response.body);
+      print(data);
       Toure _toure = Toure();
       data.forEach((touredata) {
         _toure = Toure(
@@ -294,9 +313,11 @@ class MainModel extends Model {
               .toList(),
         );
         tourelist.add(_toure);
+      
         notifyListeners();
       });
       _isLoading = false;
+        print('تور مورد نظر اسمش هست ${tourelist.length}');
       notifyListeners();
     } else {
       throw Exception('خطا اتصال به دیتابیس');

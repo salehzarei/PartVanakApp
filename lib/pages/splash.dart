@@ -18,7 +18,7 @@ class _SplashState extends State<Splash> {
   @override
   void initState() {
     super.initState();
-    widget.model.getTourData();
+  //  widget.model.getTourData();
     widget.model.getToken().whenComplete(() {
       if (widget.model.userToken != null) widget.model.loadingUserData();
       setState(() {
