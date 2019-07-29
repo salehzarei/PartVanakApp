@@ -16,7 +16,6 @@ import './model/cart_model.dart';
 import './model/about_model.dart';
 import './model/accommodation_model.dart';
 
-
 class MainModel extends Model {
   final String host = 'https://safirparvaz.ir/tourapi/';
   List<Toure> tourelist = [];
@@ -41,22 +40,32 @@ class MainModel extends Model {
       'title': 'تورهای خارجی',
       'pushNamed': '/foreigntourelist',
       'foregin': '2',
-      'tour_type': ''
+      'special': ''
     },
     {
       'title': 'تورهای داخلی',
       'pushNamed': '/internaltourelist',
       'foregin': '1',
-      'tour_type': ''
+      'special': ''
     },
     {
       'title': 'تورهای یکروزه',
       'pushNamed': '/homepage',
       'foregin': '',
-      'tour_type': ''
+      'special': ''
     },
-    {'title': 'تورهای لحظه آخری', 'pushNamed': '/homepage'},
-    {'title': 'پیشنهادات ویژه', 'pushNamed': '/homepage'},
+    {
+      'title': 'تورهای لحظه آخری',
+      'pushNamed': '/homepage',
+      'foregin': '',
+      'special': '1'
+    },
+    {
+      'title': 'پیشنهادات ویژه',
+      'pushNamed': '/homepage',
+      'foregin': '',
+      'special': '2'
+    },
 
     /// بقیه انواع تور باید اینجا تعریف بشه
   ];
@@ -276,15 +285,14 @@ class MainModel extends Model {
 
 ///////// دریافت اطلاعات تور و هتل ها از سرور
 
-  Future getTourData({ToureFilterModel filter }) async {
-    print(json.encode(filter));
+  Future getTourData({ToureFilterModel filter}) async {
+    print('Run Get Toure data for index ${filter.foreign}');
     tourelist.clear();
     _isLoading = true;
     notifyListeners();
-    final response = await http.post(host + 'tours', body: json.encode(filter));
+    final response = await http.post(host + 'tours', body: filter.toJson());
     if (response.statusCode == 200) {
       List<dynamic> data = json.decode(response.body);
-      print(data);
       Toure _toure = Toure();
       data.forEach((touredata) {
         _toure = Toure(
@@ -313,12 +321,11 @@ class MainModel extends Model {
               .toList(),
         );
         tourelist.add(_toure);
-      
         notifyListeners();
       });
       _isLoading = false;
-        print('تور مورد نظر اسمش هست ${tourelist.length}');
       notifyListeners();
+      return tourelist;
     } else {
       throw Exception('خطا اتصال به دیتابیس');
     }

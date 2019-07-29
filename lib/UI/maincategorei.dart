@@ -72,8 +72,11 @@ class _HomeCategoreiState extends State<HomeCategorei> {
                   selected: selected[0],
                 ),
                 onTap: () => _selectedChange(0),
-                onLongPress: () => Navigator.pushNamed(
-                    context, model.touretypes[0]['pushNamed']),
+                onLongPress: () {
+                    Navigator.pushNamed(
+                        context, model.touretypes[0]['pushNamed']);
+                    _selectedChange(0);
+                  }
               ),
               GestureDetector(
                 child: HomeCategoriItem(
@@ -82,8 +85,11 @@ class _HomeCategoreiState extends State<HomeCategorei> {
                   selected: selected[1],
                 ),
                 onTap: () => _selectedChange(1),
-                onLongPress: () => Navigator.pushNamed(
-                    context, model.touretypes[1]['pushNamed']),
+                onLongPress: () {
+                    Navigator.pushNamed(
+                        context, model.touretypes[1]['pushNamed']);
+                    _selectedChange(1);
+                  }
               ),
               GestureDetector(
                 child: HomeCategoriItem(
@@ -92,19 +98,24 @@ class _HomeCategoreiState extends State<HomeCategorei> {
                   selected: selected[2],
                 ),
                 onTap: () => _selectedChange(2),
-                onLongPress: () => Navigator.pushNamed(
-                    context, model.touretypes[2]['pushNamed']),
+                onLongPress: (){
+                    Navigator.pushNamed(
+                        context, model.touretypes[2]['pushNamed']);
+                    _selectedChange(2);
+                  }
               ),
               GestureDetector(
-                child: HomeCategoriItem(
-                  icon: ToureIcons.stopwatch,
-                  title: 'تورهای لحظه آخری',
-                  selected: selected[3],
-                ),
-                onTap: () => _selectedChange(3),
-                onLongPress: () => Navigator.pushNamed(
-                    context, model.touretypes[3]['pushNamed']),
-              ),
+                  child: HomeCategoriItem(
+                    icon: ToureIcons.stopwatch,
+                    title: 'تورهای لحظه آخری',
+                    selected: selected[3],
+                  ),
+                  onTap: () => _selectedChange(3),
+                  onLongPress: () {
+                    Navigator.pushNamed(
+                        context, model.touretypes[3]['pushNamed']);
+                    _selectedChange(3);
+                  }),
             ],
           ),
         );

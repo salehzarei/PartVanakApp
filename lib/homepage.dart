@@ -3,6 +3,7 @@ import './drawer.dart';
 import './UI/divider.dart';
 import './UI/maincategorei.dart';
 import './UI/toure_scroll_title.dart';
+import './UI/special_toure_scroll_title.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key key}) : super(key: key);
@@ -88,7 +89,7 @@ class _HomePageState extends State<HomePage> {
                             CatDivider(
                               toureTypeindex: 4,
                             ),
-                            ToureScrollTitle(toureTypeindex: 4),
+                            SpecialToureScrollTitle(toureTypeindex: 4),
                           ],
                         ),
                       )

@@ -11,16 +11,16 @@ class ToureFilterModel {
   String sort;
 
   ToureFilterModel(
-      {this.source = '',
-      this.destination = '',
-      this.date = '',
-      this.accommodation = '',
-      this.vehicl = '',
-      this.tour_type = '',
-      this.special = '',
-      this.foreign = '',
-      this.order = '',
-      this.sort = ''});
+      {this.source = "",
+      this.destination = "",
+      this.date = "",
+      this.accommodation = "",
+      this.vehicl = "",
+      this.tour_type = "",
+      this.special = "",
+      this.foreign = "",
+      this.order = "",
+      this.sort = ""});
 
   // factory ToureFilterModel.fromJson(Map<String, dynamic> json) {
   //   return ToureFilterModel(
@@ -37,16 +37,16 @@ class ToureFilterModel {
   // }
   toJson() {
     return {
-      'source': source,
-      'destination': destination,
-      'date': date,
-      'accommodation': accommodation,
-      'vehicl': vehicl,
-      'tour_type': tour_type,
-      'special': special,
-      'foreign': foreign,
-      'order': order,
-      'sort': sort
+      "source": source,
+      "destination": destination,
+      "date": date,
+      "accommodation": accommodation,
+      "vehicl": vehicl,
+      "tour_type": tour_type,
+      "special": special,
+      "foreign": foreign,
+      "order": order,
+      "sort": sort
     };
   }
 }

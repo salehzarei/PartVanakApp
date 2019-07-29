@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:hello_flutter/model/tourefilter_model.dart';
-import 'package:hello_flutter/model/user_model.dart';
 import 'package:scoped_model/scoped_model.dart';
 import '../model/toure_model.dart';
 import '../scoped_model.dart';
@@ -16,6 +15,8 @@ class ToureScrollTitle extends StatefulWidget {
 }
 
 class _ToureScrollTitleState extends State<ToureScrollTitle> {
+  List<Toure> _toure = [];
+
   makeList(List<Toure> toure) {
     return ListView.builder(
       itemCount: toure.length,
@@ -35,32 +36,28 @@ class _ToureScrollTitleState extends State<ToureScrollTitle> {
     );
   }
 
-  @override
-  void initState() {
-    super.initState();
-
+  fetchtoure(toureindex) {
     MainModel model = ScopedModel.of(context);
-    ToureFilterModel filter = ToureFilterModel(special: '2');
-    model.getTourData(filter: filter);
+    ToureFilterModel filter = ToureFilterModel(
+        foreign: model.touretypes[toureindex]['foregin'],
+        special: model.touretypes[toureindex]['special']);
+    model.getTourData(filter: filter).whenComplete(() {
+      _toure = model.tourelist;
+    });
   }
 
   @override
   Widget build(BuildContext context) {
-    List<Toure> _external = [];
-    List<Toure> _inernal = [];
+    fetchtoure(widget.toureTypeindex);
     return ScopedModelDescendant<MainModel>(
       builder: (context, child, model) {
-        // List<String> s=string.split(":");
-
         return SizedBox(
             height: 200,
-            child: model.isLoading || widget.toureTypeindex > 1
+            child: model.isLoading 
                 ? Center(
                     child: CircularProgressIndicator(),
                   )
-                : widget.toureTypeindex == 0
-                    ? makeList(_external)
-                    : makeList(_inernal));
+                : makeList(_toure));
       },
     );
   }
