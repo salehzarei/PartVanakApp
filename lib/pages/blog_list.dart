@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hello_flutter/pages/blogDetile.dart';
 import '../drawer.dart';
 import '../model/blog_model.dart';
 import 'package:http/http.dart' as http;
@@ -54,7 +55,8 @@ class _BlogListState extends State<BlogList> {
             children: <Widget>[
               GestureDetector(
                 onTap: () {
-                  Navigator.pushNamed(context, '/contact');
+                  Navigator.push(context, MaterialPageRoute(builder:(context)=>BlogDetile(blog[index].id) ));
+                  // Navigator.pushNamed(context, '/contact');
                 },
                 child: Card(
                   color: Colors.white30,
