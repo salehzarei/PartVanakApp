@@ -64,7 +64,7 @@ class MainModel extends Model {
       'title': 'پیشنهادات ویژه',
       'pushNamed': '/homepage',
       'foregin': '',
-      'special': '2'
+      'special': '1'
     },
 
     /// بقیه انواع تور باید اینجا تعریف بشه
@@ -286,7 +286,7 @@ class MainModel extends Model {
 ///////// دریافت اطلاعات تور و هتل ها از سرور
 
   Future getTourData({ToureFilterModel filter}) async {
-    print('Run Get Toure data for index ${filter.foreign}');
+    print('Run Get Toure data for index ${filter.special} ${filter.foreign}');
     tourelist.clear();
     _isLoading = true;
     notifyListeners();
