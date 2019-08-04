@@ -9,8 +9,7 @@ class SpecialToureScrollTitle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print("Special Toure Lenght : ${specialtours.length}");
-    return SizedBox(
+      return SizedBox(
         height: 200,
         child: specialtours.length == 0
             ? Center(
