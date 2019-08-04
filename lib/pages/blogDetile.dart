@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hello_flutter/drawer.dart';
 // import '../drawer.dart';
 import '../model/blog_model.dart';
 import 'package:http/http.dart' as http;
@@ -68,6 +69,8 @@ class _BlogDetileState extends State<BlogDetile> {
     return Directionality(
         textDirection: TextDirection.rtl,
         child: Scaffold(
+          drawer: MyDrawer(),
+
           // SliverAppBar is declared in Scaffold.body, in slivers of a
           // CustomScrollView.
           body: isLoading
@@ -77,6 +80,14 @@ class _BlogDetileState extends State<BlogDetile> {
               : CustomScrollView(
                   slivers: <Widget>[
                     SliverAppBar(
+                      centerTitle: true,
+                      actions: <Widget>[
+                        IconButton(
+                          icon: Icon(Icons.arrow_forward,
+                              color: Colors.white),
+                          onPressed: () => Navigator.pop(context),
+                        )
+                      ],
                       pinned: true,
                       snap: false,
                       floating: false,
@@ -135,19 +146,13 @@ class _BlogDetileState extends State<BlogDetile> {
                                   comment: i,
                                 ))
                             .toList(),
-                            
                       ),
                     ),
                     SliverList(
-                      delegate: SliverChildListDelegate(
-                         [CommentForm(blog.id)]
-                      ),
+                      delegate: SliverChildListDelegate([CommentForm(blog.id)]),
                     )
-                   
                   ],
                 ),
         ));
   }
-
-
 }
