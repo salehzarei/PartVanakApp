@@ -465,6 +465,46 @@ class MainModel extends Model {
     });
   }
 
+  ///// ارسال فرم تماس به سرور
+
+  Future<bool> addComment(Map<String, dynamic> contactData) {
+ 
+    _isLoading = true;
+    notifyListeners();
+    // {
+    //     'token': contactData['token'],
+    //     'name': contactData['name'],
+    //     'email': contactData['email'],
+    //     'cell': contactData['cell'],
+    //     'message': contactData['message'],
+    //     'bId': contactData['bId']
+    //     }
+    return http.post(host + 'blog/addcomment',
+        encoding: Encoding.getByName('utf-8'),
+        body:contactData ).then((http.Response response) {
+      if (response.statusCode != 200 && response.statusCode != 201) {
+        print(response);
+        _isLoading = false;
+        notifyListeners();
+        return false;
+      }
+  
+      final Map<String, dynamic> responseData = json.decode(response.body);
+      if (responseData['error']) {
+        _isLoading = false;
+        notifyListeners();
+        return false;
+      }
+      _isLoading = false;
+      notifyListeners();
+      return true;
+    }).catchError((error) {
+      _isLoading = false;
+      notifyListeners();
+      return false;
+    });
+  }
+
 ///// دریافت اطلاعات درباره ما از سرور
   Future<bool> getAboutData() async {
     _isLoading = true;

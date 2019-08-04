@@ -14,15 +14,8 @@ class ContactPage extends StatefulWidget {
 }
 
 class _ContactPageState extends State<ContactPage> {
-  // static const menuItems = {'1':'1-title331','2':'2-title2','3':'2-title3'};
   String _selected;
 
-  // final List<DropdownMenuItem<String>> _list = menuItems.entries
-  //     .map((MapEntry<String,String> value) => DropdownMenuItem<String>(
-  //           value: value.key,
-  //           child: Text(value.value),
-  //         ))
-  //     .toList();
   final Map<String, dynamic> _formData = {
     'name': null,
     'email': null,
@@ -40,11 +33,10 @@ class _ContactPageState extends State<ContactPage> {
 
   DecorationImage _buildBackgroundImage() {
     return DecorationImage(
-    
       fit: BoxFit.cover,
       colorFilter:
           ColorFilter.mode(Colors.black.withOpacity(0.5), BlendMode.dstATop),
-       image: AssetImage('assets/air.jpg'),
+      image: AssetImage('assets/air.jpg'),
     );
   }
 
@@ -169,15 +161,18 @@ class _ContactPageState extends State<ContactPage> {
   Widget _buildSubjectList() {
     return ScopedModelDescendant(
       builder: (BuildContext context, Widget child, MainModel model) {
-         Widget content= Container(width: 0.0,height: 0.0,) ;
+        Widget content = Container(
+          width: 0.0,
+          height: 0.0,
+        );
         if (model.contactSubjectList.length > 0 && !model.isLoading) {
-            final List<DropdownMenuItem<String>> _subjectArr = [];
-            model.contactSubjectList.forEach((subjectResponse) {
-              _subjectArr.add(DropdownMenuItem<String>(
-                value: subjectResponse.id,
-                child: Text(subjectResponse.title),
-              ));
-            });
+          final List<DropdownMenuItem<String>> _subjectArr = [];
+          model.contactSubjectList.forEach((subjectResponse) {
+            _subjectArr.add(DropdownMenuItem<String>(
+              value: subjectResponse.id,
+              child: Text(subjectResponse.title),
+            ));
+          });
 
           content = DropdownButton(
               // value: _selected,
@@ -194,7 +189,7 @@ class _ContactPageState extends State<ContactPage> {
           content = Center(child: CircularProgressIndicator());
         }
         return content;
-         //return RefreshIndicator(onRefresh: model.fetchSubject, child: content,) ;
+        //return RefreshIndicator(onRefresh: model.fetchSubject, child: content,) ;
       },
     );
   }
@@ -205,66 +200,68 @@ class _ContactPageState extends State<ContactPage> {
     final double targetWidth = deviceWidth > 550.0 ? 500.0 : deviceWidth * 0.95;
     return Directionality(
       textDirection: TextDirection.rtl,
-          child: Scaffold(
-         appBar: AppBar(
+      child: Scaffold(
+        appBar: AppBar(
           centerTitle: true,
           actions: <Widget>[
             IconButton(
-              icon: Icon(Icons.arrow_forward , color: Colors.white,),
-              onPressed: ()=>Navigator.pop(context),
+              icon: Icon(
+                Icons.arrow_forward,
+                color: Colors.white,
+              ),
+              onPressed: () => Navigator.pop(context),
             )
           ],
           title: Text('تماس با ما '),
         ),
         drawer: MyDrawer(),
-        
         body: Container(
-            // decoration: BoxDecoration(
-            //   image: _buildBackgroundImage(),
-            // ),
-            padding: EdgeInsets.all(20.0),
-            child: Center(
-              child: SingleChildScrollView(
-                child: Container(
-                  width: targetWidth,
-                  child: Form(
-                    key: _formKey,
-                    child: Column(
-                      children: <Widget>[
-                        _buildNameTextField(),
-                        SizedBox(
-                          height: 10.0,
-                        ),
-                        _buildEmailTextField(),
-                        SizedBox(
-                          height: 10.0,
-                        ),
-                        _buildCellTextField(),
-                        SizedBox(
-                          height: 10.0,
-                        ),
-                        _buildMessageTextField(),
-                        SizedBox(
-                          height: 10.0,
-                        ),
-                        _buildSubjectList(),
-                        ScopedModelDescendant<MainModel>(
-                          builder: (BuildContext context, Widget child,
-                              MainModel model) {
-                            return RaisedButton(
-                              textColor: Colors.white,
-                              child: Text('ارسال '),
-                              onPressed: () => _submitForm(model.addContact),
-                            );
-                          },
-                        ),
-                      ],
-                    ),
+          // decoration: BoxDecoration(
+          //   image: _buildBackgroundImage(),
+          // ),
+          padding: EdgeInsets.all(20.0),
+          child: Center(
+            child: SingleChildScrollView(
+              child: Container(
+                width: targetWidth,
+                child: Form(
+                  key: _formKey,
+                  child: Column(
+                    children: <Widget>[
+                      _buildNameTextField(),
+                      SizedBox(
+                        height: 10.0,
+                      ),
+                      _buildEmailTextField(),
+                      SizedBox(
+                        height: 10.0,
+                      ),
+                      _buildCellTextField(),
+                      SizedBox(
+                        height: 10.0,
+                      ),
+                      _buildMessageTextField(),
+                      SizedBox(
+                        height: 10.0,
+                      ),
+                      _buildSubjectList(),
+                      ScopedModelDescendant<MainModel>(
+                        builder: (BuildContext context, Widget child,
+                            MainModel model) {
+                          return RaisedButton(
+                            textColor: Colors.white,
+                            child: Text('ارسال '),
+                            onPressed: () => _submitForm(model.addContact),
+                          );
+                        },
+                      ),
+                    ],
                   ),
                 ),
               ),
             ),
           ),
+        ),
       ),
     );
   }
