@@ -39,6 +39,7 @@ class _MessagingwidgetState extends State<Messagingwidget> {
     // });
   }
 
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -57,4 +58,4 @@ class _MessagingwidgetState extends State<Messagingwidget> {
         title: Text(message.title),
         subtitle: Text(message.body),
       );
-}
+ }
