@@ -26,9 +26,9 @@ class PassengerModel {
       'Family': family,
       'Gender': sex,
       'Nationality': nationality.toString(),
+      'National_code': melicode,
       'Birth_date': brith,
       'Ages': 1,
-      'National_code': melicode
     };
   }
 }

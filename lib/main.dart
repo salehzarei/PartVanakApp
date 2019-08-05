@@ -38,7 +38,8 @@ main() {
           accentColor: Color(0xFFD8B945),
           cardColor: Color(0xFFD8B945),
           buttonColor: Color(0xFFD8B945),
-          iconTheme: IconThemeData(color: Color(0xFF19335C)),
+         // iconTheme: IconThemeData(color: Color(0xFF19335C)),
+         iconTheme: IconThemeData(color: Colors.grey),
           appBarTheme: AppBarTheme(
               //color: Color(0xFF19335C),
               color: Colors.grey.shade800,
