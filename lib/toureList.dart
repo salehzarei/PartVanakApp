@@ -43,8 +43,37 @@ class _ToureListPageState extends State<ToureListPage> {
           });
         }
         break;
+      case "3":
+        {
+          _title = 'لیست تورهای یکروزه';
+          model.tourelist.forEach((toure) {
+            if (toure.foreign == 2) _toureList.add(toure);
+          });
+        }
+        break;
+      case "4":
+        {
+          _title = 'لیست تورهای لحظه آخری';
+          model.tourelist.forEach((toure) {
+            if (toure.foreign == 2) _toureList.add(toure);
+          });
+        }
+        break;
+      case "5":
+        {
+          _title = 'لیست تورهای ویژه';
+          model.tourelist.forEach((toure) {
+            if (toure.foreign == 2) _toureList.add(toure);
+          });
+        }
+        break;
     }
   }
+
+
+fetchToureList(){
+  
+}
 
   makeList(List<Toure> toure) {
     return ListView.builder(

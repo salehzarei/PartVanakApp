@@ -51,19 +51,19 @@ class MainModel extends Model {
     },
     {
       'title': 'تورهای یکروزه',
-      'pushNamed': '/homepage',
+      'pushNamed': '/onedaytourelist',
       'foregin': '',
       'special': ''
     },
     {
       'title': 'تورهای لحظه آخری',
-      'pushNamed': '/homepage',
+      'pushNamed': '/lassecondtourelist',
       'foregin': '',
       'special': '2'
     },
     {
       'title': 'پیشنهادات ویژه',
-      'pushNamed': '/homepage',
+      'pushNamed': '/specialtourelist',
       'foregin': '',
       'special': '1'
     },
@@ -287,9 +287,7 @@ class MainModel extends Model {
 ///////// دریافت اطلاعات تور و هتل ها از سرور
 
   Future getTourData({ToureFilterModel filter}) async {
-    print(
-        'Run Get Toure data for index  Special :${filter.special} foregin: ${filter.foreign}');
-    tourelist.clear();
+     tourelist.clear();
     _isLoading = true;
     notifyListeners();
     final response = await http.post(host + 'tours', body: filter.toJson());

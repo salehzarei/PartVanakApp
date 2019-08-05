@@ -13,7 +13,7 @@ class HotelDetiles extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    ///// دخیره آی تور به صورت موقت در اسکوپ مدل
+    ///// دخیره آیدی تور به صورت موقت در اسکوپ مدل
     MainModel _model = ScopedModel.of(context);
     _model.tmpCartData['ToureID'] = toureId;
 

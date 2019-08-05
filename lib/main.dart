@@ -66,15 +66,11 @@ main() {
         ),
         initialRoute: '/',
         routes: {
-           
           '/': (context) => Splash(model: model),
           // '/grouping': (context) => Menubar(),
 
-
-          
-
           '/grouping': (context) => ExpansionTileSample(),
-          '/profile': (context) => Profile(),  
+          '/profile': (context) => Profile(),
           '/bloglist': (context) => BlogList(),
           '/newpassword': (context) => NewPassword(),
           '/firebase': (context) => Messagingwidget(),
@@ -90,6 +86,15 @@ main() {
               ),
           '/foreigntourelist': (context) => ToureListPage(
                 toureType: 2,
+              ),
+          '/onedaytourelist': (context) => ToureListPage(
+                toureType: 3,
+              ),
+          '/lassecondtourelist': (context) => ToureListPage(
+                toureType: 4,
+              ),
+          '/specialtourelist': (context) => ToureListPage(
+                toureType: 5,
               ),
           '/touredetile': (context) => ToureDetilePage(),
           '/buyticket': (context) => BuyTicket(),
