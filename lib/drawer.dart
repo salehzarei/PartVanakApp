@@ -250,7 +250,7 @@ class MyDrawer extends StatelessWidget {
                           )),
                       GestureDetector(
                           onTap: () {
-                            Navigator.pushNamed(context, '/profile');
+                           // Navigator.pushNamed(context, '/profile');
                           },
                           child: Container(
                             padding:
