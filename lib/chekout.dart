@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:flutter_masked_text/flutter_masked_text.dart';
 import 'dart:async';
 import 'package:flutter/services.dart';
 import 'package:uni_links/uni_links.dart';
-import 'package:url_launcher/url_launcher.dart';
 import './drawer.dart';
 import 'package:scoped_model/scoped_model.dart';
 import './scoped_model.dart';
@@ -365,115 +363,10 @@ class _ChekOutState extends State<ChekOut> {
   }
 }
 
-Step masterPerson(BuildContext context, passengerlist) {
-  return Step(
-    title: Text('مشخصات فرد اصلی'),
-    isActive: true,
-    content: Container(
-        decoration: BoxDecoration(
-          color: Colors.white,
-        ),
-        padding: EdgeInsets.all(5.0),
-        child: Column(
-          children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 3),
-              child: Text(
-                'مشخصات خریدار اصلی',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                    fontSize: 15,
-                    fontWeight: FontWeight.bold,
-                    color: Theme.of(context).accentColor),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Row(
-                textDirection: TextDirection.rtl,
-                children: <Widget>[
-                  Expanded(
-                    child: Text(
-                      'نام ونام خانوادگی',
-                      textDirection: TextDirection.rtl,
-                      textAlign: TextAlign.right,
-                    ),
-                  ),
-                  SizedBox(
-                    width: 10,
-                  ),
-                  Expanded(
-                      child: Text(passengerlist[0].name,
-                          textDirection: TextDirection.rtl,
-                          textAlign: TextAlign.right))
-                ],
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Row(
-                textDirection: TextDirection.rtl,
-                children: <Widget>[
-                  Expanded(
-                      child: Text('کدملی/پاسپورت ',
-                          textDirection: TextDirection.rtl,
-                          textAlign: TextAlign.right)),
-                  SizedBox(
-                    width: 10,
-                  ),
-                  Expanded(
-                      child: Text(passengerlist[0].melicode,
-                          textDirection: TextDirection.rtl,
-                          textAlign: TextAlign.right))
-                ],
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Row(
-                textDirection: TextDirection.rtl,
-                children: <Widget>[
-                  Expanded(
-                      child: Text('جنسیت',
-                          textDirection: TextDirection.rtl,
-                          textAlign: TextAlign.right)),
-                  SizedBox(
-                    width: 10,
-                  ),
-                  Expanded(
-                      child: Text(passengerlist[0].sex,
-                          textDirection: TextDirection.rtl,
-                          textAlign: TextAlign.right))
-                ],
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Row(
-                textDirection: TextDirection.rtl,
-                children: <Widget>[
-                  Expanded(
-                      child: Text('تاریخ تولد',
-                          textDirection: TextDirection.rtl,
-                          textAlign: TextAlign.right)),
-                  SizedBox(
-                    width: 10,
-                  ),
-                  Expanded(
-                      child: Text(passengerlist[0].brith,
-                          textDirection: TextDirection.rtl,
-                          textAlign: TextAlign.right))
-                ],
-              ),
-            ),
-          ],
-        )),
-  );
-}
 
 Step otherPassenger(BuildContext context, List<PassengerModel> passengerList) {
   return Step(
-      title: Text('مشخصات سایر مسافرین'),
+      title: Text('مشخصات ${passengerList.length} مسافر این تور'),
       isActive: true,
       content: Directionality(
         textDirection: TextDirection.rtl,
@@ -525,7 +418,7 @@ Step factor(BuildContext context,
     adult_price,
     totalPrice}) {
   return Step(
-    title: Text('صورتحساب هزینه ها'),
+    title: Text('صورتحساب هزینه ها براساس نفرات'),
     isActive: true,
     content: Padding(
         padding: const EdgeInsets.only(top: 5),
@@ -690,7 +583,7 @@ Step factor(BuildContext context,
 
 Step pay(BuildContext context, _email, _mobile, _phone, Key _key) {
   return Step(
-      title: Text('پرداخت صورتحساب'),
+      title: Text('ثبت اطلاعات تماس'),
       content: Center(
           child: Form(
         key: _key,

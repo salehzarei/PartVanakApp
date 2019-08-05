@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:hello_flutter/pages/check_internet.dart';
 import 'package:hello_flutter/pages/list.dart';
 import 'package:hello_flutter/pages/menu_bar.dart';
 //import './pages/news_list.dart';
@@ -66,15 +67,11 @@ main() {
         ),
         initialRoute: '/',
         routes: {
-           
           '/': (context) => Splash(model: model),
-          // '/grouping': (context) => Menubar(),
-
-
-          
+          // '/': (context) => CheckInternet(),
 
           '/grouping': (context) => ExpansionTileSample(),
-          '/profile': (context) => Profile(),  
+          '/profile': (context) => Profile(),
           '/bloglist': (context) => BlogList(),
           '/newpassword': (context) => NewPassword(),
           '/firebase': (context) => Messagingwidget(),
@@ -90,6 +87,15 @@ main() {
               ),
           '/foreigntourelist': (context) => ToureListPage(
                 toureType: 2,
+              ),
+          '/onedaytourelist': (context) => ToureListPage(
+                toureType: 3,
+              ),
+          '/lassecondtourelist': (context) => ToureListPage(
+                toureType: 4,
+              ),
+          '/specialtourelist': (context) => ToureListPage(
+                toureType: 5,
               ),
           '/touredetile': (context) => ToureDetilePage(),
           '/buyticket': (context) => BuyTicket(),

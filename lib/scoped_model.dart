@@ -19,6 +19,7 @@ import './model/accommodation_model.dart';
 class MainModel extends Model {
   final String host = 'https://safirparvaz.ir/tourapi/';
   List<Toure> tourelist = [];
+  List<Toure> specialToureList = [];
   List<Banks> bankList = [];
   List<CartModel> cart = [];
   List<ContactSubject> contactSubjectList = [];
@@ -50,21 +51,21 @@ class MainModel extends Model {
     },
     {
       'title': 'تورهای یکروزه',
-      'pushNamed': '/homepage',
+      'pushNamed': '/onedaytourelist',
       'foregin': '',
       'special': ''
     },
     {
       'title': 'تورهای لحظه آخری',
-      'pushNamed': '/homepage',
+      'pushNamed': '/lassecondtourelist',
       'foregin': '',
-      'special': '1'
+      'special': '2'
     },
     {
       'title': 'پیشنهادات ویژه',
-      'pushNamed': '/homepage',
+      'pushNamed': '/specialtourelist',
       'foregin': '',
-      'special': '2'
+      'special': '1'
     },
 
     /// بقیه انواع تور باید اینجا تعریف بشه
@@ -286,8 +287,7 @@ class MainModel extends Model {
 ///////// دریافت اطلاعات تور و هتل ها از سرور
 
   Future getTourData({ToureFilterModel filter}) async {
-    print('Run Get Toure data for index ${filter.foreign}');
-    tourelist.clear();
+     tourelist.clear();
     _isLoading = true;
     notifyListeners();
     final response = await http.post(host + 'tours', body: filter.toJson());
@@ -320,6 +320,7 @@ class MainModel extends Model {
               .map((i) => Accommodation.fromJson(i))
               .toList(),
         );
+        if (filter.special == '1') specialToureList.add(_toure);
         tourelist.add(_toure);
         notifyListeners();
       });
@@ -468,7 +469,6 @@ class MainModel extends Model {
   ///// ارسال فرم تماس به سرور
 
   Future<bool> addComment(Map<String, dynamic> contactData) {
- 
     _isLoading = true;
     notifyListeners();
     // {
@@ -479,16 +479,17 @@ class MainModel extends Model {
     //     'message': contactData['message'],
     //     'bId': contactData['bId']
     //     }
-    return http.post(host + 'blog/addcomment',
-        encoding: Encoding.getByName('utf-8'),
-        body:contactData ).then((http.Response response) {
+    return http
+        .post(host + 'blog/addcomment',
+            encoding: Encoding.getByName('utf-8'), body: contactData)
+        .then((http.Response response) {
       if (response.statusCode != 200 && response.statusCode != 201) {
         print(response);
         _isLoading = false;
         notifyListeners();
         return false;
       }
-  
+
       final Map<String, dynamic> responseData = json.decode(response.body);
       if (responseData['error']) {
         _isLoading = false;
