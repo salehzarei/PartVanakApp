@@ -13,7 +13,7 @@ class HotelDetiles extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    ///// دخیره آی تور به صورت موقت در اسکوپ مدل
+    ///// دخیره آیدی تور به صورت موقت در اسکوپ مدل
     MainModel _model = ScopedModel.of(context);
     _model.tmpCartData['ToureID'] = toureId;
 
@@ -51,7 +51,12 @@ class HotelDetiles extends StatelessWidget {
 
     return GestureDetector(
       onTap: () {
-        _showModalSheet();
+        if (_model.userToken != null) {
+          _showModalSheet();
+        } else
+          _model.ackAlert(context,
+              massage: 'برای خرید تور از این اپلیکیشن ابتدا باید وارد سیستم شوید',
+              route: '/login');
       },
       child: Card(
         color: Colors.grey.shade200,

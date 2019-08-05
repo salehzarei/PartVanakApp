@@ -21,7 +21,6 @@ import './login/register.dart';
 import './login/check_phone.dart';
 import './pages/firebase.dart';
 import 'login/new_password.dart';
-import './pages/user_profile_page.dart';
 import 'login/profile.dart';
 
 main() {
@@ -38,7 +37,8 @@ main() {
           accentColor: Color(0xFFD8B945),
           cardColor: Color(0xFFD8B945),
           buttonColor: Color(0xFFD8B945),
-          iconTheme: IconThemeData(color: Color(0xFF19335C)),
+         // iconTheme: IconThemeData(color: Color(0xFF19335C)),
+         iconTheme: IconThemeData(color: Colors.grey),
           appBarTheme: AppBarTheme(
               //color: Color(0xFF19335C),
               color: Colors.grey.shade800,
@@ -66,15 +66,11 @@ main() {
         ),
         initialRoute: '/',
         routes: {
-           
           '/': (context) => Splash(model: model),
           // '/grouping': (context) => Menubar(),
 
-
-          
-
           '/grouping': (context) => ExpansionTileSample(),
-          '/profile': (context) => Profile(),  
+          '/profile': (context) => Profile(),
           '/bloglist': (context) => BlogList(),
           '/newpassword': (context) => NewPassword(),
           '/firebase': (context) => Messagingwidget(),
@@ -84,12 +80,20 @@ main() {
           '/resetpassword': (context) => ResetPassword(),
           '/homepage': (context) => HomePage(),
           '/aboutus': (context) => AboutUs(model),
-          '/userprofile': (context) => UserProfilePage(),
           '/internaltourelist': (context) => ToureListPage(
                 toureType: 1,
               ),
           '/foreigntourelist': (context) => ToureListPage(
                 toureType: 2,
+              ),
+          '/onedaytourelist': (context) => ToureListPage(
+                toureType: 3,
+              ),
+          '/lassecondtourelist': (context) => ToureListPage(
+                toureType: 4,
+              ),
+          '/specialtourelist': (context) => ToureListPage(
+                toureType: 5,
               ),
           '/touredetile': (context) => ToureDetilePage(),
           '/buyticket': (context) => BuyTicket(),

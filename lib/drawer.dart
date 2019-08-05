@@ -198,7 +198,8 @@ class MyDrawer extends StatelessWidget {
                             ),
                           )),
                       GestureDetector(
-                          onTap: () {},
+                          onTap: () => Navigator.pushNamed(
+                              context, '/onedaytourelist'),
                           child: Container(
                             padding:
                                 EdgeInsets.only(top: 15.0, left: 15, right: 20),
@@ -207,51 +208,25 @@ class MyDrawer extends StatelessWidget {
                                 Padding(
                                   padding: const EdgeInsets.only(left: 8.0),
                                   child: Icon(
-                                    ToureIcons.tent,
+                                    ToureIcons.first_day,
                                     color: Theme.of(context)
                                         .accentColor
-                                        .withOpacity(0.5),
+                                        ,
                                   ),
                                 ),
                                 Text(
-                                  'تور های طبیعتگردی',
+                                  'تور های یکروزه',
                                   style: DarwerThemeData.textTheme.title
                                       .copyWith(
-                                          color: Colors.white.withOpacity(0.5)),
+                                          color: Colors.white),
                                 ),
                               ],
                             ),
                           )),
 
                       GestureDetector(
-                          onTap: () {},
-                          child: Container(
-                            padding:
-                                EdgeInsets.only(top: 15.0, left: 15, right: 20),
-                            child: Row(
-                              children: <Widget>[
-                                Padding(
-                                  padding: const EdgeInsets.only(left: 8.0),
-                                  child: Icon(
-                                    ToureIcons.crown_of_royal_design,
-                                    color: Theme.of(context)
-                                        .accentColor
-                                        .withOpacity(0.5),
-                                  ),
-                                ),
-                                Text(
-                                  'تور های لاکچری',
-                                  style: DarwerThemeData.textTheme.title
-                                      .copyWith(
-                                          color: Colors.white.withOpacity(0.5)),
-                                ),
-                              ],
-                            ),
-                          )),
-                      GestureDetector(
-                          onTap: () {
-                            Navigator.pushNamed(context, '/profile');
-                          },
+                          onTap: ()=> Navigator.pushNamed(
+                              context, '/lassecondtourelist'),
                           child: Container(
                             padding:
                                 EdgeInsets.only(top: 15.0, left: 15, right: 20),
@@ -263,14 +238,40 @@ class MyDrawer extends StatelessWidget {
                                     ToureIcons.stopwatch,
                                     color: Theme.of(context)
                                         .accentColor
-                                        .withOpacity(0.5),
+                                        ,
                                   ),
                                 ),
                                 Text(
                                   'تور های لحظه آخری',
                                   style: DarwerThemeData.textTheme.title
                                       .copyWith(
-                                          color: Colors.white.withOpacity(0.5)),
+                                          color: Colors.white),
+                                ),
+                              ],
+                            ),
+                          )),
+                      GestureDetector(
+                          onTap: ()=> Navigator.pushNamed(
+                              context, '/specialtourelist'),
+                          child: Container(
+                            padding:
+                                EdgeInsets.only(top: 15.0, left: 15, right: 20),
+                            child: Row(
+                              children: <Widget>[
+                                Padding(
+                                  padding: const EdgeInsets.only(left: 8.0),
+                                  child: Icon(
+                                    ToureIcons.guarantees,
+                                    color: Theme.of(context)
+                                        .accentColor
+                                        ,
+                                  ),
+                                ),
+                                Text(
+                                  'تور های ویژه',
+                                  style: DarwerThemeData.textTheme.title
+                                      .copyWith(
+                                          color: Colors.white),
                                 ),
                               ],
                             ),

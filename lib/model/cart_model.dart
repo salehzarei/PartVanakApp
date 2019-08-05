@@ -8,6 +8,7 @@ class CartModel {
   String email;
   List<PassengerModel> passengers;
   int paymentType;
+  String token;
 
   CartModel({
     this.toure_id,
@@ -17,6 +18,7 @@ class CartModel {
     this.email,
     this.passengers,
     this.paymentType,
+    this.token,
   });
 
   toJson() {
@@ -28,6 +30,7 @@ class CartModel {
       'email': email,
       'data': passengers,
       'paymentType': paymentType,
+      'token' : token
     };
   }
 }

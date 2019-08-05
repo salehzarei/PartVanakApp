@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hello_flutter/model/tourefilter_model.dart';
 import 'package:splashscreen/splashscreen.dart';
 import '../scoped_model.dart';
 
@@ -14,13 +15,17 @@ class Splash extends StatefulWidget {
 
 class _SplashState extends State<Splash> {
   int splashtime = 3;
-
+ToureFilterModel  fetchSpecialToure = ToureFilterModel(
+  special: '1'
+);
   @override
   void initState() {
     super.initState();
-  //  widget.model.getTourData();
     widget.model.getToken().whenComplete(() {
       if (widget.model.userToken != null) widget.model.loadingUserData();
+      widget.model.getTourData(
+      filter: fetchSpecialToure
+    );
       setState(() {
         splashtime = 0;
       });

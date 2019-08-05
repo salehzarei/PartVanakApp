@@ -12,7 +12,6 @@ class ToureListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     /// پکیج تبدیل قیمت به نقاط هزارگان
     var price = MoneyMaskedTextController(
         precision: 0,
@@ -24,29 +23,31 @@ class ToureListItem extends StatelessWidget {
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
       color: Colors.white,
       child: Row(
-        textDirection: TextDirection.rtl,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Expanded(
-              flex: 1,
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(10.0),
-                child: CachedNetworkImage(
-                  fit: BoxFit.cover,
-                  height: 90,
-                  imageUrl: toure.thumb,
-                  placeholder: (context, url) => SpinKitFadingFour(
-                        color: Colors.red,
-                        size: 50.0,
-                      ),
-                  errorWidget: (context, string, url) => Icon(Icons.error),
-                ),
-              )),
-          Expanded(
-            flex: 3,
-            child: ListView(
-              padding: EdgeInsets.only(right: 10, top: 5),
-              shrinkWrap: true,
+          textDirection: TextDirection.rtl,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Expanded(
+        flex: 1,
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(10.0),
+          child: CachedNetworkImage(
+            fit: BoxFit.cover,
+            height: 90,
+            imageUrl: toure.thumb,
+            placeholder: (context, url) => SpinKitFadingFour(
+              color: Colors.red,
+              size: 50.0,
+            ),
+            errorWidget: (context, string, url) => Icon(Icons.error),
+          ),
+        )),
+            Expanded(
+        flex: 3,
+        child: Padding(
+          padding: const EdgeInsets.only(right: 8 ,  top: 8),
+          child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Text(
                   '${toure.title} - ${toure.sdate}',
@@ -58,14 +59,16 @@ class ToureListItem extends StatelessWidget {
                 Divider(),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   textDirection: TextDirection.rtl,
                   children: <Widget>[
                     Icon(
-                      Icons.payment,
-                      color: Theme.of(context).iconTheme.color,
-                      size: 20,
+          Icons.monetization_on,
+          color: Theme.of(context).iconTheme.color,
+          size: 15,
                     ),
-                    SizedBox(width: 5),
+                    SizedBox(width: 2),
+                   
                     Text('قیمت ${price.text} ${toure.currency}')
                   ],
                 ),
@@ -78,28 +81,32 @@ class ToureListItem extends StatelessWidget {
                   textDirection: TextDirection.rtl,
                   children: <Widget>[
                     Icon(
-                      Icons.place,
-                      color: Theme.of(context).iconTheme.color,
-                      size: 20,
+          Icons.my_location,
+          color: Theme.of(context).iconTheme.color,
+          size: 15,
                     ),
+                    SizedBox(width: 2),
                     Text('مقصد: ${toure.destination_title}'),
                     SizedBox(
-                      width: 10,
+          width: 10,
                     ),
                     Icon(
-                      Icons.hotel,
-                      color: Theme.of(context).iconTheme.color,
-                      size: 20,
+          Icons.hotel,
+          color: Theme.of(context).iconTheme.color,
+          size: 15,
                     ),
-                    SizedBox(width: 5),
-                    Text('${toure.nights} شب ${toure.days} روز',textDirection: TextDirection.rtl,),
+                    SizedBox(width: 2),
+                    Text(
+          '${toure.nights} شب ${toure.days} روز',
+          textDirection: TextDirection.rtl,
+                    ),
                   ],
                 )
               ],
             ),
-          )
-        ],
-      ),
+        ))
+          ],
+        ),
     );
   }
 }
