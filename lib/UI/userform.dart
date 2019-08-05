@@ -106,7 +106,7 @@ class _UserFormState extends State<UserForm> {
                                 ),
                                 validator: (String value) {
                                   if (value.isEmpty) {
-                                    return 'این فیلد ضروری می باشد';
+                                    return 'ورود نام ضروری است';
                                   }
                                 },
                                 decoration: InputDecoration(
@@ -124,7 +124,7 @@ class _UserFormState extends State<UserForm> {
                                 ),
                                 validator: (String value) {
                                   if (value.isEmpty) {
-                                    return 'این فیلد ضروری می باشد';
+                                    return 'ورود نام خانوادگی ضروری است';
                                   }
                                 },
                                 decoration: InputDecoration(
@@ -141,8 +141,8 @@ class _UserFormState extends State<UserForm> {
                                       .passengers[widget.index].melicode = val,
                                 ),
                                 validator: (String value) {
-                                  if (value.isEmpty) {
-                                    return 'این فیلد ضروری می باشد';
+                                  if (value.isEmpty || value.length < 10) {
+                                    return 'کد ملی حداقل 10 رقم می باشد';
                                   }
                                 },
                                 decoration: InputDecoration(

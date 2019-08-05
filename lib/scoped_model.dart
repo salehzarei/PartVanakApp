@@ -117,7 +117,7 @@ class MainModel extends Model {
   }
 
 //// تابع دیالوگ باکس برای همه برنامه
-  Future<void> ackAlert(BuildContext context, {String massage}) {
+  Future<void> ackAlert(BuildContext context, {String massage, String route }) {
     return showDialog<void>(
       context: context,
       builder: (BuildContext context) {
@@ -125,10 +125,16 @@ class MainModel extends Model {
           textDirection: TextDirection.rtl,
           child: AlertDialog(
             title: Text('شرمنده !'),
-            content: Text(massage != null
+            content: Text(massage == null
                 ? 'متاسفانه هنوز برای این قسمت تور قرار گرفته نشده'
                 : massage),
             actions: <Widget>[
+              route != null
+                  ? FlatButton(
+                      onPressed: () => Navigator.pushNamed(context, route),
+                      child: Text('ورود به اپلیکیشن'),
+                    )
+                  : null,
               FlatButton(
                 child: Text('بستن'),
                 onPressed: () {
@@ -136,6 +142,8 @@ class MainModel extends Model {
                 },
               ),
             ],
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.circular(20.0))),
           ),
         );
       },
@@ -287,7 +295,7 @@ class MainModel extends Model {
 ///////// دریافت اطلاعات تور و هتل ها از سرور
 
   Future getTourData({ToureFilterModel filter}) async {
-     tourelist.clear();
+    tourelist.clear();
     _isLoading = true;
     notifyListeners();
     final response = await http.post(host + 'tours', body: filter.toJson());
@@ -394,7 +402,7 @@ class MainModel extends Model {
 
 ///// ارسال اطلاعات مسافر به سرور
 
-  Future<bool> sendDataToServer(
+  Future<bool> sendDataToServer(BuildContext context,
       {String cell, String tell, String email}) async {
     cart.clear();
     notifyListeners();
@@ -405,30 +413,61 @@ class MainModel extends Model {
         tell: tell,
         email: email,
         paymentType: 7,
+        token: userToken,
         passengers: passengers);
     _isLoading = true;
     notifyListeners();
-    return http
+    print("Cell: " +
+        _cartForOnePassenger.cell +
+        " Email: " +
+        _cartForOnePassenger.email +
+        " Tell: " +
+        _cartForOnePassenger.tell +
+        " TourId: " +
+        _cartForOnePassenger.toure_id.toString() +
+        " HotelId: " +
+        _cartForOnePassenger.hotel_id.toString() +
+        " PaymentType: " +
+        _cartForOnePassenger.paymentType.toString() +
+        " Token: " +
+        _cartForOnePassenger.token +
+        " Passenger id: " +
+        _cartForOnePassenger.passengers[0].id +
+        " Passenger name : " +
+        _cartForOnePassenger.passengers[0].name +
+        " Passenger family : " +
+        _cartForOnePassenger.passengers[0].family +
+        " Passenger gender : " +
+        _cartForOnePassenger.passengers[0].sex +
+        " Passenger nationality : " +
+        _cartForOnePassenger.passengers[0].nationality +
+        " Passenger National_code : " +
+        _cartForOnePassenger.passengers[0].melicode +
+        " Birth_date : " +
+        _cartForOnePassenger.passengers[0].brith +
+        " Ages : " +
+        _cartForOnePassenger.passengers[0].type);
+    await http
         .post(host + 'cart/add', body: json.encode(_cartForOnePassenger))
         .then((http.Response response) {
       if (response.statusCode == 200) {
         print(response.body);
-        _isLoading = false;
-        notifyListeners();
-        return false;
+        final Map<String, dynamic> responseData = json.decode(response.body);
+        if (responseData['error']) {
+          _isLoading = false;
+          _serverCartResponse = responseData['error_msg'];
+          ackAlert(context, massage: _serverCartResponse);
+          notifyListeners();
+          return false;
+        } else {
+          _isLoading = false;
+          _serverCartResponse = responseData['url'];
+          launchURL(_serverCartResponse);
+          print(responseData['url']);
+          notifyListeners();
+          return true;
+        }
       }
-      final Map<String, dynamic> responseData = json.decode(response.body);
-      if (responseData['error']) {
-        _isLoading = false;
-        print(responseData['error_msg']);
-        _serverCartResponse = responseData['error_msg'];
-        notifyListeners();
-        return false;
-      }
-      _isLoading = false;
-      _serverCartResponse = responseData['url'];
-      print(responseData['url']);
-      notifyListeners();
       return true;
     }).catchError((error) {
       _isLoading = false;
