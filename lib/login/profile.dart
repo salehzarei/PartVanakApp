@@ -79,14 +79,16 @@ class _HomePageState extends State<Profile>
                                       bottomLeft: Radius.circular(10),
                                       bottomRight: Radius.circular(10)),
                                   image: DecorationImage(
-                                    fit: BoxFit.cover,
-                                    colorFilter: ColorFilter.mode(
-                                        Colors.white.withOpacity(0.5),
-                                        BlendMode.overlay),
-                                    image: model.userProfile.pic == "" ? AssetImage(
-                                      'images/profile.jpg',
-                                    ) : NetworkImage(model.userProfile.pic)
-                                  )),
+                                      fit: BoxFit.cover,
+                                      colorFilter: ColorFilter.mode(
+                                          Colors.white.withOpacity(0.5),
+                                          BlendMode.lighten),
+                                      image: model.userProfile.pic == ""
+                                          ? AssetImage(
+                                              'images/profile.jpg',
+                                            )
+                                          : NetworkImage(
+                                              model.userProfile.pic))),
                             ),
                             Padding(
                               padding:
@@ -102,7 +104,7 @@ class _HomePageState extends State<Profile>
                                             ""
                                         ? AssetImage('images/air.jpg')
                                         : NetworkImage(model.userProfile.thumb),
-                                    maxRadius: 25,
+                                    maxRadius: 28,
                                   ),
                                   Spacer(
                                     flex: 1,
@@ -127,6 +129,48 @@ class _HomePageState extends State<Profile>
                                 ],
                               ),
                             ),
+                            Padding(
+                              padding: EdgeInsets.only(top: 10, right: 300),
+                              child: IconButton(
+                                  icon: Icon(Icons.exit_to_app),
+                                  color: Colors.black,
+                                  onPressed: () => showDialog<void>(
+                                        context: context,
+                                        builder: (BuildContext context) {
+                                          return Directionality(
+                                            textDirection: TextDirection.rtl,
+                                            child: AlertDialog(
+                                              title: Text('توجه !'),
+                                              content: Text(
+                                                  'مطمعن هستید که می خواهید خارج شوید؟' , style: TextStyle(fontSize: 13),),
+                                              actions: <Widget>[
+                                                FlatButton(
+                                                  onPressed: () => model
+                                                      .setToken(null)
+                                                      .whenComplete(() {
+                                                    Navigator.pushNamed(
+                                                        context, '/');
+                                                  }),
+                                                  child: Text(
+                                                      'خروج از اپلیکیشن'),
+                                                ),
+                                                FlatButton(
+                                                  child: Text('بستن'),
+                                                  onPressed: () {
+                                                    Navigator.of(context).pop();
+                                                  },
+                                                ),
+                                              ],
+                                              shape: RoundedRectangleBorder(
+                                                  borderRadius:
+                                                      BorderRadius.all(
+                                                          Radius.circular(
+                                                              20.0))),
+                                            ),
+                                          );
+                                        },
+                                      )),
+                            )
                           ],
                         ),
                         Expanded(
@@ -148,9 +192,7 @@ class _HomePageState extends State<Profile>
                                       ? Text(model.userProfile.email)
                                       : Text('هنوز ثبت نشده'),
                                   dense: true,
-                                  
                                 ),
-                                
                                 ListTile(
                                   title: Text(
                                     'تاریخ تولد',

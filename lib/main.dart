@@ -21,7 +21,6 @@ import './login/register.dart';
 import './login/check_phone.dart';
 import './pages/firebase.dart';
 import 'login/new_password.dart';
-import './pages/user_profile_page.dart';
 import 'login/profile.dart';
 
 main() {
@@ -81,7 +80,6 @@ main() {
           '/resetpassword': (context) => ResetPassword(),
           '/homepage': (context) => HomePage(),
           '/aboutus': (context) => AboutUs(model),
-          '/userprofile': (context) => UserProfilePage(),
           '/internaltourelist': (context) => ToureListPage(
                 toureType: 1,
               ),

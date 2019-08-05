@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'dart:async';
 import 'package:flutter/services.dart';
-import 'package:uni_links/uni_links.dart';
 import './drawer.dart';
 import 'package:scoped_model/scoped_model.dart';
 import './scoped_model.dart';
@@ -16,8 +15,6 @@ class ChekOut extends StatefulWidget {
   @override
   _ChekOutState createState() => _ChekOutState();
 }
-
-enum UniLinksType { string, uri }
 
 class _ChekOutState extends State<ChekOut> {
   int _single_price = 0;
@@ -107,14 +104,6 @@ class _ChekOutState extends State<ChekOut> {
         _child_price * _childCount +
         _baby_price * _babyCount;
   }
-
-///// Deep Link Test
-
-  String _latestLink = 'Unknown';
-  Uri _latestUri;
-  UniLinksType _type = UniLinksType.string;
-  StreamSubscription _sub;
-
 
 ///// دکمه برگشت
   _onStepCancel(index) {

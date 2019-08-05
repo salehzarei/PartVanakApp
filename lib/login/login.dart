@@ -14,33 +14,7 @@ class _LoginState extends State<Login> {
   TextEditingController _mobile = TextEditingController();
   TextEditingController _pass = TextEditingController();
 
-  Future<void> _ackAlert(BuildContext context, String massage) {
-    return showDialog<void>(
-      context: context,
-      builder: (BuildContext context) {
-        return Directionality(
-          textDirection: TextDirection.rtl,
-          child: AlertDialog(
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(20)
-            ),
-            title: Text('خطا'),
-            content: Text(massage , style: TextStyle(color: Colors.grey , fontSize: 20),),
-            actions: <Widget>[
-              IconButton(
-                icon: Icon(Icons.close),
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-              ),
-            ],
-          ),
-        );
-      },
-    );
-  }
-
-  @override
+    @override
   // integer _size MediaQuery.of(context).size.height/2;
   Widget build(BuildContext context) {
     return ScopedModelDescendant<MainModel>(builder: (context, child, model) {
@@ -107,8 +81,8 @@ class _LoginState extends State<Login> {
                                                 }
                                               });
                                             } else
-                                              _ackAlert(
-                                                  context, model.errorMassage);
+                                              model.ackAlert(
+                                                  context, massage: model.errorMassage );
                                           });
                                         }
                                       }),

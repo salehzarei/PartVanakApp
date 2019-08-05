@@ -117,7 +117,7 @@ class MainModel extends Model {
   }
 
 //// تابع دیالوگ باکس برای همه برنامه
-  Future<void> ackAlert(BuildContext context, {String massage}) {
+  Future<void> ackAlert(BuildContext context, {String massage, String route }) {
     return showDialog<void>(
       context: context,
       builder: (BuildContext context) {
@@ -129,6 +129,12 @@ class MainModel extends Model {
                 ? 'متاسفانه هنوز برای این قسمت تور قرار گرفته نشده'
                 : massage),
             actions: <Widget>[
+              route != null
+                  ? FlatButton(
+                      onPressed: () => Navigator.pushNamed(context, route),
+                      child: Text('ورود به اپلیکیشن'),
+                    )
+                  : null,
               FlatButton(
                 child: Text('بستن'),
                 onPressed: () {
@@ -136,6 +142,8 @@ class MainModel extends Model {
                 },
               ),
             ],
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.circular(20.0))),
           ),
         );
       },
@@ -448,7 +456,7 @@ class MainModel extends Model {
         if (responseData['error']) {
           _isLoading = false;
           _serverCartResponse = responseData['error_msg'];
-          ackAlert(context,massage: _serverCartResponse);
+          ackAlert(context, massage: _serverCartResponse);
           notifyListeners();
           return false;
         } else {
