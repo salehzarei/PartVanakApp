@@ -21,6 +21,7 @@ import './login/check_phone.dart';
 import './pages/firebase.dart';
 import 'login/new_password.dart';
 import 'login/profile.dart';
+import './pages/version_app.dart';
 
 main() {
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
@@ -66,8 +67,14 @@ main() {
         initialRoute: '/',
         routes: {
           '/': (context) => Splash(model: model),
-          // '/': (context) => CheckInternet(),
+           //'/': (context) => Version(),
 
+
+
+
+
+
+          '/version': (context) => Version(),  
           '/grouping': (context) => ExpansionTileSample(),
           '/profile': (context) => Profile(),
           '/bloglist': (context) => BlogList(),

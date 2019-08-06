@@ -35,6 +35,8 @@ dependencies:
   firebase_messaging: ^5.1.0
   shared_preferences: ^0.5.3+4
   flutter_html: ^0.10.4
+  get_version: ^0.1.0
+
 
 
 
