@@ -1,9 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:hello_flutter/pages/check_internet.dart';
 import 'package:hello_flutter/pages/list.dart';
-import 'package:hello_flutter/pages/menu_bar.dart';
 //import './pages/news_list.dart';
 import './pages/blog_list.dart';
 import 'package:scoped_model/scoped_model.dart';
