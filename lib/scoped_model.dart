@@ -296,6 +296,7 @@ class MainModel extends Model {
 
   Future getTourData({ToureFilterModel filter}) async {
     tourelist.clear();
+    specialToureList.clear();
     _isLoading = true;
     notifyListeners();
     final response = await http.post(host + 'tours', body: filter.toJson());
@@ -403,7 +404,7 @@ class MainModel extends Model {
 ///// ارسال اطلاعات مسافر به سرور
 
   Future<bool> sendDataToServer(BuildContext context,
-      {String cell, String tell, String email}) async {
+      {String cell, String tell, String email , int bankId}) async {
     cart.clear();
     notifyListeners();
     CartModel _cartForOnePassenger = CartModel(
@@ -412,7 +413,7 @@ class MainModel extends Model {
         cell: cell,
         tell: tell,
         email: email,
-        paymentType: 7,
+        paymentType: bankId,
         token: userToken,
         passengers: passengers);
     _isLoading = true;

@@ -6,7 +6,8 @@ import './scoped_model.dart';
 
 class BuyTicket extends StatefulWidget {
   final Accommodation hotel;
-  const BuyTicket({Key key, this.hotel}) : super(key: key);
+  final int toureCapacity;
+  const BuyTicket({Key key, this.hotel, this.toureCapacity}) : super(key: key);
 
   @override
   _BuyTicketState createState() => _BuyTicketState();
@@ -17,6 +18,8 @@ class _BuyTicketState extends State<BuyTicket> {
   int _kids = 0;
   int _kidsbed = 0;
   int _baby = 0;
+  bool _overflow = false;
+
   // لیست از تعداد نفرات مسافر - حروف a b c d مشخصه نوع افراد می باشد
   // یک نفر بزرگسال همیشه داخل لیست خواهد بود
   List<String> _personcountList = ['a'];
@@ -34,6 +37,18 @@ class _BuyTicketState extends State<BuyTicket> {
   Widget build(BuildContext context) {
     //// لیست را به ترتیب حروف الفبا مرتب میکنیم
     _personcountList.sort();
+
+    /// اگر تعداد نفرات از ظرفیت زد بالا
+    if (_personcountList.length > widget.toureCapacity) {
+      setState(() {
+        _overflow = true;
+      });
+    } else {
+      setState(() {
+        _overflow = false;
+      });
+    }
+
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Padding(
@@ -304,34 +319,44 @@ class _BuyTicketState extends State<BuyTicket> {
               ],
             ),
             Padding(
-              padding: EdgeInsets.only(top: 12),
-              child: Text(
-                'تعداد $_bigPerson بزرگسال و $_kids کودک و $_baby نوزاد انتخاب شد',
-                textAlign: TextAlign.center,
-              ),
-            ),
+                padding: EdgeInsets.only(top: 12),
+                child: _overflow
+                    ? Text(
+                        'تعداد نفرات انتخاب شده از ظرفیت تور بیشتر است !',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(color: Colors.red),
+                      )
+                    : Text(
+                        'تعداد $_bigPerson بزرگسال و $_kids کودک و $_baby نوزاد انتخاب شد',
+                        textAlign: TextAlign.center,
+                      )),
             Padding(
               padding: EdgeInsets.only(top: 15),
-              child: MaterialButton(
-                onPressed: () => Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => Passenger(
-                        personcount: _personcountList,
-                      ),
-                    )),
-                minWidth: 300,
-                padding: EdgeInsets.symmetric(vertical: 15),
-                child: Text(
-                  'تایید و ثبت مشخصات مسافران',
-                  style: TextStyle(fontSize: 18, color: Colors.white),
+              child: IgnorePointer(
+                ignoring: _overflow,
+                child: MaterialButton(
+                  onPressed: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => Passenger(
+                          personcount: _personcountList,
+                        ),
+                      )),
+                  minWidth: 300,
+                  padding: EdgeInsets.symmetric(vertical: 15),
+                  child: Text(
+                    'تایید و ثبت مشخصات مسافران',
+                    style: TextStyle(fontSize: 18, color: Colors.white),
+                  ),
+                  elevation: 2,
+                  color: _overflow
+                      ? Theme.of(context).buttonColor.withOpacity(0.5)
+                      : Theme.of(context).buttonColor,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8)),
                 ),
-                elevation: 2,
-                color: Theme.of(context).buttonColor,
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8)),
               ),
-            )
+            ),
           ],
         ),
       ),

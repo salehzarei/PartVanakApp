@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'dart:async';
+import 'package:scoped_model/scoped_model.dart';
 import 'package:flutter/services.dart';
 import './drawer.dart';
-import 'package:scoped_model/scoped_model.dart';
 import './scoped_model.dart';
 import './model/passenger_model.dart';
+import './model/bank_model.dart';
 
 class ChekOut extends StatefulWidget {
   final List<PassengerModel> passengerlist;
@@ -30,9 +30,12 @@ class _ChekOutState extends State<ChekOut> {
   int _babyCount = 0;
   int _totalPrice = 0;
   int _currrentStep = 0;
+  int _bankId;
   bool _visible = false;
   bool _finalStep = false;
+  StepState _stepState = StepState.indexed;
   GlobalKey<FormState> _key;
+
   TextEditingController _phone = TextEditingController();
   TextEditingController _mobile = TextEditingController();
   TextEditingController _email = TextEditingController();
@@ -43,7 +46,13 @@ class _ChekOutState extends State<ChekOut> {
 
     /// خواندن مدل هتل انتخاب شده برای مقداردهی اولیه قیمت ها
     MainModel _model = ScopedModel.of(context);
+    _model.getBankData().whenComplete(() {
+      _bankId = _model.bankList[0].bankid;
+    });
 
+    /// مقدار دهی اولین درگاه بانکی
+
+    /// مقدار دهی اولیه قیمت تورها
     _model.tourelist.forEach((toure) {
       toure.accommodation.forEach((acc) {
         if (acc.accommodation_id.toString() == _model.tmpCartData['HotelID']) {
@@ -116,11 +125,11 @@ class _ChekOutState extends State<ChekOut> {
   //// دکمه تایید
   _onStepContinue(index) {
     setState(() {
-      if (index < 2) {
+      if (index < 3) {
         _currrentStep++;
         _visible = true;
       }
-      if (index + 1 == 2) _finalStep = true;
+      if (index + 1 == 3) _finalStep = true;
     });
   }
 
@@ -128,12 +137,12 @@ class _ChekOutState extends State<ChekOut> {
   _onStepTapped(index) {
     setState(() {
       _currrentStep = index;
-      if (index < 2 && index > 0) {
+      if (index < 3 && index > 0) {
         _visible = true;
         _finalStep = false;
       } else if (index == 0)
         _visible = false;
-      else if (index == 2) _finalStep = true;
+      else if (index == 3) _finalStep = true;
     });
   }
 
@@ -163,83 +172,117 @@ class _ChekOutState extends State<ChekOut> {
               body: Container(
                   padding: EdgeInsets.all(5.0),
                   child: Stepper(
-                    type: StepperType.vertical,
-                    currentStep: _currrentStep,
-                    controlsBuilder: (
-                      BuildContext context, {
-                      VoidCallback onStepContinue,
-                      VoidCallback onStepCancel,
-                    }) {
-                      return _finalStep
-                          ? RaisedButton(
-                              color: Colors.greenAccent,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(15),
-                              ),
-                              onPressed: () => model.sendDataToServer(context,
-                                  cell: _mobile.text,
-                                  email: _email.text,
-                                  tell: _phone.text),
-                              child: model.isLoading
-                                  ? CircularProgressIndicator()
-                                  : Text('پرداخت صورتحساب'),
-                            )
-                          : Row(
-                              mainAxisSize: MainAxisSize.max,
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: <Widget>[
-                                Visibility(
-                                  visible: _visible,
-                                  child: RaisedButton(
+                      type: StepperType.vertical,
+                      currentStep: _currrentStep,
+                      controlsBuilder: (
+                        BuildContext context, {
+                        VoidCallback onStepContinue,
+                        VoidCallback onStepCancel,
+                      }) {
+                        return _finalStep
+                            ? RaisedButton(
+                                color: Colors.greenAccent,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(15),
+                                ),
+                                onPressed: () => model.sendDataToServer(context,
+                                    cell: _mobile.text,
+                                    email: _email.text,
+                                    tell: _phone.text,
+                                    bankId: _bankId),
+                                child: model.isLoading
+                                    ? CircularProgressIndicator()
+                                    : Text('پرداخت صورتحساب'),
+                              )
+                            : Row(
+                                mainAxisSize: MainAxisSize.max,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: <Widget>[
+                                  Visibility(
+                                    visible: _visible,
+                                    child: RaisedButton(
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(15),
+                                      ),
+                                      onPressed: onStepCancel,
+                                      child: const Text('برگشت'),
+                                    ),
+                                  ),
+                                  RaisedButton(
+                                    color: Theme.of(context).buttonColor,
+                                    onPressed: onStepContinue,
                                     shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(15),
                                     ),
-                                    onPressed: onStepCancel,
-                                    child: const Text('برگشت'),
+                                    child: const Text('تایید'),
                                   ),
-                                ),
-                                RaisedButton(
-                                  color: Theme.of(context).buttonColor,
-                                  onPressed: onStepContinue,
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(15),
-                                  ),
-                                  child: const Text('تایید'),
-                                ),
-                              ],
-                            );
-                    },
-                    onStepCancel: () => _onStepCancel(_currrentStep),
-                    onStepContinue: () => _onStepContinue(_currrentStep),
-                    onStepTapped: (index) => _onStepTapped(index),
-                    steps: [
-                      otherPassenger(context, widget.passengerlist),
-                      factor(context,
-                          adult_price: model.fixPrice(_adult_price.toString()),
-                          adultCount: _adultCount,
-                          baby_price: model.fixPrice(_baby_price.toString()),
-                          babyCount: _babyCount,
-                          child_price_bed:
-                              model.fixPrice(_child_price_bed.toString()),
-                          childbedCount: _childbedCount,
-                          currency: _currency,
-                          single_price:
-                              model.fixPrice(_single_price.toString()),
-                          singleCount: _singleCount,
-                          totalPrice: model.fixPrice(_totalPrice.toString())),
-                      pay(context, _email, _mobile, _phone, _key),
-                    ],
-                  ))),
+                                ],
+                              );
+                      },
+                      onStepCancel: () => _onStepCancel(_currrentStep),
+                      onStepContinue: () => _onStepContinue(_currrentStep),
+                      onStepTapped: (index) => _onStepTapped(index),
+                      steps: [
+                        otherPassenger(
+                            context, widget.passengerlist, _currrentStep),
+                        factor(context, _currrentStep,
+                            adult_price:
+                                model.fixPrice(_adult_price.toString()),
+                            adultCount: _adultCount,
+                            baby_price: model.fixPrice(_baby_price.toString()),
+                            babyCount: _babyCount,
+                            child_price_bed:
+                                model.fixPrice(_child_price_bed.toString()),
+                            childbedCount: _childbedCount,
+                            currency: _currency,
+                            single_price:
+                                model.fixPrice(_single_price.toString()),
+                            singleCount: _singleCount,
+                            totalPrice: model.fixPrice(_totalPrice.toString())),
+                        contactinfo(context, _email, _mobile, _phone, _key,
+                            _currrentStep),
+                        Step(
+                            state: _currrentStep <= 3
+                                ? StepState.indexed
+                                : StepState.complete,
+                            title: Text('انتخاب درگاه بانکی'),
+                            content: ButtonBar(
+                                alignment: MainAxisAlignment.start,
+                                children: List.generate(
+                                    model.bankList.length,
+                                    (index) => Wrap(
+                                          crossAxisAlignment:
+                                              WrapCrossAlignment.center,
+                                          children: <Widget>[
+                                            Radio(
+                                              value:
+                                                  model.bankList[index].bankid,
+                                              groupValue: _bankId,
+                                              onChanged: (val) {
+                                                setState(() {
+                                                  _bankId = model
+                                                      .bankList[val].bankid;
+                                                });
+                                              },
+                                            ),
+                                            Text('درگاه بانکی ' +
+                                                model
+                                                    .bankList[index].bankTitle),
+                                          ],
+                                        ))))
+                      ]))),
         );
       },
     );
   }
 }
 
-Step otherPassenger(BuildContext context, List<PassengerModel> passengerList) {
+Step otherPassenger(
+    BuildContext context, List<PassengerModel> passengerList, _stepState) {
   return Step(
+      state: _stepState <= 0 ? StepState.indexed : StepState.complete,
       title: Text('مشخصات ${passengerList.length} مسافر این تور'),
-      isActive: true,
       content: Directionality(
         textDirection: TextDirection.rtl,
         child: SizedBox(
@@ -278,7 +321,7 @@ Step otherPassenger(BuildContext context, List<PassengerModel> passengerList) {
       ));
 }
 
-Step factor(BuildContext context,
+Step factor(BuildContext context, _stepState,
     {singleCount,
     single_price,
     currency,
@@ -290,8 +333,8 @@ Step factor(BuildContext context,
     adult_price,
     totalPrice}) {
   return Step(
+    state: _stepState <= 1 ? StepState.indexed : StepState.complete,
     title: Text('صورتحساب هزینه ها براساس نفرات'),
-    isActive: true,
     content: Padding(
         padding: const EdgeInsets.only(top: 5),
         child: Column(
@@ -453,8 +496,10 @@ Step factor(BuildContext context,
   );
 }
 
-Step pay(BuildContext context, _email, _mobile, _phone, Key _key) {
+Step contactinfo(
+    BuildContext context, _email, _mobile, _phone, Key _key, _stepState) {
   return Step(
+      state: _stepState <= 2 ? StepState.indexed : StepState.complete,
       title: Text('ثبت اطلاعات تماس'),
       content: Center(
           child: Form(
