@@ -22,10 +22,14 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     super.initState();
     fetchToure(0);
+     
   }
 
   fetchToure(int index) {
     MainModel model = ScopedModel.of(context);
+   
+   model.getVersionData(context);
+   
     ToureFilterModel _filter = ToureFilterModel(
         foreign: model.touretypes[index]['foregin'],
         special: model.touretypes[index]['special']);

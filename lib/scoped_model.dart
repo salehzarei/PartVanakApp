@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:get_version/get_version.dart';
 import 'package:hello_flutter/model/tourefilter_model.dart';
 import 'package:hello_flutter/model/user_model.dart';
 import 'package:scoped_model/scoped_model.dart';
@@ -15,12 +16,13 @@ import './model/bank_model.dart';
 import './model/cart_model.dart';
 import './model/about_model.dart';
 import './model/accommodation_model.dart';
-import 'model/version_model.dart';
+import 'model/order_model.dart';
 
 class MainModel extends Model {
   final String host = 'https://safirparvaz.ir/tourapi/';
   List<Toure> tourelist = [];
   List<Toure> specialToureList = [];
+  List<OrderModel> userOrders = [];
   List<Banks> bankList = [];
   List<CartModel> cart = [];
   List<ContactSubject> contactSubjectList = [];
@@ -54,7 +56,7 @@ class MainModel extends Model {
       'title': 'تورهای یکروزه',
       'pushNamed': '/onedaytourelist',
       'foregin': '',
-      'special': ''
+      'special': '3'
     },
     {
       'title': 'تورهای لحظه آخری',
@@ -118,7 +120,23 @@ class MainModel extends Model {
   }
 
 //// تابع دیالوگ باکس برای همه برنامه
-  Future<void> ackAlert(BuildContext context, {String massage, String route }) {
+  Future<void> ackAlert(BuildContext context,
+      {String massage, String route, String url}) {
+    isUrl(route, url) {
+      if (url != null) {
+        return FlatButton(
+          onPressed: () => launchURL(url),
+          child: Text('به روزرسانی'),
+        );
+      } else if (route != null) {
+        return FlatButton(
+          onPressed: () => Navigator.pushNamed(context, route),
+          child: Text('ورود به اپلیکیشن'),
+        );
+      } else
+        return null;
+    }
+
     return showDialog<void>(
       context: context,
       builder: (BuildContext context) {
@@ -130,12 +148,7 @@ class MainModel extends Model {
                 ? 'متاسفانه هنوز برای این قسمت تور قرار گرفته نشده'
                 : massage),
             actions: <Widget>[
-              route != null
-                  ? FlatButton(
-                      onPressed: () => Navigator.pushNamed(context, route),
-                      child: Text('ورود به اپلیکیشن'),
-                    )
-                  : null,
+              isUrl(route, url),
               FlatButton(
                 child: Text('بستن'),
                 onPressed: () {
@@ -163,6 +176,30 @@ class MainModel extends Model {
     passengers.removeAt(index);
     userFormKey.removeAt(index);
     notifyListeners();
+  }
+
+///////// چک کردن ورژن اپلیکیشن
+
+  Future<bool> getVersionData(BuildContext context) async {
+    String currentversion = await GetVersion.projectVersion;
+
+    _isLoading = true;
+    notifyListeners();
+    final response = await http.get(host + 'app/update');
+
+    if (response.statusCode == 200) {
+      Map<dynamic, dynamic> data = json.decode(response.body);
+      print(data);
+      print(currentversion);
+      _isLoading = false;
+      if (currentversion != data['version'])
+        ackAlert(context,
+            url: data['download_link'], massage: 'ورژن شما قدیمی است');
+      notifyListeners();
+      return true;
+    } else {
+      throw Exception('خطا اتصال به دیتابیس');
+    }
   }
 
 ///////// دریافت و چک کردن اطلاعات لاگین از سرور
@@ -293,11 +330,31 @@ class MainModel extends Model {
     }
   }
 
+  ///// دریافت تراکنش های کاربر
+  Future getUserOrder() async {
+    userFormKey.clear();
+    _isLoading = true;
+    notifyListeners();
+    final response = await http.post(host + 'orders',
+        encoding: Encoding.getByName('utf-8'), body: {'token': userToken});
+    if (response.statusCode == 200) {
+      final Map<String, dynamic> responseData = json.decode(response.body);
+      print(responseData['post']);
+      List<OrderModel> orders = (responseData['post'] as List)
+          .map((i) => OrderModel.fromJson(i))
+          .toList();
+
+      _isLoading = false;
+      userOrders = orders;
+      notifyListeners();
+    }
+  }
+
 ///////// دریافت اطلاعات تور و هتل ها از سرور
 
   Future getTourData({ToureFilterModel filter}) async {
     tourelist.clear();
-    specialToureList.clear();
+    if (filter.special == '1') specialToureList.clear();
     _isLoading = true;
     notifyListeners();
     final response = await http.post(host + 'tours', body: filter.toJson());
@@ -330,10 +387,12 @@ class MainModel extends Model {
               .map((i) => Accommodation.fromJson(i))
               .toList(),
         );
+
         if (filter.special == '1') specialToureList.add(_toure);
         tourelist.add(_toure);
         notifyListeners();
       });
+
       _isLoading = false;
       notifyListeners();
       return tourelist;
@@ -366,13 +425,6 @@ class MainModel extends Model {
 
   /// دریافت اصلاعات موضوع تماس از سرور
   Future<bool> fetchSubject() async {
-    //  ContactSubject _contactSubjectList=ContactSubject();
-    // for(int i=1; i<5 ;i++){
-    //     contactSubjectList.add({'id':
-    //       i.toString() ,'title':  'موضوع '+i.toString()});
-    //     notifyListeners();
-    // }
-    // return true;
     contactSubjectList.clear();
     _isLoading = true;
     notifyListeners();
@@ -405,7 +457,7 @@ class MainModel extends Model {
 ///// ارسال اطلاعات مسافر به سرور
 
   Future<bool> sendDataToServer(BuildContext context,
-      {String cell, String tell, String email , int bankId}) async {
+      {String cell, String tell, String email, int bankId}) async {
     cart.clear();
     notifyListeners();
     CartModel _cartForOnePassenger = CartModel(
@@ -512,14 +564,6 @@ class MainModel extends Model {
   Future<bool> addComment(Map<String, dynamic> contactData) {
     _isLoading = true;
     notifyListeners();
-    // {
-    //     'token': contactData['token'],
-    //     'name': contactData['name'],
-    //     'email': contactData['email'],
-    //     'cell': contactData['cell'],
-    //     'message': contactData['message'],
-    //     'bId': contactData['bId']
-    //     }
     return http
         .post(host + 'blog/addcomment',
             encoding: Encoding.getByName('utf-8'), body: contactData)
@@ -552,7 +596,6 @@ class MainModel extends Model {
     _isLoading = true;
     notifyListeners();
     final response = await http.get(host + 'about');
-
     if (response.statusCode == 200) {
       Map<String, dynamic> data = json.decode(response.body);
       aboutmodel = AboutModel(
@@ -574,27 +617,4 @@ class MainModel extends Model {
       throw Exception('خطا اتصال به دیتابیس');
     }
   }
-
-
-//دریافت ورژن نرم افزار از سرور
-
-//  Future<bool> getVersionData() async {
-//     _isLoading = true;
-//     notifyListeners();
-//     final response = await http.get(host + 'version');
-
-//     if (response.statusCode == 200) {
-//       Map<int, dynamic> data = json.decode(response.body);
-//       aboutmodel = VersionModel(
-//         newversion:data['Newversion']
-//       );
-//       _isLoading = false;
-//       notifyListeners();
-//       return true;
-//     } else {
-//       throw Exception('خطا اتصال به دیتابیس');
-//     }
-//   }
-
-
 }
