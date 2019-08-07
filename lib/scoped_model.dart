@@ -15,6 +15,7 @@ import './model/bank_model.dart';
 import './model/cart_model.dart';
 import './model/about_model.dart';
 import './model/accommodation_model.dart';
+import 'model/version_model.dart';
 
 class MainModel extends Model {
   final String host = 'https://safirparvaz.ir/tourapi/';
@@ -573,4 +574,27 @@ class MainModel extends Model {
       throw Exception('خطا اتصال به دیتابیس');
     }
   }
+
+
+//دریافت ورژن نرم افزار از سرور
+
+//  Future<bool> getVersionData() async {
+//     _isLoading = true;
+//     notifyListeners();
+//     final response = await http.get(host + 'version');
+
+//     if (response.statusCode == 200) {
+//       Map<int, dynamic> data = json.decode(response.body);
+//       aboutmodel = VersionModel(
+//         newversion:data['Newversion']
+//       );
+//       _isLoading = false;
+//       notifyListeners();
+//       return true;
+//     } else {
+//       throw Exception('خطا اتصال به دیتابیس');
+//     }
+//   }
+
+
 }

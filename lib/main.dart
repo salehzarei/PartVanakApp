@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:hello_flutter/pages/check_update.dart';
 import 'package:hello_flutter/pages/list.dart';
 //import './pages/news_list.dart';
 import './pages/blog_list.dart';
@@ -67,15 +68,15 @@ main() {
         ),
         initialRoute: '/',
         routes: {
-          '/': (context) => Splash(model: model),
-           //'/': (context) => Version(),
+         // '/': (context) => Splash(model: model),
+           '/': (context) => CheckUpdate(),
 
 
 
 
 
 
-          '/version': (context) => Version(),  
+          '/versionapp': (context) => Version(),  
           '/grouping': (context) => ExpansionTileSample(),
           '/profile': (context) => Profile(),
           '/bloglist': (context) => BlogList(),
