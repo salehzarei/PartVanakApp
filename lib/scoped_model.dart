@@ -15,11 +15,13 @@ import './model/bank_model.dart';
 import './model/cart_model.dart';
 import './model/about_model.dart';
 import './model/accommodation_model.dart';
+import 'model/order_model.dart';
 
 class MainModel extends Model {
   final String host = 'https://safirparvaz.ir/tourapi/';
   List<Toure> tourelist = [];
   List<Toure> specialToureList = [];
+  List<OrderModel> userOrders = [];
   List<Banks> bankList = [];
   List<CartModel> cart = [];
   List<ContactSubject> contactSubjectList = [];
@@ -117,7 +119,7 @@ class MainModel extends Model {
   }
 
 //// تابع دیالوگ باکس برای همه برنامه
-  Future<void> ackAlert(BuildContext context, {String massage, String route }) {
+  Future<void> ackAlert(BuildContext context, {String massage, String route}) {
     return showDialog<void>(
       context: context,
       builder: (BuildContext context) {
@@ -292,11 +294,31 @@ class MainModel extends Model {
     }
   }
 
+  ///// دریافت تراکنش های کاربر
+  Future getUserOrder() async {
+    userFormKey.clear();
+    _isLoading = true;
+    notifyListeners();
+    final response = await http.post(host + 'orders',
+        encoding: Encoding.getByName('utf-8'), body: {'token': userToken});
+    if (response.statusCode == 200) {
+      final Map<String, dynamic> responseData = json.decode(response.body);
+      print(responseData['post']);
+      // userProfile = UserModel.fromJson(responseData['post']);
+      List<OrderModel> orders = (responseData['post'] as List)
+          .map((i) => OrderModel.fromJson(i))
+          .toList();
+
+      _isLoading = false;
+      userOrders = orders;
+      notifyListeners();
+    }
+  }
+
 ///////// دریافت اطلاعات تور و هتل ها از سرور
 
   Future getTourData({ToureFilterModel filter}) async {
     tourelist.clear();
-    specialToureList.clear();
     _isLoading = true;
     notifyListeners();
     final response = await http.post(host + 'tours', body: filter.toJson());
@@ -365,13 +387,6 @@ class MainModel extends Model {
 
   /// دریافت اصلاعات موضوع تماس از سرور
   Future<bool> fetchSubject() async {
-    //  ContactSubject _contactSubjectList=ContactSubject();
-    // for(int i=1; i<5 ;i++){
-    //     contactSubjectList.add({'id':
-    //       i.toString() ,'title':  'موضوع '+i.toString()});
-    //     notifyListeners();
-    // }
-    // return true;
     contactSubjectList.clear();
     _isLoading = true;
     notifyListeners();
@@ -404,7 +419,7 @@ class MainModel extends Model {
 ///// ارسال اطلاعات مسافر به سرور
 
   Future<bool> sendDataToServer(BuildContext context,
-      {String cell, String tell, String email , int bankId}) async {
+      {String cell, String tell, String email, int bankId}) async {
     cart.clear();
     notifyListeners();
     CartModel _cartForOnePassenger = CartModel(
@@ -511,14 +526,6 @@ class MainModel extends Model {
   Future<bool> addComment(Map<String, dynamic> contactData) {
     _isLoading = true;
     notifyListeners();
-    // {
-    //     'token': contactData['token'],
-    //     'name': contactData['name'],
-    //     'email': contactData['email'],
-    //     'cell': contactData['cell'],
-    //     'message': contactData['message'],
-    //     'bId': contactData['bId']
-    //     }
     return http
         .post(host + 'blog/addcomment',
             encoding: Encoding.getByName('utf-8'), body: contactData)
@@ -551,7 +558,6 @@ class MainModel extends Model {
     _isLoading = true;
     notifyListeners();
     final response = await http.get(host + 'about');
-
     if (response.statusCode == 200) {
       Map<String, dynamic> data = json.decode(response.body);
       aboutmodel = AboutModel(
