@@ -57,7 +57,7 @@ class ToureDetilePage extends StatelessWidget {
                   return HotelDetiles(
                     hotel: toure.accommodation[index],
                     currency: toure.currency,
-                    toureId: toure.id.toString(),
+                    toure: toure,
                     );
                 }, childCount: toure.accommodation.length),
               ),
@@ -80,7 +80,7 @@ class ToureTitleBar extends StatelessWidget {
         Opacity(
             opacity: 0.25, child: Image.network(toure.pic, fit: BoxFit.cover)),
         Padding(
-          padding: const EdgeInsets.only(top: 35),
+          padding: const EdgeInsets.only(top: 39),
           child: Column(
             children: <Widget>[
               Row(
@@ -100,8 +100,9 @@ class ToureTitleBar extends StatelessWidget {
                         ),
                         Text(
                           toure.source_title,
+                          maxLines: 1,
                           style: TextStyle(
-                              fontSize: 25,
+                              fontSize: 20,
                               fontWeight: FontWeight.bold,
                               color: Theme.of(context).accentColor),
                         ),
@@ -140,8 +141,10 @@ class ToureTitleBar extends StatelessWidget {
                         ),
                         Text(
                           toure.destination_title,
+                          
+                          maxLines: 1,
                           style: TextStyle(
-                              fontSize: 25,
+                              fontSize: 20,
                               fontWeight: FontWeight.bold,
                               color: Theme.of(context).accentColor),
                         ),
@@ -150,6 +153,7 @@ class ToureTitleBar extends StatelessWidget {
                   ),
                 ],
               ),
+              SizedBox(height: 15),
               Text(
                 toure.sdate,
                 style: Theme.of(context)
@@ -158,7 +162,7 @@ class ToureTitleBar extends StatelessWidget {
                     .copyWith(fontSize: 15, color: Colors.grey.shade200),
               ),
               SizedBox(
-                height: 15,
+                height: 10,
               ),
               Detiles(toure: toure)
             ],
