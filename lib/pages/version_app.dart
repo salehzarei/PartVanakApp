@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:get_version/get_version.dart';
 import 'package:hello_flutter/drawer.dart';
 
+
 void main() => runApp(Version());
 
 class Version extends StatefulWidget {
@@ -134,6 +135,7 @@ class _VersionState extends State<Version> {
               //   title: const Text('نام پروژه'),
               //   subtitle: Text(_projectAppID),
               // ),
+              
             ],
           ),
         ),

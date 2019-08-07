@@ -18,10 +18,11 @@ import './login/login.dart';
 import './login/reset_password.dart';
 import './login/register.dart';
 import './login/check_phone.dart';
-import './pages/firebase.dart';
+//import './pages/firebase.dart';
 import 'login/new_password.dart';
 import 'login/profile.dart';
 import './pages/version_app.dart';
+
 
 main() {
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
@@ -79,7 +80,7 @@ main() {
           '/profile': (context) => Profile(),
           '/bloglist': (context) => BlogList(),
           '/newpassword': (context) => NewPassword(),
-          '/firebase': (context) => Messagingwidget(),
+         // '/firebase': (context) => Messagingwidget(),
           '/checkphone': (context) => CheckPhone(),
           '/login': (context) => Login(),
           '/register': (context) => Register(),
@@ -115,4 +116,5 @@ main() {
               ),
         }),
   ));
+  
 }
