@@ -149,28 +149,28 @@ class _BlogListState extends State<BlogList> {
           )
         : Stack(textDirection: TextDirection.rtl, children: <Widget>[
           makeList(list),
-          Container(
-            color: Colors.white,
-            height: 45,
-            child: Padding(
-              padding: const EdgeInsets.only(top: 10, right: 5),
-              child: Row(
-                textDirection: TextDirection.rtl,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: <Widget>[
-                  GestureDetector(onTap: (){Navigator.pushNamed(context, '/grouping');},
-                                      child: Row(
-                      children: <Widget>[
-                        Text("دسته بندی"),
-                        Icon(Icons.filter_list),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          )
+          // Container(
+          //   color: Colors.white,
+          //   height: 45,
+          //   child: Padding(
+          //     padding: const EdgeInsets.only(top: 10, right: 5),
+          //     child: Row(
+          //       textDirection: TextDirection.rtl,
+          //       crossAxisAlignment: CrossAxisAlignment.start,
+          //       mainAxisAlignment: MainAxisAlignment.start,
+          //       children: <Widget>[
+          //         GestureDetector(onTap: (){Navigator.pushNamed(context, '/grouping');},
+          //                             child: Row(
+          //             children: <Widget>[
+          //               Text("دسته بندی"),
+          //               Icon(Icons.filter_list),
+          //             ],
+          //           ),
+          //         ),
+          //       ],
+          //     ),
+          //   ),
+          // )
         ]),
       ),
     );

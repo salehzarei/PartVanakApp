@@ -1,8 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:hello_flutter/pages/list.dart';
-//import './pages/news_list.dart';
 import './pages/blog_list.dart';
 import 'package:scoped_model/scoped_model.dart';
 import './buyticket.dart';
@@ -18,10 +16,8 @@ import './login/login.dart';
 import './login/reset_password.dart';
 import './login/register.dart';
 import './login/check_phone.dart';
-//import './pages/firebase.dart';
 import 'login/new_password.dart';
 import 'login/profile.dart';
-import './pages/version_app.dart';
 
 
 main() {
@@ -75,8 +71,6 @@ main() {
 
 
 
-          '/versionapp': (context) => Version(),  
-          '/grouping': (context) => ExpansionTileSample(),
           '/profile': (context) => Profile(),
           '/bloglist': (context) => BlogList(),
           '/newpassword': (context) => NewPassword(),

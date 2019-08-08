@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get_version/get_version.dart';
+import 'package:flutter/services.dart';
 import './scoped_model.dart';
 import 'package:scoped_model/scoped_model.dart';
 import './Theme/drawerTheme.dart';
@@ -6,8 +8,33 @@ import './coustomIcon/toure_icons_icons.dart';
 import './coustomIcon/loginicon_icons.dart';
 import './pages/userprofile.dart';
 
-class MyDrawer extends StatelessWidget {
+class MyDrawer extends StatefulWidget {
   @override
+  _MyDrawerState createState() => _MyDrawerState();
+}
+
+class _MyDrawerState extends State<MyDrawer> {
+  String _projectVersion = '';
+  initState() {
+    super.initState();
+    initPlatformState();
+  }
+  @override
+  initPlatformState() async {
+    String projectVersion;
+    // Platform messages may fail, so we use a try/catch PlatformException.
+    try {
+      projectVersion = await GetVersion.projectVersion;
+    } on PlatformException {
+      projectVersion = 'Failed to get project version.';
+    }
+  
+    if (!mounted) return;
+
+    setState(() {
+      _projectVersion = projectVersion;
+    });
+  }
   Widget build(BuildContext context) {
     return ScopedModelDescendant<MainModel>(builder: (context, child, model) {
       return Material(
@@ -198,8 +225,8 @@ class MyDrawer extends StatelessWidget {
                             ),
                           )),
                       GestureDetector(
-                          onTap: () => Navigator.pushNamed(
-                              context, '/onedaytourelist'),
+                          onTap: () =>
+                              Navigator.pushNamed(context, '/onedaytourelist'),
                           child: Container(
                             padding:
                                 EdgeInsets.only(top: 15.0, left: 15, right: 20),
@@ -209,23 +236,20 @@ class MyDrawer extends StatelessWidget {
                                   padding: const EdgeInsets.only(left: 8.0),
                                   child: Icon(
                                     ToureIcons.first_day,
-                                    color: Theme.of(context)
-                                        .accentColor
-                                        ,
+                                    color: Theme.of(context).accentColor,
                                   ),
                                 ),
                                 Text(
                                   'تور های یکروزه',
                                   style: DarwerThemeData.textTheme.title
-                                      .copyWith(
-                                          color: Colors.white),
+                                      .copyWith(color: Colors.white),
                                 ),
                               ],
                             ),
                           )),
 
                       GestureDetector(
-                          onTap: ()=> Navigator.pushNamed(
+                          onTap: () => Navigator.pushNamed(
                               context, '/lassecondtourelist'),
                           child: Container(
                             padding:
@@ -236,23 +260,20 @@ class MyDrawer extends StatelessWidget {
                                   padding: const EdgeInsets.only(left: 8.0),
                                   child: Icon(
                                     ToureIcons.stopwatch,
-                                    color: Theme.of(context)
-                                        .accentColor
-                                        ,
+                                    color: Theme.of(context).accentColor,
                                   ),
                                 ),
                                 Text(
                                   'تور های لحظه آخری',
                                   style: DarwerThemeData.textTheme.title
-                                      .copyWith(
-                                          color: Colors.white),
+                                      .copyWith(color: Colors.white),
                                 ),
                               ],
                             ),
                           )),
                       GestureDetector(
-                          onTap: ()=> Navigator.pushNamed(
-                              context, '/specialtourelist'),
+                          onTap: () =>
+                              Navigator.pushNamed(context, '/specialtourelist'),
                           child: Container(
                             padding:
                                 EdgeInsets.only(top: 15.0, left: 15, right: 20),
@@ -262,16 +283,13 @@ class MyDrawer extends StatelessWidget {
                                   padding: const EdgeInsets.only(left: 8.0),
                                   child: Icon(
                                     ToureIcons.guarantees,
-                                    color: Theme.of(context)
-                                        .accentColor
-                                        ,
+                                    color: Theme.of(context).accentColor,
                                   ),
                                 ),
                                 Text(
                                   'تور های ویژه',
                                   style: DarwerThemeData.textTheme.title
-                                      .copyWith(
-                                          color: Colors.white),
+                                      .copyWith(color: Colors.white),
                                 ),
                               ],
                             ),
@@ -395,7 +413,7 @@ class MyDrawer extends StatelessWidget {
                           )),
                       GestureDetector(
                           onTap: () {
-                           Navigator.pushNamed(context, '/contactUs');
+                            Navigator.pushNamed(context, '/contactUs');
                           },
                           child: Container(
                             padding:
@@ -416,30 +434,8 @@ class MyDrawer extends StatelessWidget {
                               ],
                             ),
                           )),
-                          GestureDetector(
-                          onTap: () {
-                           Navigator.pushNamed(context, '/versionapp');
-                          },
-                          child: Container(
-                            padding:
-                                EdgeInsets.only(top: 15.0, left: 15, right: 20),
-                            child: Row(
-                              children: <Widget>[
-                                Padding(
-                                  padding: const EdgeInsets.only(left: 8.0),
-                                  child: Icon(
-                                    Icons.info,
-                                    color: Theme.of(context).accentColor,
-                                  ),
-                                ),
-                                Text(
-                                  'نسخه نرم افزار',
-                                  style: DarwerThemeData.textTheme.title,
-                                )
-                              ],
-                            ),
-                          )),
-                        Container(
+                      
+                      Container(
                         margin: EdgeInsets.only(top: 20, left: 15.0, right: 15),
                         height: 1,
                         decoration: BoxDecoration(
@@ -462,6 +458,24 @@ class MyDrawer extends StatelessWidget {
                   color: Theme.of(context).accentColor.withOpacity(0.3),
                   height: 100,
                 ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(bottom: 5, top: 15, right: 10),
+              child: Column(
+                children: <Widget>[
+                  Row(
+                    children: <Widget>[
+                      Container(
+                        child: Text('نسخه نرم افزار:',style: TextStyle(fontSize: 15,color: Colors.white),),
+                      ),
+                      SizedBox(
+                        width: 10,
+                      ),
+                      Container(child: Text(_projectVersion,style: TextStyle(fontSize: 15,color: Colors.white,),)
+                       ) ],
+                  )
+                ],
               ),
             ),
           ],
