@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../model/toure_model.dart';
 import 'package:scoped_model/scoped_model.dart';
 import '../../model/accommodation_model.dart';
 import '../../scoped_model.dart';
@@ -7,22 +8,23 @@ import '../../coustomIcon/toure_icons_icons.dart';
 
 class HotelDetiles extends StatelessWidget {
   final Accommodation hotel;
-  final String currency, toureId;
-  const HotelDetiles({Key key, this.hotel, this.currency, this.toureId})
+  final Toure toure;
+  final String currency;
+  const HotelDetiles({Key key, this.hotel, this.currency, this.toure})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     ///// دخیره آیدی تور به صورت موقت در اسکوپ مدل
     MainModel _model = ScopedModel.of(context);
-    _model.tmpCartData['ToureID'] = toureId;
+    _model.tmpCartData['ToureID'] = toure.id.toString();
 
     void _showModalSheet() {
       showModalBottomSheet(
           context: context,
           builder: (builder) {
             return Material(
-              child: BuyTicket(hotel: hotel),
+              child: BuyTicket(hotel: hotel , toureCapacity: toure.capacity, ),
               color: Theme.of(context).canvasColor,
               borderRadius: BorderRadius.only(
                   topRight: Radius.circular(25), topLeft: Radius.circular(25)),

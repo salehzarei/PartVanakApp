@@ -1,10 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+<<<<<<< HEAD
 import 'package:hello_flutter/pages/list.dart';
 import 'package:hello_flutter/pages/menu_bar.dart';
 import 'package:hello_flutter/pages/nav_dialogs_ex.dart';
 //import './pages/news_list.dart';
+=======
+>>>>>>> 47598b6e85550528855425dc5ba2f8635ff56757
 import './pages/blog_list.dart';
 import 'package:scoped_model/scoped_model.dart';
 import './buyticket.dart';
@@ -20,9 +23,9 @@ import './login/login.dart';
 import './login/reset_password.dart';
 import './login/register.dart';
 import './login/check_phone.dart';
-import './pages/firebase.dart';
 import 'login/new_password.dart';
 import 'login/profile.dart';
+
 
 main() {
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
@@ -69,13 +72,17 @@ main() {
         routes: {
           // '/': (context) => DialogsExample(),
           '/': (context) => Splash(model: model),
-          // '/grouping': (context) => Menubar(),
+          // '/': (context) => CheckUpdate(),
 
-          '/grouping': (context) => ExpansionTileSample(),
+
+
+
+
+
           '/profile': (context) => Profile(),
           '/bloglist': (context) => BlogList(),
           '/newpassword': (context) => NewPassword(),
-          '/firebase': (context) => Messagingwidget(),
+         // '/firebase': (context) => Messagingwidget(),
           '/checkphone': (context) => CheckPhone(),
           '/login': (context) => Login(),
           '/register': (context) => Register(),
@@ -111,4 +118,5 @@ main() {
               ),
         }),
   ));
+  
 }

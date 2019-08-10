@@ -13,10 +13,29 @@ class _HomePageState extends State<Profile>
     with SingleTickerProviderStateMixin {
   TabController _tabController;
 
+  bool _emailEditing = true;
+  TextEditingController _email = TextEditingController();
+  TextEditingController _birthDate = TextEditingController();
+  TextEditingController _phone = TextEditingController();
+  TextEditingController _cell = TextEditingController();
+  TextEditingController _passport = TextEditingController();
+  TextEditingController _address = TextEditingController();
+  TextEditingController _postCode = TextEditingController();
+
   @override
   void initState() {
+    MainModel _model = ScopedModel.of(context);
     _tabController = TabController(length: 3, vsync: this);
     super.initState();
+
+    _model.getUserOrder();
+    _email.text = _model.userProfile.email;
+    _birthDate.text = _model.userProfile.birthDate;
+    _phone.text = _model.userProfile.tell;
+    _cell.text = _model.userProfile.cell;
+    _passport.text = _model.userProfile.nationalCode;
+    _address.text = _model.userProfile.address;
+    _postCode.text = _model.userProfile.postalCode;
   }
 
   @override
@@ -142,7 +161,9 @@ class _HomePageState extends State<Profile>
                                             child: AlertDialog(
                                               title: Text('توجه !'),
                                               content: Text(
-                                                  'مطمعن هستید که می خواهید خارج شوید؟' , style: TextStyle(fontSize: 13),),
+                                                'مطمعن هستید که می خواهید خارج شوید؟',
+                                                style: TextStyle(fontSize: 13),
+                                              ),
                                               actions: <Widget>[
                                                 FlatButton(
                                                   onPressed: () => model
@@ -151,8 +172,8 @@ class _HomePageState extends State<Profile>
                                                     Navigator.pushNamed(
                                                         context, '/');
                                                   }),
-                                                  child: Text(
-                                                      'خروج از اپلیکیشن'),
+                                                  child:
+                                                      Text('خروج از اپلیکیشن'),
                                                 ),
                                                 FlatButton(
                                                   child: Text('بستن'),
@@ -188,9 +209,30 @@ class _HomePageState extends State<Profile>
                                     style: TextStyle(
                                         color: Colors.black, fontSize: 12),
                                   ),
-                                  trailing: model.userProfile.email != ""
-                                      ? Text(model.userProfile.email)
-                                      : Text('هنوز ثبت نشده'),
+                                  trailing: Container(
+                                      width: 110,
+                                      alignment: Alignment.centerLeft,
+                                      child: TextField(
+                                        controller: _email,
+                                        onTap: () {
+                                          setState(() {
+                                            _emailEditing = false;
+                                          });
+                                        },
+                                        style: TextStyle(fontSize: 12),
+                                        decoration: InputDecoration(
+                                          hintText: 'هنوز چیزی ثبت نشده',
+                                        ),
+                                        keyboardType:
+                                            TextInputType.emailAddress,
+                                        readOnly: _emailEditing,
+                                        onSubmitted: (ok) {
+                                          print(ok);
+                                          setState(() {
+                                            _emailEditing = true;
+                                          });
+                                        },
+                                      )),
                                   dense: true,
                                 ),
                                 ListTile(
@@ -199,9 +241,26 @@ class _HomePageState extends State<Profile>
                                     style: TextStyle(
                                         color: Colors.black, fontSize: 12),
                                   ),
-                                  trailing: model.userProfile.birthDate != ""
-                                      ? Text(model.userProfile.birthDate)
-                                      : Text('هنوز ثبت نشده'),
+                                  trailing: Container(
+                                      width: 110,
+                                      alignment: Alignment.centerLeft,
+                                      child: TextField(
+                                        controller: _birthDate,
+                                        textDirection: TextDirection.rtl,
+                                        style: TextStyle(fontSize: 12),
+                                        decoration: InputDecoration(
+                                          hintText: 'هنوز چیزی ثبت نشده',
+                                        ),
+                                        keyboardType:
+                                            TextInputType.emailAddress,
+                                        readOnly: _emailEditing,
+                                        onSubmitted: (ok) {
+                                          print(ok);
+                                          setState(() {
+                                            _emailEditing = false;
+                                          });
+                                        },
+                                      )),
                                   dense: true,
                                 ),
                                 ListTile(
@@ -210,9 +269,25 @@ class _HomePageState extends State<Profile>
                                     style: TextStyle(
                                         color: Colors.black, fontSize: 12),
                                   ),
-                                  trailing: model.userProfile.tell != ""
-                                      ? Text(model.userProfile.tell)
-                                      : Text('هنوز ثبت نشده'),
+                                  trailing: Container(
+                                      width: 110,
+                                      alignment: Alignment.centerLeft,
+                                      child: TextField(
+                                        controller: _phone,
+                                        style: TextStyle(fontSize: 12),
+                                        decoration: InputDecoration(
+                                          hintText: 'هنوز چیزی ثبت نشده',
+                                        ),
+                                        keyboardType:
+                                            TextInputType.emailAddress,
+                                        readOnly: _emailEditing,
+                                        onSubmitted: (ok) {
+                                          print(ok);
+                                          setState(() {
+                                            _emailEditing = false;
+                                          });
+                                        },
+                                      )),
                                   dense: true,
                                 ),
                                 ListTile(
@@ -221,9 +296,20 @@ class _HomePageState extends State<Profile>
                                     style: TextStyle(
                                         color: Colors.black, fontSize: 12),
                                   ),
-                                  trailing: model.userProfile.cell != ""
-                                      ? Text(model.userProfile.cell)
-                                      : Text('هنوز ثبت نشده'),
+                                  trailing: Container(
+                                      width: 110,
+                                      alignment: Alignment.centerLeft,
+                                      child: TextField(
+                                        controller: _cell,
+                                        textDirection: TextDirection.rtl,
+                                        style: TextStyle(fontSize: 12),
+                                        decoration: InputDecoration(
+                                          hintText: 'هنوز چیزی ثبت نشده',
+                                        ),
+                                        keyboardType:
+                                            TextInputType.emailAddress,
+                                        readOnly: true,
+                                      )),
                                   dense: true,
                                 ),
                                 ListTile(
@@ -232,9 +318,26 @@ class _HomePageState extends State<Profile>
                                     style: TextStyle(
                                         color: Colors.black, fontSize: 12),
                                   ),
-                                  trailing: model.userProfile.nationalCode != ""
-                                      ? Text(model.userProfile.nationalCode)
-                                      : Text('هنوز ثبت نشده'),
+                                  trailing: Container(
+                                      width: 110,
+                                      alignment: Alignment.centerLeft,
+                                      child: TextField(
+                                        controller: _passport,
+                                        textDirection: TextDirection.rtl,
+                                        style: TextStyle(fontSize: 12),
+                                        decoration: InputDecoration(
+                                          hintText: 'هنوز چیزی ثبت نشده',
+                                        ),
+                                        keyboardType:
+                                            TextInputType.emailAddress,
+                                        readOnly: _emailEditing,
+                                        onSubmitted: (ok) {
+                                          print(ok);
+                                          setState(() {
+                                            _emailEditing = false;
+                                          });
+                                        },
+                                      )),
                                   dense: true,
                                 ),
                                 ListTile(
@@ -243,10 +346,25 @@ class _HomePageState extends State<Profile>
                                     style: TextStyle(
                                         color: Colors.black, fontSize: 12),
                                   ),
-                                  trailing: model.userProfile.address != ""
-                                      ? Text(
-                                          "${model.userProfile.ostan} ${model.userProfile.city} ${model.userProfile.address}")
-                                      : Text('هنوز ثبت نشده'),
+                                  trailing: Container(
+                                      width: 110,
+                                      alignment: Alignment.centerLeft,
+                                      child: TextField(
+                                        controller: _address,
+                                        textDirection: TextDirection.rtl,
+                                        style: TextStyle(fontSize: 12),
+                                        decoration: InputDecoration(
+                                          hintText: 'هنوز چیزی ثبت نشده',
+                                        ),
+                                        keyboardType: TextInputType.text,
+                                        readOnly: _emailEditing,
+                                        onSubmitted: (ok) {
+                                          print(ok);
+                                          setState(() {
+                                            _emailEditing = false;
+                                          });
+                                        },
+                                      )),
                                   dense: true,
                                 ),
                                 ListTile(
@@ -255,9 +373,25 @@ class _HomePageState extends State<Profile>
                                     style: TextStyle(
                                         color: Colors.black, fontSize: 12),
                                   ),
-                                  trailing: model.userProfile.postalCode != ""
-                                      ? Text(model.userProfile.postalCode)
-                                      : Text('هنوز ثبت نشده'),
+                                  trailing: Container(
+                                      width: 110,
+                                      alignment: Alignment.centerLeft,
+                                      child: TextField(
+                                        controller: _postCode,
+                                        textDirection: TextDirection.rtl,
+                                        style: TextStyle(fontSize: 12),
+                                        decoration: InputDecoration(
+                                          hintText: 'هنوز چیزی ثبت نشده',
+                                        ),
+                                        keyboardType: TextInputType.number,
+                                        readOnly: _emailEditing,
+                                        onSubmitted: (ok) {
+                                          print(ok);
+                                          setState(() {
+                                            _emailEditing = false;
+                                          });
+                                        },
+                                      )),
                                   dense: true,
                                 ),
                               ],
@@ -269,34 +403,42 @@ class _HomePageState extends State<Profile>
                   ),
                   Container(
                       child: ListView.builder(
-                          itemCount: 10,
+                          itemCount: model.userOrders.length,
                           padding: EdgeInsets.only(
-                              top: 50, left: 10, right: 10, bottom: 10),
+                              top: 10, left: 10, right: 10, bottom: 10),
                           itemBuilder: (context, index) {
-                            return Column(
-                              children: <Widget>[
-                                SizedBox(
-                                  height: 10,
+                            return Card(
+                              color: Colors.grey.shade200,
+                              child: ListTile(
+                                subtitle: Text(' در تاریخ ' +
+                                    model.userOrders[index].date +
+                                    ' این تور ' +
+                                    model.userOrders[index].statusTitle + ' به دلیل اینکه ' +
+                                    model.userOrders[index].paymentTitle),
+                                dense: true,
+                                isThreeLine: true,
+                                leading: RotationTransition(
+                                  turns: new AlwaysStoppedAnimation(45 / 360),
+                                  child: model.userOrders[index].status == 5
+                                      ? Icon(
+                                          Icons.add_circle,
+                                          color: Colors.redAccent,
+                                        )
+                                      : Icon(
+                                          Icons.check_circle,
+                                          color: Colors.greenAccent,
+                                        ),
                                 ),
-                                Text('لیست بلیط ها')
-                              ],
+                                title: Text(model.userOrders[index].tourTitle),
+                                trailing:
+                                    Text(model.userOrders[index].id.toString()),
+                              ),
                             );
                           })),
                   Container(
-                    child: ListView.builder(
-                        itemCount: 10,
-                        padding: EdgeInsets.only(
-                            top: 50, left: 10, right: 10, bottom: 10),
-                        itemBuilder: (context, index) {
-                          return Column(
-                            children: <Widget>[
-                              SizedBox(
-                                height: 10,
-                              ),
-                              Text('لیست تراکنش ها')
-                            ],
-                          );
-                        }),
+                    child:Center(
+                      child: Text('این قیمت هنوز طراحی نشده است'),
+                    )
                   )
                 ],
                 controller: _tabController,
