@@ -1,8 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:hello_flutter/pages/productDetile.dart';
 import 'package:hello_flutter/pages/product_list.dart';
-import 'package:hello_flutter/pages/slider.dart';
+import 'package:hello_flutter/pages/list.dart';
+import 'package:hello_flutter/pages/nav_dialogs_ex.dart';
 import './pages/blog_list.dart';
 import 'package:scoped_model/scoped_model.dart';
 import './buyticket.dart';
@@ -65,11 +67,12 @@ main() {
         ),
         initialRoute: '/',
         routes: {
+          // '/': (context) => DialogsExample(),
           '/': (context) => Splash(model: model),
-        //   '/': (context) => Sliderr(),
+         // '/': (context) => Sliderr(),
 
 
-            
+           // '/': (context) => ProductDetile(),
 
 
           '/product': (context) => ProductList(),
