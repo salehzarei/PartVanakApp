@@ -19,7 +19,7 @@ import './model/accommodation_model.dart';
 import 'model/order_model.dart';
 
 class MainModel extends Model {
-  final String host = 'http://partvanak.com/tourapi/';
+  final String host = 'https://safirparvaz.ir/tourapi/';
   List<Toure> tourelist = [];
   List<Toure> specialToureList = [];
   List<OrderModel> userOrders = [];
@@ -201,6 +201,8 @@ class MainModel extends Model {
       throw Exception('خطا اتصال به دیتابیس');
     }
   }
+
+ 
 
 ///////// دریافت و چک کردن اطلاعات لاگین از سرور
   Future loginData({String mobile, String pass}) async {

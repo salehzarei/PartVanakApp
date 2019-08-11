@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:hello_flutter/pages/product_list.dart';
+import 'package:hello_flutter/pages/slider.dart';
 import './pages/blog_list.dart';
 import 'package:scoped_model/scoped_model.dart';
 import './buyticket.dart';
@@ -64,17 +66,16 @@ main() {
         initialRoute: '/',
         routes: {
           '/': (context) => Splash(model: model),
-          // '/': (context) => CheckUpdate(),
+        //   '/': (context) => Sliderr(),
 
 
+            
 
 
-
-
+          '/product': (context) => ProductList(),
           '/profile': (context) => Profile(),
           '/bloglist': (context) => BlogList(),
           '/newpassword': (context) => NewPassword(),
-         // '/firebase': (context) => Messagingwidget(),
           '/checkphone': (context) => CheckPhone(),
           '/login': (context) => Login(),
           '/register': (context) => Register(),

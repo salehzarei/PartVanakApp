@@ -24,7 +24,10 @@ class HotelDetiles extends StatelessWidget {
           context: context,
           builder: (builder) {
             return Material(
-              child: BuyTicket(hotel: hotel , toureCapacity: toure.capacity, ),
+              child: BuyTicket(
+                hotel: hotel,
+                toureCapacity: toure.capacity,
+              ),
               color: Theme.of(context).canvasColor,
               borderRadius: BorderRadius.only(
                   topRight: Radius.circular(25), topLeft: Radius.circular(25)),
@@ -57,7 +60,8 @@ class HotelDetiles extends StatelessWidget {
           _showModalSheet();
         } else
           _model.ackAlert(context,
-              massage: 'برای خرید تور از این اپلیکیشن ابتدا باید وارد سیستم شوید',
+              massage:
+                  'برای خرید تور از این اپلیکیشن ابتدا باید وارد سیستم شوید',
               route: '/login');
       },
       child: Card(
@@ -99,6 +103,7 @@ class HotelDetiles extends StatelessWidget {
                         Padding(
                           padding: const EdgeInsets.symmetric(vertical: 5),
                           child: Row(
+                             
                             textDirection: TextDirection.rtl,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: specification(hotel.specification),
