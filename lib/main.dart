@@ -1,15 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-<<<<<<< HEAD
-import 'package:hello_flutter/pages/list.dart';
-import 'package:hello_flutter/pages/menu_bar.dart';
-import 'package:hello_flutter/pages/nav_dialogs_ex.dart';
-//import './pages/news_list.dart';
-=======
->>>>>>> 47598b6e85550528855425dc5ba2f8635ff56757
 import './pages/blog_list.dart';
 import 'package:scoped_model/scoped_model.dart';
+
 import './buyticket.dart';
 import './toureDetile.dart';
 import './toureList.dart';
@@ -73,12 +67,6 @@ main() {
           // '/': (context) => DialogsExample(),
           '/': (context) => Splash(model: model),
           // '/': (context) => CheckUpdate(),
-
-
-
-
-
-
           '/profile': (context) => Profile(),
           '/bloglist': (context) => BlogList(),
           '/newpassword': (context) => NewPassword(),
