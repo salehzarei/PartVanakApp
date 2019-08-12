@@ -40,29 +40,59 @@ class ToureDetilePage extends StatelessWidget {
                 ),
               ),
               SliverToBoxAdapter(
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text(
-                    'برای این تور ${toure.accommodation.length} محل اقامت موجود است',
-                    style: Theme.of(context)
-                        .textTheme
-                        .title
-                        .copyWith(color: Colors.grey , fontSize: 15),
-                    textAlign: TextAlign.center,
-                  ),
+                child: Column(
+                  children: <Widget>[
+                    ExpansionTile(
+                      title: Row(
+                        children: <Widget>[
+                          Container(
+                            height: 20,
+                            width: 5,
+                            color: Theme.of(context).accentColor,
+                          ),
+                          SizedBox(width: 3,),
+                          Text(
+                            'مشاهده توضیحات تور',
+                            style: TextStyle(fontSize: 13),
+                          ),
+                        ],
+                      ),
+                      backgroundColor: Colors.grey.shade100,
+                      children: <Widget>[
+                        Padding(
+                          padding: const EdgeInsets.only(
+                              right: 15, left: 10, bottom: 10),
+                          child: Text(
+                            toure.desc,
+                            textAlign: TextAlign.start,
+                            textDirection: TextDirection.rtl,
+                          ),
+                        )
+                      ],
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 10),
+                      child: Text(
+                        'برای این تور ${toure.accommodation.length} محل اقامت موجود است',
+                        style: Theme.of(context)
+                            .textTheme
+                            .title
+                            .copyWith(color: Colors.grey, fontSize: 15),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                  ],
                 ),
               ),
-                      SliverList(
+              SliverList(
                 delegate: SliverChildBuilderDelegate((context, index) {
                   return HotelDetiles(
                     hotel: toure.accommodation[index],
                     currency: toure.currency,
                     toure: toure,
-                    );
+                  );
                 }, childCount: toure.accommodation.length),
               ),
-             
-
             ],
           )),
     );
@@ -110,21 +140,29 @@ class ToureTitleBar extends StatelessWidget {
                     ),
                   ),
                   Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
                       Container(
                         color: Theme.of(context).accentColor,
-                        height: 2,
-                        width: 50,
+                        height: 1,
+                        width: 45,
                       ),
-                      Icon(
-                        ToureIcons.airplane_flight,
-                        size: 20,
-                        color: Theme.of(context).accentColor,
+                      Padding(
+                        padding: const EdgeInsets.only(left: 5),
+                        child: RotationTransition(
+                          turns: AlwaysStoppedAnimation(-135 / 360),
+                          child: Icon(
+                            ToureIcons.airplane_flight,
+                            size: 20,
+                            color: Theme.of(context).accentColor,
+                          ),
+                        ),
                       ),
                       Container(
                         color: Theme.of(context).accentColor,
-                        height: 2,
-                        width: 50,
+                        height: 1,
+                        width: 45,
                       ),
                     ],
                   ),
@@ -141,7 +179,6 @@ class ToureTitleBar extends StatelessWidget {
                         ),
                         Text(
                           toure.destination_title,
-                          
                           maxLines: 1,
                           style: TextStyle(
                               fontSize: 20,

@@ -329,7 +329,30 @@ class _MyDrawerState extends State<MyDrawer> {
                               ],
                             ),
                           )),
-
+                          GestureDetector(
+                          onTap: () {
+                            Navigator.pushNamed(context, '/product');
+                          },
+                          child: Container(
+                            padding:
+                                EdgeInsets.only(top: 15.0, left: 15, right: 20),
+                            child: Row(
+                              children: <Widget>[
+                                Padding(
+                                  padding: const EdgeInsets.only(left: 8.0),
+                                  child: Icon(
+                                    ToureIcons.first_day,
+                                    color: Theme.of(context).accentColor,
+                                  ),
+                                ),
+                                Text(
+                                  'محصولات ',
+                                  style: DarwerThemeData.textTheme.title
+                                      .copyWith(color: Colors.white),
+                                ),
+                              ],
+                            ),
+                          )),
                       GestureDetector(
                           onTap: () =>
                               Navigator.pushNamed(context, '/flyinfoSite'),

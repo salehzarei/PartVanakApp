@@ -23,90 +23,89 @@ class ToureListItem extends StatelessWidget {
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
       color: Colors.white,
       child: Row(
-          textDirection: TextDirection.rtl,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Expanded(
-        flex: 1,
-        child: ClipRRect(
-          borderRadius: BorderRadius.circular(10.0),
-          child: CachedNetworkImage(
-            fit: BoxFit.cover,
-            height: 90,
-            imageUrl: toure.thumb,
-            placeholder: (context, url) => SpinKitFadingFour(
-              color: Colors.red,
-              size: 50.0,
-            ),
-            errorWidget: (context, string, url) => Icon(Icons.error),
-          ),
-        )),
-            Expanded(
-        flex: 3,
-        child: Padding(
-          padding: const EdgeInsets.only(right: 8 ,  top: 8),
-          child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Text(
-                  '${toure.title} - ${toure.sdate}',
-                  style: Theme.of(context).textTheme.headline,
-                  softWrap: true,
-                  textAlign: TextAlign.right,
-                  textDirection: TextDirection.rtl,
+        textDirection: TextDirection.rtl,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Expanded(
+              flex: 1,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(10.0),
+                child: CachedNetworkImage(
+                  fit: BoxFit.cover,
+                  height: 90,
+                  imageUrl: toure.thumb,
+                  placeholder: (context, url) => SpinKitFadingFour(
+                    color: Colors.red,
+                    size: 50.0,
+                  ),
+                  errorWidget: (context, string, url) => Icon(Icons.error),
                 ),
-                Divider(),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  textDirection: TextDirection.rtl,
+              )),
+          Expanded(
+              flex: 3,
+              child: Padding(
+                padding: const EdgeInsets.only(right: 8, top: 8),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    Icon(
-          Icons.monetization_on,
-          color: Theme.of(context).iconTheme.color,
-          size: 15,
-                    ),
-                    SizedBox(width: 2),
-                   
-                    Text('قیمت ${price.text} ${toure.currency}')
-                  ],
-                ),
-                Divider(
-                  color: Theme.of(context).cardColor,
-                  height: 5,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  textDirection: TextDirection.rtl,
-                  children: <Widget>[
-                    Icon(
-          Icons.my_location,
-          color: Theme.of(context).iconTheme.color,
-          size: 15,
-                    ),
-                    SizedBox(width: 2),
-                    Text('مقصد: ${toure.destination_title}'),
-                    SizedBox(
-          width: 10,
-                    ),
-                    Icon(
-          Icons.hotel,
-          color: Theme.of(context).iconTheme.color,
-          size: 15,
-                    ),
-                    SizedBox(width: 2),
                     Text(
-          '${toure.nights} شب ${toure.days} روز',
-          textDirection: TextDirection.rtl,
+                      '${toure.title}',
+                      style: Theme.of(context).textTheme.headline,
+                      softWrap: true,
+                      textAlign: TextAlign.right,
+                      textDirection: TextDirection.rtl,
                     ),
+                    Divider(),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      textDirection: TextDirection.rtl,
+                      children: <Widget>[
+                        Icon(
+                          Icons.monetization_on,
+                          color: Theme.of(context).iconTheme.color,
+                          size: 15,
+                        ),
+                        SizedBox(width: 2),
+                        Text('قیمت ${price.text} ${toure.currency}')
+                      ],
+                    ),
+                    Divider(
+                      color: Theme.of(context).cardColor,
+                      height: 5,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      textDirection: TextDirection.rtl,
+                      children: <Widget>[
+                        Icon(
+                          Icons.calendar_today,
+                          color: Theme.of(context).iconTheme.color,
+                          size: 15,
+                        ),
+                        SizedBox(width: 2),
+                        Text('${toure.sdate}'),
+                        SizedBox(
+                          width: 10,
+                        ),
+                        Icon(
+                          Icons.hotel,
+                          color: Theme.of(context).iconTheme.color,
+                          size: 15,
+                        ),
+                        SizedBox(width: 2),
+                        Text(
+                          '${toure.nights} شب ${toure.days} روز',
+                          textDirection: TextDirection.rtl,
+                        ),
+                      ],
+                    )
                   ],
-                )
-              ],
-            ),
-        ))
-          ],
-        ),
+                ),
+              ))
+        ],
+      ),
     );
   }
 }

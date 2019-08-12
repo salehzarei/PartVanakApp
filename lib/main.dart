@@ -1,9 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import './pages/blog_list.dart';
 import 'package:scoped_model/scoped_model.dart';
 
+import './pages/product_list.dart';
+import './pages/blog_list.dart';
 import './buyticket.dart';
 import './toureDetile.dart';
 import './toureList.dart';
@@ -16,10 +17,7 @@ import './pages/splash.dart';
 import './login/login.dart';
 import './login/reset_password.dart';
 import './login/register.dart';
-import './login/check_phone.dart';
-import 'login/new_password.dart';
 import 'login/profile.dart';
-
 
 main() {
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
@@ -35,8 +33,8 @@ main() {
           accentColor: Color(0xFFD8B945),
           cardColor: Color(0xFFD8B945),
           buttonColor: Color(0xFFD8B945),
-         // iconTheme: IconThemeData(color: Color(0xFF19335C)),
-         iconTheme: IconThemeData(color: Colors.grey),
+          // iconTheme: IconThemeData(color: Color(0xFF19335C)),
+          iconTheme: IconThemeData(color: Colors.grey),
           appBarTheme: AppBarTheme(
               //color: Color(0xFF19335C),
               color: Colors.grey.shade800,
@@ -66,12 +64,14 @@ main() {
         routes: {
           // '/': (context) => DialogsExample(),
           '/': (context) => Splash(model: model),
-          // '/': (context) => CheckUpdate(),
+          // '/': (context) => Sliderr(),
+
+          // '/': (context) => ProductDetile(),
+
+          '/product': (context) => ProductList(),
           '/profile': (context) => Profile(),
           '/bloglist': (context) => BlogList(),
-          '/newpassword': (context) => NewPassword(),
-         // '/firebase': (context) => Messagingwidget(),
-          '/checkphone': (context) => CheckPhone(),
+
           '/login': (context) => Login(),
           '/register': (context) => Register(),
           '/resetpassword': (context) => ResetPassword(),
@@ -106,5 +106,4 @@ main() {
               ),
         }),
   ));
-  
 }

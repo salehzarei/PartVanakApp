@@ -314,6 +314,26 @@ class MainModel extends Model {
     }
   }
 
+  /// بازیابی رمز عبور
+  Future<String> resetPassword(
+      String code, String newpassword, String mobile) async {
+    notifyListeners();
+    final response = await http.post(host + 'user/comfirm',
+        encoding: Encoding.getByName('utf-8'),
+        body: {
+          'mobile': mobile,
+          'code': code,
+          'pass': newpassword,
+          'verification_token': verificationCode
+        });
+    bool chekerror = json.decode(response.body)['error'];
+    if (response.statusCode == 200 && !chekerror) {
+      return "";
+    } else {
+      return (json.decode(response.body)['error_msg']);
+    }
+  }
+
 ///////// دریافت اطلاعات پروفایل کاربری از سرور
   /// روش جدید و بهتر برای ارسال درخواست و دریافت داده ها وذخیره در مدل
   /// به ساختار مدل پروفایل توجه شود

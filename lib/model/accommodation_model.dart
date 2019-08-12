@@ -9,7 +9,7 @@ class Accommodation {
   final int child_price;
   final int child_price_bed;
   final int baby_price;
-  final dynamic specification;
+  final List<dynamic> specification;
   final List<Gallery> gallery;
 
   Accommodation(
