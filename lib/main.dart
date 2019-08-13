@@ -69,7 +69,7 @@ main() {
         routes: {
           // '/': (context) => DialogsExample(),
           '/': (context) => Splash(model: model),
-         // '/': (context) => Sliderr(),
+        
 
 
            // '/': (context) => ProductDetile(),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_banner_swiper/flutter_banner_swiper.dart';
 import 'package:hello_flutter/drawer.dart';
 // import '../drawer.dart';
 import '../model/blog_model.dart';
@@ -60,6 +61,15 @@ class _BlogDetileState extends State<BlogDetile> {
 
   @override
   void initState() {
+    bannerList.add(
+        "https://images.unsplash.com/photo-1561196643-35c381cb6a6d?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60");
+    bannerList.add(
+        "https://images.unsplash.com/photo-1561078451-8ebb052326ec?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60");
+    bannerList.add(
+        "https://images.unsplash.com/photo-1563746924237-f81657aec06a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60");
+    bannerList.add(
+        "https://images.unsplash.com/photo-1563923683738-4ad77b43411c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60");
+
     _fetchData();
     super.initState();
   }
@@ -80,26 +90,38 @@ class _BlogDetileState extends State<BlogDetile> {
               : CustomScrollView(
                   slivers: <Widget>[
                     SliverAppBar(
-                      centerTitle: true,
-                      actions: <Widget>[
-                        IconButton(
-                          icon: Icon(Icons.arrow_forward,
-                              color: Colors.white),
-                          onPressed: () => Navigator.pop(context),
+                        centerTitle: true,
+                        actions: <Widget>[
+                          IconButton(
+                            icon:
+                                Icon(Icons.arrow_forward, color: Colors.white),
+                            onPressed: () => Navigator.pop(context),
+                          )
+                        ],
+                        pinned: true,
+                        snap: false,
+                        floating: false,
+                        expandedHeight: 200.0,
+                        flexibleSpace: Column(
+                          children: <Widget>[
+                            Container(
+                              child: getSlider(),
+                            ),
+                            Container(
+                              child: Text(blog.title),
+                              color: Colors.white,
+                              height: 30,
+                            )
+                          ],
                         )
-                      ],
-                      pinned: true,
-                      snap: false,
-                      floating: false,
-                      expandedHeight: 160.0,
-                      flexibleSpace: FlexibleSpaceBar(
-                        title: Text(blog.title),
-                        background: Image.network(
-                          blog.pic,
-                          fit: BoxFit.fill,
+                        // FlexibleSpaceBar(
+                        //   title: Text(blog.title),
+                        //   background: Image.network(
+                        //     blog.pic,
+                        //     fit: BoxFit.fill,
+                        //   ),
+                        // ),
                         ),
-                      ),
-                    ),
                     SliverList(
                       delegate: SliverChildListDelegate([
                         ButtonTheme.bar(
@@ -154,5 +176,24 @@ class _BlogDetileState extends State<BlogDetile> {
                   ],
                 ),
         ));
+  }
+
+  List<String> bannerList = List();
+  Widget getSlider() {
+    return BannerSwiper(
+      height: 115,
+      width: 54,
+      length: 4,
+      getwidget: (index) {
+        return GestureDetector(
+            child: Image.network(
+              bannerList[index % bannerList.length],
+              fit: BoxFit.cover,
+            ),
+            onTap: () {
+              print('click on');
+            });
+      },
+    );
   }
 }

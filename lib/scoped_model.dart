@@ -19,7 +19,7 @@ import './model/accommodation_model.dart';
 import 'model/order_model.dart';
 
 class MainModel extends Model {
-  final String host = 'http://partvanak.com/tourapi/';
+  final String host = 'https://safirparvaz.ir/tourapi/';
   List<Toure> tourelist = [];
   List<Toure> specialToureList = [];
   List<OrderModel> userOrders = [];
