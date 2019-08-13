@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hello_flutter/coustomIcon/toure_icons_icons.dart';
+import '../../coustomIcon/toure_icons_icons.dart';
 import '../../model/toure_model.dart';
 
 

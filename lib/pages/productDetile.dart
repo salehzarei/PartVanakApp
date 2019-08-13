@@ -4,7 +4,6 @@ import '../model/blog_model.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import '../scoped_model.dart';
-import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:flutter_banner_swiper/flutter_banner_swiper.dart';
 import '../UI/comment.dart';
 
@@ -59,15 +58,6 @@ class _BlogDetileState extends State<BlogDetile> {
 
   @override
   void initState() {
-    bannerList.add(
-        "https://images.unsplash.com/photo-1561196643-35c381cb6a6d?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60");
-    bannerList.add(
-        "https://images.unsplash.com/photo-1561078451-8ebb052326ec?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60");
-    bannerList.add(
-        "https://images.unsplash.com/photo-1563746924237-f81657aec06a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60");
-    bannerList.add(
-        "https://images.unsplash.com/photo-1563923683738-4ad77b43411c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60");
-    
     _fetchData();
     super.initState();
   }
@@ -101,18 +91,29 @@ class _BlogDetileState extends State<BlogDetile> {
                       pinned: true,
                       snap: false,
                       floating: false,
-                      expandedHeight: 160.0,
-                      flexibleSpace:Container(child: getslider(),)
-                      //  FlexibleSpaceBar(
-                      //   title: Text(blog.title),
-                      //   background:
-                      //       // Image.network(
-                      //       //   'https://images.unsplash.com/photo-1530908295418-a12e326966ba?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60',
-                      //       //   fit: BoxFit.fill,
-                      //       // ),
-
-                      //        getslider(),
-                      // ),
+                      expandedHeight: 180.0,
+                      flexibleSpace: ListView(
+                          children: <Widget>[
+                            Stack(
+                              children: <Widget>[
+                                Container(
+                                  child: getSlider(),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(
+                                      top: 120, right: 40),
+                                  child: Container(
+                                    child: Text(
+                                      blog.title,
+                                      style: TextStyle(
+                                          color: Colors.white, fontSize: 20),
+                                    ),
+                                  ),
+                                )
+                              ],
+                            )
+                          ],
+                        )
                     ),
                     ],),
                     
@@ -172,27 +173,9 @@ class _BlogDetileState extends State<BlogDetile> {
         ));
   }
 
-  _slider() {
-    Container(
-          child: Swiper(
-        itemBuilder: (BuildContext context, int index) {
-          return ClipRRect(
-            borderRadius: BorderRadius.circular(10.0),
-            child: Image.network(
-              blog.pic,
-              fit: BoxFit.fill,
-            ),
-          );
-        },
-        itemCount: 5,
-        viewportFraction: 0.8,
-        scale: 0.9,
-        pagination: SwiperPagination(),
-      ),
-    );
-  }
-   List<String> bannerList = List();
-  Widget getslider() {
+  
+  // List<String> bannerList = List();
+  Widget getSlider() {
     return BannerSwiper(
       height: 108,
       width: 54,
@@ -200,7 +183,8 @@ class _BlogDetileState extends State<BlogDetile> {
       getwidget: (index) {
         return GestureDetector(
             child: Image.network(
-              bannerList[index % bannerList.length],
+              // bannerList[index % bannerList.length],
+              blog.pic,
               fit: BoxFit.cover,
             ),
             onTap: () {

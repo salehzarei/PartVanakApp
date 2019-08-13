@@ -202,8 +202,6 @@ class MainModel extends Model {
     }
   }
 
- 
-
 ///////// دریافت و چک کردن اطلاعات لاگین از سرور
   Future loginData({String mobile, String pass}) async {
     _isLoading = true;
@@ -313,6 +311,26 @@ class MainModel extends Model {
       notifyListeners();
     } else {
       print(json.decode(response.body)['error_msg']);
+    }
+  }
+
+  /// بازیابی رمز عبور
+  Future<String> resetPassword(
+      String code, String newpassword, String mobile) async {
+    notifyListeners();
+    final response = await http.post(host + 'user/comfirm',
+        encoding: Encoding.getByName('utf-8'),
+        body: {
+          'mobile': mobile,
+          'code': code,
+          'pass': newpassword,
+          'verification_token': verificationCode
+        });
+    bool chekerror = json.decode(response.body)['error'];
+    if (response.statusCode == 200 && !chekerror) {
+      return "";
+    } else {
+      return (json.decode(response.body)['error_msg']);
     }
   }
 

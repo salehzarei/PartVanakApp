@@ -1,7 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:hello_flutter/drawer.dart';
+import 'package:scoped_model/scoped_model.dart';
 
-class ResetPassword extends StatelessWidget {
+import '../scoped_model.dart';
+import 'check_phone.dart';
+
+class ResetPassword extends StatefulWidget {
+  @override
+  _ResetPasswordState createState() => _ResetPasswordState();
+}
+
+class _ResetPasswordState extends State<ResetPassword> {
+  TextEditingController _phoneNumber = TextEditingController();
+  final _mobilekey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
     return Directionality(
@@ -21,97 +33,69 @@ class ResetPassword extends StatelessWidget {
             )
           ],
         ),
-        body: Stack(
-          //fit: StackFit.expand,
-          children: <Widget>[
-            // Container(
-            //     child: Image.asset(
-            //   'images/air.jpg',
-            //   fit: BoxFit.cover,
-            // )),
-            Container(
-              child: Padding(
-                padding: const EdgeInsets.only(
-                     left: 15, right: 15),
-                child: SingleChildScrollView(
-                  child: Container(
-                    child: Form(
-                      child: Column(
-                        children: <Widget>[
-                          _username(),
-                          Padding(
-                            padding: const EdgeInsets.only(right: 80),
-                            child: Row(
-                              children: <Widget>[
-                                RaisedButton(
-                                    textColor: Colors.white,
-                                    child: Text('ارسال '),
-                                    onPressed: () =>  Navigator.pushNamed(
-                                        context, '/checkphone')),
-                                SizedBox(
-                                  width: 10,
-                                ),
-                                RaisedButton(
-                                    textColor: Colors.white,
-                                    child: Text('انصراف'),
-                                    onPressed: () => Navigator.pushNamed(
-                                        context, '/homepage')),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
+        body: ScopedModelDescendant<MainModel>(
+          builder: (context, child, model) {
+            return Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[
+                Form(
+                  key: _mobilekey,
+                  child: TextFormField(
+                    controller: _phoneNumber,
+                    decoration: InputDecoration(
+                        labelText: 'شماره همراه',
+                        counterText: '',
+                        filled: true,
+                        fillColor: Colors.white),
+                    maxLength: 11,
+                    style: TextStyle(fontSize: 20),
+                    keyboardType: TextInputType.phone,
+                    validator: (val) {
+                      if (val.isEmpty || val.length < 11) {
+                        return 'وارد کردن شماره موبایل 11 رقمی ضروری است';
+                      }
+                      return null;
+                    },
                   ),
                 ),
-              ),
-            ),
-          ],
+                Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 50, vertical: 10),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      RaisedButton(
+                          textColor: Colors.white,
+                          child: Text('ارسال'),
+                          onPressed: () {
+                            if (_mobilekey.currentState.validate()) {
+                              model
+                                  .getVerificationCode(_phoneNumber.text)
+                                  .whenComplete(() => Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => CheckPhone(
+                                                phonenumber: _phoneNumber.text,
+                                              ))));
+                            }
+                          }),
+                      SizedBox(
+                        width: 10,
+                      ),
+                      RaisedButton(
+                          textColor: Colors.white,
+                          child: Text('انصراف'),
+                          onPressed: () =>
+                              Navigator.pushNamed(context, '/homepage')),
+                    ],
+                  ),
+                ),
+              ],
+            );
+          },
         ),
       ),
     );
   }
 }
-
-Widget _username() {
-  return TextFormField(
-    decoration: InputDecoration(
-        labelText: 'شماره همراه', filled: true, fillColor: Colors.white),
-    keyboardType: TextInputType.text,
-    validator: (String value) {
-      if (value.isEmpty) {
-        return 'این فیلد ضروریست ';
-      }
-    },
-    onSaved: (String value) {},
-  );
-}
-
-
-// Widget _password() {
-//   return TextFormField(
-//     decoration: InputDecoration(
-//         labelText: 'رمز عبور', filled: true, fillColor: Colors.white),
-//     keyboardType: TextInputType.text,
-//     validator: (String value) {
-//       if (value.isEmpty) {
-//         return 'این فیلد ضروریست ';
-//       }
-//     },
-//     onSaved: (String value) {},
-//   );
-// }
-
-// Widget _repeatpassword() {
-//   return TextFormField(
-//     decoration: InputDecoration(
-//         labelText: 'تکرار روز عبود', filled: true, fillColor: Colors.white),
-//     keyboardType: TextInputType.text,
-//     validator: (String value) {
-//       if (value.isEmpty) {
-//         return 'این فیلد ضروریست ';
-//       }
-//     },
-//     onSaved: (String value) {},
-//   );
-// }

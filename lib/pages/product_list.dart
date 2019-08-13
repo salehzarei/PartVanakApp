@@ -55,7 +55,6 @@ class _ProductListState extends State<ProductList> {
                       context,
                       MaterialPageRoute(
                           builder: (context) => BlogDetile(blog[index].id)));
-                  // Navigator.pushNamed(context, '/contact');
                 },
                 child: Card(
                   color: Colors.white30,
@@ -69,17 +68,6 @@ class _ProductListState extends State<ProductList> {
                             blog[index].thumb,
                             fit: BoxFit.cover,
                           ),
-                          // Swiper(
-                          //   itemBuilder: (BuildContext context, int index) {
-                          //     return  Image.network(
-                          //       "https://images.unsplash.com/photo-1495490311930-678c8ecdd120?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1189&q=80",
-                          //       fit: BoxFit.fill,
-                          //     );
-                          //   },
-                          //   itemCount: 3,
-                          //   pagination:  SwiperPagination(),
-                          //   control:  SwiperControl(),
-                          // ),
                           ListTile(
                             title: Text(
                               blog[index].title,
@@ -231,7 +219,6 @@ class _ProductListState extends State<ProductList> {
     return TextFormField(
       decoration: InputDecoration(
           labelText: 'متن پیام', filled: true, fillColor: Colors.grey),
-      // obscureText: true,
 
       maxLines: 3,
       keyboardType: TextInputType.text,

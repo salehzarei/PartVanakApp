@@ -43,6 +43,7 @@ class ToureTitle extends StatelessWidget {
                   children: <Widget>[
                       Text(
                           toure.title,
+                          maxLines: 1,
                           style: Theme.of(context).textTheme.subtitle,
                           textAlign: TextAlign.right,
                       ),

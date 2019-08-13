@@ -35,25 +35,6 @@ class HotelDetiles extends StatelessWidget {
           });
     }
 
-    specification(List<dynamic> hotelSpecification) {
-      List<Widget> specificationList = [];
-      specificationList.add(Icon(
-        ToureIcons.coffee_cup,
-        size: 13,
-      ));
-      hotelSpecification.forEach((item) {
-        specificationList.add(Container(
-          height: 10,
-          width: 1,
-          color: Colors.grey.shade400,
-          margin: EdgeInsets.all(2),
-        ));
-        specificationList.add(Text(item, style: TextStyle(fontSize: 12)));
-      });
-
-      return specificationList;
-    }
-
     return GestureDetector(
       onTap: () {
         if (_model.userToken != null) {
@@ -75,7 +56,7 @@ class HotelDetiles extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Expanded(
-                    flex: 1,
+                    flex: 2,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       textDirection: TextDirection.rtl,
@@ -95,23 +76,24 @@ class HotelDetiles extends StatelessWidget {
                     ),
                   ),
                   Expanded(
-                    flex: 1,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 5),
-                          child: Row(
-                             
-                            textDirection: TextDirection.rtl,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: specification(hotel.specification),
-                          ),
-                        )
-                      ],
-                    ),
-                  )
+                      flex: 1,
+                      child: FlatButton.icon(
+                        textColor: Theme.of(context).buttonColor,
+                        icon: Icon(
+                          Icons.info_outline,
+                          size: 15,
+                        ),
+                        label: Text(
+                          'خدمات تور',
+                          style: TextStyle(fontSize: 12),
+                        ),
+                        onPressed: () {
+                          showDialog(
+                            context: context,
+                            builder: (_) => FunkyOverlay(hotel: hotel),
+                          );
+                        },
+                      ))
                 ],
               ),
               Container(
@@ -200,6 +182,100 @@ class PriceBox extends StatelessWidget {
               style: TextStyle(color: Colors.white)),
         ),
       ],
+    );
+  }
+}
+
+class FunkyOverlay extends StatefulWidget {
+  final Accommodation hotel;
+
+  const FunkyOverlay({Key key, this.hotel}) : super(key: key);
+  @override
+  State<StatefulWidget> createState() => FunkyOverlayState();
+}
+
+class FunkyOverlayState extends State<FunkyOverlay>
+    with SingleTickerProviderStateMixin {
+  AnimationController controller;
+  Animation<double> scaleAnimation;
+
+  @override
+  void initState() {
+    super.initState();
+
+    controller =
+        AnimationController(vsync: this, duration: Duration(milliseconds: 450));
+    scaleAnimation =
+        CurvedAnimation(parent: controller, curve: Curves.elasticInOut);
+
+    controller.addListener(() {
+      setState(() {});
+    });
+
+    controller.forward();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Directionality(
+      textDirection: TextDirection.rtl,
+      child: Center(
+        child: Material(
+          color: Colors.transparent,
+          child: ScaleTransition(
+            scale: scaleAnimation,
+            child: Container(
+              width: 300,
+              height: 260,
+              decoration: ShapeDecoration(
+                  color: Colors.white,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15.0))),
+              child: Column(
+                children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.only(top: 15),
+                    child: Text('خدمات این تور' , style: Theme.of(context).textTheme.title,),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 30, vertical: 20),
+                    child: SizedBox(
+                      height: 160,
+                      child: ListView(
+                        children: widget.hotel.specification
+                            .map((item) => Padding(
+                                  padding: EdgeInsets.only(bottom: 10),
+                                  child: Row(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: <Widget>[
+                                      Icon(
+                                        Icons.check,
+                                        size: 20,
+                                        color: Theme.of(context).buttonColor,
+                                      ),
+                                      SizedBox(
+                                        width: 5,
+                                      ),
+                                      Flexible(
+                                        child: Text(
+                                          item,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ))
+                            .toList(),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+      ),
     );
   }
 }

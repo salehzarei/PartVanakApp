@@ -9,20 +9,6 @@ class DialogsExample extends StatelessWidget {
         child: RaisedButton(
           child: Icon(Icons.calendar_today),
           onPressed: () {
-            // showBottomSheet(
-            //     context: context,
-            //     builder: (context) =>
-
-            //     GestureDetector(
-            //       onTap: (){
-            //         Navigator.pop(context);
-            //       },
-            //                           child: Container(
-            //             color: Colors.red,
-            //             child: Center(child: Text("ssssss"),),
-            //           ),
-            //     ));
-
             showBottomSheet<String>(
                 context: context,
                 builder: (BuildContext context) => Container(

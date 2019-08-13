@@ -189,7 +189,6 @@ class _ContactPageState extends State<ContactPage> {
           content = Center(child: CircularProgressIndicator());
         }
         return content;
-        //return RefreshIndicator(onRefresh: model.fetchSubject, child: content,) ;
       },
     );
   }
@@ -216,9 +215,6 @@ class _ContactPageState extends State<ContactPage> {
         ),
         drawer: MyDrawer(),
         body: Container(
-          // decoration: BoxDecoration(
-          //   image: _buildBackgroundImage(),
-          // ),
           padding: EdgeInsets.all(20.0),
           child: Center(
             child: SingleChildScrollView(

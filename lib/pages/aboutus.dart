@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:hello_flutter/model/about_model.dart';
-import 'package:hello_flutter/pages/webview.dart';
 import 'package:scoped_model/scoped_model.dart';
 import '../scoped_model.dart';
 import '../drawer.dart';
@@ -164,11 +163,6 @@ class _AboutUsState extends State<AboutUs> {
                     textDirection: TextDirection.rtl,
                     style: TextStyle(color: Colors.white),
                   )),
-              // child: Text(
-              //   '${data}',
-              //   textDirection: TextDirection.rtl,
-              //   style: TextStyle(color: Colors.white),
-              // ),
             ),
           ],
         ),
@@ -338,10 +332,6 @@ class _AboutUsState extends State<AboutUs> {
                                             
                                       )),
                                 ],
-                              
-
-                              // _buildCell(),
-                            
                           ),
                         ),
                         Padding(

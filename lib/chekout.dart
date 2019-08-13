@@ -5,7 +5,6 @@ import 'package:flutter/services.dart';
 import './drawer.dart';
 import './scoped_model.dart';
 import './model/passenger_model.dart';
-import './model/bank_model.dart';
 
 class ChekOut extends StatefulWidget {
   final List<PassengerModel> passengerlist;

@@ -113,7 +113,6 @@ class _HomePageState extends State<HomePage> {
                                 CatDivider(
                                   toureTypeindex: 4,
                                 ),
-                               // ToureScrollTitle(toure: model.specialToureList),
                                 SpecialToureScrollTitle(
                                     specialtours: model.specialToureList),
                               ],

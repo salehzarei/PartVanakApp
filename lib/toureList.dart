@@ -30,9 +30,6 @@ class _ToureListPageState extends State<ToureListPage> {
       case "1":
         {
           _title = 'لیست تورهای داخلی';
-          // model.tourelist.forEach((toure) {
-          //   if (toure.foreign == 1) _toureList.add(toure);
-          // });
           model.getTourData(
               filter: ToureFilterModel(
                   foreign: model.touretypes[1]['foregin'],
@@ -126,7 +123,6 @@ class _ToureListPageState extends State<ToureListPage> {
               ],
             ),
             body: Stack(
-                // fit: StackFit.expand,
                 textDirection: TextDirection.rtl,
                 children: <Widget>[
                   model.isLoading

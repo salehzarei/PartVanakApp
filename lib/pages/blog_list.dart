@@ -102,7 +102,6 @@ class _BlogListState extends State<BlogList> {
                         context,
                         MaterialPageRoute(
                             builder: (context) => BlogDetile(blog[index].id)));
-                    // Navigator.pushNamed(context, '/contact');
                   },
                   child: Card(
                     color: Colors.white30,
@@ -216,7 +215,6 @@ class _BlogListState extends State<BlogList> {
                         padding: const EdgeInsets.only(top: 10, right: 5),
                         child: Row(
                           textDirection: TextDirection.rtl,
-                          // crossAxisAlignment: CrossAxisAlignment.start,
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
                             GestureDetector(
@@ -287,7 +285,6 @@ class _BlogListState extends State<BlogList> {
                     },
                     child: Text("${v['title']}")),
 
-                // Text("${v['title']}"),
                 v['count'] == 0
                     ? Container()
                     : GestureDetector(
@@ -323,7 +320,5 @@ class _BlogListState extends State<BlogList> {
         ),
       );
     }
-
-    //
   }
 }

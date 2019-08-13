@@ -246,7 +246,6 @@ class _CommentFormState extends State<CommentForm> {
     return TextFormField(
       decoration: InputDecoration(
           labelText: 'متن پیام', filled: true, fillColor: Colors.white),
-      // obscureText: true,
 
       validator: (String value) {
         if (value.isEmpty || value.length < 10) {

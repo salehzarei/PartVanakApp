@@ -44,10 +44,6 @@ class _SplashState extends State<Splash> {
       setState(() {
         isconnect = false;
       });
-      // widget.model.ackAlert(
-      //   context,
-      //   massage: 'دسترسی به سایت مقدور نیست . اینترنت خود را چک کنید',
-      // );
     }
   }
 

@@ -145,13 +145,7 @@ class _RegisterState extends State<Register> {
         ),
         body: Container(
           child: Stack(
-            //fit: StackFit.expand,
             children: <Widget>[
-              // Container(
-              //     child: Image.asset(
-              //   'images/air.jpg',
-              //   fit: BoxFit.cover,
-              // )),
               Stepper(
                 currentStep: _stepindex,
                 onStepContinue: () => _onStepContinue(_stepindex, model),
