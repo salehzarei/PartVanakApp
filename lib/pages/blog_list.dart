@@ -18,8 +18,10 @@ class BlogList extends StatefulWidget {
 }
 
 class _BlogListState extends State<BlogList> {
+  List<Map> stack = List();
   List<Blog> list = List();
-  Map<String, dynamic> curentCategory = {'pId': 0, 'id': 0};
+  Map<String, dynamic> curentCategory = {'pId': 0, 'id': 0, 'title': 'همه'};
+  String categoryTitle = 'همه';
   Map<dynamic, dynamic> _categories;
 
   var isLoading = false;
@@ -41,7 +43,6 @@ class _BlogListState extends State<BlogList> {
     });
 
     final response = await http.get(model.host + 'blog$q');
-    print(model.host + 'blog$q');
     if (response.statusCode == 200) {
       Map data = json.decode(response.body);
       if (data['count'] > 0) {
@@ -221,11 +222,16 @@ class _BlogListState extends State<BlogList> {
                               onTap: () {
                                 _buildCategory(context);
                               },
-                              child: Row(
-                                children: <Widget>[
-                                  Text("دسته بندی"),
-                                  Icon(Icons.filter_list),
-                                ],
+                              child: Directionality(
+                                textDirection: TextDirection.rtl,
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceAround,
+                                  children: <Widget>[
+                                    Text("دسته بندی : "),
+                                    Text(categoryTitle),
+                                  ],
+                                ),
                               ),
                             ),
                           ],
@@ -239,20 +245,57 @@ class _BlogListState extends State<BlogList> {
 
   void _buildCategory(BuildContext context) {
     List<Widget> categorieData = new List();
-
+    print('stack:' + stack.toString() + '--' + stack.length.toString());
     categorieData.add(Container(
         padding: EdgeInsets.only(top: 10, bottom: 10, left: 15, right: 15),
         decoration: BoxDecoration(
           color: Colors.black12,
           border: Border(bottom: BorderSide(color: Colors.black12)),
         ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: <Widget>[
-            Icon(Icons.arrow_back),
-            Text("All"),
-          ],
-        )));
+        child: stack.length == 0
+            ? Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                    GestureDetector(
+                        onTap: () {
+                          if(curentCategory['id']==0){
+                             Navigator.pop(context);
+                          }else{
+                            curentCategory['id'] = 0;
+                            curentCategory['pId'] = 0;
+                            curentCategory['title'] = 'همه';
+                            _fetchData(pId: 0);
+                          }
+                        },
+                        child: Text(curentCategory['title'])),
+                  ])
+            : Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  GestureDetector(
+                      onTap: () {
+                        Navigator.pop(context);
+                        Map last = stack.last;
+                        setState(() {
+                          curentCategory['id'] = last['id'];
+                          curentCategory['pId'] = last['pId'];
+                          curentCategory['title'] = last['title'];
+                          print('last');
+                          print(last);
+                          stack.removeAt(stack.length - 1);
+                          // stack.add({
+                          //   'pid': curentCategory['pid'],
+                          //   'id': curentCategory['id'],
+                          //   'title': curentCategory['title']
+                          // });
+                          _buildCategory(context);
+                        });
+                      },
+                      child: Icon(Icons.arrow_back)),
+                  // stack.length > 0 ? Icon(Icons.arrow_back) : Container(),
+                  Text(curentCategory['title']),
+                ],
+              )));
 
     if (categoryLoading) {
       showModalBottomSheet(
@@ -279,20 +322,31 @@ class _BlogListState extends State<BlogList> {
                 GestureDetector(
                     onTap: () {
                       Navigator.pop(context);
-                       curentCategory['id'] = k;
-                       curentCategory['pId'] = curentCategory['id'];
+                      if (_categories[k] != null) {
+                        curentCategory['id'] = k;
+                        curentCategory['pId'] = curentCategory['id'];
+                        curentCategory['title'] = v['title'];
+                      }
+                      categoryTitle = v['title'];
+
                       _fetchData(pId: k);
                     },
                     child: Text("${v['title']}")),
-
                 v['count'] == 0
                     ? Container()
                     : GestureDetector(
                         onTap: () {
                           Navigator.pop(context);
                           setState(() {
+                            stack.add({
+                              'pId': curentCategory['pId'],
+                              'id': curentCategory['id'],
+                              'title': curentCategory['title']
+                            });
                             curentCategory['id'] = k;
                             curentCategory['pId'] = curentCategory['id'];
+                            curentCategory['title'] = v['title'];
+
                             _buildCategory(context);
                           });
                         },
