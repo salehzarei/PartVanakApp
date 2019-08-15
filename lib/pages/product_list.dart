@@ -154,36 +154,51 @@ class _ProductListState extends State<ProductList> {
             ? Center(
                 child: CircularProgressIndicator(),
               )
-            : Stack(textDirection: TextDirection.rtl, children: <Widget>[
-                makeList(list),
-                Column(
-                  children: <Widget>[
-                    Container(
-                      color: Colors.white,
-                      height: 45,
-                      child: Padding(
-                        padding: const EdgeInsets.only(top: 10, right: 5),
-                        child: Row(
-                          textDirection: TextDirection.rtl,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: <Widget>[
-                            GestureDetector(
-                              onTap: () => {},
+            : Stack(
+                textDirection: TextDirection.rtl,
+                alignment: AlignmentDirectional.topCenter,
+                children: <Widget>[
+                  makeList(list),
+                  Container(
+                    color: Colors.white,
+                    height: 104,
+                    child: Padding(
+                      padding: const EdgeInsets.only(top: 10, right: 5),
+                      child: Column(
+                        children: <Widget>[
+                          GestureDetector(
+                            onTap: () {},
+                            child: Directionality(
+                              textDirection: TextDirection.rtl,
                               child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceAround,
                                 children: <Widget>[
                                   Text("دسته بندی"),
-                                  Icon(Icons.filter_list),
                                 ],
                               ),
                             ),
-                          ],
-                        ),
+                          ),
+                          SizedBox(
+                            height: 8,
+                          ),
+                          Container(
+                            color: Colors.black,
+                            height: 1,
+                          ),
+                          Container(
+                            child: _search(),
+                          ),
+                          Container(
+                            color: Colors.black,
+                            height: 1,
+                          ),
+                        ],
                       ),
                     ),
-                  ],
-                ),
-              ]),
+                  ),
+                ],
+              ),
       ),
     );
   }
@@ -215,14 +230,24 @@ class _ProductListState extends State<ProductList> {
         });
   }
 
-  Widget search() {
-    return TextFormField(
-      decoration: InputDecoration(
-          labelText: 'متن پیام', filled: true, fillColor: Colors.grey),
-
-      maxLines: 3,
-      keyboardType: TextInputType.text,
-      onSaved: (String value) {},
+  Widget _search() {
+    return Directionality(
+      textDirection: TextDirection.rtl,
+      child: TextFormField(
+        maxLines: 1,
+        decoration: InputDecoration(
+            suffixIcon: IconButton(
+              icon: Icon(Icons.search),
+              onPressed: () {
+                print('جست و جو');
+              },
+            ),
+            labelText: 'جست و جو',
+            filled: true,
+            fillColor: Colors.white,
+            border: InputBorder.none),
+        keyboardType: TextInputType.emailAddress,
+      ),
     );
   }
 }
