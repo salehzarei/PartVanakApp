@@ -59,11 +59,8 @@ main() {
         ),
         initialRoute: '/',
         routes: {
-          // '/': (context) => DialogsExample(),
+         //  '/': (context) => SearchApp(),
           '/': (context) => Splash(model: model),
-        
-
-
 
 
           '/product': (context) => ProductList(),

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:hello_flutter/pages/blogDetile.dart';
+import 'package:search_widget/search_widget.dart';
 import '../drawer.dart';
 import '../model/blog_model.dart';
 import 'package:http/http.dart' as http;
@@ -9,6 +11,7 @@ import '../scoped_model.dart';
 class BlogList extends StatefulWidget {
   int pId;
   String word;
+
   BlogList({this.pId, this.word});
 
   @override
@@ -16,6 +19,8 @@ class BlogList extends StatefulWidget {
     return _BlogListState();
   }
 }
+
+//////////////////////search///////////////////////////
 
 class _BlogListState extends State<BlogList> {
   List<Map> stack = List();
@@ -184,6 +189,19 @@ class _BlogListState extends State<BlogList> {
       child: Scaffold(
         drawer: MyDrawer(),
         appBar: AppBar(
+          actions: <Widget>[
+            // IconButton(
+            //  // alignment: Alignment(65,0),
+            //   //padding: EdgeInsets.only(left: 100),
+            //   icon: Icon(Icons.search, color: Theme.of(context).accentColor),
+            //   onPressed: () => Navigator.pop(context),
+            // ),
+            IconButton(
+              icon: Icon(Icons.arrow_forward,
+                  color: Theme.of(context).accentColor),
+              onPressed: () => Navigator.pop(context),
+            )
+          ],
           centerTitle: true,
           title: Text(
             'لیست اخبار سایت',
@@ -192,13 +210,6 @@ class _BlogListState extends State<BlogList> {
           iconTheme: Theme.of(context)
               .iconTheme
               .copyWith(color: Theme.of(context).accentColor),
-          actions: <Widget>[
-            IconButton(
-              icon: Icon(Icons.arrow_forward,
-                  color: Theme.of(context).accentColor),
-              onPressed: () => Navigator.pop(context),
-            )
-          ],
         ),
         body: isLoading
             ? Center(
@@ -211,12 +222,10 @@ class _BlogListState extends State<BlogList> {
                     makeList(list),
                     Container(
                       color: Colors.white,
-                      height: 45,
+                      height: 104,
                       child: Padding(
                         padding: const EdgeInsets.only(top: 10, right: 5),
-                        child: Row(
-                          textDirection: TextDirection.rtl,
-                          mainAxisAlignment: MainAxisAlignment.center,
+                        child: Column(
                           children: <Widget>[
                             GestureDetector(
                               onTap: () {
@@ -234,10 +243,24 @@ class _BlogListState extends State<BlogList> {
                                 ),
                               ),
                             ),
+                            SizedBox(
+                              height: 8,
+                            ),
+                            Container(
+                              color: Colors.black,
+                              height: 1,
+                            ),
+                            Container(
+                              child: _search(),
+                            ),
+                            Container(
+                              color: Colors.black,
+                              height: 1,
+                            ),
                           ],
                         ),
                       ),
-                    )
+                    ),
                   ]),
       ),
     );
@@ -378,5 +401,26 @@ class _BlogListState extends State<BlogList> {
         ),
       );
     }
+  }
+
+  Widget _search() {
+    return Directionality(
+      textDirection: TextDirection.rtl,
+      child: TextFormField(
+        maxLines: 1,
+        decoration: InputDecoration(
+            suffixIcon: IconButton(
+              icon: Icon(Icons.search),
+              onPressed: () {
+                print('جست و جو');
+              },
+            ),
+            labelText: 'جست و جو',
+            filled: true,
+            fillColor: Colors.white,
+            border: InputBorder.none),
+        keyboardType: TextInputType.emailAddress,
+      ),
+    );
   }
 }

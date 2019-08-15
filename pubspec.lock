@@ -158,6 +158,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.1.6+2"
+  keyboard_visibility:
+    dependency: transitive
+    description:
+      name: keyboard_visibility
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.5.6"
   matcher:
     dependency: transitive
     description:
@@ -228,6 +235,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.1"
+  search_widget:
+    dependency: "direct main"
+    description:
+      name: search_widget
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.2.0"
   shared_preferences:
     dependency: "direct main"
     description:

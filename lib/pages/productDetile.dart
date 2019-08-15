@@ -20,7 +20,6 @@ class BlogDetile extends StatefulWidget {
 }
 
 class _BlogDetileState extends State<BlogDetile> {
-  
   Blog blog;
   var isLoading = false;
   MainModel model = new MainModel();
@@ -77,46 +76,49 @@ class _BlogDetileState extends State<BlogDetile> {
                 )
               : CustomScrollView(
                   slivers: <Widget>[
-                    Stack(children: <Widget>[
-                      Container(
-                      height: 160,),
-                      SliverAppBar(
-                      centerTitle: true,
-                      actions: <Widget>[
-                        IconButton(
-                          icon: Icon(Icons.arrow_forward, color: Colors.white),
-                          onPressed: () => Navigator.pop(context),
-                        )
-                      ],
-                      pinned: true,
-                      snap: false,
-                      floating: false,
-                      expandedHeight: 180.0,
-                      flexibleSpace: ListView(
-                          children: <Widget>[
-                            Stack(
+                    Stack(
+                      children: <Widget>[
+                        Container(
+                          height: 160,
+                        ),
+                        SliverAppBar(
+                            centerTitle: true,
+                            actions: <Widget>[
+                              IconButton(
+                                icon: Icon(Icons.arrow_forward,
+                                    color: Colors.white),
+                                onPressed: () => Navigator.pop(context),
+                              )
+                            ],
+                            pinned: true,
+                            snap: false,
+                            floating: false,
+                            expandedHeight: 180.0,
+                            flexibleSpace: ListView(
                               children: <Widget>[
-                                Container(
-                                  child: getSlider(),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.only(
-                                      top: 120, right: 40),
-                                  child: Container(
-                                    child: Text(
-                                      blog.title,
-                                      style: TextStyle(
-                                          color: Colors.white, fontSize: 20),
+                                Stack(
+                                  children: <Widget>[
+                                    Container(
+                                      child: getSlider(),
                                     ),
-                                  ),
+                                    Padding(
+                                      padding: const EdgeInsets.only(
+                                          top: 120, right: 40),
+                                      child: Container(
+                                        child: Text(
+                                          blog.title,
+                                          style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 20),
+                                        ),
+                                      ),
+                                    )
+                                  ],
                                 )
                               ],
-                            )
-                          ],
-                        )
+                            )),
+                      ],
                     ),
-                    ],),
-                    
                     SliverList(
                       delegate: SliverChildListDelegate([
                         ButtonTheme.bar(
@@ -173,8 +175,6 @@ class _BlogDetileState extends State<BlogDetile> {
         ));
   }
 
-  
-  // List<String> bannerList = List();
   Widget getSlider() {
     return BannerSwiper(
       height: 108,
@@ -183,7 +183,6 @@ class _BlogDetileState extends State<BlogDetile> {
       getwidget: (index) {
         return GestureDetector(
             child: Image.network(
-              // bannerList[index % bannerList.length],
               blog.pic,
               fit: BoxFit.cover,
             ),

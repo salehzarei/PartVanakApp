@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_banner_swiper/flutter_banner_swiper.dart';
 import 'package:hello_flutter/drawer.dart';
 import '../model/blog_model.dart';
 import 'package:http/http.dart' as http;
@@ -85,31 +84,16 @@ class _BlogDetileState extends State<BlogDetile> {
                             onPressed: () => Navigator.pop(context),
                           )
                         ],
-                        pinned: false,
+                        pinned: true,
                         snap: false,
                         floating: false,
                         expandedHeight: 180.0,
-                        flexibleSpace: ListView(
-                          children: <Widget>[
-                            Stack(
-                              children: <Widget>[
-                                Container(
-                                  child: getSlider(),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.only(
-                                      top: 120, right: 40),
-                                  child: Container(
-                                    child: Text(
-                                      blog.title,
-                                      style: TextStyle(
-                                          color: Colors.white, fontSize: 20),
-                                    ),
-                                  ),
-                                )
-                              ],
-                            )
-                          ],
+                        flexibleSpace: FlexibleSpaceBar(
+                          title: Text(blog.title),
+                          background: Image.network(
+                            blog.pic,
+                            fit: BoxFit.cover,
+                          ),
                         )),
                     SliverList(
                       delegate: SliverChildListDelegate([
@@ -165,25 +149,5 @@ class _BlogDetileState extends State<BlogDetile> {
                   ],
                 ),
         ));
-  }
-
- // List<String> bannerList = List();
-  Widget getSlider() {
-    return BannerSwiper(
-      height: 115,
-      width: 54,
-      length: 3,
-      getwidget: (index) {
-        return GestureDetector(
-            child: Image.network(
-              // bannerList[index % bannerList.length],
-              blog.pic,
-              fit: BoxFit.cover,
-            ),
-            onTap: () {
-              print('click on');
-            });
-      },
-    );
   }
 }
