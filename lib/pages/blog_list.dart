@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:hello_flutter/pages/blogDetile.dart';
 import '../drawer.dart';
 import '../model/blog_model.dart';
@@ -183,6 +184,19 @@ class _BlogListState extends State<BlogList> {
       child: Scaffold(
         drawer: MyDrawer(),
         appBar: AppBar(
+          actions: <Widget>[
+            // IconButton(
+            //  // alignment: Alignment(65,0),
+            //   //padding: EdgeInsets.only(left: 100),
+            //   icon: Icon(Icons.search, color: Theme.of(context).accentColor),
+            //   onPressed: () => Navigator.pop(context),
+            // ),
+            IconButton(
+              icon: Icon(Icons.arrow_forward,
+                  color: Theme.of(context).accentColor),
+              onPressed: () => Navigator.pop(context),
+            )
+          ],
           centerTitle: true,
           title: Text(
             'لیست اخبار سایت',
@@ -191,13 +205,6 @@ class _BlogListState extends State<BlogList> {
           iconTheme: Theme.of(context)
               .iconTheme
               .copyWith(color: Theme.of(context).accentColor),
-          actions: <Widget>[
-            IconButton(
-              icon: Icon(Icons.arrow_forward,
-                  color: Theme.of(context).accentColor),
-              onPressed: () => Navigator.pop(context),
-            )
-          ],
         ),
         body: isLoading
             ? Center(
@@ -210,23 +217,45 @@ class _BlogListState extends State<BlogList> {
                     makeList(list),
                     Container(
                       color: Colors.white,
-                      height: 45,
+                      height: 106,
                       child: Padding(
                         padding: const EdgeInsets.only(top: 10, right: 5),
-                        child: Row(
-                          textDirection: TextDirection.rtl,
-                          mainAxisAlignment: MainAxisAlignment.center,
+                        child: Column(
                           children: <Widget>[
-                            GestureDetector(
-                              onTap: () {
-                                _buildCategory(context);
-                              },
-                              child: Row(
-                                children: <Widget>[
-                                  Text("دسته بندی"),
-                                  Icon(Icons.filter_list),
-                                ],
-                              ),
+                            Row(
+                              textDirection: TextDirection.rtl,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[
+                                GestureDetector(
+                                  onTap: () {
+                                    _buildCategory(context);
+                                  },
+                                  child: Row(
+                                    children: <Widget>[
+                                      Text("دسته بندی"),
+                                      Icon(Icons.filter_list),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                            SizedBox(
+                              height: 6,
+                            ),
+                            Container(
+                              height: 1,
+                              color: Colors.black,
+                              width: MediaQuery.of(context).size.width,
+                            ),
+                            Column(
+                              textDirection: TextDirection.rtl,
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: <Widget>[_search()],
+                            ),
+                            Container(
+                              height: 1,
+                              color: Colors.black,
+                              width: MediaQuery.of(context).size.width,
                             ),
                           ],
                         ),
@@ -279,12 +308,11 @@ class _BlogListState extends State<BlogList> {
                 GestureDetector(
                     onTap: () {
                       Navigator.pop(context);
-                       curentCategory['id'] = k;
-                       curentCategory['pId'] = curentCategory['id'];
+                      curentCategory['id'] = k;
+                      curentCategory['pId'] = curentCategory['id'];
                       _fetchData(pId: k);
                     },
                     child: Text("${v['title']}")),
-
                 v['count'] == 0
                     ? Container()
                     : GestureDetector(
@@ -320,5 +348,23 @@ class _BlogListState extends State<BlogList> {
         ),
       );
     }
+  }
+
+  Widget _search() {
+    return TextFormField(
+      maxLines: 1,
+      decoration: InputDecoration(
+          icon: IconButton(
+            icon: Icon(Icons.search),
+            onPressed: () {
+              print('جست و جو');
+            },
+          ),
+          labelText: 'جست و جو',
+          filled: true,
+          fillColor: Colors.white,
+          border: InputBorder.none),
+      keyboardType: TextInputType.emailAddress,
+    );
   }
 }

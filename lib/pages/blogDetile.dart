@@ -89,27 +89,10 @@ class _BlogDetileState extends State<BlogDetile> {
                         snap: false,
                         floating: false,
                         expandedHeight: 180.0,
-                        flexibleSpace: ListView(
-                          children: <Widget>[
-                            Stack(
-                              children: <Widget>[
-                                Container(
-                                  child: getSlider(),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.only(
-                                      top: 120, right: 40),
-                                  child: Container(
-                                    child: Text(
-                                      blog.title,
-                                      style: TextStyle(
-                                          color: Colors.white, fontSize: 20),
-                                    ),
-                                  ),
-                                )
-                              ],
-                            )
-                          ],
+                        flexibleSpace: FlexibleSpaceBar(
+                          centerTitle: true,
+                          title: Text(blog.title),
+                          background: Image.network(blog.pic),
                         )),
                     SliverList(
                       delegate: SliverChildListDelegate([
@@ -167,7 +150,6 @@ class _BlogDetileState extends State<BlogDetile> {
         ));
   }
 
- // List<String> bannerList = List();
   Widget getSlider() {
     return BannerSwiper(
       height: 115,
@@ -176,7 +158,6 @@ class _BlogDetileState extends State<BlogDetile> {
       getwidget: (index) {
         return GestureDetector(
             child: Image.network(
-              // bannerList[index % bannerList.length],
               blog.pic,
               fit: BoxFit.cover,
             ),
