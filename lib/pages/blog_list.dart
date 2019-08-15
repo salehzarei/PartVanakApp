@@ -245,7 +245,6 @@ class _BlogListState extends State<BlogList> {
 
   void _buildCategory(BuildContext context) {
     List<Widget> categorieData = new List();
-    print('stack:' + stack.toString() + '--' + stack.length.toString());
     categorieData.add(Container(
         padding: EdgeInsets.only(top: 10, bottom: 10, left: 15, right: 15),
         decoration: BoxDecoration(
@@ -258,9 +257,9 @@ class _BlogListState extends State<BlogList> {
                 children: <Widget>[
                     GestureDetector(
                         onTap: () {
-                          if(curentCategory['id']==0){
-                             Navigator.pop(context);
-                          }else{
+                          if (curentCategory['id'] == 0) {
+                            Navigator.pop(context);
+                          } else {
                             curentCategory['id'] = 0;
                             curentCategory['pId'] = 0;
                             curentCategory['title'] = 'همه';
@@ -280,8 +279,6 @@ class _BlogListState extends State<BlogList> {
                           curentCategory['id'] = last['id'];
                           curentCategory['pId'] = last['pId'];
                           curentCategory['title'] = last['title'];
-                          print('last');
-                          print(last);
                           stack.removeAt(stack.length - 1);
                           // stack.add({
                           //   'pid': curentCategory['pid'],
@@ -322,12 +319,19 @@ class _BlogListState extends State<BlogList> {
                 GestureDetector(
                     onTap: () {
                       Navigator.pop(context);
-                      if (_categories[k] != null) {
-                        curentCategory['id'] = k;
-                        curentCategory['pId'] = curentCategory['id'];
-                        curentCategory['title'] = v['title'];
-                      }
-                      categoryTitle = v['title'];
+                      setState(() {
+                        stack.add({
+                          'pId': curentCategory['pId'],
+                          'id': curentCategory['id'],
+                          'title': curentCategory['title']
+                        });
+                        if (_categories[k] != null) {
+                          curentCategory['id'] = k;
+                          curentCategory['pId'] = curentCategory['id'];
+                          curentCategory['title'] = v['title'];
+                        }
+                        categoryTitle = v['title'];
+                      });
 
                       _fetchData(pId: k);
                     },
