@@ -108,7 +108,7 @@ class _ProductListState extends State<ProductList> {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => ProductDetile(blog[index].id)));
+                            builder: (context) => ProductDetile(id: blog[index].id,)));
                   },
                   child: Card(
                     color: Colors.white30,

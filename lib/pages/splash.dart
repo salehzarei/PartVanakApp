@@ -23,6 +23,7 @@ class _SplashState extends State<Splash> {
   void initState() {
     super.initState();
     chekinternet();
+   
     widget.model.getToken().whenComplete(() {
       if (widget.model.userToken != null) widget.model.loadingUserData();
       widget.model.getTourData(filter: fetchSpecialToure);

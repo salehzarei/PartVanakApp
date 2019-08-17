@@ -9,13 +9,11 @@ import '../UI/comment.dart';
 
 class ProductDetile extends StatefulWidget {
   int id;
+
+  ProductDetile({this.id});
   @override
   State<StatefulWidget> createState() {
     return _ProductDetileState();
-  }
-
-  BlogDetile(int id) {
-    this.id = id;
   }
 }
 
@@ -28,8 +26,8 @@ class _ProductDetileState extends State<ProductDetile> {
     setState(() {
       isLoading = true;
     });
-    final response =
-        await http.get(model.host + 'products/show/prm/' + widget.id.toString());
+    final response = await http
+        .get(model.host + 'products/show/prm/' + widget.id.toString());
     if (response.statusCode == 200) {
       print(response.body);
       Map res = json.decode(response.body);
