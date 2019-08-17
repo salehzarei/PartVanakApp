@@ -7,6 +7,7 @@ import './Theme/drawerTheme.dart';
 import './coustomIcon/toure_icons_icons.dart';
 import './coustomIcon/loginicon_icons.dart';
 import './pages/userprofile.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class MyDrawer extends StatefulWidget {
   @override
@@ -14,11 +15,13 @@ class MyDrawer extends StatefulWidget {
 }
 
 class _MyDrawerState extends State<MyDrawer> {
+  int Number = 09309722107;
   String _projectVersion = '';
   initState() {
     super.initState();
     initPlatformState();
   }
+
   @override
   initPlatformState() async {
     String projectVersion;
@@ -28,13 +31,14 @@ class _MyDrawerState extends State<MyDrawer> {
     } on PlatformException {
       projectVersion = 'Failed to get project version.';
     }
-  
+
     if (!mounted) return;
 
     setState(() {
       _projectVersion = projectVersion;
     });
   }
+
   Widget build(BuildContext context) {
     return ScopedModelDescendant<MainModel>(builder: (context, child, model) {
       return Material(
@@ -132,6 +136,60 @@ class _MyDrawerState extends State<MyDrawer> {
                           ),
                           Text(
                             'اینستاگرام',
+                            style: DarwerThemeData.textTheme.title,
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Container(
+              margin: EdgeInsets.only(top: 15),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  GestureDetector(
+                    onTap: () {
+                      launch("tel:$Number");
+                    },
+                    child: Container(
+                      width: 125,
+                      child: Column(
+                        children: <Widget>[
+                          Padding(
+                            padding: const EdgeInsets.only(bottom: 10.2),
+                            child: Icon(
+                              Icons.call,
+                              color: Theme.of(context).accentColor,
+                            ),
+                          ),
+                          Text(
+                            'تماس',
+                            style: DarwerThemeData.textTheme.title,
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      launch("sms:$Number");
+                    },
+                    child: Container(
+                      width: 125,
+                      child: Column(
+                        children: <Widget>[
+                          Padding(
+                            padding: const EdgeInsets.only(bottom: 10.2),
+                            child: Icon(
+                              Icons.message,
+                              color: Theme.of(context).accentColor,
+                            ),
+                          ),
+                          Text(
+                            'پیامک',
                             style: DarwerThemeData.textTheme.title,
                           )
                         ],
@@ -329,7 +387,7 @@ class _MyDrawerState extends State<MyDrawer> {
                               ],
                             ),
                           )),
-                          GestureDetector(
+                      GestureDetector(
                           onTap: () {
                             Navigator.pushNamed(context, '/product');
                           },
@@ -457,7 +515,7 @@ class _MyDrawerState extends State<MyDrawer> {
                               ],
                             ),
                           )),
-                      
+
                       Container(
                         margin: EdgeInsets.only(top: 20, left: 15.0, right: 15),
                         height: 1,
@@ -483,6 +541,7 @@ class _MyDrawerState extends State<MyDrawer> {
                 ),
               ),
             ),
+
             Padding(
               padding: const EdgeInsets.only(bottom: 5, top: 15, right: 10),
               child: Column(
@@ -490,13 +549,23 @@ class _MyDrawerState extends State<MyDrawer> {
                   Row(
                     children: <Widget>[
                       Container(
-                        child: Text('نسخه نرم افزار:',style: TextStyle(fontSize: 15,color: Colors.white),),
+                        child: Text(
+                          'نسخه نرم افزار:',
+                          style: TextStyle(fontSize: 15, color: Colors.white),
+                        ),
                       ),
                       SizedBox(
                         width: 10,
                       ),
-                      Container(child: Text(_projectVersion,style: TextStyle(fontSize: 15,color: Colors.white,),)
-                       ) ],
+                      Container(
+                          child: Text(
+                        _projectVersion,
+                        style: TextStyle(
+                          fontSize: 15,
+                          color: Colors.white,
+                        ),
+                      ))
+                    ],
                   )
                 ],
               ),

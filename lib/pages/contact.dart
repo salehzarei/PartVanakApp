@@ -246,7 +246,7 @@ class _ContactPageState extends State<ContactPage> {
                             MainModel model) {
                           return RaisedButton(
                             textColor: Colors.white,
-                            child: Text('ارسال '),
+                            child: Text('ارسال'),
                             onPressed: () => _submitForm(model.addContact),
                           );
                         },
