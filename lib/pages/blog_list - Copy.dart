@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:hello_flutter/pages/blogDetile.dart';
+import 'package:search_widget/search_widget.dart';
 import '../drawer.dart';
 import '../model/blog_model.dart';
 import 'package:http/http.dart' as http;
@@ -22,12 +23,12 @@ class BlogList extends StatefulWidget {
 //////////////////////search///////////////////////////
 
 class _BlogListState extends State<BlogList> {
-  List<Map<String, dynamic>> crumb = [
-    {'pId': 0, 'id': 0, 'title': 'همه'}
-  ];
+  List<Map> stack = List();
   List<Blog> list = List();
   Map<String, dynamic> curentCategory = {'pId': 0, 'id': 0, 'title': 'همه'};
+  String categoryTitle = 'همه';
   Map<dynamic, dynamic> _categories;
+  // TextEditingController _word_controller = new TextEditingController();
   String word = '';
   GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
@@ -52,7 +53,6 @@ class _BlogListState extends State<BlogList> {
     final response = await http.get(model.host + 'blog$q');
     if (response.statusCode == 200) {
       Map data = json.decode(response.body);
-
       if (data['count'] > 0) {
         list = (data['post'] as List)
             .map((data) => new Blog.fromJson(data))
@@ -235,7 +235,7 @@ class _BlogListState extends State<BlogList> {
                                       MainAxisAlignment.spaceAround,
                                   children: <Widget>[
                                     Text("دسته بندی : "),
-                                    Text(curentCategory['title']),
+                                    Text(categoryTitle),
                                   ],
                                 ),
                               ),
@@ -267,58 +267,50 @@ class _BlogListState extends State<BlogList> {
 
   void _buildCategory(BuildContext context) {
     List<Widget> categorieData = new List();
-
-    Map last = crumb.last;
-    // Map last = crumb.length>0?crumb.last:curentCategory;
-    print(crumb);
-
     categorieData.add(Container(
         padding: EdgeInsets.only(top: 10, bottom: 10, left: 15, right: 15),
         decoration: BoxDecoration(
           color: Colors.black12,
           border: Border(bottom: BorderSide(color: Colors.black12)),
         ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: <Widget>[
-            GestureDetector(
-                onTap: () {
-                  Navigator.pop(context);
+        child: stack.length == 0
+            ? Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                    GestureDetector(
+                        onTap: () {
+                          Navigator.pop(context);
+                          setState(() {
+                            curentCategory['id'] = 0;
+                            curentCategory['pId'] = 0;
+                            curentCategory['title'] = 'همه';
+                            categoryTitle = 'همه';
+                          });
 
-                  setState(() {
-                    // curentCategory['id'] = last['id'];
-                    // curentCategory['pId'] = last['pId'];
-                    // curentCategory['title'] = last['title'];
-
-                    if (curentCategory['id'] != crumb[crumb.length - 1]['id']) {
-                      crumb.removeAt(crumb.length - 1);
-                    }
-
-                    _buildCategory(context);
-                  });
-                },
-                child: crumb.length > 1 ? Icon(Icons.arrow_back) : Container()),
-            // Icon(Icons.arrow_back)),
-            GestureDetector(
-                onTap: () {
-                  Navigator.pop(context);
-                  setState(() {
-                    crumb.add({
-                      'id': last['id'],
-                      'pId': curentCategory['id'],
-                      'title': last['title']
-                    });
-
-                    curentCategory['id'] = last['id'];
-                    curentCategory['pId'] = curentCategory['id'];
-                    curentCategory['title'] = last['title'];
-                  });
-
-                  _fetchData();
-                },
-                child: Text(crumb[crumb.length - 1]['title'])),
-          ],
-        )));
+                          _fetchData();
+                        },
+                        child: Text(curentCategory['title'])),
+                  ])
+            : Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  GestureDetector(
+                      onTap: () {
+                        Navigator.pop(context);
+                        Map last = stack.last;
+                        setState(() {
+                          curentCategory['id'] = last['id'];
+                          curentCategory['pId'] = last['pId'];
+                          curentCategory['title'] = last['title'];
+                          stack.removeAt(stack.length - 1);
+                          _buildCategory(context);
+                        });
+                      },
+                      child: Icon(Icons.arrow_back)),
+                  // stack.length > 0 ? Icon(Icons.arrow_back) : Container(),
+                  Text(curentCategory['title']),
+                ],
+              )));
 
     if (categoryLoading) {
       showModalBottomSheet(
@@ -333,7 +325,7 @@ class _BlogListState extends State<BlogList> {
                     child: CircularProgressIndicator(),
                   ))));
     } else {
-      _categories["${last['id']}"].forEach((k, v) {
+      _categories["${curentCategory['id']}"].forEach((k, v) {
         Widget w = Container(
             padding: EdgeInsets.only(top: 10, bottom: 10, left: 15, right: 15),
             decoration: BoxDecoration(
@@ -347,21 +339,20 @@ class _BlogListState extends State<BlogList> {
                       Navigator.pop(context);
                       setState(() {
                         if (_categories[k] != null) {
-                          crumb.add({
-                            'id': k,
-                            'pId': curentCategory['id'],
-                            'title': v['title']
+                          stack.add({
+                            'pId': curentCategory['pId'],
+                            'id': curentCategory['id'],
+                            'title': curentCategory['title']
                           });
-// //bug
-//                           curentCategory['id'] = k;
-//                           curentCategory['pId'] = curentCategory['id'];
-//                           curentCategory['title'] = v['title'];
-//                           crumb.add(curentCategory);
+//bug
+                          curentCategory['id'] = k;
+                          curentCategory['pId'] = curentCategory['id'];
+                          curentCategory['title'] = v['title'];
                         }
 
-                        curentCategory['id'] = k;
-                        curentCategory['pId'] = curentCategory['id'];
-                        curentCategory['title'] = v['title'];
+                        
+
+                        categoryTitle = v['title'];
                       });
 
                       _fetchData();
@@ -373,18 +364,14 @@ class _BlogListState extends State<BlogList> {
                         onTap: () {
                           Navigator.pop(context);
                           setState(() {
-                            // crumb.add(curentCategory);
-                            // curentCategory['id'] = k;
-                            // curentCategory['pId'] = curentCategory['id'];
-                            // curentCategory['title'] = v['title'];
-
-                            crumb.add({
-                              'id': k,
-                              'pId': curentCategory['id'],
-                              'title': v['title']
+                            stack.add({
+                              'pId': curentCategory['pId'],
+                              'id': curentCategory['id'],
+                              'title': curentCategory['title']
                             });
-
-                            // crumb.add({'id':k,'pId': curentCategory['id'],'title':v['title']});
+                            curentCategory['id'] = k;
+                            curentCategory['pId'] = curentCategory['id'];
+                            curentCategory['title'] = v['title'];
 
                             _buildCategory(context);
                           });

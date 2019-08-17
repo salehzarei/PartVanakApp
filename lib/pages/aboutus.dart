@@ -113,7 +113,7 @@ class _AboutUsState extends State<AboutUs> {
 
   Widget _buildEmail(String data) {
     Widget _content = Container(width: 0, height: 0);
-    if (data.length > 0) {
+    if (data.length > 1) {
       _content = Padding(
         padding: const EdgeInsets.all(10.0),
         child: Row(
