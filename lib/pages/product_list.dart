@@ -236,17 +236,18 @@ class _ProductListState extends State<ProductList> {
       child: TextFormField(
         maxLines: 1,
         decoration: InputDecoration(
-            suffixIcon: IconButton(
-              icon: Icon(Icons.search),
-              onPressed: () {
-                print('جست و جو');
-              },
-            ),
-            labelText: 'جست و جو',
-            filled: true,
-            fillColor: Colors.white,
-            border: InputBorder.none),
-        keyboardType: TextInputType.emailAddress,
+          suffixIcon: IconButton(
+            icon: Icon(Icons.search),
+            onPressed: () {
+              print('جست و جو');
+            },
+          ),
+          labelText: 'جست و جو',
+          filled: true,
+          fillColor: Colors.white,
+          border: InputBorder.none,
+        ),
+        keyboardType: TextInputType.text,
       ),
     );
   }
