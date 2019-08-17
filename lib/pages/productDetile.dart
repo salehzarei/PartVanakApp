@@ -7,11 +7,11 @@ import '../scoped_model.dart';
 import 'package:flutter_banner_swiper/flutter_banner_swiper.dart';
 import '../UI/comment.dart';
 
-class BlogDetile extends StatefulWidget {
+class ProductDetile extends StatefulWidget {
   int id;
   @override
   State<StatefulWidget> createState() {
-    return _BlogDetileState();
+    return _ProductDetileState();
   }
 
   BlogDetile(int id) {
@@ -19,7 +19,7 @@ class BlogDetile extends StatefulWidget {
   }
 }
 
-class _BlogDetileState extends State<BlogDetile> {
+class _ProductDetileState extends State<ProductDetile> {
   Blog blog;
   var isLoading = false;
   MainModel model = new MainModel();
@@ -29,7 +29,7 @@ class _BlogDetileState extends State<BlogDetile> {
       isLoading = true;
     });
     final response =
-        await http.get(model.host + 'blog/show/prm/' + widget.id.toString());
+        await http.get(model.host + 'products/show/prm/' + widget.id.toString());
     if (response.statusCode == 200) {
       print(response.body);
       Map res = json.decode(response.body);
@@ -134,7 +134,7 @@ class _BlogDetileState extends State<BlogDetile> {
                                   SizedBox(
                                     width: 10,
                                   ),
-                                  Text(blog.date),
+                                  // Text(blog.date),
                                 ],
                               ),
                               Row(

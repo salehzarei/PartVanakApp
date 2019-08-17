@@ -19,8 +19,6 @@ class BlogList extends StatefulWidget {
   }
 }
 
-//////////////////////search///////////////////////////
-
 class _BlogListState extends State<BlogList> {
   List<Map<String, dynamic>> crumb = [
     {'pId': 0, 'id': 0, 'title': 'همه'}
@@ -101,7 +99,7 @@ class _BlogListState extends State<BlogList> {
     if (blog.length > 0) {
       content = ListView.builder(
           itemCount: list.length,
-          padding: EdgeInsets.only(top: 50, left: 10, right: 10, bottom: 10),
+          padding: EdgeInsets.only(top: 110, left: 10, right: 10, bottom: 10),
           itemBuilder: (context, index) {
             return Column(
               children: <Widget>[
@@ -219,7 +217,7 @@ class _BlogListState extends State<BlogList> {
                     makeList(list),
                     Container(
                       color: Colors.white,
-                      height: 120,
+                      height: 106,
                       child: Padding(
                         padding: const EdgeInsets.only(top: 10, right: 5),
                         child: Column(
@@ -422,7 +420,7 @@ class _BlogListState extends State<BlogList> {
         initialValue: word,
         validator: (String value) {
           if (value.isEmpty) {
-            return 'khalist';
+            return 'متن خود را وارد کنید';
           }
         },
         onSaved: (String value) {
