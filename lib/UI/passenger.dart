@@ -127,6 +127,7 @@ class _PassengerState extends State<Passenger> {
                                 builder: (context) => ChekOut(
                                       passengerlist: model.passengers,
                                     )));
+                       
                     })
               ],
             ),

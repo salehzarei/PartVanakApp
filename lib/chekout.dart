@@ -21,20 +21,19 @@ class _ChekOutState extends State<ChekOut> {
   int _child_price = 0;
   int _child_price_bed = 0;
   int _baby_price = 0;
-  String _currency = '';
-  int _singleCount = 0;
   int _adultCount = 0;
   int _childCount = 0;
   int _childbedCount = 0;
   int _babyCount = 0;
   int _totalPrice = 0;
   int _currrentStep = 0;
+  int _singleCount = 0;
+  String _currency = '';
   int _bankId;
   bool _visible = false;
   bool _finalStep = false;
   StepState _stepState = StepState.indexed;
   GlobalKey<FormState> _key;
-
   TextEditingController _phone = TextEditingController();
   TextEditingController _mobile = TextEditingController();
   TextEditingController _email = TextEditingController();
@@ -46,7 +45,10 @@ class _ChekOutState extends State<ChekOut> {
     /// خواندن مدل هتل انتخاب شده برای مقداردهی اولیه قیمت ها
     MainModel _model = ScopedModel.of(context);
     _model.getBankData().whenComplete(() {
-      _bankId = _model.bankList[0].bankid;
+      if (_model.bankList.length != 0) {
+        _bankId = _model.bankList[0].bankid;
+      } else
+        print('هیج بانکی وجود ندارد');
     });
 
     /// مقدار دهی اولین درگاه بانکی
@@ -70,10 +72,12 @@ class _ChekOutState extends State<ChekOut> {
     /// اگرکاربر لاگین کرده باشد شماره تماس و ایمیل در مرحله آخر ثبت می شود
 
     if (_model.userToken.length != 0) {
-      setState(() {
-        _phone.text = _model.userProfile.tell;
-        _email.text = _model.userProfile.email;
-        _mobile.text = _model.userProfile.cell;
+      _model.loadingUserData().whenComplete(() {
+        setState(() {
+          _phone.text = _model.userProfile.tell;
+          _email.text = _model.userProfile.email;
+          _mobile.text = _model.userProfile.cell;
+        });
       });
     }
 
@@ -82,25 +86,33 @@ class _ChekOutState extends State<ChekOut> {
       switch (passen.type) {
         case "a":
           {
-            _singleCount++;
+            setState(() {
+              _singleCount++;
+            });
           }
           break;
 
         case "b":
           {
-            _adultCount++;
+            setState(() {
+              _adultCount++;
+            });
           }
           break;
 
         case "c":
           {
-            _childbedCount++;
+            setState(() {
+              _childbedCount++;
+            });
           }
           break;
 
         case "d":
           {
-            _babyCount++;
+            setState(() {
+              _babyCount++;
+            });
           }
           break;
       }
@@ -225,7 +237,7 @@ class _ChekOutState extends State<ChekOut> {
                       steps: [
                         otherPassenger(
                             context, widget.passengerlist, _currrentStep),
-                        factor(context, _currrentStep,
+                        factor(_currrentStep,
                             adult_price:
                                 model.fixPrice(_adult_price.toString()),
                             adultCount: _adultCount,
@@ -246,30 +258,38 @@ class _ChekOutState extends State<ChekOut> {
                                 ? StepState.indexed
                                 : StepState.complete,
                             title: Text('انتخاب درگاه بانکی'),
-                            content: ButtonBar(
-                                alignment: MainAxisAlignment.start,
-                                children: List.generate(
-                                    model.bankList.length,
-                                    (index) => Wrap(
-                                          crossAxisAlignment:
-                                              WrapCrossAlignment.center,
-                                          children: <Widget>[
-                                            Radio(
-                                              value:
-                                                  model.bankList[index].bankid,
-                                              groupValue: _bankId,
-                                              onChanged: (val) {
-                                                setState(() {
-                                                  _bankId = model
-                                                      .bankList[val].bankid;
-                                                });
-                                              },
-                                            ),
-                                            Text('درگاه بانکی ' +
-                                                model
-                                                    .bankList[index].bankTitle),
-                                          ],
-                                        ))))
+                            content: model.bankList.length != 0
+                                ? ButtonBar(
+                                    alignment: MainAxisAlignment.start,
+                                    children: List.generate(
+                                        model.bankList.length,
+                                        (index) => Wrap(
+                                              crossAxisAlignment:
+                                                  WrapCrossAlignment.center,
+                                              children: <Widget>[
+                                                Radio(
+                                                  value: model
+                                                      .bankList[index].bankid,
+                                                  groupValue: _bankId,
+                                                  onChanged: (val) {
+                                                    setState(() {
+                                                      _bankId = model
+                                                          .bankList[val].bankid;
+                                                    });
+                                                  },
+                                                ),
+                                                Text('درگاه بانکی ' +
+                                                    model.bankList[index]
+                                                        .bankTitle),
+                                              ],
+                                            )))
+                                : Padding(
+                                    padding: EdgeInsets.symmetric(vertical: 10),
+                                    child: Text(
+                                      'هیج بانکی ثبت نشده است',
+                                      style: TextStyle(color: Colors.redAccent),
+                                    ),
+                                  ))
                       ]))),
         );
       },
@@ -320,8 +340,8 @@ Step otherPassenger(
       ));
 }
 
-Step factor(BuildContext context, _stepState,
-    {singleCount,
+Step factor(_stepState,
+    {int singleCount,
     single_price,
     currency,
     adultCount,
@@ -331,167 +351,198 @@ Step factor(BuildContext context, _stepState,
     baby_price,
     adult_price,
     totalPrice}) {
+  // return Step(
+  //   title: Text('data'),
+  //   content: Column(
+  //     children: <Widget>[
+  //       Text(singleCount.toString()),
+  //       Text(single_price),
+  //       Text(currency),
+  //       Text(adultCount.toString()),
+  //       Text(childbedCount.toString()),
+  //       Text(totalPrice),
+  //       Text(adult_price),
+  //       Text(baby_price),
+  //       Text(babyCount.toString())
+  //     ],
+  //   )
+  // );
   return Step(
     state: _stepState <= 1 ? StepState.indexed : StepState.complete,
     title: Text('صورتحساب هزینه ها براساس نفرات'),
-    content: Padding(
-        padding: const EdgeInsets.only(top: 5),
-        child: Column(
-          children: <Widget>[
-            //// بزرگسال
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Row(
-                textDirection: TextDirection.rtl,
-                children: <Widget>[
-                  Expanded(
-                      flex: 2,
-                      child: Text('بزرگسال',
-                          textDirection: TextDirection.rtl,
-                          textAlign: TextAlign.right)),
-                  Expanded(
-                    flex: 1,
-                    child: Text(
-                      ' X ${singleCount.toString()}',
-                      textAlign: TextAlign.left,
-                    ),
-                  ),
-                  Expanded(
-                    flex: 3,
-                    child: Text('$single_price $currency ',
-                        textDirection: TextDirection.rtl,
-                        textAlign: TextAlign.left),
-                  ),
-                ],
+    content: Column(
+      children: <Widget>[
+        ////// بزرگسال
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Row(
+            textDirection: TextDirection.rtl,
+            children: <Widget>[
+              Expanded(
+                  flex: 2,
+                  child: Text('بزرگسال',
+                      textDirection: TextDirection.rtl,
+                      textAlign: TextAlign.right)),
+              Expanded(
+                flex: 1,
+                child: Text(
+                  singleCount.toString(),
+                  textAlign: TextAlign.left,
+                ),
               ),
-            ),
-            ////// نوجوان
-            adultCount != 0
-                ? Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Row(
-                      textDirection: TextDirection.rtl,
-                      children: <Widget>[
-                        Expanded(
-                            flex: 2,
-                            child: Text('نوجوان',
-                                textDirection: TextDirection.rtl,
-                                textAlign: TextAlign.right)),
-                        Expanded(
-                          flex: 1,
-                          child: Text(
-                            ' X ${adultCount.toString()}',
-                            textAlign: TextAlign.left,
-                          ),
-                        ),
-                        Expanded(
-                          flex: 3,
-                          child: Text('$adult_price $currency ',
-                              textDirection: TextDirection.rtl,
-                              textAlign: TextAlign.left),
-                        ),
-                      ],
-                    ),
-                  )
-                : Visibility(
-                    visible: false,
-                    child: Container(),
-                  ),
-            //////کودک با تخت
-            childbedCount != 0
-                ? Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Row(
-                      textDirection: TextDirection.rtl,
-                      children: <Widget>[
-                        Expanded(
-                            flex: 2,
-                            child: Text('کودک',
-                                textDirection: TextDirection.rtl,
-                                textAlign: TextAlign.right)),
-                        Expanded(
-                          flex: 1,
-                          child: Text(
-                            ' X ${childbedCount.toString()}',
-                            textAlign: TextAlign.left,
-                          ),
-                        ),
-                        Expanded(
-                          flex: 3,
-                          child: Text('$child_price_bed $currency ',
-                              textDirection: TextDirection.rtl,
-                              textAlign: TextAlign.left),
-                        ),
-                      ],
-                    ),
-                  )
-                : Visibility(
-                    visible: false,
-                    child: Container(),
-                  ),
-            //////نوزاد
-            babyCount != 0
-                ? Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Row(
-                      textDirection: TextDirection.rtl,
-                      children: <Widget>[
-                        Expanded(
-                            flex: 2,
-                            child: Text('نوزاد',
-                                textDirection: TextDirection.rtl,
-                                textAlign: TextAlign.right)),
-                        Expanded(
-                          flex: 1,
-                          child: Text(
-                            ' X ${babyCount.toString()}',
-                            textAlign: TextAlign.left,
-                          ),
-                        ),
-                        Expanded(
-                          flex: 3,
-                          child: Text('$baby_price $currency ',
-                              textDirection: TextDirection.rtl,
-                              textAlign: TextAlign.left),
-                        ),
-                      ],
-                    ),
-                  )
-                : Visibility(
-                    visible: false,
-                    child: Container(),
-                  ),
-            //////
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Row(
-                textDirection: TextDirection.rtl,
-                children: <Widget>[
-                  Expanded(
-                      flex: 2,
-                      child: Text('جمع مبالغ',
-                          textDirection: TextDirection.rtl,
-                          style: TextStyle(fontWeight: FontWeight.bold),
-                          textAlign: TextAlign.right)),
-                  Expanded(
-                    flex: 1,
-                    child: Text(
-                      '',
-                      textAlign: TextAlign.left,
-                    ),
-                  ),
-                  Expanded(
-                    flex: 3,
-                    child: Text('$totalPrice $currency ',
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                        textDirection: TextDirection.rtl,
-                        textAlign: TextAlign.left),
-                  ),
-                ],
+              Text(
+                'x ',
+                textAlign: TextAlign.center,
               ),
-            )
-          ],
-        )),
+              Expanded(
+                flex: 3,
+                child: Text('$single_price $currency ',
+                    textDirection: TextDirection.rtl,
+                    textAlign: TextAlign.left),
+              ),
+            ],
+          ),
+        ),
+
+        ////// نوجوان
+        adultCount != 0
+            ? Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(
+                  textDirection: TextDirection.rtl,
+                  children: <Widget>[
+                    Expanded(
+                        flex: 2,
+                        child: Text('نوجوان',
+                            textDirection: TextDirection.rtl,
+                            textAlign: TextAlign.right)),
+                    Expanded(
+                      flex: 1,
+                      child: Text(
+                        adultCount.toString(),
+                        textAlign: TextAlign.left,
+                      ),
+                    ),
+                    Text(
+                      'x ',
+                      textAlign: TextAlign.center,
+                    ),
+                    Expanded(
+                      flex: 3,
+                      child: Text('$adult_price $currency ',
+                          textDirection: TextDirection.rtl,
+                          textAlign: TextAlign.left),
+                    ),
+                  ],
+                ),
+              )
+            : Visibility(
+                visible: false,
+                child: Container(),
+              ),
+        ////کودک با تخت
+        childbedCount != 0
+            ? Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(
+                  textDirection: TextDirection.rtl,
+                  children: <Widget>[
+                    Expanded(
+                        flex: 2,
+                        child: Text('کودک',
+                            textDirection: TextDirection.rtl,
+                            textAlign: TextAlign.right)),
+                    Expanded(
+                      flex: 1,
+                      child: Text(
+                        childbedCount.toString(),
+                        textAlign: TextAlign.left,
+                      ),
+                    ),
+                    Text(
+                      'x ',
+                      textAlign: TextAlign.center,
+                    ),
+                    Expanded(
+                      flex: 3,
+                      child: Text('$child_price_bed $currency ',
+                          textDirection: TextDirection.rtl,
+                          textAlign: TextAlign.left),
+                    ),
+                  ],
+                ),
+              )
+            : Visibility(
+                visible: false,
+                child: Container(),
+              ),
+        //////نوزاد
+        babyCount != 0
+            ? Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(
+                  textDirection: TextDirection.rtl,
+                  children: <Widget>[
+                    Expanded(
+                        flex: 2,
+                        child: Text('نوزاد',
+                            textDirection: TextDirection.rtl,
+                            textAlign: TextAlign.right)),
+                    Expanded(
+                      flex: 1,
+                      child: Text(
+                        babyCount.toString(),
+                        textAlign: TextAlign.left,
+                      ),
+                    ),
+                    Text(
+                      'x ',
+                      textAlign: TextAlign.center,
+                    ),
+                    Expanded(
+                      flex: 3,
+                      child: Text('$baby_price $currency ',
+                          textDirection: TextDirection.rtl,
+                          textAlign: TextAlign.left),
+                    ),
+                  ],
+                ),
+              )
+            : Visibility(
+                visible: false,
+                child: Container(),
+              ),
+        ////
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Row(
+            textDirection: TextDirection.rtl,
+            children: <Widget>[
+              Expanded(
+                  flex: 2,
+                  child: Text('جمع مبالغ',
+                      textDirection: TextDirection.rtl,
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                      textAlign: TextAlign.right)),
+              Expanded(
+                flex: 1,
+                child: Text(
+                  '',
+                  textAlign: TextAlign.left,
+                ),
+              ),
+              Expanded(
+                flex: 3,
+                child: Text('$totalPrice $currency ',
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                    textDirection: TextDirection.rtl,
+                    textAlign: TextAlign.left),
+              ),
+            ],
+          ),
+        )
+      ],
+    ),
   );
 }
 
