@@ -352,7 +352,7 @@ class MainModel extends Model {
 
   ///// دریافت تراکنش های کاربر
   Future getUserOrder() async {
-    userFormKey.clear();
+    userOrders.clear();
     _isLoading = true;
     notifyListeners();
     final response = await http.post(host + 'orders',

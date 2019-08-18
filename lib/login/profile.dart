@@ -402,44 +402,50 @@ class _HomePageState extends State<Profile>
                     ),
                   ),
                   Container(
-                      child: ListView.builder(
-                          itemCount: model.userOrders.length,
-                          padding: EdgeInsets.only(
-                              top: 10, left: 10, right: 10, bottom: 10),
-                          itemBuilder: (context, index) {
-                            return Card(
-                              color: Colors.grey.shade200,
-                              child: ListTile(
-                                subtitle: Text(' در تاریخ ' +
-                                    model.userOrders[index].date +
-                                    ' این تور ' +
-                                    model.userOrders[index].statusTitle + ' به دلیل اینکه ' +
-                                    model.userOrders[index].paymentTitle),
-                                dense: true,
-                                isThreeLine: true,
-                                leading: RotationTransition(
-                                  turns: new AlwaysStoppedAnimation(45 / 360),
-                                  child: model.userOrders[index].status == 5
-                                      ? Icon(
-                                          Icons.add_circle,
-                                          color: Colors.redAccent,
-                                        )
-                                      : Icon(
-                                          Icons.check_circle,
-                                          color: Colors.greenAccent,
-                                        ),
-                                ),
-                                title: Text(model.userOrders[index].tourTitle),
-                                trailing:
-                                    Text(model.userOrders[index].id.toString()),
-                              ),
-                            );
-                          })),
+                      child: model.userOrders.length <= 1
+                          ? Center(
+                              child: Text('هنوز هیچ خریدی ثبت نشده'),
+                            )
+                          : ListView.builder(
+                              itemCount: model.userOrders.length,
+                              padding: EdgeInsets.only(
+                                  top: 10, left: 10, right: 10, bottom: 10),
+                              itemBuilder: (context, index) {
+                                  return Card(
+                                  color: Colors.grey.shade200,
+                                  child: ListTile(
+                                    subtitle: Text(' در تاریخ ' +
+                                        model.userOrders[index].date +
+                                        ' این تور ' +
+                                        model.userOrders[index].statusTitle +
+                                        ' به دلیل اینکه ' +
+                                        model.userOrders[index].paymentTitle),
+                                    dense: true,
+                                    isThreeLine: true,
+                                    leading: RotationTransition(
+                                      turns:
+                                          new AlwaysStoppedAnimation(45 / 360),
+                                      child: model.userOrders[index].status == 5
+                                          ? Icon(
+                                              Icons.add_circle,
+                                              color: Colors.redAccent,
+                                            )
+                                          : Icon(
+                                              Icons.check_circle,
+                                              color: Colors.greenAccent,
+                                            ),
+                                    ),
+                                    title:
+                                        Text(model.userOrders[index].tourTitle),
+                                    trailing: Text(
+                                        model.userOrders[index].id.toString()),
+                                  ),
+                                );
+                              })),
                   Container(
-                    child:Center(
-                      child: Text('این قیمت هنوز طراحی نشده است'),
-                    )
-                  )
+                      child: Center(
+                    child: Text('این قیمت هنوز طراحی نشده است'),
+                  ))
                 ],
                 controller: _tabController,
               ),
