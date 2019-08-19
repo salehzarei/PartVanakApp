@@ -177,7 +177,7 @@ class _ProductDetileState extends State<ProductDetile> {
     return BannerSwiper(
       height: 108,
       width: 54,
-      length: 4,
+      length: 3,
       getwidget: (index) {
         return GestureDetector(
             child: Image.network(

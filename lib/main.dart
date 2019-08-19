@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:hello_flutter/pages/newticket.dart';
+import 'package:hello_flutter/pages/ticket.dart';
 import 'package:scoped_model/scoped_model.dart';
 import './pages/product_list.dart';
 import './pages/blog_list.dart';
@@ -64,6 +66,8 @@ main() {
 
 
           '/product': (context) => ProductList(),
+          '/ticket': (context) => Ticket(),
+          '/newticket': (context) => NewTicket(),
           '/profile': (context) => Profile(),
           '/bloglist': (context) => BlogList(),
           '/login': (context) => Login(),

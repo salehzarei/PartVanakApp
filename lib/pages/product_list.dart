@@ -199,7 +199,7 @@ class _ProductListState extends State<ProductList> {
           ],
           centerTitle: true,
           title: Text(
-            'لیست اخبار سایت',
+            'لیست محصولات سایت',
             style: Theme.of(context).textTheme.display2,
           ),
           iconTheme: Theme.of(context)
