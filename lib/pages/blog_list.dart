@@ -266,6 +266,9 @@ class _BlogListState extends State<BlogList> {
   void _buildCategory(BuildContext context) {
     List<Widget> categorieData = new List();
     Map last = crumb.last;
+    print(_categories);
+    print(crumb);
+    print(last);
     categorieData.add(Container(
         padding: EdgeInsets.only(top: 10, bottom: 10, left: 15, right: 15),
         decoration: BoxDecoration(
@@ -280,11 +283,7 @@ class _BlogListState extends State<BlogList> {
                   Navigator.pop(context);
 
                   setState(() {
-                    // curentCategory['id'] = last['id'];
-                    // curentCategory['pId'] = last['pId'];
-                    // curentCategory['title'] = last['title'];
-
-                    if (curentCategory['id'] != crumb[crumb.length - 1]['id']) {
+                    if (curentCategory['id'] != '00') {
                       crumb.removeAt(crumb.length - 1);
                     }
 
@@ -297,12 +296,6 @@ class _BlogListState extends State<BlogList> {
                 onTap: () {
                   Navigator.pop(context);
                   setState(() {
-                    crumb.add({
-                      'id': last['id'],
-                      'pId': curentCategory['id'],
-                      'title': last['title']
-                    });
-
                     curentCategory['id'] = last['id'];
                     curentCategory['pId'] = curentCategory['id'];
                     curentCategory['title'] = last['title'];
@@ -326,8 +319,8 @@ class _BlogListState extends State<BlogList> {
                   child: Center(
                     child: CircularProgressIndicator(),
                   ))));
-    } else {
-      
+      return;
+    } else if (last['id'] != null) {
       _categories["${last['id']}"].forEach((k, v) {
         Widget w = Container(
             padding: EdgeInsets.only(top: 10, bottom: 10, left: 15, right: 15),
@@ -363,11 +356,6 @@ class _BlogListState extends State<BlogList> {
                         onTap: () {
                           Navigator.pop(context);
                           setState(() {
-                            // crumb.add(curentCategory);
-                            // curentCategory['id'] = k;
-                            // curentCategory['pId'] = curentCategory['id'];
-                            // curentCategory['title'] = v['title'];
-
                             crumb.add({
                               'id': k,
                               'pId': curentCategory['id'],
@@ -385,24 +373,23 @@ class _BlogListState extends State<BlogList> {
 
         categorieData.add(w);
       });
-
-      showModalBottomSheet(
-        context: context,
-        builder: (BuildContext context) => Container(
-          decoration: BoxDecoration(
-            border: Border(top: BorderSide(color: Colors.black12)),
-          ),
-          child: Directionality(
-            textDirection: TextDirection.rtl,
-            child: ListView(
-              shrinkWrap: true,
-              primary: false,
-              children: categorieData,
-            ),
+    }
+    showModalBottomSheet(
+      context: context,
+      builder: (BuildContext context) => Container(
+        decoration: BoxDecoration(
+          border: Border(top: BorderSide(color: Colors.black12)),
+        ),
+        child: Directionality(
+          textDirection: TextDirection.rtl,
+          child: ListView(
+            shrinkWrap: true,
+            primary: false,
+            children: categorieData,
           ),
         ),
-      );
-    }
+      ),
+    );
   }
 
   Widget _search() {
