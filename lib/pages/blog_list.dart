@@ -21,10 +21,10 @@ class BlogList extends StatefulWidget {
 
 class _BlogListState extends State<BlogList> {
   List<Map<String, dynamic>> crumb = [
-    {'pId': 0, 'id': 0, 'title': 'همه'}
+    {'pId': 0, 'id': '00', 'title': 'همه'}
   ];
   List<Blog> list = List();
-  Map<String, dynamic> curentCategory = {'pId': 0, 'id': 0, 'title': 'همه'};
+  Map<String, dynamic> curentCategory = {'pId': 0, 'id': '00', 'title': 'همه'};
   Map<dynamic, dynamic> _categories;
   String word = '';
   GlobalKey<FormState> _formKey = GlobalKey<FormState>();
@@ -265,11 +265,7 @@ class _BlogListState extends State<BlogList> {
 
   void _buildCategory(BuildContext context) {
     List<Widget> categorieData = new List();
-
     Map last = crumb.last;
-    // Map last = crumb.length>0?crumb.last:curentCategory;
-    print(crumb);
-
     categorieData.add(Container(
         padding: EdgeInsets.only(top: 10, bottom: 10, left: 15, right: 15),
         decoration: BoxDecoration(
@@ -331,6 +327,7 @@ class _BlogListState extends State<BlogList> {
                     child: CircularProgressIndicator(),
                   ))));
     } else {
+      
       _categories["${last['id']}"].forEach((k, v) {
         Widget w = Container(
             padding: EdgeInsets.only(top: 10, bottom: 10, left: 15, right: 15),
@@ -350,11 +347,6 @@ class _BlogListState extends State<BlogList> {
                             'pId': curentCategory['id'],
                             'title': v['title']
                           });
-// //bug
-//                           curentCategory['id'] = k;
-//                           curentCategory['pId'] = curentCategory['id'];
-//                           curentCategory['title'] = v['title'];
-//                           crumb.add(curentCategory);
                         }
 
                         curentCategory['id'] = k;

@@ -2,18 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:hello_flutter/pages/productDetile.dart';
 import '../drawer.dart';
-import '../model/blog_model.dart';
+import '../model/product_model.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import '../scoped_model.dart';
 
 class ProductList extends StatefulWidget {
-  int pId;
-  String word;
-
-  ProductList({this.pId, this.word});
-
-  @override
+   @override
   State<StatefulWidget> createState() {
     return _ProductListState();
   }
@@ -21,10 +16,10 @@ class ProductList extends StatefulWidget {
 
 class _ProductListState extends State<ProductList> {
   List<Map<String, dynamic>> crumb = [
-    {'pId': 0, 'id': 0, 'title': 'همه'}
+    {'id': '00', 'title': 'همه'}
   ];
-  List<Blog> list = List();
-  Map<String, dynamic> curentCategory = {'pId': 0, 'id': 0, 'title': 'همه'};
+  List<Product> list = List();
+  Map<String, dynamic> curentCategory = {'id': 00, 'title': 'همه'};
   Map<dynamic, dynamic> _categories;
   String word = '';
   GlobalKey<FormState> _formKey = GlobalKey<FormState>();
@@ -49,11 +44,12 @@ class _ProductListState extends State<ProductList> {
 
     final response = await http.get(model.host + 'products$q');
     if (response.statusCode == 200) {
+      print(response.body);
       Map data = json.decode(response.body);
 
       if (data['count'] > 0) {
         list = (data['post'] as List)
-            .map((data) => new Blog.fromJson(data))
+            .map((data) => new Product.fromJson(data))
             .toList();
         setState(() {
           isLoading = false;
@@ -74,7 +70,7 @@ class _ProductListState extends State<ProductList> {
       categoryLoading = true;
     });
 
-    final response = await http.get(model.host + 'blog/treecategory');
+    final response = await http.get(model.host + 'products/treecategory');
     if (response.statusCode == 200) {
       setState(() {
         categoryLoading = false;
@@ -92,11 +88,11 @@ class _ProductListState extends State<ProductList> {
     super.initState();
   }
 
-  makeList(List<Blog> blog) {
+  makeList(List<Product> product) {
     Widget content = Center(
       child: Text('موردی یافت نشد'),
     );
-    if (blog.length > 0) {
+    if (product.length > 0) {
       content = ListView.builder(
           itemCount: list.length,
           padding: EdgeInsets.only(top: 110, left: 10, right: 10, bottom: 10),
@@ -108,7 +104,7 @@ class _ProductListState extends State<ProductList> {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => ProductDetile(id: blog[index].id,)));
+                            builder: (context) => ProductDetile(id: product[index].id,)));
                   },
                   child: Card(
                     color: Colors.white30,
@@ -119,12 +115,12 @@ class _ProductListState extends State<ProductList> {
                           alignment: AlignmentDirectional.bottomStart,
                           children: <Widget>[
                             Image.network(
-                              blog[index].thumb,
+                              product[index].thumb,
                               fit: BoxFit.cover,
                             ),
                             ListTile(
                               title: Text(
-                                blog[index].title,
+                                product[index].title,
                                 style: TextStyle(
                                     color: Colors.white, fontSize: 24.0),
                               ),
@@ -137,7 +133,7 @@ class _ProductListState extends State<ProductList> {
                         Container(
                           padding: EdgeInsets.only(left: 10, right: 10),
                           child: Text(
-                            blog[index].summary,
+                            product[index].summary,
                             textAlign: TextAlign.start,
                           ),
                         ),
@@ -166,7 +162,7 @@ class _ProductListState extends State<ProductList> {
                                   SizedBox(
                                     width: 10,
                                   ),
-                                  Text(blog[index].hits.toString()),
+                                  Text(product[index].hits.toString()),
                                 ],
                               ),
                             ],
@@ -199,7 +195,7 @@ class _ProductListState extends State<ProductList> {
           ],
           centerTitle: true,
           title: Text(
-            'لیست محصولات سایت',
+            'لیست محصولات',
             style: Theme.of(context).textTheme.display2,
           ),
           iconTheme: Theme.of(context)
@@ -284,10 +280,6 @@ class _ProductListState extends State<ProductList> {
                   Navigator.pop(context);
 
                   setState(() {
-                    // curentCategory['id'] = last['id'];
-                    // curentCategory['pId'] = last['pId'];
-                    // curentCategory['title'] = last['title'];
-
                     if (curentCategory['id'] != crumb[crumb.length - 1]['id']) {
                       crumb.removeAt(crumb.length - 1);
                     }
@@ -303,12 +295,10 @@ class _ProductListState extends State<ProductList> {
                   setState(() {
                     crumb.add({
                       'id': last['id'],
-                      'pId': curentCategory['id'],
                       'title': last['title']
                     });
 
                     curentCategory['id'] = last['id'];
-                    curentCategory['pId'] = curentCategory['id'];
                     curentCategory['title'] = last['title'];
                   });
 
@@ -317,7 +307,7 @@ class _ProductListState extends State<ProductList> {
                 child: Text(crumb[crumb.length - 1]['title'])),
           ],
         )));
-
+print(_categories["${last['id']}"]);
     if (categoryLoading) {
       showModalBottomSheet(
           context: context,
@@ -330,7 +320,8 @@ class _ProductListState extends State<ProductList> {
                   child: Center(
                     child: CircularProgressIndicator(),
                   ))));
-    } else {
+                  return;
+    } else if(_categories["${last['id']}"]!=null) {
       _categories["${last['id']}"].forEach((k, v) {
         Widget w = Container(
             padding: EdgeInsets.only(top: 10, bottom: 10, left: 15, right: 15),
@@ -347,18 +338,11 @@ class _ProductListState extends State<ProductList> {
                         if (_categories[k] != null) {
                           crumb.add({
                             'id': k,
-                            'pId': curentCategory['id'],
                             'title': v['title']
                           });
-// //bug
-//                           curentCategory['id'] = k;
-//                           curentCategory['pId'] = curentCategory['id'];
-//                           curentCategory['title'] = v['title'];
-//                           crumb.add(curentCategory);
                         }
 
                         curentCategory['id'] = k;
-                        curentCategory['pId'] = curentCategory['id'];
                         curentCategory['title'] = v['title'];
                       });
 
@@ -371,19 +355,10 @@ class _ProductListState extends State<ProductList> {
                         onTap: () {
                           Navigator.pop(context);
                           setState(() {
-                            // crumb.add(curentCategory);
-                            // curentCategory['id'] = k;
-                            // curentCategory['pId'] = curentCategory['id'];
-                            // curentCategory['title'] = v['title'];
-
                             crumb.add({
                               'id': k,
-                              'pId': curentCategory['id'],
                               'title': v['title']
                             });
-
-                            // crumb.add({'id':k,'pId': curentCategory['id'],'title':v['title']});
-
                             _buildCategory(context);
                           });
                         },
@@ -393,8 +368,9 @@ class _ProductListState extends State<ProductList> {
 
         categorieData.add(w);
       });
-
-      showModalBottomSheet(
+      print(categorieData);
+    }
+    showModalBottomSheet(
         context: context,
         builder: (BuildContext context) => Container(
           decoration: BoxDecoration(
@@ -410,7 +386,6 @@ class _ProductListState extends State<ProductList> {
           ),
         ),
       );
-    }
   }
 
   Widget _search() {
