@@ -1,3 +1,4 @@
+import './comment_model.dart';
 class Product {
   final int id;
   final String title;
@@ -9,8 +10,8 @@ class Product {
   final int hits;
   final String pic;
   final String thumb;
-  List<ProductComment> comment;
-  List<String> gallery;
+  List<Comment> comment;
+  List<dynamic> gallery;
 
   Product(
       {this.id,
@@ -56,26 +57,26 @@ class Product {
   }
 }
 
-class ProductComment {
-  String name;
-  String message;
-  String replay;
-  String replayDate;
-  String cDate;
-  String userPic='https://safirparvaz.ir/skin/mobel/images/user-2.jpg';
-  String adminPic='https://safirparvaz.ir/skin/mobel/images/user-2.jpg';
+// class ProductComment {
+//   String name;
+//   String message;
+//   String replay;
+//   String replayDate;
+//   String cDate;
+//   String userPic='https://safirparvaz.ir/skin/mobel/images/user-2.jpg';
+//   String adminPic='https://safirparvaz.ir/skin/mobel/images/user-2.jpg';
 
-  ProductComment(this.name, this.message, this.replay, this.replayDate, this.cDate);
+//   ProductComment(this.name, this.message, this.replay, this.replayDate, this.cDate);
 
-  factory ProductComment.fromJson(Map<String, dynamic> json) {
-      return ProductComment(
-        json['name'],
-        json['message'], 
-        json['replay'],
-        json['replayDate'], 
-        json['cDate']);
-  }
-}
+//   factory ProductComment.fromJson(Map<String, dynamic> json) {
+//       return ProductComment(
+//         json['name'],
+//         json['message'], 
+//         json['replay'],
+//         json['replayDate'], 
+//         json['cDate']);
+//   }
+// }
 // name	"ایرانی"
 // message	"تسسستت تسسستتیتسیب تسسستتیتسیبیتسیب"
 // replay	"تبل نلا لبل نمت"

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hello_flutter/drawer.dart';
 import '../model/product_model.dart';
-import '../model/comment_model.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import '../scoped_model.dart';
@@ -38,16 +37,19 @@ class _ProductDetileState extends State<ProductDetile> {
       setState(() {
         isLoading = false;
         product = new Product(
-            id: data['id'],
-            title: data['title'],
-            content: data['content'],
-            hits: data['hits'],
-            price: data['price'],
-            off: data['off'],
-            comment: (res['comments'] as List)
-                .map((i) => Comment.fromJson(i))
-                .toList(),
-            gallery: (data['gallery'] as List).map((i) => (i)).toList());
+          id: data['id'],
+          title: data['title'],
+          content: data['content'],
+          hits: data['hits'],
+          price: data['price'],
+          off: data['off'],
+          comment: (res['comments'] as List)
+              .map((i) => ProductComment.fromJson(i))
+              .toList(),
+          gallery: (data['gallery'] as List)
+              .map((i) =>(i))
+              .toList()
+        );
       });
     } else {
       throw Exception('Failed to load photos');
@@ -74,43 +76,52 @@ class _ProductDetileState extends State<ProductDetile> {
               ? Center(
                   child: CircularProgressIndicator(),
                 )
-              : CustomScrollView(
+              :
+              CustomScrollView(
                   slivers: <Widget>[
-                    SliverAppBar(
-                        centerTitle: true,
-                        actions: <Widget>[
-                          IconButton(
-                            icon:
-                                Icon(Icons.arrow_forward, color: Colors.white),
-                            onPressed: () => Navigator.pop(context),
-                          )
-                        ],
-                        pinned: true,
-                        snap: false,
-                        floating: false,
-                        expandedHeight: 180.0,
-                        flexibleSpace: ListView(
-                          children: <Widget>[
-                            Stack(
+                    Stack(
+                      children: <Widget>[
+                        Container(
+                          height: 160,
+                        ),
+                        SliverAppBar(
+                            centerTitle: true,
+                            actions: <Widget>[
+                              IconButton(
+                                icon: Icon(Icons.arrow_forward,
+                                    color: Colors.white),
+                                onPressed: () => Navigator.pop(context),
+                              )
+                            ],
+                            pinned: true,
+                            snap: false,
+                            floating: false,
+                            expandedHeight: 180.0,
+                            flexibleSpace: ListView(
                               children: <Widget>[
-                                Container(
-                                  child: getSlider(),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.only(
-                                      top: 120, right: 40),
-                                  child: Container(
-                                    child: Text(
-                                      product.title,
-                                      style: TextStyle(
-                                          color: Colors.white, fontSize: 20),
+                                Stack(
+                                  children: <Widget>[
+                                    Container(
+                                      child: getSlider(),
                                     ),
-                                  ),
+                                    Padding(
+                                      padding: const EdgeInsets.only(
+                                          top: 120, right: 40),
+                                      child: Container(
+                                        child: Text(
+                                          product.title,
+                                          style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 20),
+                                        ),
+                                      ),
+                                    )
+                                  ],
                                 )
                               ],
-                            )
-                          ],
-                        )),
+                            )),
+                      ],
+                    ),
                     SliverList(
                       delegate: SliverChildListDelegate([
                         ButtonTheme.bar(
@@ -126,7 +137,7 @@ class _ProductDetileState extends State<ProductDetile> {
                                   SizedBox(
                                     width: 10,
                                   ),
-                                  Text(product.title),
+                                  // Text(product.date),
                                 ],
                               ),
                               Row(
@@ -138,7 +149,7 @@ class _ProductDetileState extends State<ProductDetile> {
                                   SizedBox(
                                     width: 10,
                                   ),
-                                  Text(product.id.toString()),
+                                  Text(product.hits.toString()),
                                 ],
                               ),
                             ],
@@ -150,19 +161,18 @@ class _ProductDetileState extends State<ProductDetile> {
                                 child: Text(product.content))),
                       ]),
                     ),
-                    SliverList(
-                      delegate: SliverChildListDelegate(
-                        (product.comment as List<Comment>)
-                            .map((i) => CommentItem(
-                                  comment: i,
-                                ))
-                            .toList(),
-                      ),
-                    ),
-                    SliverList(
-                      delegate:
-                          SliverChildListDelegate([CommentForm(product.id)]),
-                    )
+                    // SliverList(
+                    //   delegate: SliverChildListDelegate(
+                    //     (product.comment as List<ProductComment>)
+                    //         .map((i) => CommentItem(
+                    //               comment: i,
+                    //             ))
+                    //         .toList(),
+                    //   ),
+                    // ),
+                    // SliverList(
+                    //   delegate: SliverChildListDelegate([CommentForm(product.id)]),
+                    // )
                   ],
                 ),
         ));
@@ -174,10 +184,9 @@ class _ProductDetileState extends State<ProductDetile> {
       width: 54,
       length: product.gallery.length,
       getwidget: (index) {
-        print(index);
         return GestureDetector(
             child: Image.network(
-              product.gallery[index % product.gallery.length],
+             product.gallery[index],
               fit: BoxFit.cover,
             ),
             onTap: () {

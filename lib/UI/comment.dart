@@ -2,19 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 
-import '../model/blog_model.dart';
+import '../model/comment_model.dart';
 import 'package:scoped_model/scoped_model.dart';
 import '../scoped_model.dart';
 
 class CommentItem extends StatelessWidget {
-  final BlogComment comment;
+  final Comment comment;
 
   const CommentItem({Key key, this.comment}) : super(key: key);
 
-  Widget _replayComment(BuildContext context, BlogComment data) {
+  Widget _replayComment(BuildContext context, Comment data) {
     Widget _content = Container(width: 0, height: 0);
-    print(data.replay);
-    if (data.replay != null || data.replay != '') {
+    print('reply');
+   
+    if (data.replay != null && data.replay.length>0) {
+       print(data.replay.length.toString()+'llll');
       _content = Container(
         padding: EdgeInsets.only(right: 25),
         child: Column(children: [
