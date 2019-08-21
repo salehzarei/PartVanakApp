@@ -145,7 +145,7 @@ class _ProductDetileState extends State<ProductDetile> {
                     ),
                     SliverList(
                       delegate:
-                          SliverChildListDelegate([CommentForm(product.id)]),
+                          SliverChildListDelegate([CommentForm(product.id,'products')]),
                     )
                   ],
                 ),

@@ -167,9 +167,10 @@ class CommentItem extends StatelessWidget {
 
 class CommentForm extends StatefulWidget {
   MainModel model;
+  String action;
   int bId;
 
-  CommentForm(this.bId);
+  CommentForm(this.bId,this.action);
 
   @override
   State<StatefulWidget> createState() {
@@ -270,7 +271,7 @@ class _CommentFormState extends State<CommentForm> {
     }
     _formKey.currentState.save();
 
-    addComment(_formData).then((bool success) {
+    addComment(widget.action,_formData).then((bool success) {
       if (success) {
         _formKey.currentState.reset();
         showDialog(

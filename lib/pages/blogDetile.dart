@@ -145,7 +145,7 @@ class _BlogDetileState extends State<BlogDetile> {
                       ),
                     ),
                     SliverList(
-                      delegate: SliverChildListDelegate([CommentForm(blog.id)]),
+                      delegate: SliverChildListDelegate([CommentForm(blog.id,'blog')]),
                     )
                   ],
                 ),

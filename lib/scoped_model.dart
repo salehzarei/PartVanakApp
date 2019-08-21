@@ -581,13 +581,17 @@ class MainModel extends Model {
 
   ///// ارسال فرم تماس به سرور
 
-  Future<bool> addComment(Map<String, dynamic> contactData) {
+  Future<bool> addComment(String action,Map<String, dynamic> contactData) {
+    print('lllll');
+    print(action);
+    print(host +action+'/addcomment');
     _isLoading = true;
     notifyListeners();
     return http
-        .post(host + 'blog/addcomment',
+        .post(host +action+'/addcomment',
             encoding: Encoding.getByName('utf-8'), body: contactData)
         .then((http.Response response) {
+          print(response.statusCode);
       if (response.statusCode != 200 && response.statusCode != 201) {
         print(response);
         _isLoading = false;
