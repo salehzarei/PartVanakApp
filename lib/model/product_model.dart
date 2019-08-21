@@ -29,10 +29,10 @@ class Product {
         thumb: json['thumb'],
         title: json['title'],
         summary: json['summary'],
-        hits: json['hits'],
-        gallery: (json['gallery'] as List)
-              .map((i) =>i)
-              .toList() );
+        hits: json['hits']);
+        // gallery:json['gallery'].lenght>0? (json['gallery'] as List)
+        //       .map((i) =>i)
+        //       .toList() );
   }
 }
 

@@ -226,7 +226,7 @@ class _ProductListState extends State<ProductList> {
                                 textDirection: TextDirection.rtl,
                                 child: Row(
                                   mainAxisAlignment:
-                                      MainAxisAlignment.spaceAround,
+                                      MainAxisAlignment.center,
                                   children: <Widget>[
                                     Text("دسته بندی : "),
                                     Text(curentCategory['title']),

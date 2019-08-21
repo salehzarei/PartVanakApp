@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+
 import 'package:hello_flutter/drawer.dart';
-import '../model/blog_model.dart';
+import 'package:hello_flutter/model/blog_model.dart';
+import 'package:hello_flutter/model/product_model.dart';
+// import '../model/blog_model.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import '../scoped_model.dart';
@@ -18,7 +21,8 @@ class ProductDetile extends StatefulWidget {
 }
 
 class _ProductDetileState extends State<ProductDetile> {
-  Blog blog;
+  // Blog blog;
+  Product product;
   var isLoading = false;
   MainModel model = new MainModel();
 
@@ -35,18 +39,32 @@ class _ProductDetileState extends State<ProductDetile> {
 
       setState(() {
         isLoading = false;
-        blog = new Blog(
+        product = new Product(
           id: data['id'],
-          title: data['title'],
-          content: data['content'],
-          date: data['date'],
-          hits: data['hits'],
           pic: data['pic'],
+          content: data['content'],
           thumb: data['thumb'],
-          comment: (res['comments'] as List)
-              .map((i) => BlogComment.fromJson(i))
-              .toList(),
+          title: data['title'],
+          summary: data['summary'],
+          hits: data['hits'],
+          price: data['price'],
+          //gallery: (res['gallery'] as List).map((i) => i).toList(),
+          // comment: (res['comments'] as List)
+          //     .map((i) => ProductComment.fromJson(i))
+          //     .toList(),
         );
+        // blog = new Blog(
+        //   id: data['id'],
+        //   title: data['title'],
+        //   content: data['content'],
+        //   date: data['date'],
+        //   hits: data['hits'],
+        //   pic: data['pic'],
+        //   thumb: data['thumb'],
+        //   comment: (res['comments'] as List)
+        //       .map((i) => BlogComment.fromJson(i))
+        //       .toList(),
+        // );
       });
     } else {
       throw Exception('Failed to load photos');
@@ -104,7 +122,7 @@ class _ProductDetileState extends State<ProductDetile> {
                                           top: 120, right: 40),
                                       child: Container(
                                         child: Text(
-                                          blog.title,
+                                          product.title,
                                           style: TextStyle(
                                               color: Colors.white,
                                               fontSize: 20),
@@ -132,7 +150,7 @@ class _ProductDetileState extends State<ProductDetile> {
                                   SizedBox(
                                     width: 10,
                                   ),
-                                  // Text(blog.date),
+                                  Text(product.price),
                                 ],
                               ),
                               Row(
@@ -144,7 +162,7 @@ class _ProductDetileState extends State<ProductDetile> {
                                   SizedBox(
                                     width: 10,
                                   ),
-                                  Text(blog.hits.toString()),
+                                  Text(product.hits.toString()),
                                 ],
                               ),
                             ],
@@ -153,21 +171,22 @@ class _ProductDetileState extends State<ProductDetile> {
                         Container(
                             child: Container(
                                 padding: EdgeInsets.all(8),
-                                child: Text(blog.content))),
+                                child: Text(product.content))),
                       ]),
                     ),
-                    SliverList(
-                      delegate: SliverChildListDelegate(
-                        (blog.comment as List<BlogComment>)
-                            .map((i) => CommentItem(
-                                  comment: i,
-                                ))
-                            .toList(),
-                      ),
-                    ),
-                    SliverList(
-                      delegate: SliverChildListDelegate([CommentForm(blog.id)]),
-                    )
+                    // SliverList(
+                    //   delegate: SliverChildListDelegate(
+                    //     (product.comment as List<BlogComment>)
+                    //         .map((i) => CommentItem(
+                    //               comment: i,
+                    //             ))
+                    //         .toList(),
+                    //   ),
+                    // ),
+                    // SliverList(
+                    //   delegate:
+                    //       SliverChildListDelegate([CommentForm(product.id)]),
+                    // )
                   ],
                 ),
         ));
@@ -181,7 +200,7 @@ class _ProductDetileState extends State<ProductDetile> {
       getwidget: (index) {
         return GestureDetector(
             child: Image.network(
-              blog.pic,
+              product.pic,
               fit: BoxFit.cover,
             ),
             onTap: () {

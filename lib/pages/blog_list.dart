@@ -230,7 +230,7 @@ class _BlogListState extends State<BlogList> {
                                 textDirection: TextDirection.rtl,
                                 child: Row(
                                   mainAxisAlignment:
-                                      MainAxisAlignment.spaceAround,
+                                      MainAxisAlignment.center,
                                   children: <Widget>[
                                     Text("دسته بندی : "),
                                     Text(curentCategory['title']),
