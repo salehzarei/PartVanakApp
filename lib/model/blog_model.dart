@@ -1,3 +1,4 @@
+import './comment_model.dart';
 class Blog {
   final int id;
   final String pic;
@@ -7,7 +8,7 @@ class Blog {
   final String content;
   final String date;
   final int hits;
-  List<BlogComment> comment;
+  List<Comment> comment;
 
   Blog(
       {this.id,
@@ -32,26 +33,26 @@ class Blog {
   }
 }
 
-class BlogComment {
-  String name;
-  String message;
-  String replay;
-  String replayDate;
-  String cDate;
-  String userPic='https://safirparvaz.ir/skin/mobel/images/user-2.jpg';
-  String adminPic='https://safirparvaz.ir/skin/mobel/images/user-2.jpg';
+// class BlogComment {
+//   String name;
+//   String message;
+//   String replay;
+//   String replayDate;
+//   String cDate;
+//   String userPic='https://safirparvaz.ir/skin/mobel/images/user-2.jpg';
+//   String adminPic='https://safirparvaz.ir/skin/mobel/images/user-2.jpg';
 
-  BlogComment(this.name, this.message, this.replay, this.replayDate, this.cDate);
+//   BlogComment(this.name, this.message, this.replay, this.replayDate, this.cDate);
 
-  factory BlogComment.fromJson(Map<String, dynamic> json) {
-      return BlogComment(
-        json['name'],
-        json['message'], 
-        json['replay'],
-        json['replayDate'], 
-        json['cDate']);
-  }
-}
+//   factory BlogComment.fromJson(Map<String, dynamic> json) {
+//       return BlogComment(
+//         json['name'],
+//         json['message'], 
+//         json['replay'],
+//         json['replayDate'], 
+//         json['cDate']);
+//   }
+// }
 // name	"ایرانی"
 // message	"تسسستت تسسستتیتسیب تسسستتیتسیبیتسیب"
 // replay	"تبل نلا لبل نمت"

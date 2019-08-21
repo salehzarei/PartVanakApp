@@ -399,12 +399,12 @@ class _MyDrawerState extends State<MyDrawer> {
                                 Padding(
                                   padding: const EdgeInsets.only(left: 8.0),
                                   child: Icon(
-                                    ToureIcons.first_day,
+                                    Icons.room_service,
                                     color: Theme.of(context).accentColor,
                                   ),
                                 ),
                                 Text(
-                                  'محصولات ',
+                                  'خدمات ',
                                   style: DarwerThemeData.textTheme.title
                                       .copyWith(color: Colors.white),
                                 ),
@@ -457,7 +457,7 @@ class _MyDrawerState extends State<MyDrawer> {
                               ],
                             ),
                           )),
-                          GestureDetector(
+                      GestureDetector(
                           onTap: () {
                             Navigator.pushNamed(context, '/ticket');
                           },
@@ -480,7 +480,29 @@ class _MyDrawerState extends State<MyDrawer> {
                               ],
                             ),
                           )),
-
+                      GestureDetector(
+                          onTap: () {
+                            Navigator.pushNamed(context, '/gallery');
+                          },
+                          child: Container(
+                            padding:
+                                EdgeInsets.only(top: 15.0, left: 15, right: 20),
+                            child: Row(
+                              children: <Widget>[
+                                Padding(
+                                  padding: const EdgeInsets.only(left: 8.0),
+                                  child: Icon(
+                                    Icons.image,
+                                    color: Theme.of(context).accentColor,
+                                  ),
+                                ),
+                                Text(
+                                  'گالری تصاویر',
+                                  style: DarwerThemeData.textTheme.title,
+                                ),
+                              ],
+                            ),
+                          )),
                       Container(
                         margin: EdgeInsets.only(top: 20, left: 15.0, right: 15),
                         height: 1,
@@ -566,33 +588,28 @@ class _MyDrawerState extends State<MyDrawer> {
             ),
 
             Padding(
-              padding: const EdgeInsets.only(bottom: 5, top: 15, right: 10),
-              child: Column(
-                children: <Widget>[
-                  Row(
-                    children: <Widget>[
-                      Container(
+                padding: const EdgeInsets.only(bottom: 5, top: 15, right: 10),
+                child: Row(
+                  children: <Widget>[
+                    Container(
+                      child: Text(
+                        'نسخه نرم افزار:',
+                        style: TextStyle(fontSize: 15, color: Colors.white),
+                      ),
+                    ),
+                    SizedBox(
+                      width: 10,
+                    ),
+                    Container(
                         child: Text(
-                          'نسخه نرم افزار:',
-                          style: TextStyle(fontSize: 15, color: Colors.white),
-                        ),
+                      _projectVersion,
+                      style: TextStyle(
+                        fontSize: 15,
+                        color: Colors.white,
                       ),
-                      SizedBox(
-                        width: 10,
-                      ),
-                      Container(
-                          child: Text(
-                        _projectVersion,
-                        style: TextStyle(
-                          fontSize: 15,
-                          color: Colors.white,
-                        ),
-                      ))
-                    ],
-                  )
-                ],
-              ),
-            ),
+                    ))
+                  ],
+                )),
           ],
         ),
       ));

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hello_flutter/drawer.dart';
 import '../model/blog_model.dart';
+import '../model/comment_model.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import '../scoped_model.dart';
@@ -45,7 +46,7 @@ class _BlogDetileState extends State<BlogDetile> {
           pic: data['pic'],
           thumb: data['thumb'],
           comment: (res['comments'] as List)
-              .map((i) => BlogComment.fromJson(i))
+              .map((i) => Comment.fromJson(i))
               .toList(),
         );
       });
@@ -136,7 +137,7 @@ class _BlogDetileState extends State<BlogDetile> {
                     ),
                     SliverList(
                       delegate: SliverChildListDelegate(
-                        (blog.comment as List<BlogComment>)
+                        (blog.comment as List<Comment>)
                             .map((i) => CommentItem(
                                   comment: i,
                                 ))

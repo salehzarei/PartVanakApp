@@ -8,7 +8,7 @@ import 'dart:convert';
 import '../scoped_model.dart';
 
 class ProductList extends StatefulWidget {
-   @override
+  @override
   State<StatefulWidget> createState() {
     return _ProductListState();
   }
@@ -49,7 +49,7 @@ class _ProductListState extends State<ProductList> {
 
       if (data['count'] > 0) {
         list = (data['post'] as List)
-            .map((data) => new Product.fromJson(data))
+            .map((data) => new Product.listJson(data))
             .toList();
         setState(() {
           isLoading = false;
@@ -104,7 +104,9 @@ class _ProductListState extends State<ProductList> {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => ProductDetile(id: product[index].id,)));
+                            builder: (context) => ProductDetile(
+                                  id: product[index].id,
+                                )));
                   },
                   child: Card(
                     color: Colors.white30,
@@ -114,9 +116,11 @@ class _ProductListState extends State<ProductList> {
                         Stack(
                           alignment: AlignmentDirectional.bottomStart,
                           children: <Widget>[
-                            Image.network(
-                              product[index].thumb,
-                              fit: BoxFit.cover,
+                            Center(
+                              child: Image.network(
+                                product[index].thumb,
+                                fit: BoxFit.cover,
+                              ),
                             ),
                             ListTile(
                               title: Text(
@@ -144,18 +148,6 @@ class _ProductListState extends State<ProductList> {
                               Row(
                                 children: <Widget>[
                                   Icon(
-                                    Icons.calendar_today,
-                                    color: Colors.black,
-                                  ),
-                                  SizedBox(
-                                    width: 10,
-                                  ),
-                                  //Text(blog[index].date),
-                                ],
-                              ),
-                              Row(
-                                children: <Widget>[
-                                  Icon(
                                     Icons.visibility,
                                     color: Colors.black,
                                   ),
@@ -164,6 +156,9 @@ class _ProductListState extends State<ProductList> {
                                   ),
                                   Text(product[index].hits.toString()),
                                 ],
+                              ),
+                              Row(
+                                children: _bulidPriceBox(product[index]),
                               ),
                             ],
                           ),
@@ -195,7 +190,7 @@ class _ProductListState extends State<ProductList> {
           ],
           centerTitle: true,
           title: Text(
-            'لیست محصولات',
+            'لیست خدمات',
             style: Theme.of(context).textTheme.display2,
           ),
           iconTheme: Theme.of(context)
@@ -225,11 +220,20 @@ class _ProductListState extends State<ProductList> {
                               child: Directionality(
                                 textDirection: TextDirection.rtl,
                                 child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.center,
+                                  mainAxisAlignment: MainAxisAlignment.center,
                                   children: <Widget>[
                                     Text("دسته بندی : "),
                                     Text(curentCategory['title']),
+                                    Padding(
+                                      padding:
+                                          const EdgeInsets.only(right: 160),
+                                      child: InkWell(
+                                        child: Text('حذف فیلتر'),
+                                        onTap: () {
+                                          Navigator.pushNamed(context, '/product');
+                                        },
+                                      ),
+                                    )
                                   ],
                                 ),
                               ),
@@ -261,11 +265,10 @@ class _ProductListState extends State<ProductList> {
 
   void _buildCategory(BuildContext context) {
     List<Widget> categorieData = new List();
-
     Map last = crumb.last;
-    // Map last = crumb.length>0?crumb.last:curentCategory;
+    print(_categories);
     print(crumb);
-
+    print(last);
     categorieData.add(Container(
         padding: EdgeInsets.only(top: 10, bottom: 10, left: 15, right: 15),
         decoration: BoxDecoration(
@@ -280,7 +283,7 @@ class _ProductListState extends State<ProductList> {
                   Navigator.pop(context);
 
                   setState(() {
-                    if (curentCategory['id'] != crumb[crumb.length - 1]['id']) {
+                    if (curentCategory['id'] != '00') {
                       crumb.removeAt(crumb.length - 1);
                     }
 
@@ -293,11 +296,6 @@ class _ProductListState extends State<ProductList> {
                 onTap: () {
                   Navigator.pop(context);
                   setState(() {
-                    crumb.add({
-                      'id': last['id'],
-                      'title': last['title']
-                    });
-
                     curentCategory['id'] = last['id'];
                     curentCategory['title'] = last['title'];
                   });
@@ -307,7 +305,7 @@ class _ProductListState extends State<ProductList> {
                 child: Text(crumb[crumb.length - 1]['title'])),
           ],
         )));
-print(_categories["${last['id']}"]);
+
     if (categoryLoading) {
       showModalBottomSheet(
           context: context,
@@ -320,8 +318,8 @@ print(_categories["${last['id']}"]);
                   child: Center(
                     child: CircularProgressIndicator(),
                   ))));
-                  return;
-    } else if(_categories["${last['id']}"]!=null) {
+      return;
+    } else if (_categories["${last['id']}"] != null) {
       _categories["${last['id']}"].forEach((k, v) {
         Widget w = Container(
             padding: EdgeInsets.only(top: 10, bottom: 10, left: 15, right: 15),
@@ -336,10 +334,7 @@ print(_categories["${last['id']}"]);
                       Navigator.pop(context);
                       setState(() {
                         if (_categories[k] != null) {
-                          crumb.add({
-                            'id': k,
-                            'title': v['title']
-                          });
+                          crumb.add({'id': k, 'title': v['title']});
                         }
 
                         curentCategory['id'] = k;
@@ -355,10 +350,8 @@ print(_categories["${last['id']}"]);
                         onTap: () {
                           Navigator.pop(context);
                           setState(() {
-                            crumb.add({
-                              'id': k,
-                              'title': v['title']
-                            });
+                            crumb.add({'id': k, 'title': v['title']});
+
                             _buildCategory(context);
                           });
                         },
@@ -368,24 +361,24 @@ print(_categories["${last['id']}"]);
 
         categorieData.add(w);
       });
-      print(categorieData);
     }
+
     showModalBottomSheet(
-        context: context,
-        builder: (BuildContext context) => Container(
-          decoration: BoxDecoration(
-            border: Border(top: BorderSide(color: Colors.black12)),
-          ),
-          child: Directionality(
-            textDirection: TextDirection.rtl,
-            child: ListView(
-              shrinkWrap: true,
-              primary: false,
-              children: categorieData,
-            ),
+      context: context,
+      builder: (BuildContext context) => Container(
+        decoration: BoxDecoration(
+          border: Border(top: BorderSide(color: Colors.black12)),
+        ),
+        child: Directionality(
+          textDirection: TextDirection.rtl,
+          child: ListView(
+            shrinkWrap: true,
+            primary: false,
+            children: categorieData,
           ),
         ),
-      );
+      ),
+    );
   }
 
   Widget _search() {
@@ -424,5 +417,50 @@ print(_categories["${last['id']}"]);
         keyboardType: TextInputType.text,
       ),
     );
+  }
+
+  List<Widget> _bulidPriceBox(Product product) {
+    List<Widget> _content = [Container()];
+    if (product.off != '0') {
+      _content = [
+        Icon(
+          Icons.attach_money,
+          color: Colors.black,
+          size: 20,
+        ),
+        SizedBox(
+          width: 3,
+        ),
+        Text(
+          product.price,
+          style: TextStyle(decoration: TextDecoration.lineThrough),
+        ),
+        SizedBox(
+          width: 5,
+        ),
+        Text(product.off),
+        SizedBox(
+          width: 5,
+        ),
+        Text(product.currency)
+      ];
+    } else if (product.price != '0') {
+      _content = [
+        Icon(
+          Icons.attach_money,
+          color: Colors.black,
+          size: 20,
+        ),
+        SizedBox(
+          width: 5,
+        ),
+        Text(product.price),
+        SizedBox(
+          width: 5,
+        ),
+        Text(product.currency)
+      ];
+    }
+    return _content;
   }
 }

@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:hello_flutter/model/accommodation_model.dart';
+import 'package:hello_flutter/pages/gallery.dart';
 import 'package:hello_flutter/pages/newticket.dart';
 import 'package:hello_flutter/pages/ticket.dart';
 import 'package:scoped_model/scoped_model.dart';
@@ -64,7 +66,7 @@ main() {
          //  '/': (context) => SearchApp(),
           '/': (context) => Splash(model: model),
 
-
+          '/gallery': (context) => AlbumGallery(),
           '/product': (context) => ProductList(),
           '/ticket': (context) => Ticket(),
           '/newticket': (context) => NewTicket(),

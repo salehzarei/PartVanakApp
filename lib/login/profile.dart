@@ -444,7 +444,7 @@ class _HomePageState extends State<Profile>
                               })),
                   Container(
                       child: Center(
-                    child: Text('این قیمت هنوز طراحی نشده است'),
+                    child: Text('این قسمت هنوز طراحی نشده است'),
                   ))
                 ],
                 controller: _tabController,
