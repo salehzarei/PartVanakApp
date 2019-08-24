@@ -98,55 +98,55 @@ class _NewTicketState extends State<NewTicket> {
                       ),
                     ),
                   ),
-                  Container(
-                    height: 3,
-                    color: Colors.black,
-                    width: MediaQuery.of(context).size.width,
-                  ),
-                  Directionality(
-                    textDirection: TextDirection.rtl,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: <Widget>[
-                        Container(
-                          child: Row(
-                            children: <Widget>[
-                              Text('مدیریت'),
-                              SizedBox(
-                                width: 3,
-                              ),
-                              Text('1398/05/28'),
-                              SizedBox(
-                                width: 3,
-                              ),
-                              Text('09:30:00'),
-                            ],
-                          ),
-                        ),
-                        SizedBox(
-                          width: 5,
-                        ),
-                        Container(
-                          child: Text('سلام'),
-                        ),
-                        SizedBox(
-                          width: 10,
-                        ),
-                        Container(
-                          child: Image.asset('images/air.jpg'),
-                        ),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        Container(
-                          color: Colors.black,
-                          height: 2,
-                          width: MediaQuery.of(context).size.width,
-                        )
-                      ],
-                    ),
-                  ),
+                  // Container(
+                  //   height: 3,
+                  //   color: Colors.black,
+                  //   width: MediaQuery.of(context).size.width,
+                  // ),
+                  // Directionality(
+                  //   textDirection: TextDirection.rtl,
+                  //   child: Column(
+                  //     crossAxisAlignment: CrossAxisAlignment.start,
+                  //     mainAxisAlignment: MainAxisAlignment.start,
+                  //     children: <Widget>[
+                  //       Container(
+                  //         child: Row(
+                  //           children: <Widget>[
+                  //             Text('مدیریت'),
+                  //             SizedBox(
+                  //               width: 3,
+                  //             ),
+                  //             Text('1398/05/28'),
+                  //             SizedBox(
+                  //               width: 3,
+                  //             ),
+                  //             Text('09:30:00'),
+                  //           ],
+                  //         ),
+                  //       ),
+                  //       SizedBox(
+                  //         width: 5,
+                  //       ),
+                  //       Container(
+                  //         child: Text('سلام'),
+                  //       ),
+                  //       SizedBox(
+                  //         width: 10,
+                  //       ),
+                  //       Container(
+                  //         child: Image.asset('images/air.jpg'),
+                  //       ),
+                  //       SizedBox(
+                  //         height: 10,
+                  //       ),
+                  //       Container(
+                  //         color: Colors.black,
+                  //         height: 2,
+                  //         width: MediaQuery.of(context).size.width,
+                  //       )
+                  //     ],
+                  //   ),
+                  // ),
                 ],
               ),
             ],

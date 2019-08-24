@@ -26,7 +26,7 @@ class _BlogListState extends State<BlogList> {
   List<Blog> list = List();
   Map<String, dynamic> curentCategory = {'pId': 0, 'id': '00', 'title': 'همه'};
   Map<dynamic, dynamic> _categories;
-  String word = '';
+ String word = '';
   GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   var isLoading = false;
@@ -50,7 +50,6 @@ class _BlogListState extends State<BlogList> {
     final response = await http.get(model.host + 'blog$q');
     if (response.statusCode == 200) {
       Map data = json.decode(response.body);
-
       if (data['count'] > 0) {
         list = (data['post'] as List)
             .map((data) => new Blog.fromJson(data))
@@ -89,6 +88,8 @@ class _BlogListState extends State<BlogList> {
   void initState() {
     _fetchData();
     _fetchCategories();
+    print("model.userToken");
+    print(model.userToken);
     super.initState();
   }
 
