@@ -57,6 +57,7 @@ class _NewTicketState extends State<NewTicket> {
                         textAlign: TextAlign.right,
                         keyboardType: TextInputType.text,
                         textDirection: TextDirection.rtl,
+                        style: TextStyle(color: Colors.white),
                       ),
                     ),
                   ),
@@ -72,6 +73,7 @@ class _NewTicketState extends State<NewTicket> {
                       maxLines: 10,
                       keyboardType: TextInputType.text,
                       textDirection: TextDirection.rtl,
+                      style: TextStyle(color: Colors.white),
                     ),
                   ),
                   Container(

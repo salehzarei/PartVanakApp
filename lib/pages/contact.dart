@@ -41,76 +41,101 @@ class _ContactPageState extends State<ContactPage> {
   }
 
   Widget _buildNameTextField() {
-    return TextFormField(
-      decoration: InputDecoration(
-          labelText: 'نام و نام خانوادگی',
-          filled: true,
-          fillColor: Colors.white),
-      keyboardType: TextInputType.emailAddress,
-      validator: (String value) {
-        if (value.isEmpty) {
-          return 'این فیلد ضروریست ';
-        }
-      },
-      onSaved: (String value) {
-        _formData['name'] = value;
-      },
+    return Card(
+      color: Colors.grey.shade700,
+      child: TextFormField(
+        decoration: InputDecoration(
+            labelText: 'نام و نام خانوادگی',
+            labelStyle: TextStyle(color: Color(0xFFD8B945)),
+            filled: true,
+            fillColor: Colors.transparent),
+        style: TextStyle(color: Colors.white),
+        keyboardType: TextInputType.emailAddress,
+        validator: (String value) {
+          if (value.isEmpty) {
+            return 'این فیلد ضروریست ';
+          }
+        },
+        onSaved: (String value) {
+          _formData['name'] = value;
+        },
+      ),
     );
   }
 
   Widget _buildEmailTextField() {
-    return TextFormField(
-      decoration: InputDecoration(
-          labelText: ' پست الکترونیک ‍', filled: true, fillColor: Colors.white),
-      keyboardType: TextInputType.emailAddress,
-      textAlign: TextAlign.left,
-      validator: (String value) {
-        if (value.isEmpty ||
-            !RegExp(r"[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?")
-                .hasMatch(value)) {
-          return 'پست الکترونیک معتبر وارد نمایید.';
-        }
-      },
-      onSaved: (String value) {
-        _formData['email'] = value;
-      },
+    return Card(
+      color: Colors.grey.shade700,
+      child: TextFormField(
+        decoration: InputDecoration(
+            labelStyle: TextStyle(color: Color(0xFFD8B945)),
+            labelText: ' پست الکترونیک ‍',
+            filled: true,
+            fillColor: Colors.transparent),
+        style: TextStyle(color: Colors.white),
+        keyboardType: TextInputType.emailAddress,
+        textAlign: TextAlign.left,
+        validator: (String value) {
+          if (value.isEmpty ||
+              !RegExp(r"[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?")
+                  .hasMatch(value)) {
+            return 'پست الکترونیک معتبر وارد نمایید.';
+          }
+        },
+        onSaved: (String value) {
+          _formData['email'] = value;
+        },
+      ),
     );
   }
 
   Widget _buildCellTextField() {
-    return TextFormField(
-      decoration: InputDecoration(
-          labelText: 'تلفن همراه', filled: true, fillColor: Colors.white),
-      textAlign: TextAlign.left,
-      maxLength: 11,
-      validator: (String value) {
-        if (value.length != 11) {
-          return 'تلفن همراه معتبر نیست.';
-        }
-      },
-      keyboardType: TextInputType.number,
-      onSaved: (String value) {
-        _formData['cell'] = value;
-      },
+    return Card(
+      color: Colors.grey.shade700,
+      child: TextFormField(
+        decoration: InputDecoration(
+            labelStyle: TextStyle(color: Color(0xFFD8B945)),
+            labelText: 'تلفن همراه',
+            filled: true,
+            fillColor: Colors.transparent),
+        textAlign: TextAlign.left,
+        style: TextStyle(color: Colors.white),
+        maxLength: 11,
+        validator: (String value) {
+          if (value.length != 11) {
+            return 'تلفن همراه معتبر نیست.';
+          }
+        },
+        keyboardType: TextInputType.number,
+        onSaved: (String value) {
+          _formData['cell'] = value;
+        },
+      ),
     );
   }
 
   Widget _buildMessageTextField() {
-    return TextFormField(
-      decoration: InputDecoration(
-          labelText: 'متن پیام', filled: true, fillColor: Colors.white),
-      // obscureText: true,
-
-      validator: (String value) {
-        if (value.isEmpty || value.length < 10) {
-          return 'متن پیام ضروری و بیشتر از 10 حرف باشد.';
-        }
-      },
-      maxLines: 3,
-      keyboardType: TextInputType.text,
-      onSaved: (String value) {
-        _formData['message'] = value;
-      },
+    return Card(
+      color: Colors.grey.shade700,
+      child: TextFormField(
+        decoration: InputDecoration(
+            labelStyle: TextStyle(color: Color(0xFFD8B945)),
+            labelText: 'متن پیام',
+            filled: true,
+            fillColor: Colors.transparent),
+        // obscureText: true,
+        style: TextStyle(color: Colors.white),
+        validator: (String value) {
+          if (value.isEmpty || value.length < 10) {
+            return 'متن پیام ضروری و بیشتر از 10 حرف باشد.';
+          }
+        },
+        maxLines: 3,
+        keyboardType: TextInputType.text,
+        onSaved: (String value) {
+          _formData['message'] = value;
+        },
+      ),
     );
   }
 
@@ -206,12 +231,15 @@ class _ContactPageState extends State<ContactPage> {
             IconButton(
               icon: Icon(
                 Icons.arrow_forward,
-                color: Colors.white,
+                color:Theme.of(context).accentColor,
               ),
               onPressed: () => Navigator.pop(context),
             )
           ],
-          title: Text('تماس با ما '),
+          title: Text('تماس با ما ',style: Theme.of(context).textTheme.display2),
+           iconTheme: Theme.of(context)
+              .iconTheme
+              .copyWith(color: Theme.of(context).accentColor),
         ),
         drawer: MyDrawer(),
         body: Container(

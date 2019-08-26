@@ -19,7 +19,7 @@ import './model/accommodation_model.dart';
 import 'model/order_model.dart';
 
 class MainModel extends Model {
-  final String host = 'http://partvanak.com/tourapi/';
+  final String host = 'https://safirparvaz.ir/tourapi/';
   List<Toure> tourelist = [];
   List<Toure> specialToureList = [];
   List<OrderModel> userOrders = [];
@@ -240,6 +240,16 @@ class MainModel extends Model {
       notifyListeners();
     }
   }
+
+  // Future<String> token() async {
+  //   final prefs = await SharedPreferences.getInstance();
+  //   final _userToken = prefs.getString('token');
+  //   if (_userToken == null) {
+  //     return null;
+  //   } else {
+  //     return _userToken;
+  //   }
+  // }
 
   /////// ثبت نام  کاربر جدید
 
@@ -582,9 +592,6 @@ class MainModel extends Model {
   ///// ارسال فرم تماس به سرور
 
   Future<bool> addComment(String action,Map<String, dynamic> contactData) {
-    print('lllll');
-    print(action);
-    print(host +action+'/addcomment');
     _isLoading = true;
     notifyListeners();
     return http

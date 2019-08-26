@@ -149,7 +149,7 @@ class _HomePageState extends State<Profile>
                               ),
                             ),
                             Padding(
-                              padding: EdgeInsets.only(top: 10, right: 300),
+                              padding: EdgeInsets.only(top: 10, right: 335),
                               child: IconButton(
                                   icon: Icon(Icons.exit_to_app),
                                   color: Colors.black,

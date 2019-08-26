@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hello_flutter/Theme/drawerTheme.dart';
 import 'package:hello_flutter/drawer.dart';
+import './reply.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import '../scoped_model.dart';
@@ -16,15 +17,11 @@ class _TicketListState extends State<TicketList> {
   List<Ticket> list = List();
   MainModel model = new MainModel();
   // MainModel model;
-  var isLoading = false;
+  var isLoading = true;
 
   _getTicket() async {
     final response = await http
         .post(model.host + 'tickets', body: {'token': model.userToken});
-    setState(() {
-      isLoading = true;
-    });
-
     if (response.statusCode == 200) {
       Map data = json.decode(response.body);
 
@@ -51,6 +48,11 @@ class _TicketListState extends State<TicketList> {
     model.getToken().then((_) {
       if (model.userToken != null) {
         _getTicket();
+      }else{
+        print('set false');
+         setState(() {
+          isLoading = false;
+        });
       }
     });
 
@@ -62,6 +64,7 @@ class _TicketListState extends State<TicketList> {
       child: Text('موردی یافت نشد'),
     );
     if (model.userToken == null) {
+      
       return Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -124,8 +127,9 @@ class _TicketListState extends State<TicketList> {
                                     child: RaisedButton(
                                       child: Text('ادامه مطلب'),
                                       onPressed: () {
-                                        Navigator.pushNamed(
-                                            context, '/newreply');
+                                        Navigator.push(context, MaterialPageRoute(builder: (content)=>Reply(ticket[index].id)));
+                                        // Navigator.pushNamed(
+                                            // context, '/newreply');
                                       },
                                     ),
                                   ),
