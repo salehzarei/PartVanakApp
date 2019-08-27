@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hello_flutter/pages/gallery.dart';
-import 'package:hello_flutter/ticket/newticket.dart';
+import 'package:hello_flutter/ticket/add.dart';
 import 'package:hello_flutter/ticket/ticket.dart';
 import 'package:scoped_model/scoped_model.dart';
 import './pages/product_list.dart';
@@ -71,7 +71,7 @@ main() {
           '/gallery': (context) => AlbumGallery(),
           '/product': (context) => ProductList(),
           '/ticket': (context) => TicketList(),
-          '/newticket': (context) => NewTicket(),
+          '/addticket': (context) => Add(),
           '/profile': (context) => Profile(),
           '/bloglist': (context) => BlogList(),
           '/login': (context) => Login(),

@@ -207,7 +207,7 @@ class _TicketListState extends State<TicketList> {
                                 ),
                                 GestureDetector(
                                   onTap: () {
-                                    Navigator.pushNamed(context, '/newticket');
+                                    Navigator.pushNamed(context, '/addticket');
                                   },
                                   child: Container(
                                     width: 125,
