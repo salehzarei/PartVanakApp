@@ -36,7 +36,6 @@ class _ProductListState extends State<ProductList> {
     if (word != '') {
       q = '$q&word=$word';
     }
-    print(q);
 
     setState(() {
       isLoading = true;
@@ -44,7 +43,6 @@ class _ProductListState extends State<ProductList> {
 
     final response = await http.get(model.host + 'products$q');
     if (response.statusCode == 200) {
-      print(response.body);
       Map data = json.decode(response.body);
 
       if (data['count'] > 0) {
@@ -109,17 +107,23 @@ class _ProductListState extends State<ProductList> {
                                 )));
                   },
                   child: Card(
-                    color: Colors.white30,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(15))),
+                    color: Colors.white12,
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: <Widget>[
                         Stack(
                           alignment: AlignmentDirectional.bottomStart,
                           children: <Widget>[
-                            Center(
-                              child: Image.network(
-                                product[index].thumb,
-                                fit: BoxFit.cover,
+                            Padding(
+                              padding: const EdgeInsets.all(10),
+                              child: Center(
+                                child: Image.network(
+                                  product[index].thumb,
+                                  fit: BoxFit.cover,
+                                  width: MediaQuery.of(context).size.width,
+                                ),
                               ),
                             ),
                             ListTile(
@@ -132,7 +136,7 @@ class _ProductListState extends State<ProductList> {
                           ],
                         ),
                         SizedBox(
-                          height: 10,
+                          height: 15,
                         ),
                         Container(
                           padding: EdgeInsets.only(left: 10, right: 10),
@@ -230,7 +234,8 @@ class _ProductListState extends State<ProductList> {
                                       child: InkWell(
                                         child: Text('حذف فیلتر'),
                                         onTap: () {
-                                          Navigator.pushNamed(context, '/product');
+                                          Navigator.pushNamed(
+                                              context, '/product');
                                         },
                                       ),
                                     )
@@ -266,9 +271,6 @@ class _ProductListState extends State<ProductList> {
   void _buildCategory(BuildContext context) {
     List<Widget> categorieData = new List();
     Map last = crumb.last;
-    print(_categories);
-    print(crumb);
-    print(last);
     categorieData.add(Container(
         padding: EdgeInsets.only(top: 10, bottom: 10, left: 15, right: 15),
         decoration: BoxDecoration(
@@ -291,7 +293,6 @@ class _ProductListState extends State<ProductList> {
                   });
                 },
                 child: crumb.length > 1 ? Icon(Icons.arrow_back) : Container()),
-            // Icon(Icons.arrow_back)),
             GestureDetector(
                 onTap: () {
                   Navigator.pop(context);
@@ -402,9 +403,6 @@ class _ProductListState extends State<ProductList> {
               icon: Icon(Icons.search),
               onPressed: () {
                 setState(() {
-                  // if(!_formKey.currentState.validate()){
-                  //   return ;
-                  // }
                   _formKey.currentState.save();
                   _fetchData();
                 });

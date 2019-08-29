@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:hello_flutter/pages/gallery.dart';
 import 'package:hello_flutter/ticket/add.dart';
 import 'package:hello_flutter/ticket/ticket.dart';
 import 'package:scoped_model/scoped_model.dart';
@@ -62,13 +61,7 @@ main() {
         ),
         initialRoute: '/',
         routes: {
-          //  '/': (context) => SearchApp(),
           '/': (context) => Splash(model: model),
-
-
-
-          
-          '/gallery': (context) => AlbumGallery(),
           '/product': (context) => ProductList(),
           '/ticket': (context) => TicketList(),
           '/addticket': (context) => Add(),
@@ -96,7 +89,6 @@ main() {
               ),
           '/touredetile': (context) => ToureDetilePage(),
           '/buyticket': (context) => BuyTicket(),
-
           '/contactUs': (context) => ContactPage(model),
           '/flyinfoSite': (context) => Webview(
                 title: 'اطلاعات پرواز فرودگاه های کشور',

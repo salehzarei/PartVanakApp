@@ -123,7 +123,6 @@ class _ContactPageState extends State<ContactPage> {
             labelText: 'متن پیام',
             filled: true,
             fillColor: Colors.transparent),
-        // obscureText: true,
         style: TextStyle(color: Colors.white),
         validator: (String value) {
           if (value.isEmpty || value.length < 10) {
@@ -200,7 +199,6 @@ class _ContactPageState extends State<ContactPage> {
           });
 
           content = DropdownButton(
-              // value: _selected,
               hint: Text('انتخاب موضوع '),
               value: _selected,
               items: _subjectArr,

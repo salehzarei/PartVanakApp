@@ -15,7 +15,6 @@ class _LoginState extends State<Login> {
   TextEditingController _pass = TextEditingController();
 
     @override
-  // integer _size MediaQuery.of(context).size.height/2;
   Widget build(BuildContext context) {
     return ScopedModelDescendant<MainModel>(builder: (context, child, model) {
       return Directionality(
@@ -36,13 +35,7 @@ class _LoginState extends State<Login> {
             ],
           ),
           body: Stack(
-            //fit: StackFit.expand,
             children: <Widget>[
-              // Container(
-              //     child: Image.asset(
-              //   'images/air.jpg',
-              //   fit: BoxFit.cover,
-              // )),
               Padding(
                 padding: const EdgeInsets.only(left: 15, right: 15, top: 10),
                 child: ListView(

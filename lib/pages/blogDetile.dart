@@ -31,7 +31,6 @@ class _BlogDetileState extends State<BlogDetile> {
     final response =
         await http.get(model.host + 'blog/show/prm/' + widget.id.toString());
     if (response.statusCode == 200) {
-      print(response.body);
       Map res = json.decode(response.body);
       Map data = res['content'];
 
@@ -67,9 +66,6 @@ class _BlogDetileState extends State<BlogDetile> {
         textDirection: TextDirection.rtl,
         child: Scaffold(
           drawer: MyDrawer(),
-
-          // SliverAppBar is declared in Scaffold.body, in slivers of a
-          // CustomScrollView.
           body: isLoading
               ? Center(
                   child: CircularProgressIndicator(),
@@ -145,7 +141,8 @@ class _BlogDetileState extends State<BlogDetile> {
                       ),
                     ),
                     SliverList(
-                      delegate: SliverChildListDelegate([CommentForm(blog.id,'blog')]),
+                      delegate: SliverChildListDelegate(
+                          [CommentForm(blog.id, 'blog')]),
                     )
                   ],
                 ),

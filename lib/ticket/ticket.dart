@@ -16,7 +16,6 @@ class _TicketListState extends State<TicketList> {
   List<Ticket> list = List();
   MainModel model = new MainModel();
 
-  // MainModel model;
   var isLoading = true;
 
   _getTicket() async {
@@ -42,7 +41,8 @@ class _TicketListState extends State<TicketList> {
       throw Exception('Failed to load ticket');
     }
   }
-///داریم نرم افزار را تست میکنیم
+
+  ///داریم نرم افزار را تست میکنیم
   Widget _checkread(int read) {
     if (read == 1) {
       return Container(
@@ -68,7 +68,6 @@ class _TicketListState extends State<TicketList> {
       if (model.userToken != null) {
         _getTicket();
       } else {
-        print('set false');
         setState(() {
           isLoading = false;
         });
@@ -95,14 +94,10 @@ class _TicketListState extends State<TicketList> {
           ],
         ),
       );
-      // Center(
-      //   child: Text('لطفا وارد پنل کاربری خود شوید'),
-      // );
     }
     if (list.length > 0) {
       content = ListView.builder(
           itemCount: list.length,
-          // padding: EdgeInsets.only(top: 110, left: 10, right: 10, bottom: 10),
           itemBuilder: (context, index) {
             return Padding(
               padding: const EdgeInsets.all(5),
@@ -123,7 +118,12 @@ class _TicketListState extends State<TicketList> {
                                 Padding(
                                   padding: const EdgeInsets.all(20),
                                   child: Text(
-                                    ticket[index].subject.length>30? ticket[index].subject.substring(0, 30)+'...' :ticket[index].subject,
+                                    ticket[index].subject.length > 30
+                                        ? ticket[index]
+                                                .subject
+                                                .substring(0, 30) +
+                                            '...'
+                                        : ticket[index].subject,
                                     style: TextStyle(color: Colors.white),
                                   ),
                                 ),
@@ -133,7 +133,6 @@ class _TicketListState extends State<TicketList> {
                                   child: Container(
                                       width: 80,
                                       height: 20,
-                                      // color: Colors.white,
                                       child: Container(
                                         child: _checkread(ticket[index].read),
                                       )),
@@ -144,7 +143,6 @@ class _TicketListState extends State<TicketList> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: <Widget>[
                                 Expanded(
-                                  // padding: const EdgeInsets.all(20),
                                   child: Padding(
                                     padding: const EdgeInsets.only(
                                         right: 20, left: 8),
@@ -166,8 +164,6 @@ class _TicketListState extends State<TicketList> {
                                             MaterialPageRoute(
                                                 builder: (content) =>
                                                     Reply(ticket[index].id)));
-                                        // Navigator.pushNamed(
-                                        // context, '/newreply');
                                       },
                                     ),
                                   ),
@@ -235,8 +231,7 @@ class _TicketListState extends State<TicketList> {
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: <Widget>[
                       Container(
-                        padding: EdgeInsets.only(top:5),
-                          //decoration: BoxDecoration(borderRadius: BorderRadius.circular(5)),
+                          padding: EdgeInsets.only(top: 5),
                           height: 50,
                           width: MediaQuery.of(context).size.width,
                           color: Colors.grey.shade800,
@@ -244,12 +239,10 @@ class _TicketListState extends State<TicketList> {
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: <Widget>[
-                              // SizedBox(
-                              //   height: 5,
-                              // ),
                               GestureDetector(
                                 onTap: () {
-                                  Navigator.pushReplacementNamed(context, '/addticket');
+                                  Navigator.pushReplacementNamed(
+                                      context, '/addticket');
                                 },
                                 child: Container(
                                   width: 125,

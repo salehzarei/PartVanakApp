@@ -351,22 +351,6 @@ Step factor(_stepState,
     baby_price,
     adult_price,
     totalPrice}) {
-  // return Step(
-  //   title: Text('data'),
-  //   content: Column(
-  //     children: <Widget>[
-  //       Text(singleCount.toString()),
-  //       Text(single_price),
-  //       Text(currency),
-  //       Text(adultCount.toString()),
-  //       Text(childbedCount.toString()),
-  //       Text(totalPrice),
-  //       Text(adult_price),
-  //       Text(baby_price),
-  //       Text(babyCount.toString())
-  //     ],
-  //   )
-  // );
   return Step(
     state: _stepState <= 1 ? StepState.indexed : StepState.complete,
     title: Text('صورتحساب هزینه ها براساس نفرات'),

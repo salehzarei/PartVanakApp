@@ -31,11 +31,8 @@ class _ProductDetileState extends State<ProductDetile> {
     final response = await http
         .get(model.host + 'products/show/prm/' + widget.id.toString());
     if (response.statusCode == 200) {
-      // print('محصولات');
       Map res = json.decode(response.body);
       Map data = res['content'];
-      print(data['gallery']);
-
       setState(() {
         isLoading = false;
         product = new Product(
@@ -63,7 +60,6 @@ class _ProductDetileState extends State<ProductDetile> {
 
   @override
   Widget build(BuildContext context) {
-    print(product);
     return Directionality(
         textDirection: TextDirection.rtl,
         child: Scaffold(
@@ -144,8 +140,8 @@ class _ProductDetileState extends State<ProductDetile> {
                       ),
                     ),
                     SliverList(
-                      delegate:
-                          SliverChildListDelegate([CommentForm(product.id,'products')]),
+                      delegate: SliverChildListDelegate(
+                          [CommentForm(product.id, 'products')]),
                     )
                   ],
                 ),
@@ -158,15 +154,12 @@ class _ProductDetileState extends State<ProductDetile> {
       width: 54,
       length: product.gallery.length,
       getwidget: (index) {
-        print(index);
         return GestureDetector(
             child: Image.network(
               product.gallery[index % product.gallery.length],
               fit: BoxFit.cover,
             ),
-            onTap: () {
-              print('click on');
-            });
+            onTap: () {});
       },
     );
   }

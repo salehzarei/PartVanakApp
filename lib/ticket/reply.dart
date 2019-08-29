@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:hello_flutter/drawer.dart';
 import 'package:image_picker/image_picker.dart';
@@ -25,12 +23,10 @@ class _NewReplyState extends State<Reply> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   Future getImage() async {
-    // file = await ImagePicker.pickImage(source: ImageSource.camera);
     var image = await ImagePicker.pickImage(source: ImageSource.gallery);
     if (image != null) {
       setState(() {
         dataFrom['pic'] = base64Encode(image.readAsBytesSync());
-        print(base64Encode(image.readAsBytesSync()));
       });
     }
   }
@@ -44,11 +40,6 @@ class _NewReplyState extends State<Reply> {
         list = (data['ticket'] as List)
             .map((d) => new ReplyModel.fromJson(d))
             .toList();
-        // model.getToken().then((_) {
-        //   if (model.userToken != null) {
-        //     dataFrom['token'] = model.userToken;
-        //   }
-        // });
         dataFrom['token'] = model.userToken;
         dataFrom['replyId'] = data['replyId'].toString();
         dataFrom['tId'] = data['tId'].toString();
@@ -65,19 +56,15 @@ class _NewReplyState extends State<Reply> {
     setState(() {
       addLoading = true;
     });
-    print(dataFrom);
 
     return http
         .post(model.host + 'tickets/replay',
             encoding: Encoding.getByName('utf-8'), body: dataFrom)
         .then((http.Response response) {
-      print(response.statusCode);
-
       if (response.statusCode != 200 && response.statusCode != 201) {
         setState(() {
           addLoading = false;
         });
-        print(1);
         return false;
       }
 
@@ -86,7 +73,6 @@ class _NewReplyState extends State<Reply> {
         setState(() {
           addLoading = false;
         });
-        print(2);
         return false;
       }
 
@@ -98,7 +84,6 @@ class _NewReplyState extends State<Reply> {
       setState(() {
         addLoading = false;
       });
-      print(3);
       return false;
     });
   }
@@ -145,11 +130,6 @@ class _NewReplyState extends State<Reply> {
                       padding: const EdgeInsets.only(top: 355),
                       child: ListView(
                         children: <Widget>[
-                          // Container(
-                          //   height: 3,
-                          //   color: Colors.black,
-                          //   width: MediaQuery.of(context).size.width,
-                          // ),
                           Directionality(
                             textDirection: TextDirection.rtl,
                             child: Column(
@@ -223,7 +203,6 @@ class _NewReplyState extends State<Reply> {
                                     }
                                     _formKey.currentState.save();
                                     add().then((bool success) {
-                                      print(success);
                                       if (success) {
                                         _formKey.currentState.reset();
                                         showDialog(
@@ -233,8 +212,6 @@ class _NewReplyState extends State<Reply> {
                                                 textDirection:
                                                     TextDirection.rtl,
                                                 child: AlertDialog(
-                                                  // backgroundColor:
-                                                  //     Colors.green,
                                                   title: Text('توجه'),
                                                   content: Text(
                                                       'پیام شما با موفقیت ثبت شد'),
@@ -263,7 +240,6 @@ class _NewReplyState extends State<Reply> {
                                                 textDirection:
                                                     TextDirection.rtl,
                                                 child: AlertDialog(
-                                                  // backgroundColor: Colors.red,
                                                   title: Text('توجه'),
                                                   content: Text(
                                                       'پیام شما ثبت نگردید'),
@@ -362,11 +338,6 @@ class _NewReplyState extends State<Reply> {
                 SizedBox(
                   height: 10,
                 ),
-                // Container(
-                //   color: Colors.black,
-                //   height: 2,
-                //   width: MediaQuery.of(context).size.width,
-                // )
               ],
             ),
           ),

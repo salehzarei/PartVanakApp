@@ -28,7 +28,6 @@ class _AddState extends State<Add> {
     if (image != null) {
       setState(() {
         dataFrom['pic'] = base64Encode(image.readAsBytesSync());
-        print(base64Encode(image.readAsBytesSync()));
       });
     }
   }
@@ -42,13 +41,10 @@ class _AddState extends State<Add> {
         .post(model.host + 'tickets/add',
             encoding: Encoding.getByName('utf-8'), body: dataFrom)
         .then((http.Response response) {
-      print(response.statusCode);
-
       if (response.statusCode != 200 && response.statusCode != 201) {
         setState(() {
           addLoading = false;
         });
-        print(1);
         return false;
       }
 
@@ -57,7 +53,6 @@ class _AddState extends State<Add> {
         setState(() {
           addLoading = false;
         });
-        print(2);
         return false;
       }
 
@@ -69,7 +64,6 @@ class _AddState extends State<Add> {
       setState(() {
         addLoading = false;
       });
-      print(3);
       return false;
     });
   }
@@ -184,7 +178,6 @@ class _AddState extends State<Add> {
                           model.getToken().then((_) {
                             dataFrom['token'] = model.userToken;
                             addTicket().then((bool success) {
-                              print(success);
                               if (success) {
                                 _formKey.currentState.reset();
                                 showDialog(
@@ -193,8 +186,6 @@ class _AddState extends State<Add> {
                                       return Directionality(
                                         textDirection: TextDirection.rtl,
                                         child: AlertDialog(
-                                          // backgroundColor:
-                                          //     Colors.green,
                                           title: Text('توجه'),
                                           content:
                                               Text('پیام شما با موفقیت ثبت شد'),
@@ -219,7 +210,6 @@ class _AddState extends State<Add> {
                                       return Directionality(
                                         textDirection: TextDirection.rtl,
                                         child: AlertDialog(
-                                          // backgroundColor: Colors.red,
                                           title: Text('توجه'),
                                           content: Text('پیام شما ثبت نگردید'),
                                           actions: <Widget>[

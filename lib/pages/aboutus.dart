@@ -301,7 +301,6 @@ class _AboutUsState extends State<AboutUs> {
                                 padding: const EdgeInsets.only(
                                     top: 10, right: 10, left: 10),
                                 child: RichText(
-                                    //textAlign: TextAlign.justify,
                                     textDirection: TextDirection.rtl,
                                     overflow: TextOverflow.fade,
                                     text: TextSpan(

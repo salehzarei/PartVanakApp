@@ -25,7 +25,7 @@ class _HomePageState extends State<Profile>
   @override
   void initState() {
     MainModel _model = ScopedModel.of(context);
-    _tabController = TabController(length: 3, vsync: this);
+    _tabController = TabController(length: 2, vsync: this);
     super.initState();
 
     _model.getUserOrder();
@@ -70,10 +70,6 @@ class _HomePageState extends State<Profile>
                     icon: Icon(Icons.payment),
                     text: 'خرید های من',
                   ),
-                  Tab(
-                    icon: Icon(Icons.attach_money),
-                    text: 'تراکنش ها',
-                  )
                 ],
                 controller: _tabController,
                 indicatorColor: Colors.white,
@@ -227,7 +223,6 @@ class _HomePageState extends State<Profile>
                                             TextInputType.emailAddress,
                                         readOnly: _emailEditing,
                                         onSubmitted: (ok) {
-                                          print(ok);
                                           setState(() {
                                             _emailEditing = true;
                                           });
@@ -255,7 +250,6 @@ class _HomePageState extends State<Profile>
                                             TextInputType.emailAddress,
                                         readOnly: _emailEditing,
                                         onSubmitted: (ok) {
-                                          print(ok);
                                           setState(() {
                                             _emailEditing = false;
                                           });
@@ -282,7 +276,6 @@ class _HomePageState extends State<Profile>
                                             TextInputType.emailAddress,
                                         readOnly: _emailEditing,
                                         onSubmitted: (ok) {
-                                          print(ok);
                                           setState(() {
                                             _emailEditing = false;
                                           });
@@ -332,7 +325,6 @@ class _HomePageState extends State<Profile>
                                             TextInputType.emailAddress,
                                         readOnly: _emailEditing,
                                         onSubmitted: (ok) {
-                                          print(ok);
                                           setState(() {
                                             _emailEditing = false;
                                           });
@@ -359,7 +351,6 @@ class _HomePageState extends State<Profile>
                                         keyboardType: TextInputType.text,
                                         readOnly: _emailEditing,
                                         onSubmitted: (ok) {
-                                          print(ok);
                                           setState(() {
                                             _emailEditing = false;
                                           });
@@ -386,7 +377,6 @@ class _HomePageState extends State<Profile>
                                         keyboardType: TextInputType.number,
                                         readOnly: _emailEditing,
                                         onSubmitted: (ok) {
-                                          print(ok);
                                           setState(() {
                                             _emailEditing = false;
                                           });
@@ -442,10 +432,6 @@ class _HomePageState extends State<Profile>
                                   ),
                                 );
                               })),
-                  Container(
-                      child: Center(
-                    child: Text('این قسمت هنوز طراحی نشده است'),
-                  ))
                 ],
                 controller: _tabController,
               ),

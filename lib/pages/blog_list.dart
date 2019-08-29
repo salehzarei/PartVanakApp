@@ -26,7 +26,7 @@ class _BlogListState extends State<BlogList> {
   List<Blog> list = List();
   Map<String, dynamic> curentCategory = {'pId': 0, 'id': '00', 'title': 'همه'};
   Map<dynamic, dynamic> _categories;
- String word = '';
+  String word = '';
   GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   var isLoading = false;
@@ -41,7 +41,6 @@ class _BlogListState extends State<BlogList> {
     if (word != '') {
       q = '$q&word=$word';
     }
-    print(q);
 
     setState(() {
       isLoading = true;
@@ -88,8 +87,6 @@ class _BlogListState extends State<BlogList> {
   void initState() {
     _fetchData();
     _fetchCategories();
-    print("model.userToken");
-    print(model.userToken);
     super.initState();
   }
 
@@ -112,17 +109,23 @@ class _BlogListState extends State<BlogList> {
                             builder: (context) => BlogDetile(blog[index].id)));
                   },
                   child: Card(
-                    color: Colors.white30,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(15))),
+                    color: Colors.white12,
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: <Widget>[
                         Stack(
                           alignment: AlignmentDirectional.bottomStart,
                           children: <Widget>[
-                            Center(
-                              child: Image.network(
-                                blog[index].thumb,
-                                fit: BoxFit.cover,
+                            Padding(
+                              padding: const EdgeInsets.all(10),
+                              child: Center(
+                                child: Image.network(
+                                  blog[index].thumb,
+                                  fit: BoxFit.cover,
+                                  width: MediaQuery.of(context).size.width,
+                                ),
                               ),
                             ),
                             ListTile(
@@ -135,7 +138,7 @@ class _BlogListState extends State<BlogList> {
                           ],
                         ),
                         SizedBox(
-                          height: 10,
+                          height: 15,
                         ),
                         Container(
                           padding: EdgeInsets.only(left: 10, right: 10),
@@ -242,7 +245,8 @@ class _BlogListState extends State<BlogList> {
                                       child: InkWell(
                                         child: Text('حذف فیلتر'),
                                         onTap: () {
-                                          Navigator.pushNamed(context, '/bloglist');
+                                          Navigator.pushNamed(
+                                              context, '/bloglist');
                                         },
                                       ),
                                     )
@@ -278,9 +282,6 @@ class _BlogListState extends State<BlogList> {
   void _buildCategory(BuildContext context) {
     List<Widget> categorieData = new List();
     Map last = crumb.last;
-    print(_categories);
-    print(crumb);
-    print(last);
     categorieData.add(Container(
         padding: EdgeInsets.only(top: 10, bottom: 10, left: 15, right: 15),
         decoration: BoxDecoration(
@@ -303,7 +304,6 @@ class _BlogListState extends State<BlogList> {
                   });
                 },
                 child: crumb.length > 1 ? Icon(Icons.arrow_back) : Container()),
-            // Icon(Icons.arrow_back)),
             GestureDetector(
                 onTap: () {
                   Navigator.pop(context);
@@ -373,9 +373,6 @@ class _BlogListState extends State<BlogList> {
                               'pId': curentCategory['id'],
                               'title': v['title']
                             });
-
-                            // crumb.add({'id':k,'pId': curentCategory['id'],'title':v['title']});
-
                             _buildCategory(context);
                           });
                         },
@@ -425,9 +422,6 @@ class _BlogListState extends State<BlogList> {
               icon: Icon(Icons.search),
               onPressed: () {
                 setState(() {
-                  // if(!_formKey.currentState.validate()){
-                  //   return ;
-                  // }
                   _formKey.currentState.save();
                   _fetchData();
                 });
