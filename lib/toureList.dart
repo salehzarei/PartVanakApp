@@ -72,6 +72,7 @@ class _ToureListPageState extends State<ToureListPage> {
                   foreign: model.touretypes[4]['foregin'],
                   special: model.touretypes[4]['special']));
         }
+
         break;
     }
   }
@@ -122,42 +123,40 @@ class _ToureListPageState extends State<ToureListPage> {
                 )
               ],
             ),
-            body: Stack(
-                textDirection: TextDirection.rtl,
-                children: <Widget>[
-                  model.isLoading
-                      ? Center(child: CircularProgressIndicator())
-                      : makeList(model.tourelist),
-                  Container(
-                    color: Colors.white,
-                    height: 45,
-                    child: Padding(
-                      padding: const EdgeInsets.only(top: 10, right: 5),
-                      child: Row(
-                        textDirection: TextDirection.rtl,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: <Widget>[
-                          Row(
-                            children: <Widget>[
-                              Text("فیلترکردن"),
-                              Icon(Icons.filter_list),
-                            ],
-                          ),
-                          SizedBox(
-                            width: 15,
-                          ),
-                          Row(
-                            children: <Widget>[
-                              Text("مرتب سازی"),
-                              Icon(Icons.sort),
-                            ],
-                          )
-                        ],
-                      ),
-                    ),
-                  )
-                ]),
+            body: Stack(textDirection: TextDirection.rtl, children: <Widget>[
+              model.isLoading
+                  ? Center(child: CircularProgressIndicator())
+                  : makeList(model.tourelist),
+              // Container(
+              //   color: Colors.white,
+              //   height: 45,
+              //   child: Padding(
+              //     padding: const EdgeInsets.only(top: 10, right: 5),
+              //     child: Row(
+              //       textDirection: TextDirection.rtl,
+              //       crossAxisAlignment: CrossAxisAlignment.start,
+              //       mainAxisAlignment: MainAxisAlignment.start,
+              //       children: <Widget>[
+              //         Row(
+              //           children: <Widget>[
+              //             Text("فیلترکردن"),
+              //             Icon(Icons.filter_list),
+              //           ],
+              //         ),
+              //         SizedBox(
+              //           width: 15,
+              //         ),
+              //         Row(
+              //           children: <Widget>[
+              //             Text("مرتب سازی"),
+              //             Icon(Icons.sort),
+              //           ],
+              //         )
+              //       ],
+              //     ),
+              //   ),
+              // )
+            ]),
           ),
         );
       },

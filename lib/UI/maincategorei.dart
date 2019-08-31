@@ -59,7 +59,7 @@ class _HomeCategoreiState extends State<HomeCategorei> {
     return ScopedModelDescendant<MainModel>(
       builder: (context, child, model) {
         return Container(
-          height: 102,
+          height: 100,
           child: ListView(
             physics: ClampingScrollPhysics(),
             scrollDirection: Axis.horizontal,
@@ -121,6 +121,13 @@ class _HomeCategoreiState extends State<HomeCategorei> {
                         context, model.touretypes[3]['pushNamed']);
                 },
               ),
+              GestureDetector(
+                  child: HomeCategoriItem(
+                    icon: Icons.payment,
+                    title: 'خرید بلیط',
+                    selected: selected[3],
+                  ),
+                  onTap: () => Navigator.pushNamed(context, '/kharid')),
             ],
           ),
         );

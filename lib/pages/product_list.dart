@@ -130,7 +130,9 @@ class _ProductListState extends State<ProductList> {
                               title: Text(
                                 product[index].title,
                                 style: TextStyle(
-                                    color: Colors.white, fontSize: 24.0),
+                                    color: Colors.white, fontSize: 16.0),
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
                               ),
                             ),
                           ],
@@ -234,7 +236,7 @@ class _ProductListState extends State<ProductList> {
                                       child: InkWell(
                                         child: Text('حذف فیلتر'),
                                         onTap: () {
-                                          Navigator.pushNamed(
+                                          Navigator.pushReplacementNamed(
                                               context, '/product');
                                         },
                                       ),

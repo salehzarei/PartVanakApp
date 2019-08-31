@@ -17,7 +17,7 @@ class _UserProfileState extends State<UserProfile> {
             shrinkWrap: true,
               children: <Widget>[
                 Container(
-                  width: 20,
+                  width: 22,
                   child: ListTile(
                     trailing: Icon(
                       Icons.edit,
@@ -60,7 +60,7 @@ class _UserProfileState extends State<UserProfile> {
                     Padding(
                       padding: const EdgeInsets.only(left: 15),
                       child: Container(
-                        width: 110,
+                        width: 112,
                         child: Row(
                           children: <Widget>[
                             Padding(

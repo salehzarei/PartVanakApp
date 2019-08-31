@@ -132,7 +132,9 @@ class _BlogListState extends State<BlogList> {
                               title: Text(
                                 blog[index].title,
                                 style: TextStyle(
-                                    color: Colors.white, fontSize: 24.0),
+                                    color: Colors.white, fontSize: 16.0),
+                                    maxLines: 1,
+                                    overflow: TextOverflow.ellipsis,
                               ),
                             ),
                           ],
@@ -144,7 +146,9 @@ class _BlogListState extends State<BlogList> {
                           padding: EdgeInsets.only(left: 10, right: 10),
                           child: Text(
                             blog[index].summary,
-                            textAlign: TextAlign.start,
+                            textDirection: TextDirection.rtl,
+                            textAlign: TextAlign.right,
+                            style: TextStyle(height: 1.3, fontSize: 14),
                           ),
                         ),
                         ButtonTheme.bar(
@@ -235,21 +239,18 @@ class _BlogListState extends State<BlogList> {
                               child: Directionality(
                                 textDirection: TextDirection.rtl,
                                 child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                 
                                   children: <Widget>[
-                                    Text("دسته بندی : "),
-                                    Text(curentCategory['title']),
-                                    Padding(
-                                      padding:
-                                          const EdgeInsets.only(right: 160),
-                                      child: InkWell(
-                                        child: Text('حذف فیلتر'),
-                                        onTap: () {
-                                          Navigator.pushNamed(
-                                              context, '/bloglist');
-                                        },
-                                      ),
-                                    )
+                                    Row(children: <Widget>[Text("دسته بندی : "),
+                                    Text(curentCategory['title']),],),
+                                    InkWell(
+                                      child: Text('حذف فیلتر'),
+                                      onTap: () {
+                                        Navigator.pushReplacementNamed(
+                                            context, '/bloglist');
+                                      },
+                                    ),
                                   ],
                                 ),
                               ),

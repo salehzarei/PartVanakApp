@@ -33,7 +33,8 @@ class _WebviewState extends State<Webview> {
               )
             ],
             centerTitle: true,
-            title: Text(widget.title),
+            title:
+                Text(widget.title, style: Theme.of(context).textTheme.display2),
             backgroundColor: Theme.of(context).appBarTheme.color,
             iconTheme:
                 Theme.of(context).iconTheme.copyWith(color: Color(0xFFD8B945)),

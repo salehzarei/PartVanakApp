@@ -153,7 +153,7 @@ class _TicketListState extends State<TicketList> {
                                   ),
                                 ),
                                 Container(
-                                  width: 120,
+                                  width: 125,
                                   child: Padding(
                                     padding: const EdgeInsets.only(left: 20),
                                     child: RaisedButton(

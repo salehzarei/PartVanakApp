@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:hello_flutter/drawer.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../model/blog_model.dart';
 import '../model/comment_model.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import '../scoped_model.dart';
 import '../UI/comment.dart';
+import 'package:flutter_html/flutter_html.dart';
+import 'package:html/dom.dart' as dom;
 
 class BlogDetile extends StatefulWidget {
   int id;
@@ -86,7 +89,16 @@ class _BlogDetileState extends State<BlogDetile> {
                         floating: false,
                         expandedHeight: 180.0,
                         flexibleSpace: FlexibleSpaceBar(
-                          title: Text(blog.title),
+                          centerTitle: true,
+                          title: Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 75),
+                            child: Text(
+                              blog.title,
+                              style: TextStyle(fontSize: 12),
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          ),
                           background: Image.network(
                             blog.pic,
                             fit: BoxFit.cover,
@@ -126,9 +138,39 @@ class _BlogDetileState extends State<BlogDetile> {
                           ),
                         ),
                         Container(
+                           padding: EdgeInsets.all(8),
+                            child: Text(blog.title,style: TextStyle(fontSize: 18,height: 1.3,fontWeight: FontWeight.bold),),
+                            
+                        ),
+                        Container(
                             child: Container(
                                 padding: EdgeInsets.all(8),
-                                child: Text(blog.content))),
+                                child: Html(
+                                  data: blog.content,
+                                  onLinkTap: (url) async {
+                                    if (await canLaunch(url)) {
+                                      await launch(url);
+                                    } else {
+                                      throw 'Could not launch $url';
+                                    }
+                                  },
+                                  customTextAlign: (dom.Node node) {
+                                    if (node is dom.Element) {
+                                      return TextAlign.right;
+                                    }
+                                  },
+                                  customTextStyle:
+                                      (dom.Node node, TextStyle baseStyle) {
+                                    if (node is dom.Element) {
+                                      switch (node.localName) {
+                                        case "p":
+                                          return baseStyle.merge(TextStyle(
+                                              height: 1.5, fontSize: 15));
+                                      }
+                                    }
+                                    return baseStyle;
+                                  },
+                                ))),
                       ]),
                     ),
                     SliverList(

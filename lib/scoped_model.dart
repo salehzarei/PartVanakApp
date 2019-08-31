@@ -19,7 +19,7 @@ import './model/accommodation_model.dart';
 import 'model/order_model.dart';
 
 class MainModel extends Model {
-  final String host = 'http://partvanak.com/api/';
+  final String host = 'https://safirparvaz.ir/api/';
   List<Toure> tourelist = [];
   List<Toure> specialToureList = [];
   List<OrderModel> userOrders = [];
@@ -591,14 +591,14 @@ class MainModel extends Model {
 
   ///// ارسال فرم تماس به سرور
 
-  Future<bool> addComment(String action,Map<String, dynamic> contactData) {
+  Future<bool> addComment(String action, Map<String, dynamic> contactData) {
     _isLoading = true;
     notifyListeners();
     return http
-        .post(host +action+'/addcomment',
+        .post(host + action + '/addcomment',
             encoding: Encoding.getByName('utf-8'), body: contactData)
         .then((http.Response response) {
-          print(response.statusCode);
+      print(response.statusCode);
       if (response.statusCode != 200 && response.statusCode != 201) {
         print(response);
         _isLoading = false;

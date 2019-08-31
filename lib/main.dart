@@ -92,11 +92,15 @@ main() {
           '/contactUs': (context) => ContactPage(model),
           '/flyinfoSite': (context) => Webview(
                 title: 'اطلاعات پرواز فرودگاه های کشور',
-                url: 'https://fids.airport.ir/',
+                url: 'http://partvanak.com/',
               ),
           '/tollpayment': (context) => Webview(
                 title: 'پرداخت عوارض خروج از کشور',
                 url: 'https://sadadpsp.ir/tollpayment',
+              ),
+              '/kharid': (context) => Webview(
+                title: 'خرید بلیط',
+                url: 'http://charter.partvanak.com/',
               ),
         }),
   ));

@@ -104,18 +104,20 @@ class _HomePageState extends State<HomePage> {
                           }),
                           Container(
                             height: MediaQuery.of(context).size.height - 198,
-                            child: ListView(
-                              children: <Widget>[
-                                CatDivider(
-                                  toureTypeindex: categoryindex,
-                                ),
-                                ToureScrollTitle(toure: model.tourelist),
-                                CatDivider(
-                                  toureTypeindex: 4,
-                                ),
-                                SpecialToureScrollTitle(
-                                    specialtours: model.specialToureList),
-                              ],
+                            child: Directionality(textDirection: TextDirection.ltr,
+                                                          child: ListView(
+                                children: <Widget>[
+                                  CatDivider(
+                                    toureTypeindex: categoryindex,
+                                  ),
+                                  ToureScrollTitle(toure: model.tourelist),
+                                  CatDivider(
+                                    toureTypeindex: 4,
+                                  ),
+                                  SpecialToureScrollTitle(
+                                      specialtours: model.specialToureList),
+                                ],
+                              ),
                             ),
                           ),
                         ],

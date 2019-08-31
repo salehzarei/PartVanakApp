@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:hello_flutter/drawer.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../model/product_model.dart';
 import '../model/comment_model.dart';
 import 'package:http/http.dart' as http;
@@ -8,6 +9,9 @@ import 'dart:convert';
 import '../scoped_model.dart';
 import 'package:flutter_banner_swiper/flutter_banner_swiper.dart';
 import '../UI/comment.dart';
+
+import 'package:flutter_html/flutter_html.dart';
+import 'package:html/dom.dart' as dom;
 
 class ProductDetile extends StatefulWidget {
   int id;
@@ -40,8 +44,9 @@ class _ProductDetileState extends State<ProductDetile> {
             title: data['title'],
             content: data['content'],
             hits: data['hits'],
-            price: data['price'],
+            price: data['price'].toString(),
             off: data['off'],
+            currency:data['currency'],
             comment: (res['comments'] as List)
                 .map((i) => Comment.fromJson(i))
                 .toList(),
@@ -100,18 +105,6 @@ class _ProductDetileState extends State<ProductDetile> {
                               Row(
                                 children: <Widget>[
                                   Icon(
-                                    Icons.calendar_today,
-                                    color: Colors.black,
-                                  ),
-                                  SizedBox(
-                                    width: 10,
-                                  ),
-                                  Text(product.title),
-                                ],
-                              ),
-                              Row(
-                                children: <Widget>[
-                                  Icon(
                                     Icons.visibility,
                                     color: Colors.black,
                                   ),
@@ -121,13 +114,41 @@ class _ProductDetileState extends State<ProductDetile> {
                                   Text(product.hits.toString()),
                                 ],
                               ),
+                               Row(
+                                children: _bulidPriceBox(product),
+                              ),
                             ],
                           ),
                         ),
                         Container(
                             child: Container(
                                 padding: EdgeInsets.all(8),
-                                child: Text(product.content))),
+                                child: Html(
+                                  data: product.content,
+                                  onLinkTap: (url) async {
+                                    if (await canLaunch(url)) {
+                                      await launch(url);
+                                    } else {
+                                      throw 'Could not launch $url';
+                                    }
+                                  },
+                                  customTextAlign: (dom.Node node) {
+                                    if (node is dom.Element) {
+                                      return TextAlign.right;
+                                    }
+                                  },
+                                  customTextStyle:
+                                      (dom.Node node, TextStyle baseStyle) {
+                                    if (node is dom.Element) {
+                                      switch (node.localName) {
+                                        case "p":
+                                          return baseStyle.merge(TextStyle(
+                                              height: 1.5, fontSize: 15));
+                                      }
+                                    }
+                                    return baseStyle;
+                                  },
+                                ))),
                       ]),
                     ),
                     SliverList(
@@ -162,5 +183,54 @@ class _ProductDetileState extends State<ProductDetile> {
             onTap: () {});
       },
     );
+  }
+
+  List<Widget> _bulidPriceBox(Product product) {
+    print('product.price');
+    print(product.price);
+    print('product.off');
+    print(product.off);
+    List<Widget> _content = [Container()];
+    if (product.off != '0' && product.off != null) {
+      _content = [
+        Icon(
+          Icons.attach_money,
+          color: Colors.black,
+          size: 20,
+        ),
+        SizedBox(
+          width: 3,
+        ),
+        Text(
+          product.price,
+          style: TextStyle(decoration: TextDecoration.lineThrough),
+        ),
+        SizedBox(
+          width: 5,
+        ),
+        Text(product.off),
+        SizedBox(
+          width: 5,
+        ),
+        Text(product.currency)
+      ];
+    } else if (product.price != '0') {
+      _content = [
+        Icon(
+          Icons.attach_money,
+          color: Colors.black,
+          size: 20,
+        ),
+        SizedBox(
+          width: 5,
+        ),
+        Text(product.price),
+        SizedBox(
+          width: 5,
+        ),
+        Text(product.currency)
+      ];
+    }
+    return _content;
   }
 }

@@ -1,3 +1,4 @@
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:hello_flutter/model/tourefilter_model.dart';
 import 'package:splashscreen/splashscreen.dart';
@@ -15,6 +16,7 @@ class Splash extends StatefulWidget {
 }
 
 class _SplashState extends State<Splash> {
+  final FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
   int splashtime = 3;
   bool isconnect = true;
 
@@ -23,13 +25,17 @@ class _SplashState extends State<Splash> {
   void initState() {
     super.initState();
     chekinternet();
-   
+
     widget.model.getToken().whenComplete(() {
       if (widget.model.userToken != null) widget.model.loadingUserData();
       widget.model.getTourData(filter: fetchSpecialToure);
 
       setState(() {
         splashtime = 0;
+        _firebaseMessaging.getToken();
+
+        print('firebaseMessaging token');
+        print(_firebaseMessaging);
       });
     });
   }
@@ -72,11 +78,10 @@ class _SplashState extends State<Splash> {
             ),
           )
         : Scaffold(
-
-            body: Container(color: Colors.white70,
-                          child: Padding(
-                
-                padding: EdgeInsets.only(top: 200, left: 40,right: 15),
+            body: Container(
+              color: Colors.white70,
+              child: Padding(
+                padding: EdgeInsets.only(top: 200, left: 40, right: 15),
                 child: Container(
                   color: Colors.white,
                   child: Column(
