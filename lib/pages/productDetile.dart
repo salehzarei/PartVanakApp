@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'package:hello_flutter/drawer.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../model/product_model.dart';
@@ -9,7 +8,6 @@ import 'dart:convert';
 import '../scoped_model.dart';
 import 'package:flutter_banner_swiper/flutter_banner_swiper.dart';
 import '../UI/comment.dart';
-
 import 'package:flutter_html/flutter_html.dart';
 import 'package:html/dom.dart' as dom;
 
@@ -46,7 +44,7 @@ class _ProductDetileState extends State<ProductDetile> {
             hits: data['hits'],
             price: data['price'].toString(),
             off: data['off'],
-            currency:data['currency'],
+            currency: data['currency'],
             comment: (res['comments'] as List)
                 .map((i) => Comment.fromJson(i))
                 .toList(),
@@ -114,7 +112,7 @@ class _ProductDetileState extends State<ProductDetile> {
                                   Text(product.hits.toString()),
                                 ],
                               ),
-                               Row(
+                              Row(
                                 children: _bulidPriceBox(product),
                               ),
                             ],
@@ -140,11 +138,8 @@ class _ProductDetileState extends State<ProductDetile> {
                                   customTextStyle:
                                       (dom.Node node, TextStyle baseStyle) {
                                     if (node is dom.Element) {
-                                      switch (node.localName) {
-                                        case "p":
-                                          return baseStyle.merge(TextStyle(
-                                              height: 1.5, fontSize: 15));
-                                      }
+                                      return baseStyle.merge(
+                                          TextStyle(height: 1.5, fontSize: 15));
                                     }
                                     return baseStyle;
                                   },
@@ -186,10 +181,6 @@ class _ProductDetileState extends State<ProductDetile> {
   }
 
   List<Widget> _bulidPriceBox(Product product) {
-    print('product.price');
-    print(product.price);
-    print('product.off');
-    print(product.off);
     List<Widget> _content = [Container()];
     if (product.off != '0' && product.off != null) {
       _content = [

@@ -2,6 +2,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:hello_flutter/model/tourefilter_model.dart';
 import 'package:splashscreen/splashscreen.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'dart:io';
 import '../scoped_model.dart';
 
@@ -24,7 +25,7 @@ class _SplashState extends State<Splash> {
   @override
   void initState() {
     super.initState();
-    chekinternet();
+    checkinternet();
 
     widget.model.getToken().whenComplete(() {
       if (widget.model.userToken != null) widget.model.loadingUserData();
@@ -40,7 +41,16 @@ class _SplashState extends State<Splash> {
     });
   }
 
-  chekinternet() async {
+  String linkurl = 'http://partvanak.com/';
+  launchURL(String linkurl) async {
+    if (await canLaunch(linkurl)) {
+      await launch(linkurl);
+    } else {
+      throw 'Could not launch $linkurl';
+    }
+  }
+
+  checkinternet() async {
     try {
       final result = await InternetAddress.lookup('google.com');
       if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
@@ -78,34 +88,53 @@ class _SplashState extends State<Splash> {
             ),
           )
         : Scaffold(
-            body: Container(
-              color: Colors.white70,
-              child: Padding(
-                padding: EdgeInsets.only(top: 200, left: 40, right: 15),
-                child: Container(
-                  color: Colors.white,
-                  child: Column(
-                    children: <Widget>[
-                      Container(child: Image.asset('images/notnet.gif')),
-                      SizedBox(
-                        height: 8,
-                      ),
-                      Container(
-                        child: Text(
-                          'دسترسی به اینترنت امکان پذیر نیست',
-                          style: TextStyle(fontSize: 20),
+            body: Center(
+              child: Container(
+                color: Colors.white70,
+                child: Padding(
+                  padding: EdgeInsets.only(top: 160, left: 40, right: 15),
+                  child: Container(
+                    color: Colors.white,
+                    child: Column(
+                      children: <Widget>[
+                        Container(
+                            child: Image.asset(
+                          'images/notnet.jpg',
+                          height: 300,
+                        )),
+                        SizedBox(
+                          height: 60,
                         ),
-                      ),
-                      SizedBox(
-                        height: 8,
-                      ),
-                      Container(
-                        child: Text(
-                          'اینترنت خود را متصل کنید و مجدادا تلاش کنید',
-                          style: TextStyle(fontSize: 16),
+                        Container(
+                          child: Text(
+                            'دسترسی به اینترنت امکان پذیر نیست',
+                            style: TextStyle(fontSize: 20),
+                          ),
                         ),
-                      )
-                    ],
+                        SizedBox(
+                          height: 8,
+                        ),
+                        Container(
+                          child: Text(
+                            'اینترنت خود را متصل کنید و مجدادا تلاش کنید',
+                            style: TextStyle(fontSize: 16),
+                          ),
+                        ),
+                        SizedBox(
+                          height: 15,
+                        ),
+                        Container(
+                            child: Column(
+                          children: <Widget>[
+                            Image.asset('images/logo.png'),
+                            GestureDetector(
+                              child: Text('www.partvanak.com'),
+                              onTap: () => launchURL(linkurl),
+                            )
+                          ],
+                        ))
+                      ],
+                    ),
                   ),
                 ),
               ),

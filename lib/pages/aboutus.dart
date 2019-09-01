@@ -5,6 +5,8 @@ import '../scoped_model.dart';
 import '../drawer.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:webview_flutter/webview_flutter.dart';
+import 'package:html/dom.dart' as dom;
+import 'package:flutter_html/flutter_html.dart';
 
 class AboutUs extends StatefulWidget {
   final MainModel model;
@@ -294,43 +296,67 @@ class _AboutUsState extends State<AboutUs> {
                       body: Stack(children: [
                         Padding(
                           padding: const EdgeInsets.only(
-                              top: 80, bottom: 60, left: 15, right: 15),
+                              top: 80, bottom: 120, left: 15, right: 15),
                           child: ListView(
                             children: <Widget>[
                               Padding(
                                 padding: const EdgeInsets.only(
                                     top: 10, right: 10, left: 10),
-                                child: RichText(
-                                    textDirection: TextDirection.rtl,
-                                    overflow: TextOverflow.fade,
-                                    text: TextSpan(
-                                        text: " ${model.aboutmodel.about}",
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .body1
-                                            .copyWith(
-                                                color: Colors.white,
-                                                fontSize: 15))),
+                                child: Container(
+                                    padding: EdgeInsets.all(8),
+                                    child: Html(
+                                      data: model.aboutmodel.about,
+                                      onLinkTap: (url) async {
+                                        if (await canLaunch(url)) {
+                                          await launch(url);
+                                        } else {
+                                          throw 'Could not launch $url';
+                                        }
+                                      },
+                                      customTextAlign: (dom.Node node) {
+                                        if (node is dom.Element) {
+                                          return TextAlign.right;
+                                        }
+                                      },
+                                      customTextStyle:
+                                          (dom.Node node, TextStyle baseStyle) {
+                                        if (node is dom.Element) {
+                                          return baseStyle.merge(TextStyle(
+                                              height: 1.5,
+                                              fontSize: 15,
+                                              color: Colors.white));
+                                        }
+                                        return baseStyle;
+                                      },
+                                    )),
+                                //  RichText(
+                                //     textDirection: TextDirection.rtl,
+                                //     overflow: TextOverflow.fade,
+                                //     text: TextSpan(
+                                //         text: _ab,
+                                //         style: Theme.of(context)
+                                //             .textTheme
+                                //             .body1
+                                //             .copyWith(
+                                //                 color: Colors.white,
+                                //                 fontSize: 15))),
                               ),
-
                               _buildManagement(model.aboutmodel.name),
                               _buildCell(model.aboutmodel.cell),
                               _buildTell(model.aboutmodel.tell),
                               _buildWeb(model.aboutmodel.web),
                               _buildEmail(model.aboutmodel.email),
                               _buildAddress(model.aboutmodel.address),
-                                  Container(
-                                      height: 300,
-                                      child: WebView(
-                                        initialUrl: Uri.dataFromString(
-                                                '<html><body><iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3215.430086183154!2d59.579547315701774!3d36.301875980054355!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzbCsDE4JzA2LjgiTiA1OcKwMzQnNTQuMyJF!5e0!3m2!1sen!2sde!4v1562842754779!5m2!1sen!2sde" width="400" height="300" frameborder="0" style="border:0" allowfullscreen></iframe></body></html',
-                                                mimeType: 'text/html')
-                                            .toString(),
-                                        javascriptMode:
-                                            JavascriptMode.unrestricted,
-                                            
-                                      )),
-                                ],
+                              Container(
+                                  height: 300,
+                                  child: WebView(
+                                    initialUrl: Uri.dataFromString(
+                                            '<html><body><iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3215.430086183154!2d59.579547315701774!3d36.301875980054355!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzbCsDE4JzA2LjgiTiA1OcKwMzQnNTQuMyJF!5e0!3m2!1sen!2sde!4v1562842754779!5m2!1sen!2sde" width="400" height="300" frameborder="0" style="border:0" allowfullscreen></iframe></body></html',
+                                            mimeType: 'text/html')
+                                        .toString(),
+                                    javascriptMode: JavascriptMode.unrestricted,
+                                  )),
+                            ],
                           ),
                         ),
                         Padding(
@@ -344,7 +370,10 @@ class _AboutUsState extends State<AboutUs> {
                             ),
                           ),
                         ),
-                        _builSocialNetwork(context, model.aboutmodel.social),
+                        Center(
+                          child: _builSocialNetwork(
+                              context, model.aboutmodel.social),
+                        )
                       ])),
                 ),
               ],

@@ -123,6 +123,7 @@ class _ProductListState extends State<ProductList> {
                                   product[index].thumb,
                                   fit: BoxFit.cover,
                                   width: MediaQuery.of(context).size.width,
+                                  height: 200,
                                 ),
                               ),
                             ),

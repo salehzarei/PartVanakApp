@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:hello_flutter/scoped_model.dart';
 import 'package:scoped_model/scoped_model.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../coustomIcon/toure_icons_icons.dart';
 
 class HomeCategorei extends StatefulWidget {
@@ -13,6 +14,16 @@ class HomeCategorei extends StatefulWidget {
 
 class _HomeCategoreiState extends State<HomeCategorei> {
   List<bool> selected = [true, false, false, false];
+
+  String linkurl = 'http://charter.partvanak.com/';
+
+  launchURL(String linkurl) async {
+    if (await canLaunch(linkurl)) {
+      await launch(linkurl);
+    } else {
+      throw 'Could not launch $linkurl';
+    }
+  }
 
   _selectedChange(index) {
     /// ایندکس دکمه را به ویجت والد ارسال می کند
@@ -108,26 +119,33 @@ class _HomeCategoreiState extends State<HomeCategorei> {
                 },
               ),
               GestureDetector(
-                child: HomeCategoriItem(
-                  icon: ToureIcons.stopwatch,
-                  title: 'تورهای لحظه آخری',
-                  selected: selected[3],
-                ),
-                onTap: () {
-                  if (!selected[3])
-                    _selectedChange(3);
-                  else
-                    Navigator.pushNamed(
-                        context, model.touretypes[3]['pushNamed']);
-                },
-              ),
-              GestureDetector(
                   child: HomeCategoriItem(
                     icon: Icons.payment,
                     title: 'خرید بلیط',
                     selected: selected[3],
                   ),
-                  onTap: () => Navigator.pushNamed(context, '/kharid')),
+                  onTap: () => launchURL(linkurl)),
+              // GestureDetector(
+              //   child: HomeCategoriItem(
+              //     icon: ToureIcons.stopwatch,
+              //     title: 'تورهای لحظه آخری',
+              //     selected: selected[3],
+              //   ),
+              //   onTap: () {
+              //     if (!selected[3])
+              //       _selectedChange(3);
+              //     else
+              //       Navigator.pushNamed(
+              //           context, model.touretypes[3]['pushNamed']);
+              //   },
+              // ),
+              // GestureDetector(
+              //     child: HomeCategoriItem(
+              //       icon: Icons.payment,
+              //       title: 'خرید بلیط',
+              //       selected: selected[3],
+              //     ),
+              //     onTap: () => Navigator.pushNamed(context, '/kharid')),
             ],
           ),
         );

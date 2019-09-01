@@ -13,7 +13,6 @@ import './homepage.dart';
 import './pages/contact.dart';
 import './pages/aboutus.dart';
 import './scoped_model.dart';
-import './pages/webview.dart';
 import './pages/splash.dart';
 import './login/login.dart';
 import './login/reset_password.dart';
@@ -90,18 +89,8 @@ main() {
           '/touredetile': (context) => ToureDetilePage(),
           '/buyticket': (context) => BuyTicket(),
           '/contactUs': (context) => ContactPage(model),
-          '/flyinfoSite': (context) => Webview(
-                title: 'اطلاعات پرواز فرودگاه های کشور',
-                url: 'http://partvanak.com/',
-              ),
-          '/tollpayment': (context) => Webview(
-                title: 'پرداخت عوارض خروج از کشور',
-                url: 'https://sadadpsp.ir/tollpayment',
-              ),
-              '/kharid': (context) => Webview(
-                title: 'خرید بلیط',
-                url: 'http://charter.partvanak.com/',
-              ),
+          
+          
         }),
   ));
 }

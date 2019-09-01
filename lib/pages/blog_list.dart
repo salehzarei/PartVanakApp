@@ -125,6 +125,7 @@ class _BlogListState extends State<BlogList> {
                                   blog[index].thumb,
                                   fit: BoxFit.cover,
                                   width: MediaQuery.of(context).size.width,
+                                  height: 200,
                                 ),
                               ),
                             ),

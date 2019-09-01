@@ -1,13 +1,17 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:get_version/get_version.dart';
 import 'package:flutter/services.dart';
-import './scoped_model.dart';
+import 'package:hello_flutter/model/about_model.dart';
+import 'package:hello_flutter/scoped_model.dart';
 import 'package:scoped_model/scoped_model.dart';
 import './Theme/drawerTheme.dart';
 import './coustomIcon/toure_icons_icons.dart';
 import './coustomIcon/loginicon_icons.dart';
 import './pages/userprofile.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:http/http.dart' as http;
 
 class MyDrawer extends StatefulWidget {
   @override
@@ -15,17 +19,61 @@ class MyDrawer extends StatefulWidget {
 }
 
 class _MyDrawerState extends State<MyDrawer> {
-  int Number = 09309722107;
+  bool _isLoading = false;
+  String linkinstagram;
+  String linktelegram;
+  AboutModel aboutmodel;
+  final String host = 'http://partvanak.com/api/';
   String _projectVersion = '';
+  String linkurl = 'http://partvanak.com/';
+  String linkurl1 = 'https://sadadpsp.ir/tollpayment';
+
   initState() {
     super.initState();
     initPlatformState();
+    getlink();
+  }
+
+  Future<bool> getlink() async {
+    _isLoading = true;
+
+    final response = await http.get(host + 'about');
+    if (response.statusCode == 200) {
+      Map<String, dynamic> data = json.decode(response.body);
+      if (data['Social'].length > 0) {
+        aboutmodel = AboutModel(
+          cell: data['Cell'],
+          tell: data['Tell'],
+          social:
+              (data['Social'] as List).map((i) => Social.fromJson(i)).toList(),
+        );
+        _isLoading = false;
+        aboutmodel.social.forEach((Social s) {
+          if (s.title == 'instagram') {
+            linkinstagram = s.link;
+          }
+          if (s.title == 'telegram') {
+            linktelegram = s.link;
+          }
+        });
+        return true;
+      } else {
+        throw Exception('خطا اتصال به دیتابیس');
+      }
+    }
+  }
+
+  launchURL(String linkurl) async {
+    if (await canLaunch(linkurl)) {
+      await launch(linkurl);
+    } else {
+      throw 'Could not launch $linkurl';
+    }
   }
 
   @override
   initPlatformState() async {
     String projectVersion;
-    // Platform messages may fail, so we use a try/catch PlatformException.
     try {
       projectVersion = await GetVersion.projectVersion;
     } on PlatformException {
@@ -56,7 +104,7 @@ class _MyDrawerState extends State<MyDrawer> {
                   children: <Widget>[
                     GestureDetector(
                       onTap: () {
-                        Navigator.pushNamed(context, '/homepage');
+                        Navigator.pushReplacementNamed(context, '/homepage');
                       },
                       child: Container(
                         width: 68,
@@ -99,7 +147,7 @@ class _MyDrawerState extends State<MyDrawer> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   GestureDetector(
-                    onTap: () => model.launchURL('https://t.me/partvanak'),
+                    onTap: () => model.launchURL(linktelegram),
                     child: Container(
                       width: 125,
                       child: Column(
@@ -120,8 +168,7 @@ class _MyDrawerState extends State<MyDrawer> {
                     ),
                   ),
                   GestureDetector(
-                    onTap: () => model.launchURL(
-                        'https://www.instagram.com/partvanak.agency/'),
+                    onTap: () => model.launchURL(linkinstagram),
                     child: Container(
                       width: 125,
                       child: Column(
@@ -151,7 +198,7 @@ class _MyDrawerState extends State<MyDrawer> {
                 children: <Widget>[
                   GestureDetector(
                     onTap: () {
-                      launch("tel:$Number");
+                      launch("tel:${aboutmodel.tell[0]}");
                     },
                     child: Container(
                       width: 125,
@@ -174,7 +221,7 @@ class _MyDrawerState extends State<MyDrawer> {
                   ),
                   GestureDetector(
                     onTap: () {
-                      launch("sms:$Number");
+                      launch("sms:${aboutmodel.cell[0]}");
                     },
                     child: Container(
                       width: 125,
@@ -216,8 +263,8 @@ class _MyDrawerState extends State<MyDrawer> {
                   Column(
                     children: <Widget>[
                       GestureDetector(
-                          onTap: () =>
-                              Navigator.pushNamed(context, '/homepage'),
+                          onTap: () => Navigator.pushReplacementNamed(
+                              context, '/homepage'),
                           child: Container(
                             padding:
                                 EdgeInsets.only(top: 15.0, left: 15, right: 20),
@@ -306,29 +353,6 @@ class _MyDrawerState extends State<MyDrawer> {
                           )),
 
                       GestureDetector(
-                          onTap: () => Navigator.pushNamed(
-                              context, '/lassecondtourelist'),
-                          child: Container(
-                            padding:
-                                EdgeInsets.only(top: 15.0, left: 15, right: 20),
-                            child: Row(
-                              children: <Widget>[
-                                Padding(
-                                  padding: const EdgeInsets.only(left: 8.0),
-                                  child: Icon(
-                                    ToureIcons.stopwatch,
-                                    color: Theme.of(context).accentColor,
-                                  ),
-                                ),
-                                Text(
-                                  'تور های لحظه آخری',
-                                  style: DarwerThemeData.textTheme.title
-                                      .copyWith(color: Colors.white),
-                                ),
-                              ],
-                            ),
-                          )),
-                      GestureDetector(
                           onTap: () =>
                               Navigator.pushNamed(context, '/specialtourelist'),
                           child: Container(
@@ -411,8 +435,7 @@ class _MyDrawerState extends State<MyDrawer> {
                             ),
                           )),
                       GestureDetector(
-                          onTap: () =>
-                              Navigator.pushNamed(context, '/flyinfoSite'),
+                          onTap: () => launchURL(linkurl),
                           child: Container(
                             padding:
                                 EdgeInsets.only(top: 15.0, left: 15, right: 20),
@@ -434,9 +457,7 @@ class _MyDrawerState extends State<MyDrawer> {
                           )),
 
                       GestureDetector(
-                          onTap: () {
-                            Navigator.pushNamed(context, '/tollpayment');
-                          },
+                          onTap: () => launchURL(linkurl1),
                           child: Container(
                             padding:
                                 EdgeInsets.only(top: 15.0, left: 15, right: 20),
@@ -591,4 +612,10 @@ class _MyDrawerState extends State<MyDrawer> {
       ));
     });
   }
+}
+
+@override
+Widget build(BuildContext context) {
+  // TODO: implement build
+  return null;
 }
