@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:get_version/get_version.dart';
 import 'package:flutter/services.dart';
@@ -23,9 +22,11 @@ class _MyDrawerState extends State<MyDrawer> {
   String linkinstagram;
   String linktelegram;
   AboutModel aboutmodel;
+  String phone;
+  String sms;
   final String host = 'http://partvanak.com/api/';
   String _projectVersion = '';
-  String linkurl = 'http://partvanak.com/';
+  String linkurl = 'https://fids.airport.ir/';
   String linkurl1 = 'https://sadadpsp.ir/tollpayment';
 
   initState() {
@@ -50,11 +51,27 @@ class _MyDrawerState extends State<MyDrawer> {
         _isLoading = false;
         aboutmodel.social.forEach((Social s) {
           if (s.title == 'instagram') {
-            linkinstagram = s.link;
+            if (s.link != null) {
+              linkinstagram = s.link;
+            } else {
+              return launchURL(linkurl);
+            }
           }
           if (s.title == 'telegram') {
-            linktelegram = s.link;
+            if (s.link != null) {
+              linktelegram = s.link;
+            } else {
+              return launchURL(linkurl);
+            }
           }
+          // if (data['Cell'] != null) {
+          //   sms = data['Cell'];
+          //   // aboutmodel.tell[0]
+          // }
+          // if (data['Tell'] != null) {
+          //   phone = data['Tell'];
+          //   // aboutmodel.cell[0]
+          // }
         });
         return true;
       } else {
@@ -94,6 +111,7 @@ class _MyDrawerState extends State<MyDrawer> {
         width: 250,
         decoration: BoxDecoration(
           color: Theme.of(context).appBarTheme.color,
+          //color: Colors.red,
         ),
         child: ListView(
           children: <Widget>[
@@ -142,49 +160,70 @@ class _MyDrawerState extends State<MyDrawer> {
 
             //___________________________________شبکه های اجتماعی___________________________
             Container(
-              margin: EdgeInsets.only(top: 15),
+              margin: EdgeInsets.only(top: 15, right: 35),
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
-                  GestureDetector(
+                  InkWell(
+                    borderRadius: BorderRadius.circular(10.0),
+                    highlightColor: Colors.white,
+                    splashColor: Colors.redAccent,
                     onTap: () => model.launchURL(linktelegram),
                     child: Container(
-                      width: 125,
-                      child: Column(
-                        children: <Widget>[
-                          Padding(
-                            padding: const EdgeInsets.only(bottom: 10.2),
-                            child: Icon(
-                              ToureIcons.telegram,
-                              color: Theme.of(context).accentColor,
+                      width: 70,
+                      child: AnimatedContainer(
+                        height: 70,
+                        //width: 60,
+                        duration: Duration(seconds: 2),
+                        curve: Curves.easeIn,
+                        //color: Colors.white,
+                        child: Column(
+                          children: <Widget>[
+                            Padding(
+                              padding: const EdgeInsets.only(bottom: 10.2),
+                              child: Icon(
+                                ToureIcons.telegram,
+                                color: Theme.of(context).accentColor,
+                              ),
                             ),
-                          ),
-                          Text(
-                            'تلگرام',
-                            style: DarwerThemeData.textTheme.title,
-                          )
-                        ],
+                            Text(
+                              'تلگرام',
+                              style: DarwerThemeData.textTheme.title,
+                            )
+                          ],
+                        ),
                       ),
                     ),
                   ),
-                  GestureDetector(
+                  InkWell(
+                    borderRadius: BorderRadius.circular(10.0),
+                    highlightColor: Colors.white,
+                    splashColor: Colors.redAccent,
                     onTap: () => model.launchURL(linkinstagram),
                     child: Container(
-                      width: 125,
-                      child: Column(
-                        children: <Widget>[
-                          Padding(
-                            padding: const EdgeInsets.only(bottom: 10.2),
-                            child: Icon(
-                              ToureIcons.instagram,
-                              color: Theme.of(context).accentColor,
+                      margin: EdgeInsets.only(left: 35),
+                      width: 70,
+                      child: AnimatedContainer(
+                        height: 70,
+                        //width: 60,
+                        duration: Duration(seconds: 2),
+                        curve: Curves.easeIn,
+                        // color: Colors.white,
+                        child: Column(
+                          children: <Widget>[
+                            Padding(
+                              padding: const EdgeInsets.only(bottom: 10.2),
+                              child: Icon(
+                                ToureIcons.instagram,
+                                color: Theme.of(context).accentColor,
+                              ),
                             ),
-                          ),
-                          Text(
-                            'اینستاگرام',
-                            style: DarwerThemeData.textTheme.title,
-                          )
-                        ],
+                            Text(
+                              'اینستاگرام',
+                              style: DarwerThemeData.textTheme.title,
+                            )
+                          ],
+                        ),
                       ),
                     ),
                   ),
@@ -192,53 +231,75 @@ class _MyDrawerState extends State<MyDrawer> {
               ),
             ),
             Container(
-              margin: EdgeInsets.only(top: 15),
+              margin: EdgeInsets.only(top: 15, right: 35),
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
-                  GestureDetector(
-                    onTap: () {
-                      launch("tel:${aboutmodel.tell[0]}");
-                    },
-                    child: Container(
-                      width: 125,
-                      child: Column(
-                        children: <Widget>[
-                          Padding(
-                            padding: const EdgeInsets.only(bottom: 10.2),
-                            child: Icon(
-                              Icons.call,
-                              color: Theme.of(context).accentColor,
+                  AnimatedContainer(
+                    height: 70,
+                    //width: 60,
+                    duration: Duration(seconds: 2),
+                    curve: Curves.easeIn,
+                    // color: Colors.white,
+                    child: InkWell(
+                      borderRadius: BorderRadius.circular(10.0),
+                      highlightColor: Colors.white,
+                      splashColor: Colors.redAccent,
+                      onTap: () {
+                        launch("tel:${aboutmodel.tell[0]}");
+                      },
+                      enableFeedback: true,
+                      child: Container(
+                        width: 70,
+                        child: Column(
+                          children: <Widget>[
+                            Padding(
+                              padding: const EdgeInsets.only(bottom: 10.2),
+                              child: Icon(
+                                Icons.call,
+                                color: Theme.of(context).accentColor,
+                              ),
                             ),
-                          ),
-                          Text(
-                            'تماس',
-                            style: DarwerThemeData.textTheme.title,
-                          )
-                        ],
+                            Text(
+                              'تماس',
+                              style: DarwerThemeData.textTheme.title,
+                            )
+                          ],
+                        ),
                       ),
                     ),
                   ),
-                  GestureDetector(
+                  InkWell(
+                    borderRadius: BorderRadius.circular(10.0),
+                    highlightColor: Colors.white,
+                    splashColor: Colors.redAccent,
                     onTap: () {
-                      launch("sms:${aboutmodel.cell[0]}");
+                       launch("sms:${aboutmodel.cell[0]}");
                     },
                     child: Container(
-                      width: 125,
-                      child: Column(
-                        children: <Widget>[
-                          Padding(
-                            padding: const EdgeInsets.only(bottom: 10.2),
-                            child: Icon(
-                              Icons.message,
-                              color: Theme.of(context).accentColor,
+                      margin: EdgeInsets.only(left: 35),
+                      width: 70,
+                      child: AnimatedContainer(
+                        height: 70,
+                        // width: 60,
+                        duration: Duration(seconds: 2),
+                        curve: Curves.linear,
+                        //color: Colors.white,
+                        child: Column(
+                          children: <Widget>[
+                            Padding(
+                              padding: const EdgeInsets.only(bottom: 10.2),
+                              child: Icon(
+                                Icons.message,
+                                color: Theme.of(context).accentColor,
+                              ),
                             ),
-                          ),
-                          Text(
-                            'پیامک',
-                            style: DarwerThemeData.textTheme.title,
-                          )
-                        ],
+                            Text(
+                              'پیامک',
+                              style: DarwerThemeData.textTheme.title,
+                            )
+                          ],
+                        ),
                       ),
                     ),
                   )
