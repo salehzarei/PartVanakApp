@@ -11,6 +11,7 @@ class ResetPassword extends StatefulWidget {
 }
 
 class _ResetPasswordState extends State<ResetPassword> {
+  MainModel model;
   TextEditingController _phoneNumber = TextEditingController();
   final _mobilekey = GlobalKey<FormState>();
 
@@ -71,13 +72,52 @@ class _ResetPasswordState extends State<ResetPassword> {
                           onPressed: () {
                             if (_mobilekey.currentState.validate()) {
                               model
-                                  .getVerificationCode(_phoneNumber.text)
-                                  .whenComplete(() => Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) => CheckPhone(
-                                                phonenumber: _phoneNumber.text,
-                                              ))));
+                                  .getVerificationCode(_phoneNumber.text,
+                                      resetPass: '1')
+                                  .whenComplete(() => {
+                                        if (model.error == true)
+                                          {
+                                            showDialog(
+                                                context: context,
+                                                builder:
+                                                    (BuildContext context) {
+                                                  return Directionality(
+                                                    textDirection:
+                                                        TextDirection.rtl,
+                                                    child: AlertDialog(
+                                                      title: Text('شرمنده'),
+                                                      content: Text(
+                                                          '${model.errorMassage}'),
+                                                      actions: <Widget>[
+                                                        FlatButton(
+                                                          onPressed: () =>
+                                                              Navigator.of(
+                                                                      context)
+                                                                  .pop(),
+                                                          child: Text('بستن'),
+                                                        ),
+                                                      ],
+                                                      shape: RoundedRectangleBorder(
+                                                          borderRadius:
+                                                              BorderRadius.all(
+                                                                  Radius.circular(
+                                                                      20.0))),
+                                                    ),
+                                                  );
+                                                })
+                                          }
+                                        else
+                                          {
+                                            Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        CheckPhone(
+                                                          phonenumber:
+                                                              _phoneNumber.text,
+                                                        )))
+                                          }
+                                      });
                             }
                           }),
                       SizedBox(

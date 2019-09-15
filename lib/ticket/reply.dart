@@ -127,13 +127,13 @@ class _NewReplyState extends State<Reply> {
                 body: Stack(
                   children: <Widget>[
                     Padding(
-                      padding: const EdgeInsets.only(top: 355),
+                      padding: const EdgeInsets.only(top: 390),
                       child: ListView(
                         children: <Widget>[
                           Directionality(
                             textDirection: TextDirection.rtl,
                             child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start ,
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: _buiLdConversation(list),
                             ),
@@ -242,7 +242,7 @@ class _NewReplyState extends State<Reply> {
                                                 child: AlertDialog(
                                                   title: Text('توجه'),
                                                   content: Text(
-                                                      'پیام شما ثبت نگردید'),
+                                                      '${model.errorMassage}'),
                                                   actions: <Widget>[
                                                     FlatButton(
                                                       onPressed: () =>
@@ -278,7 +278,7 @@ class _NewReplyState extends State<Reply> {
       _content = [];
       replyList.forEach((ReplyModel d) {
         _content.add(Padding(
-          padding: const EdgeInsets.all(6),
+          padding: const EdgeInsets.only(right: 6, left: 6, bottom: 6),
           child: Card(
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.all(Radius.circular(10.0))),

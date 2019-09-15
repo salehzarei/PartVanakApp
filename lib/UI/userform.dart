@@ -5,7 +5,6 @@ import 'package:jalali_calendar/jalali_calendar.dart';
 import 'package:scoped_model/scoped_model.dart';
 import '../scoped_model.dart';
 
-
 typedef OnDelete = void Function(int index);
 
 class UserForm extends StatefulWidget {
@@ -173,33 +172,35 @@ class _UserFormState extends State<UserForm> {
                                   ),
                                 ),
                                 Container(
-                                  child: _year == null
-                                      ? RaisedButton.icon(
-                                          shape: RoundedRectangleBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(8)),
-                                          icon: Icon(
-                                            Icons.date_range,
-                                            color: Colors.white,
-                                          ),
-                                          label: Text(
-                                            'تاریخ تولد',
-                                            style:
-                                                TextStyle(color: Colors.white),
-                                          ),
-                                          onPressed: () {
-                                            _selectDate(context);
-                                          },
-                                        )
-                                      : Text(
-                                          "تاریخ تولد $_year/$_month/$_day",
-                                          textDirection: TextDirection.rtl,
-                                          style: TextStyle(
-                                              fontSize: 15,
-                                              fontWeight: FontWeight.bold,
-                                              color: Colors.grey.shade700),
-                                        ),
-                                ),
+                                    child: _year == null
+                                        ? RaisedButton.icon(
+                                            shape: RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(8)),
+                                            icon: Icon(
+                                              Icons.date_range,
+                                              color: Colors.white,
+                                            ),
+                                            label: Text(
+                                              'تاریخ تولد',
+                                              style: TextStyle(
+                                                  color: Colors.white),
+                                            ),
+                                            onPressed: () {
+                                              _selectDate(context);
+                                            },
+                                          )
+                                        : InkWell(
+                                            onTap: () => _selectDate(context),
+                                            child: Text(
+                                              "تاریخ تولد $_year/$_month/$_day",
+                                              textDirection: TextDirection.rtl,
+                                              style: TextStyle(
+                                                  fontSize: 15,
+                                                  fontWeight: FontWeight.bold,
+                                                  color: Colors.grey.shade700),
+                                            ),
+                                          )),
                                 Wrap(
                                     crossAxisAlignment:
                                         WrapCrossAlignment.center,

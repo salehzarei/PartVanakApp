@@ -73,7 +73,7 @@ class _HomePageState extends State<HomePage> {
                               ),
                               SizedBox(height: 3),
                               Text(
-                                'آژانس مسافرتی و گردشگری',
+                                'شرکت خدمات مسافرت هوایی و جهانگردی',
                                 style: TextStyle(
                                     color: Colors.brown.shade400,
                                     fontWeight: FontWeight.bold,

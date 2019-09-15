@@ -111,7 +111,6 @@ class _MyDrawerState extends State<MyDrawer> {
         width: 250,
         decoration: BoxDecoration(
           color: Theme.of(context).appBarTheme.color,
-          //color: Colors.red,
         ),
         child: ListView(
           children: <Widget>[
@@ -137,10 +136,10 @@ class _MyDrawerState extends State<MyDrawer> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
                         Text(
-                          'آژانس مسافرتی و گردشگری',
+                          'شرکت خدمات مسافرت هوایی و جهانگردی',
                           style: TextStyle(
-                              fontSize: 13,
-                              fontWeight: FontWeight.w200,
+                              fontSize: 10,
+                              fontWeight: FontWeight.bold,
                               color: Theme.of(context).cardColor),
                         ),
                         SizedBox(
@@ -149,7 +148,7 @@ class _MyDrawerState extends State<MyDrawer> {
                         Text(
                           'پارت ونک',
                           style: TextStyle(
-                              fontSize: 22,
+                              fontSize: 19,
                               fontWeight: FontWeight.bold,
                               color: Theme.of(context).cardColor),
                         ),
@@ -274,7 +273,7 @@ class _MyDrawerState extends State<MyDrawer> {
                     highlightColor: Colors.white,
                     splashColor: Colors.redAccent,
                     onTap: () {
-                       launch("sms:${aboutmodel.cell[0]}");
+                      launch("sms:${aboutmodel.cell[0]}");
                     },
                     child: Container(
                       margin: EdgeInsets.only(left: 35),
@@ -673,10 +672,4 @@ class _MyDrawerState extends State<MyDrawer> {
       ));
     });
   }
-}
-
-@override
-Widget build(BuildContext context) {
-  // TODO: implement build
-  return null;
 }

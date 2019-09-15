@@ -81,7 +81,7 @@ class _SplashState extends State<Splash> {
             backgroundColor: Theme.of(context).appBarTheme.color,
             styleTextUnderTheLoader: TextStyle(),
             photoSize: 100.0,
-            loaderColor: Colors.red,
+            loaderColor: Colors.redAccent,
             loadingText: Text(
               'صبر کنید',
               style: TextStyle(color: Colors.white),

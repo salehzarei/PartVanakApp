@@ -13,9 +13,10 @@ class HomeCategorei extends StatefulWidget {
 }
 
 class _HomeCategoreiState extends State<HomeCategorei> {
-  List<bool> selected = [true, false, false, false];
+  List<bool> selected = [true, false, false, false, false];
 
-  String linkurl = 'http://charter.partvanak.com/';
+  String linkurl = 'https://partvanak724.ir/';
+  String linkurl1 = 'http://charter.partvanak.com/';
 
   launchURL(String linkurl) async {
     if (await canLaunch(linkurl)) {
@@ -34,7 +35,7 @@ class _HomeCategoreiState extends State<HomeCategorei> {
       case 0:
         {
           setState(() {
-            selected = [true, false, false, false];
+            selected = [true, false, false, false, false];
           });
         }
         break;
@@ -42,7 +43,7 @@ class _HomeCategoreiState extends State<HomeCategorei> {
       case 1:
         {
           setState(() {
-            selected = [false, true, false, false];
+            selected = [false, true, false, false, false];
           });
         }
         break;
@@ -50,7 +51,7 @@ class _HomeCategoreiState extends State<HomeCategorei> {
       case 2:
         {
           setState(() {
-            selected = [false, false, true, false];
+            selected = [false, false, true, false, false];
           });
         }
         break;
@@ -58,7 +59,14 @@ class _HomeCategoreiState extends State<HomeCategorei> {
       case 3:
         {
           setState(() {
-            selected = [false, false, false, true];
+            selected = [false, false, false, true, false];
+          });
+        }
+        break;
+      case 4:
+        {
+          setState(() {
+            selected = [false, false, false, false, true];
           });
         }
         break;
@@ -121,31 +129,17 @@ class _HomeCategoreiState extends State<HomeCategorei> {
               GestureDetector(
                   child: HomeCategoriItem(
                     icon: Icons.payment,
-                    title: 'خرید بلیط',
+                    title: 'خرید بلیط سیستمی',
                     selected: selected[3],
                   ),
                   onTap: () => launchURL(linkurl)),
-              // GestureDetector(
-              //   child: HomeCategoriItem(
-              //     icon: ToureIcons.stopwatch,
-              //     title: 'تورهای لحظه آخری',
-              //     selected: selected[3],
-              //   ),
-              //   onTap: () {
-              //     if (!selected[3])
-              //       _selectedChange(3);
-              //     else
-              //       Navigator.pushNamed(
-              //           context, model.touretypes[3]['pushNamed']);
-              //   },
-              // ),
-              // GestureDetector(
-              //     child: HomeCategoriItem(
-              //       icon: Icons.payment,
-              //       title: 'خرید بلیط',
-              //       selected: selected[3],
-              //     ),
-              //     onTap: () => Navigator.pushNamed(context, '/kharid')),
+              GestureDetector(
+                  child: HomeCategoriItem(
+                    icon: Icons.payment,
+                    title: 'خرید بلیط چارتری',
+                    selected: selected[4],
+                  ),
+                  onTap: () => launchURL(linkurl1)),
             ],
           ),
         );

@@ -25,34 +25,34 @@ class _AboutUsState extends State<AboutUs> {
     super.initState();
   }
 
-  Widget _buildManagement(String data) {
-    Widget _content = Container(width: 0, height: 0);
-    if (data.length > 0) {
-      _content = Padding(
-        padding: const EdgeInsets.all(10.0),
-        child: Row(
-          textDirection: TextDirection.rtl,
-          children: <Widget>[
-            Expanded(
-              child: Text(
-                'نام متصدی :',
-                textDirection: TextDirection.rtl,
-                style: TextStyle(color: Colors.white),
-              ),
-            ),
-            Expanded(
-              child: Text(
-                '${data}',
-                textDirection: TextDirection.rtl,
-                style: TextStyle(color: Colors.white),
-              ),
-            ),
-          ],
-        ),
-      );
-    }
-    return _content;
-  }
+  // Widget _buildManagement(String data) {
+  //   Widget _content = Container(width: 0, height: 0);
+  //   if (data.length > 0) {
+  //     _content = Padding(
+  //       padding: const EdgeInsets.all(10.0),
+  //       child: Row(
+  //         textDirection: TextDirection.rtl,
+  //         children: <Widget>[
+  //           Expanded(
+  //             child: Text(
+  //               'نام متصدی :',
+  //               textDirection: TextDirection.rtl,
+  //               style: TextStyle(color: Colors.white),
+  //             ),
+  //           ),
+  //           Expanded(
+  //             child: Text(
+  //               '${data}',
+  //               textDirection: TextDirection.rtl,
+  //               style: TextStyle(color: Colors.white),
+  //             ),
+  //           ),
+  //         ],
+  //       ),
+  //     );
+  //   }
+  //   return _content;
+  // }
 
   Widget _buildCell(List<dynamic> data) {
     Widget _content = Container(width: 0, height: 0);
@@ -341,7 +341,7 @@ class _AboutUsState extends State<AboutUs> {
                                 //                 color: Colors.white,
                                 //                 fontSize: 15))),
                               ),
-                              _buildManagement(model.aboutmodel.name),
+                             // _buildManagement(model.aboutmodel.name),
                               _buildCell(model.aboutmodel.cell),
                               _buildTell(model.aboutmodel.tell),
                               _buildWeb(model.aboutmodel.web),

@@ -259,7 +259,7 @@ class _RegisterState extends State<Register> {
                                 if (value.isEmpty)
                                   return 'واردکردن پسورد ضروری است';
                                 if (value.length < 5)
-                                  return 'وارد کردن حداقل 4 کارکتر اجیاری است';
+                                  return 'وارد کردن حداقل 4 کارکتر اجباری است';
                               },
                               keyboardType: TextInputType.text,
                             ),

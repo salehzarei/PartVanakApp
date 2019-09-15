@@ -5,6 +5,7 @@ import 'package:scoped_model/scoped_model.dart';
 
 class CheckPhone extends StatefulWidget {
   String phonenumber;
+  String resetpass;
   CheckPhone({this.phonenumber});
 
   @override
@@ -71,10 +72,11 @@ class _CheckPhoneState extends State<CheckPhone> {
                                 maxLength: 4,
                                 style: TextStyle(fontSize: 15),
                                 keyboardType: TextInputType.phone,
-                                validator: (value){
-                                  if(value.isEmpty){
+                                validator: (value) {
+                                  if (value.isEmpty) {
                                     return 'ورود کد چهاررقمی ضروری است';
-                                  }return null;
+                                  }
+                                  return null;
                                 },
                               ),
                               TextFormField(
@@ -87,10 +89,11 @@ class _CheckPhoneState extends State<CheckPhone> {
                                 maxLength: 11,
                                 style: TextStyle(fontSize: 15),
                                 keyboardType: TextInputType.phone,
-                                validator: (value){
-                                  if(value.isEmpty || value.length < 5 ){
+                                validator: (value) {
+                                  if (value.isEmpty || value.length < 5) {
                                     return 'ورود رمز عبور حداقل 5 کارکتر ضروری است';
-                                  } return null;
+                                  }
+                                  return null;
                                 },
                               ),
                               TextFormField(
@@ -103,10 +106,11 @@ class _CheckPhoneState extends State<CheckPhone> {
                                 maxLength: 11,
                                 style: TextStyle(fontSize: 15),
                                 keyboardType: TextInputType.phone,
-                                validator: (value){
-                                  if(value != _pass.text ){
+                                validator: (value) {
+                                  if (value != _pass.text) {
                                     return 'رمز وارد شده با بالا مغایرت دارد';
-                                  }return null;
+                                  }
+                                  return null;
                                 },
                               ),
                               SizedBox(
@@ -116,17 +120,17 @@ class _CheckPhoneState extends State<CheckPhone> {
                                   textColor: Colors.white,
                                   child: Text('تغییر رمز عبور'),
                                   onPressed: () {
-                                    if(_key.currentState.validate()) reset(_code.text, _pass.text,
-                                        widget.phonenumber, model);
-                                        
+                                    if (_key.currentState.validate())
+                                      reset(_code.text, _pass.text,
+                                          widget.phonenumber, model);
                                   }),
                               SizedBox(
                                 height: 10,
                               ),
                               Center(
                                 child: GestureDetector(
-                                  onTap: () => model
-                                      .getVerificationCode(widget.phonenumber),
+                                  onTap: () => model.getVerificationCode(
+                                      widget.phonenumber),
                                   child: Text('ارسال مجدد کد تایید'),
                                 ),
                               ),

@@ -33,6 +33,7 @@ class MainModel extends Model {
   String userToken;
   String verificationCode;
   String errorMassage;
+  bool error;
   bool _isLoading = false;
   String _serverCartResponse;
 //// اطلاعات موقت تور به ترتیب آی دی تور و آی دی هتل
@@ -235,7 +236,7 @@ class MainModel extends Model {
       userToken = null;
       notifyListeners();
     } else {
-      print("SharedTokne is : $_userToken");
+      print("SharedToken is : $_userToken");
       userToken = _userToken;
       notifyListeners();
     }
@@ -309,18 +310,28 @@ class MainModel extends Model {
 
 ///////// درخواست کد اهراز هویت به سرور پیامک
 
-  Future<void> getVerificationCode(String mobile) async {
+  Future<void> getVerificationCode(String mobile, {String resetPass}) async {
     verificationCode = "";
+    error = null;
+    errorMassage = "";
     notifyListeners();
     final response = await http.post(host + 'user/getVerificationCode',
-        encoding: Encoding.getByName('utf-8'), body: {'mobile': mobile});
+        encoding: Encoding.getByName('utf-8'),
+        body: {'mobile': mobile, 'resetPass': resetPass});
     bool chekerror = json.decode(response.body)['error'];
     if (response.statusCode == 200 && !chekerror) {
       verificationCode = json.decode(response.body)['verification_token'];
       print(verificationCode);
       notifyListeners();
     } else {
-      print(json.decode(response.body)['error_msg']);
+      error = json.decode(response.body)['error'];
+      errorMassage = json.decode(response.body)['error_msg'];
+      notifyListeners();
+
+      
+      print(error);
+      print(errorMassage);
+     
     }
   }
 
