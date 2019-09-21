@@ -15,6 +15,7 @@ class Add extends StatefulWidget {
 }
 
 class _AddState extends State<Add> {
+  
   Map<String, dynamic> dataFrom = {};
   String subject;
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
@@ -100,6 +101,10 @@ class _AddState extends State<Add> {
                       child: TextFormField(
                         decoration: InputDecoration(
                             labelStyle: TextStyle(color: Colors.white),
+                            errorStyle: TextStyle(
+                            color: Colors.redAccent,
+                            // fontSize: 16,
+                          ),
                             labelText: 'موضوع پیام',
                             filled: true,
                             fillColor: Colors.transparent),
@@ -124,7 +129,7 @@ class _AddState extends State<Add> {
                         decoration: InputDecoration(
                           errorStyle: TextStyle(
                             color: Colors.redAccent,
-                            fontSize: 16,
+                            // fontSize: 16,
                           ),
                           labelStyle: TextStyle(color: Colors.white),
                           labelText: 'متن پیام',

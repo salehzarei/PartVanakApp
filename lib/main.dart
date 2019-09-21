@@ -25,7 +25,7 @@ main() {
   runApp(ScopedModel<MainModel>(
     model: model,
     child: MaterialApp(
-        title: 'آژانس مسافرتی پارت ونک',
+        title: ' پارت ونک',
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
           backgroundColor: Colors.amber,

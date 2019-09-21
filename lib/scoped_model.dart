@@ -33,7 +33,7 @@ class MainModel extends Model {
   String userToken;
   String verificationCode;
   String errorMassage;
-  bool error;
+  bool chekerror;
   bool _isLoading = false;
   String _serverCartResponse;
 //// اطلاعات موقت تور به ترتیب آی دی تور و آی دی هتل
@@ -312,26 +312,21 @@ class MainModel extends Model {
 
   Future<void> getVerificationCode(String mobile, {String resetPass}) async {
     verificationCode = "";
-    error = null;
     errorMassage = "";
     notifyListeners();
     final response = await http.post(host + 'user/getVerificationCode',
         encoding: Encoding.getByName('utf-8'),
         body: {'mobile': mobile, 'resetPass': resetPass});
-    bool chekerror = json.decode(response.body)['error'];
-    if (response.statusCode == 200 && !chekerror) {
+    chekerror = json.decode(response.body)['error'];
+    if (response.statusCode == 200 && chekerror == false) {
       verificationCode = json.decode(response.body)['verification_token'];
       print(verificationCode);
       notifyListeners();
     } else {
-      error = json.decode(response.body)['error'];
       errorMassage = json.decode(response.body)['error_msg'];
       notifyListeners();
-
-      
-      print(error);
+      print(chekerror);
       print(errorMassage);
-     
     }
   }
 
@@ -356,8 +351,8 @@ class MainModel extends Model {
   }
 
 ///////// دریافت اطلاعات پروفایل کاربری از سرور
-  /// روش جدید و بهتر برای ارسال درخواست و دریافت داده ها وذخیره در مدل
-  /// به ساختار مدل پروفایل توجه شود
+/// روش جدید و بهتر برای ارسال درخواست و دریافت داده ها وذخیره در مدل
+/// به ساختار مدل پروفایل توجه شود
 
   Future loadingUserData() async {
     _isLoading = true;
@@ -371,7 +366,7 @@ class MainModel extends Model {
     }
   }
 
-  ///// دریافت تراکنش های کاربر
+///// دریافت تراکنش های کاربر
   Future getUserOrder() async {
     userOrders.clear();
     _isLoading = true;

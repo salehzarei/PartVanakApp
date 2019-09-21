@@ -33,113 +33,129 @@ class _CheckPhoneState extends State<CheckPhone> {
     return ScopedModelDescendant<MainModel>(
       builder: (context, child, model) {
         return Directionality(
-          textDirection: TextDirection.rtl,
+          textDirection: TextDirection.ltr,
           child: Scaffold(
             appBar: AppBar(
               centerTitle: true,
-              title: Text('تایید شماره همراه'),
+              title: Text(
+                'تایید شماره همراه',
+                style: Theme.of(context).textTheme.display2,
+              ),
+              iconTheme: Theme.of(context)
+                  .iconTheme
+                  .copyWith(color: Theme.of(context).accentColor),
             ),
-            body: SingleChildScrollView(
-              child: Padding(
-                padding: const EdgeInsets.only(top: 30, left: 25),
-                child: Column(
-                  children: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.only(right: 20),
-                      child: Container(
-                        child: Text(
-                          'کد ارسال شده را وارد کنید',
-                          style: TextStyle(fontSize: 20),
-                        ),
-                      ),
-                    ),
-                    SizedBox(height: 5),
-                    Padding(
-                      padding:
-                          const EdgeInsets.only(top: 25, left: 15, right: 30),
-                      child: Container(
-                        height: 400,
-                        child: Form(
-                          key: _key,
-                          child: ListView(
-                            children: <Widget>[
-                              TextFormField(
-                                controller: _code,
-                                decoration: InputDecoration(
-                                  labelText: 'کد چهاررقمی پیامک شده',
-                                  counterText: '',
-                                ),
-                                maxLength: 4,
-                                style: TextStyle(fontSize: 15),
-                                keyboardType: TextInputType.phone,
-                                validator: (value) {
-                                  if (value.isEmpty) {
-                                    return 'ورود کد چهاررقمی ضروری است';
-                                  }
-                                  return null;
-                                },
-                              ),
-                              TextFormField(
-                                controller: _pass,
-                                obscureText: true,
-                                decoration: InputDecoration(
-                                  labelText: 'رمز عبور جدید را وارد کنید',
-                                  counterText: '',
-                                ),
-                                maxLength: 11,
-                                style: TextStyle(fontSize: 15),
-                                keyboardType: TextInputType.phone,
-                                validator: (value) {
-                                  if (value.isEmpty || value.length < 5) {
-                                    return 'ورود رمز عبور حداقل 5 کارکتر ضروری است';
-                                  }
-                                  return null;
-                                },
-                              ),
-                              TextFormField(
-                                controller: _passagain,
-                                obscureText: true,
-                                decoration: InputDecoration(
-                                  labelText: 'تکرار مجدد رمز عبور',
-                                  counterText: '',
-                                ),
-                                maxLength: 11,
-                                style: TextStyle(fontSize: 15),
-                                keyboardType: TextInputType.phone,
-                                validator: (value) {
-                                  if (value != _pass.text) {
-                                    return 'رمز وارد شده با بالا مغایرت دارد';
-                                  }
-                                  return null;
-                                },
-                              ),
-                              SizedBox(
-                                height: 10,
-                              ),
-                              RaisedButton(
-                                  textColor: Colors.white,
-                                  child: Text('تغییر رمز عبور'),
-                                  onPressed: () {
-                                    if (_key.currentState.validate())
-                                      reset(_code.text, _pass.text,
-                                          widget.phonenumber, model);
-                                  }),
-                              SizedBox(
-                                height: 10,
-                              ),
-                              Center(
-                                child: GestureDetector(
-                                  onTap: () => model.getVerificationCode(
-                                      widget.phonenumber),
-                                  child: Text('ارسال مجدد کد تایید'),
-                                ),
-                              ),
-                            ],
+            body: Directionality(
+              textDirection: TextDirection.rtl,
+              child: SingleChildScrollView(
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 30, left: 25),
+                  child: Column(
+                    children: <Widget>[
+                      Padding(
+                        padding: const EdgeInsets.only(right: 20),
+                        child: Container(
+                          child: Text(
+                            'کد ارسال شده را وارد کنید',
+                            style: TextStyle(fontSize: 20),
                           ),
                         ),
                       ),
-                    ),
-                  ],
+                      SizedBox(height: 5),
+                      Padding(
+                        padding:
+                            const EdgeInsets.only(top: 25, left: 15, right: 30),
+                        child: Container(
+                          height: 400,
+                          child: Form(
+                            key: _key,
+                            child: ListView(
+                              children: <Widget>[
+                                TextFormField(
+                                  controller: _code,
+                                  decoration: InputDecoration(
+                                    labelText: 'کد چهاررقمی پیامک شده',
+                                    counterText: '',
+                                  ),
+                                  maxLength: 4,
+                                  style: TextStyle(fontSize: 15),
+                                  keyboardType: TextInputType.phone,
+                                  validator: (value) {
+                                    if (value.isEmpty) {
+                                      return 'ورود کد چهاررقمی ضروری است';
+                                    }
+                                    return null;
+                                  },
+                                ),
+                                TextFormField(
+                                  controller: _pass,
+                                  obscureText: true,
+                                  decoration: InputDecoration(
+                                    labelText: 'رمز عبور جدید را وارد کنید',
+                                    counterText: '',
+                                  ),
+                                  maxLength: 11,
+                                  style: TextStyle(fontSize: 15),
+                                  keyboardType: TextInputType.phone,
+                                  validator: (value) {
+                                    if (value.isEmpty || value.length < 5) {
+                                      return 'ورود رمز عبور حداقل 5 کارکتر ضروری است';
+                                    }
+                                    return null;
+                                  },
+                                ),
+                                TextFormField(
+                                  controller: _passagain,
+                                  obscureText: true,
+                                  decoration: InputDecoration(
+                                    labelText: 'تکرار مجدد رمز عبور',
+                                    counterText: '',
+                                  ),
+                                  maxLength: 11,
+                                  style: TextStyle(fontSize: 15),
+                                  keyboardType: TextInputType.phone,
+                                  validator: (value) {
+                                    if (value != _pass.text) {
+                                      return 'رمز وارد شده با بالا مغایرت دارد';
+                                    }
+                                    return null;
+                                  },
+                                ),
+                                SizedBox(
+                                  height: 10,
+                                ),
+                                RaisedButton(
+                                    textColor: Colors.white,
+                                    child: Text('تغییر رمز عبور'),
+                                    onPressed: () {
+                                      if (_key.currentState.validate())
+                                        reset(_code.text, _pass.text,
+                                            widget.phonenumber, model);
+                                    }),
+                                RaisedButton(
+                                    textColor: Colors.white,
+                                    child: Text('انصراف'),
+                                    onPressed: () {
+                                      Navigator.pushReplacementNamed(
+                                          context, '/homepage');
+                                    }),
+                                SizedBox(
+                                  height: 10,
+                                ),
+                                Center(
+                                  child: GestureDetector(
+                                    onTap: () => model.getVerificationCode(
+                                        widget.phonenumber),
+                                    child: Text('ارسال مجدد کد تایید'),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),

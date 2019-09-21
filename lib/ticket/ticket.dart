@@ -183,20 +183,6 @@ class _TicketListState extends State<TicketList> {
     return content;
   }
 
-  _login() {
-    Center(
-      child: Column(
-        children: <Widget>[
-          Text('لطفا وارد پنل کاربری خود شوید'),
-          RaisedButton(
-            child: Text('ورود'),
-            onPressed: () => Navigator.pushNamed(context, '/login'),
-          )
-        ],
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return Directionality(
@@ -241,8 +227,42 @@ class _TicketListState extends State<TicketList> {
                             children: <Widget>[
                               GestureDetector(
                                 onTap: () {
-                                  Navigator.pushReplacementNamed(
-                                      context, '/addticket');
+                                  if (model.userToken == null) {
+                                    showDialog(
+                                        context: context,
+                                        builder: (BuildContext context) {
+                                          return Directionality(
+                                            textDirection: TextDirection.rtl,
+                                            child: AlertDialog(
+                                              // title: Text('شرمنده'),
+                                              content: Text(
+                                                  'لطفا وارد پنل کاربری خود شوید'),
+                                              actions: <Widget>[
+                                                FlatButton(
+                                                  onPressed: () =>
+                                                      Navigator.of(context)
+                                                          .pop(),
+                                                  child: Text('بستن'),
+                                                ),
+                                                FlatButton(
+                                                  onPressed: () => Navigator
+                                                      .pushReplacementNamed(
+                                                          context, '/login'),
+                                                  child: Text('ورود'),
+                                                ),
+                                              ],
+                                              shape: RoundedRectangleBorder(
+                                                  borderRadius:
+                                                      BorderRadius.all(
+                                                          Radius.circular(
+                                                              20.0))),
+                                            ),
+                                          );
+                                        });
+                                  } else {
+                                    Navigator.pushReplacementNamed(
+                                        context, '/addticket');
+                                  }
                                 },
                                 child: Container(
                                   width: 125,

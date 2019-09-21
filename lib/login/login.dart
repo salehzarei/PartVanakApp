@@ -14,7 +14,7 @@ class _LoginState extends State<Login> {
   TextEditingController _mobile = TextEditingController();
   TextEditingController _pass = TextEditingController();
 
-    @override
+  @override
   Widget build(BuildContext context) {
     return ScopedModelDescendant<MainModel>(builder: (context, child, model) {
       return Directionality(
@@ -23,12 +23,18 @@ class _LoginState extends State<Login> {
           drawer: MyDrawer(),
           appBar: AppBar(
             centerTitle: true,
-            title: Text('ورود به اپلیکیشن'),
+            title: Text(
+              'ورود به اپلیکیشن',
+              style: Theme.of(context).textTheme.display2,
+            ),
+            iconTheme: Theme.of(context)
+                .iconTheme
+                .copyWith(color: Theme.of(context).accentColor),
             actions: <Widget>[
               IconButton(
                 icon: Icon(
                   Icons.arrow_forward,
-                  color: Colors.white,
+                  color: Theme.of(context).accentColor,
                 ),
                 onPressed: () => Navigator.pop(context),
               )
@@ -37,7 +43,7 @@ class _LoginState extends State<Login> {
           body: Stack(
             children: <Widget>[
               Padding(
-                padding: const EdgeInsets.only(left: 15, right: 15, top: 10),
+                padding: const EdgeInsets.only(left: 15, right: 15,top:15),
                 child: ListView(
                   children: <Widget>[
                     Container(
@@ -52,7 +58,7 @@ class _LoginState extends State<Login> {
                             _password(_pass),
                             Padding(
                               padding:
-                                  const EdgeInsets.only(right: 80, top: 10),
+                                  const EdgeInsets.only(right: 100, top: 10),
                               child: Row(
                                 children: <Widget>[
                                   RaisedButton(
@@ -74,8 +80,8 @@ class _LoginState extends State<Login> {
                                                 }
                                               });
                                             } else
-                                              model.ackAlert(
-                                                  context, massage: model.errorMassage );
+                                              model.ackAlert(context,
+                                                  massage: model.errorMassage);
                                           });
                                         }
                                       }),
@@ -91,15 +97,18 @@ class _LoginState extends State<Login> {
                               ),
                             ),
                             SizedBox(
-                              height: 7,
+                              height: 16,
                             ),
-                            GestureDetector(
-                                child: Text(
-                                  'رمز عبور خود را فراموش کردید؟',
-                                  style: TextStyle(color: Colors.black),
-                                ),
-                                onTap: () => Navigator.pushNamed(
-                                    context, '/resetpassword')),
+                            Padding(
+                              padding: const EdgeInsets.only(right: 10),
+                              child: GestureDetector(
+                                  child: Text(
+                                    'رمز عبور خود را فراموش کردید؟',
+                                    style: TextStyle(color: Colors.black),
+                                  ),
+                                  onTap: () => Navigator.pushNamed(
+                                      context, '/resetpassword')),
+                            ),
                           ],
                         ),
                       ),
@@ -116,42 +125,59 @@ class _LoginState extends State<Login> {
 }
 
 Widget _username(mobile) {
-  return TextFormField(
-    
-    controller: mobile,
-    maxLength: 11,
-    style: TextStyle(color: Colors.black, fontSize: 20),
-    decoration: InputDecoration(
+  return Card(
+    color: Colors.grey.shade700,
+    child: TextFormField(
+      controller: mobile,
+      maxLength: 11,
+      style: TextStyle(fontSize: 20, color: Colors.white),
+      decoration: InputDecoration(
+        errorStyle: TextStyle(
+          color: Colors.redAccent,
+          // fontSize: 16,
+        ),
         hintText: 'مثلا : 09154127181',
+        labelStyle: TextStyle(color: Color(0xFFD8B945)),
+        fillColor: Colors.transparent,
         counterText: '',
         hintStyle: TextStyle(color: Colors.grey.shade300),
         labelText: 'شماره همراه',
         filled: true,
-        fillColor: Colors.white),
-    keyboardType: TextInputType.phone,
-    validator: (String value) {
-      if (value.isEmpty) {
-        return 'این فیلد ضروریست ';
-      }
-    },
-    onSaved: (String value) {},
+      ),
+      keyboardType: TextInputType.phone,
+      validator: (String value) {
+        if (value.isEmpty) {
+          return 'این فیلد ضروریست ';
+        }
+      },
+      onSaved: (String value) {},
+    ),
   );
 }
 
-
 Widget _password(pass) {
-  return TextFormField(
-    controller: pass,
-    obscureText: true,
-    style: TextStyle(color: Colors.black, fontSize: 20),
-    decoration: InputDecoration(
-        labelText: 'رمز عبور', filled: true, fillColor: Colors.white),
-    keyboardType: TextInputType.number,
-    validator: (String value) {
-      if (value.isEmpty) {
-        return 'این فیلد ضروریست ';
-      }
-    },
-    onSaved: (String value) {},
+  return Card(
+    color: Colors.grey.shade700,
+    child: TextFormField(
+      controller: pass,
+      obscureText: true,
+      style: TextStyle(fontSize: 20, color: Colors.white),
+      decoration: InputDecoration(
+          errorStyle: TextStyle(
+            color: Colors.redAccent,
+            // fontSize: 16,
+          ),
+          labelStyle: TextStyle(color: Color(0xFFD8B945)),
+          labelText: 'رمز عبور',
+          filled: true,
+          fillColor: Colors.transparent),
+      keyboardType: TextInputType.number,
+      validator: (String value) {
+        if (value.isEmpty) {
+          return 'این فیلد ضروریست ';
+        }
+      },
+      onSaved: (String value) {},
+    ),
   );
 }

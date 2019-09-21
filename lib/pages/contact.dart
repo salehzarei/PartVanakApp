@@ -45,6 +45,10 @@ class _ContactPageState extends State<ContactPage> {
       color: Colors.grey.shade700,
       child: TextFormField(
         decoration: InputDecoration(
+            errorStyle: TextStyle(
+              color: Colors.redAccent,
+              // fontSize: 16,
+            ),
             labelText: 'نام و نام خانوادگی',
             labelStyle: TextStyle(color: Color(0xFFD8B945)),
             filled: true,
@@ -68,6 +72,10 @@ class _ContactPageState extends State<ContactPage> {
       color: Colors.grey.shade700,
       child: TextFormField(
         decoration: InputDecoration(
+            errorStyle: TextStyle(
+              color: Colors.redAccent,
+              // fontSize: 16,
+            ),
             labelStyle: TextStyle(color: Color(0xFFD8B945)),
             labelText: ' پست الکترونیک ‍',
             filled: true,
@@ -94,6 +102,10 @@ class _ContactPageState extends State<ContactPage> {
       color: Colors.grey.shade700,
       child: TextFormField(
         decoration: InputDecoration(
+            errorStyle: TextStyle(
+              color: Colors.redAccent,
+              // fontSize: 16,
+            ),
             labelStyle: TextStyle(color: Color(0xFFD8B945)),
             labelText: 'تلفن همراه',
             filled: true,
@@ -119,6 +131,10 @@ class _ContactPageState extends State<ContactPage> {
       color: Colors.grey.shade700,
       child: TextFormField(
         decoration: InputDecoration(
+            errorStyle: TextStyle(
+              color: Colors.redAccent,
+              // fontSize: 16,
+            ),
             labelStyle: TextStyle(color: Color(0xFFD8B945)),
             labelText: 'متن پیام',
             filled: true,
@@ -229,13 +245,14 @@ class _ContactPageState extends State<ContactPage> {
             IconButton(
               icon: Icon(
                 Icons.arrow_forward,
-                color:Theme.of(context).accentColor,
+                color: Theme.of(context).accentColor,
               ),
               onPressed: () => Navigator.pop(context),
             )
           ],
-          title: Text('تماس با ما ',style: Theme.of(context).textTheme.display2),
-           iconTheme: Theme.of(context)
+          title:
+              Text('تماس با ما ', style: Theme.of(context).textTheme.display2),
+          iconTheme: Theme.of(context)
               .iconTheme
               .copyWith(color: Theme.of(context).accentColor),
         ),

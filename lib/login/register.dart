@@ -132,12 +132,18 @@ class _RegisterState extends State<Register> {
         drawer: MyDrawer(),
         appBar: AppBar(
           centerTitle: true,
-          title: Text('ثبت نام'),
+          title: Text(
+            'ثبت نام',
+            style: Theme.of(context).textTheme.display2,
+          ),
+          iconTheme: Theme.of(context)
+              .iconTheme
+              .copyWith(color: Theme.of(context).accentColor),
           actions: <Widget>[
             IconButton(
               icon: Icon(
                 Icons.arrow_forward,
-                color: Colors.white,
+                color: Theme.of(context).accentColor,
               ),
               onPressed: () => Navigator.pop(context),
             )

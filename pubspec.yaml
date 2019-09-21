@@ -62,7 +62,7 @@ flutter:
   assets:
    - images/logo.png
    - images/air.jpg
-   - images/profile.jpg
+   - images/profile.png
    - images/notnet.jpg
 
 

@@ -115,7 +115,7 @@ class _MyDrawerState extends State<MyDrawer> {
         child: ListView(
           children: <Widget>[
             Padding(
-                padding: const EdgeInsets.only(left: 8, top: 10),
+                padding: const EdgeInsets.only(left: 8, top: 20),
                 child: Wrap(
                   crossAxisAlignment: WrapCrossAlignment.center,
                   children: <Widget>[
@@ -124,8 +124,8 @@ class _MyDrawerState extends State<MyDrawer> {
                         Navigator.pushReplacementNamed(context, '/homepage');
                       },
                       child: Container(
-                        width: 68,
-                        height: 68,
+                        width: 70,
+                        height: 70,
                         decoration: BoxDecoration(
                             image: DecorationImage(
                                 image: AssetImage('images/logo.png'),
@@ -138,7 +138,7 @@ class _MyDrawerState extends State<MyDrawer> {
                         Text(
                           'شرکت خدمات مسافرت هوایی و جهانگردی',
                           style: TextStyle(
-                              fontSize: 10,
+                              fontSize:9,
                               fontWeight: FontWeight.bold,
                               color: Theme.of(context).cardColor),
                         ),
@@ -148,7 +148,7 @@ class _MyDrawerState extends State<MyDrawer> {
                         Text(
                           'پارت ونک',
                           style: TextStyle(
-                              fontSize: 19,
+                              fontSize: 17,
                               fontWeight: FontWeight.bold,
                               color: Theme.of(context).cardColor),
                         ),
@@ -156,7 +156,15 @@ class _MyDrawerState extends State<MyDrawer> {
                     )
                   ],
                 )),
-
+            Container(
+              margin: EdgeInsets.only(top: 15, left: 15.0, right: 15),
+              height: 1,
+              decoration: BoxDecoration(
+                  color: Theme.of(context).accentColor,
+                  borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(5),
+                      bottomLeft: Radius.circular(5))),
+            ),
             //___________________________________شبکه های اجتماعی___________________________
             Container(
               margin: EdgeInsets.only(top: 15, right: 35),

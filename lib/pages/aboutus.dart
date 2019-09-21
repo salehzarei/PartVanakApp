@@ -341,7 +341,7 @@ class _AboutUsState extends State<AboutUs> {
                                 //                 color: Colors.white,
                                 //                 fontSize: 15))),
                               ),
-                             // _buildManagement(model.aboutmodel.name),
+                              // _buildManagement(model.aboutmodel.name),
                               _buildCell(model.aboutmodel.cell),
                               _buildTell(model.aboutmodel.tell),
                               _buildWeb(model.aboutmodel.web),
@@ -370,10 +370,16 @@ class _AboutUsState extends State<AboutUs> {
                             ),
                           ),
                         ),
-                        Center(
-                          child: _builSocialNetwork(
-                              context, model.aboutmodel.social),
-                        )
+                        model.aboutmodel.social == []
+                            ? Container(
+                                height: 1,
+                                width: 1,
+                                padding: EdgeInsets.only(top: 640),
+                              )
+                            : Center(
+                                child: _builSocialNetwork(
+                                    context, model.aboutmodel.social),
+                              )
                       ])),
                 ),
               ],

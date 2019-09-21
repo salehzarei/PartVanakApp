@@ -51,13 +51,17 @@ class _HomePageState extends State<Profile>
                 IconButton(
                   icon: Icon(
                     Icons.arrow_forward,
-                    color: Colors.white,
+                    color: Theme.of(context).accentColor,
                   ),
                   onPressed: () => Navigator.pop(context),
                 )
               ],
               centerTitle: true,
-              title: Text("پروفایل من"),
+              title: Text("پروفایل من",
+                  style: Theme.of(context).textTheme.display2),
+              iconTheme: Theme.of(context)
+                  .iconTheme
+                  .copyWith(color: Theme.of(context).accentColor),
               bottom: TabBar(
                 unselectedLabelColor: Colors.white,
                 labelColor: Colors.amber,
@@ -100,7 +104,7 @@ class _HomePageState extends State<Profile>
                                           BlendMode.lighten),
                                       image: model.userProfile.pic == ""
                                           ? AssetImage(
-                                              'images/profile.jpg',
+                                              'images/air.jpg',
                                             )
                                           : NetworkImage(
                                               model.userProfile.pic))),
@@ -117,7 +121,7 @@ class _HomePageState extends State<Profile>
                                   CircleAvatar(
                                     backgroundImage: model.userProfile.thumb ==
                                             ""
-                                        ? AssetImage('images/air.jpg')
+                                        ? AssetImage('images/profile.png')
                                         : NetworkImage(model.userProfile.thumb),
                                     maxRadius: 28,
                                   ),
@@ -401,7 +405,7 @@ class _HomePageState extends State<Profile>
                               padding: EdgeInsets.only(
                                   top: 10, left: 10, right: 10, bottom: 10),
                               itemBuilder: (context, index) {
-                                  return Card(
+                                return Card(
                                   color: Colors.grey.shade200,
                                   child: ListTile(
                                     subtitle: Text(' در تاریخ ' +

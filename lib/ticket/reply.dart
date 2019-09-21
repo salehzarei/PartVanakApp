@@ -151,7 +151,7 @@ class _NewReplyState extends State<Reply> {
                                 decoration: InputDecoration(
                                   errorStyle: TextStyle(
                                     color: Colors.redAccent,
-                                    fontSize: 16,
+                                    // fontSize: 16,
                                   ),
                                   labelStyle: TextStyle(color: Colors.white),
                                   labelText: 'متن پیام',
