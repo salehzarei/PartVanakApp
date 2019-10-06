@@ -1,7 +1,8 @@
 ## Flutter wrapper
--keep class io.flutter.app.** { *; }
--keep class io.flutter.plugin.**  { *; }
--keep class io.flutter.util.**  { *; }
--keep class io.flutter.view.**  { *; }
--keep class io.flutter.**  { *; }
--keep class io.flutter.plugins.**  { *; }
+-keep class com.example.hello_flutter.app.** { *; }
+-keep class com.example.hello_flutter.lib.model.** { *; }
+-keep class com.example.hello_flutter.plugin.**  { *; }
+-keep class com.example.hello_flutter.util.**  { *; }
+-keep class com.example.hello_flutter.view.**  { *; }
+-keep class com.example.hello_flutter.**  { *; }
+-keep class com.example.hello_flutter.plugins.**  { *; }

@@ -351,6 +351,7 @@ class _ProductListState extends State<ProductList> {
                 v['count'] == 0
                     ? Container()
                     : GestureDetector(
+                      
                         onTap: () {
                           Navigator.pop(context);
                           setState(() {
