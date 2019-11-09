@@ -31,7 +31,7 @@ class _ToureScrollTitleState extends State<ToureScrollTitle> {
         );
       },
     ) : Center(
-      child: Text('هیچ توری موجود نیست !'),
+      child: Text('!هیچ توری موجود نیست'),
     );
   }
 

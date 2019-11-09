@@ -114,8 +114,8 @@ class _HomePageState extends State<HomePage> {
                                   CatDivider(
                                     toureTypeindex: 4,
                                   ),
-                                  SpecialToureScrollTitle(
-                                      specialtours: model.specialToureList),
+                                  ToureScrollTitle(
+                                      toure: model.specialToureList),
                                 ],
                               ),
                             ),
